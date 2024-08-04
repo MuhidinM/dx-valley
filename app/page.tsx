@@ -1,3 +1,4 @@
+import Company from "@/components/company";
 import Footer from "@/components/footer";
 import { Hero } from "@/components/hero";
 import Navbar from "@/components/navbar";
@@ -17,6 +18,7 @@ const Page = () => {
         <Section1 />
         <Section2 />
         <Offer />
+        <Company />
         <Footer />
       </div>
     </div>
