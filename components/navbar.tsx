@@ -8,7 +8,7 @@ const Navbar = () => {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <a href="https://flowbite.com" className="flex items-center">
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              DX VALLEY
+              D <span className="text-orange-500">X</span> VALLEY
             </span>
           </a>
           <div className="flex items-center lg:order-2">

@@ -4,9 +4,9 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div>
+    <div className="md:mx-8">
+      <Socials />
       <Navbar />
-      {/* <Socials /> */}
     </div>
   );
 };
