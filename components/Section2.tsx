@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Section2 = () => {
@@ -14,7 +15,7 @@ const Section2 = () => {
             at beatae nam aliquid. Ab animi rerum totam fuga id inventore esse
             consequuntur sit!
           </p>
-          <a
+          <Link
             href="#"
             className="inline-flex items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-900"
           >
@@ -31,7 +32,7 @@ const Section2 = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
         <svg
           viewBox="0 0 200 200"
