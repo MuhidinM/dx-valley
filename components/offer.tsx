@@ -46,9 +46,9 @@ const Offer = () => {
                 src={item.image}
                 className="w-full object-cover"
               />
-              <div className="bg-white p-4 sm:p-6">
+              <div className="bg-white dark:bg-gray-950 p-4 sm:p-6">
                 <Link href="#">
-                  <h3 className="mt-0.5 text-lg text-gray-900">{item.title}</h3>
+                  <h3 className="mt-0.5 text-lg text-gray-900 dark:text-gray-200">{item.title}</h3>
                 </Link>
 
                 <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">

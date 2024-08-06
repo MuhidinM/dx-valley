@@ -1,9 +1,12 @@
 import Link from "next/link";
 import React from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 const Footer = () => {
   return (
-    <footer className="antialiased dark:bg-gray-800">
+    <footer className="antialiased dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
           <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
@@ -79,28 +82,20 @@ const Footer = () => {
             </div>
 
             <div className="mt-6 w-full md:mt-8 lg:mt-0 lg:max-w-lg">
-              <div className="space-y-5 rounded-lg bg-gray-50 p-6 dark:bg-gray-700">
+              <div className="space-y-5 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
                 <form action="#">
                   <div className="items-end space-y-4 sm:flex sm:space-y-0">
-                    <div className="relative mr-3 w-full sm:w-96 lg:w-full">
+                    <div className="relative mr-3 w-full sm:w-96 lg:w-full space-y-2">
                       <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                         Get the latest deals and more.
                       </label>
-                      <input
-                        className="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:w-96 lg:w-full"
-                        placeholder="Enter your email address"
-                        type="email"
-                        id="email"
-                        required
-                      />
+                      <Label htmlFor="email">Your email address</Label>
+                      <Input type="email" placeholder="Email" />
                     </div>
                     <div>
-                      <button
-                        type="submit"
-                        className="w-full cursor-pointer rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
+                      <Button className="bg-blue-500 hover:bg-blue-600">
                         Subscribe
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 </form>
