@@ -1,4 +1,5 @@
 import Company from "@/components/company";
+import ContactUs from "@/components/contactus";
 import CTA from "@/components/cta";
 import Footer from "@/components/footer";
 import { Hero } from "@/components/hero";
@@ -23,6 +24,7 @@ const Page = () => {
         <Stats />
         <CTA />
         <Company />
+        <ContactUs />
         <Footer />
       </div>
     </div>
