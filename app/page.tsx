@@ -13,8 +13,8 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="lg:max-w-screen-lg xl:max-w-screen-xl mx-auto">
-      <div className="">
+    <div className="bg-slate-50 dark:bg-gray-900">
+      <div className="lg:max-w-screen-lg xl:max-w-screen-xl mx-auto bg-slate-50 dark:bg-gray-900">
         <Socials />
         <Navbar />
         <Hero />
@@ -25,6 +25,8 @@ const Page = () => {
         <CTA />
         <Company />
         <ContactUs />
+      </div>
+      <div className=" bg-blue-500">
         <Footer />
       </div>
     </div>

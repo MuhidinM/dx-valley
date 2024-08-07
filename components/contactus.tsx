@@ -47,7 +47,7 @@ const ContactUs = () => {
               <form className="mt-6">
                 <div className="flex-1">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input type="email" placeholder="Email" />
+                  <Input placeholder="Name" />
                 </div>
                 <div className="flex-1 mt-6">
                   <Label htmlFor="email">Your email address</Label>
