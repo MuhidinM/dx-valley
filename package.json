@@ -14,6 +14,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dx-valley": "file:",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
     "lucide-react": "^0.424.0",

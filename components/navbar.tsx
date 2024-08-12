@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "@/components/menu";
 import Link from "next/link";
-import { ModeToggle } from "./modetoggle";
+import { ModeToggle } from "./modeToggle";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
