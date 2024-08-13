@@ -1123,7 +1123,7 @@ video {
   background-color: hsl(var(--background));
 }
 
-.bg-blue-500 {
+.bg-coopBlue {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
@@ -1356,7 +1356,7 @@ video {
   letter-spacing: -0.025em;
 }
 
-.text-blue-500 {
+.text-coopBlue {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
@@ -1556,7 +1556,7 @@ video {
   background-color: hsl(var(--accent));
 }
 
-.hover\:bg-blue-600:hover {
+.hover\:bg-coopBlueHover:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }

@@ -26,7 +26,7 @@ const Page = () => {
         <Company />
         <ContactUs />
       </div>
-      <div className=" bg-blue-500">
+      <div className=" bg-coopBlue">
         <Footer />
       </div>
     </div>

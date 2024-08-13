@@ -16,7 +16,7 @@ const Section2 = () => {
             at beatae nam aliquid. Ab animi rerum totam fuga id inventore esse
             consequuntur sit!
           </p>
-          <Button className="bg-blue-500 hover:bg-blue-600">Get Started</Button>
+          <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button>
         </div>
         <svg
           viewBox="0 0 200 200"

@@ -1,5 +1,6 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
 import type { Config } from "tailwindcss";
+const colors = require('tailwindcss/colors');
 
 const config = {
   darkMode: ["class"],
@@ -28,6 +29,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         coopBlue: '#00ADEF',
+        coopBlueHover: '#0091CB',
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",

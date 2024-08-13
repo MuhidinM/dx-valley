@@ -27,7 +27,7 @@ const Section1 = () => {
             eaque, ex molestiae labore sint aperiam reprehenderit officia
             voluptatum esse!
           </p>
-          <Button className="bg-blue-500 hover:bg-blue-600">Get Started</Button>
+          <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button>
         </div>
       </div>
     </section>
