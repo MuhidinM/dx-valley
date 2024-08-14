@@ -1,35 +1,10 @@
 "use client";
+import { features } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-//TODO : Improve mobile version to display the image down the corresponding text instead of at the full bottom
-
-const data = [
-  {
-    title: "Pre Incubation",
-    content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
-    srcImage:
-      "https://images.unsplash.com/photo-1717501219781-54ac9d09051b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8N3x8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "During Incubation",
-    content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
-    srcImage:
-      "https://images.unsplash.com/photo-1717501219074-943fc738e5a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Post Incubation",
-    content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
-    srcImage:
-      "https://images.unsplash.com/photo-1717501218636-a390f9ac5957?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
-
-export function Variant2FeatureFourImages() {
+export function Feature() {
   const [featureOpen, setFeatureOpen] = useState<number>(0);
   const [timer, setTimer] = useState<number>(0);
   useEffect(() => {
@@ -41,7 +16,7 @@ export function Variant2FeatureFourImages() {
 
   useEffect(() => {
     if (timer > 10000) {
-      setFeatureOpen((prev) => (prev + 1) % data.length);
+      setFeatureOpen((prev) => (prev + 1) % features.length);
       setTimer(0);
     }
   }, [timer]);
@@ -49,17 +24,13 @@ export function Variant2FeatureFourImages() {
   return (
     <div className="container">
       <div className="text-center mb-20">
-        <p className=" uppercase text-coopBlue mb-2 text-lg font-medium">
+        <h2 className="text-3xl font-medium mb-4 shrink-0 text-coopBlue">
           How does it work ?
-        </p>
-
-        <h2 className="text-3xl font-medium dark:text-gray-300 text-gray-800 mb-4 shrink-0">
-          How to use the Easiest component librairy : Cuicui
         </h2>
       </div>
       <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-6 ">
-          {data.map((item, index) => (
+          {features.map((item, index) => (
             <button
               type="button"
               className="w-full"
@@ -86,7 +57,7 @@ export function Variant2FeatureFourImages() {
               "relative h-[500px]  w-full rounded-lg overflow-hidden"
             )}
           >
-            {data.map((item, index) => (
+            {features.map((item, index) => (
               <Image
                 key={item.title}
                 src={item.srcImage}
@@ -98,7 +69,7 @@ export function Variant2FeatureFourImages() {
                   featureOpen === index ? "scale-100" : "scale-70",
                   featureOpen > index ? "translate-y-full" : ""
                 )}
-                style={{ zIndex: data.length - index }}
+                style={{ zIndex: features.length - index }}
               />
             ))}
           </div>
