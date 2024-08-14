@@ -1,13 +1,11 @@
 import Company from "@/components/company";
+import { SlidingCompanies } from "@/components/company2";
 import ContactUs from "@/components/contactus";
 import CTA from "@/components/cta";
-import Footer from "@/components/footer";
 import { Hero } from "@/components/hero";
-import Navbar from "@/components/navbar";
 import Offer from "@/components/offer";
 import Section1 from "@/components/section1";
 import Section2 from "@/components/Section2";
-import Socials from "@/components/socials";
 import Stats from "@/components/stats";
 import React from "react";
 
@@ -20,7 +18,8 @@ const Page = () => {
       <Offer />
       <Stats />
       <CTA />
-      <Company />
+      {/* <Company /> */}
+      <SlidingCompanies />
       <ContactUs />
     </div>
   );
