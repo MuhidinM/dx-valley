@@ -10,7 +10,7 @@ const CTA = () => {
           Have a start-up idea?
         </h2>
         <div className="mt-8 lg:mt-0">
-          <Button size={"lg"} className="bg-blue-500 hover:bg-blue-600">
+          <Button size={"lg"} className="bg-coopBlue hover:bg-coopBlueHover">
             Apply
           </Button>
         </div>

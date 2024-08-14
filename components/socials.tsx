@@ -15,7 +15,7 @@ const Socials = () => {
       <nav className="border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-2.5 dark:bg-gray-900 border-b">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <div className=""></div>
-          <div className="flex items-center lg:order-2 text-blue-500 space-x-4">
+          <div className="flex items-center lg:order-2 text-coopBlue space-x-4">
             <Facebook
               onClick={() => window.open("https://facebook.com")}
               className="cursor-pointer"

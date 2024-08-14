@@ -57,7 +57,7 @@ const ContactUs = () => {
                   <Label htmlFor="email">Your Message</Label>
                   <Textarea />
                 </div>
-                <Button className="w-full mt-4 bg-blue-500 hover:bg-blue-600">
+                <Button className="w-full mt-4 bg-coopBlue hover:bg-coopBlueHover">
                   Send
                 </Button>
               </form>

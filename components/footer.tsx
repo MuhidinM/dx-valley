@@ -6,7 +6,7 @@ import { Label } from "./ui/label";
 
 const Footer = () => {
   return (
-    <footer className="antialiased bg-blue-500 text-white">
+    <footer className="antialiased bg-coopBlue text-white">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
           <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
@@ -87,7 +87,7 @@ const Footer = () => {
                       <Input type="email" color="blue" placeholder="Email" />
                     </div>
                     <div>
-                      <Button variant={"outline"} className="bg-blue-500">
+                      <Button variant={"outline"} className="bg-coopBlue">
                         Subscribe
                       </Button>
                     </div>
