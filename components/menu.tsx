@@ -54,15 +54,16 @@ export function Menu() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/#" title="Link1">
-                link 1 description
+              <ListItem href="/innovationHub/#" title="Innovation Hub">
+               DxValley 1.0
               </ListItem>
-              <ListItem href="/#" title="Link2">
-                link 2 description
+              <ListItem href="/incubationLab/#" title="Incubation Hub">
+                DxValley 2.0
               </ListItem>
-              <ListItem href="/#" title="Link3">
-                link 3 description
+              <ListItem href="https://coopbankoromia.com.et/about/" title="Coop Bank" target="_blank">
+                Coop Bank
               </ListItem>
+
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

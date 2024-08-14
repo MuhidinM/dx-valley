@@ -7,7 +7,7 @@ const Section1 = () => {
     <section className="dark:bg-gray-900">
       <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <svg
-          viewBox="0 0 200 200"
+          viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           id="Scribble-19.svg"
@@ -17,6 +17,8 @@ const Section1 = () => {
             fill="black"
           />
         </svg>
+       
+        
         <div className="mt-4 md:mt-0">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             Let&apos;s create more tools and ideas that brings us together.

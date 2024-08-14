@@ -109,9 +109,9 @@ const Footer = () => {
             </Link>
 
             <p className="text-sm">
-              © 2024 
+              © 2024    {" "}
               <Link href="#" className="hover:underline">
-                  Cooperative Bank of Oromia jijjij
+                  Cooperative Bank of Oromia
               </Link>
               , Inc. All rights reserved.
             </p>
