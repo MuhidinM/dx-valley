@@ -8,7 +8,13 @@ export interface SectionProps {
 }
 export interface ctaProps {
   title: string;
-  buttonText: string;
+  buttonText?: string;
+}
+export interface CardProps {
+  img: ReactNode;
+  title: string;
+  description: string;
+  buttonText?: string;
 }
 
 export type StatItem = {

@@ -75,6 +75,7 @@ export const SVG1 = () => (
     />
   </svg>
 );
+
 export const SVG2 = () => (
   <svg
     viewBox="0 0 200 200"
@@ -220,6 +221,7 @@ export const SVG2 = () => (
     />
   </svg>
 );
+
 export const features = [
   {
     title: "Pre Incubation",
@@ -243,6 +245,7 @@ export const features = [
       "https://images.unsplash.com/photo-1717501218636-a390f9ac5957?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
+
 export const stats = [
   { value: "73", label: "Developers" },
   { value: "17", label: "Contributors" },

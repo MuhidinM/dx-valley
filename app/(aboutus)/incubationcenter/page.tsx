@@ -1,13 +1,16 @@
+import { Card } from "@/components/card";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
+import { Button } from "@/components/ui/button";
 import { stats, SVG1 } from "@/constants";
+import Image from "next/image";
 import React from "react";
 
 const Page = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mb-8 justify-center">
       <SectionRight
         svg={<SVG1 />}
         title="Let's create more tools and ideas that brings us together."
@@ -27,6 +30,52 @@ const Page = () => {
       <Feature />
       <CTA buttonText="Apply for Call" title="Have a start-up idea?" />
       <Stats items={stats} />
+      <div className="md:grid md:grid-cols-3 space-y-4 md:space-y-0">
+        <Card
+          title="Test"
+          description="lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl."
+          img={
+            <Image
+              className="rounded-t-lg"
+              src="/peep-35.svg"
+              alt=""
+              width={100}
+              height={0}
+            />
+          }
+        />
+        <Card
+          title="Test"
+          description="lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl."
+          img={
+            <Image
+              className="rounded-t-lg"
+              src="/peep-35.svg"
+              alt=""
+              width={100}
+              height={0}
+            />
+          }
+        />
+        <Card
+          title="Test"
+          description="lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl."
+          img={
+            <Image
+              className="rounded-t-lg"
+              src="/peep-35.svg"
+              alt=""
+              width={100}
+              height={0}
+            />
+          }
+        />
+      </div>
+      <div className="flex items-center justify-center">
+        <Button className="bg-coopBlue hover:bg-coopBlueHover">
+          Load More
+        </Button>
+      </div>
     </div>
   );
 };
