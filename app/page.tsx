@@ -13,22 +13,15 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="bg-slate-50 dark:bg-gray-900">
-      <div className="lg:max-w-screen-lg xl:max-w-screen-xl mx-auto bg-slate-50 dark:bg-gray-900">
-        <Socials />
-        <Navbar />
-        <Hero />
-        <Section1 />
-        <Section2 />
-        <Offer />
-        <Stats />
-        <CTA />
-        <Company />
-        <ContactUs />
-      </div>
-      <div className=" bg-coopBlue">
-        <Footer />
-      </div>
+    <div className="">
+      <Hero />
+      <Section1 />
+      <Section2 />
+      <Offer />
+      <Stats />
+      <CTA />
+      <Company />
+      <ContactUs />
     </div>
   );
 };

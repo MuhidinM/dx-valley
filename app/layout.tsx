@@ -6,6 +6,9 @@ import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import Footer from "@/components/footer";
+import Socials from "@/components/socials";
+import Navbar from "@/components/navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,7 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen font-sans antialiased",
+          "min-h-screen font-sans antialiased bg-slate-50 dark:bg-gray-900",
           fontSans.variable
         )}
       >
@@ -36,7 +39,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="lg:max-w-screen-lg xl:max-w-screen-xl mx-auto bg-slate-50 dark:bg-gray-900">
+            <Socials />
+            <Navbar />
+            {children}
+          </div>
+          <div className=" bg-coopBlue">
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
