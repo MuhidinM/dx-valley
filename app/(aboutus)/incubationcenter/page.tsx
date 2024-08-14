@@ -1,9 +1,12 @@
-import React from 'react'
+import { Variant2FeatureFourImages } from "@/components/feature";
+import React from "react";
 
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <div>
+      <Variant2FeatureFourImages />
+    </div>
+  );
+};
 
-export default Page
+export default Page;
