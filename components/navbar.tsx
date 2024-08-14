@@ -16,7 +16,7 @@ const Navbar = () => {
           </Link>
           <div className="flex items-center lg:order-2 space-x-2">
             <ModeToggle />
-            <Button className="bg-blue-500 hover:bg-blue-600">
+            <Button className="bg-coopBlue hover:bg-coopBlueHover">
               Call for Proposal
             </Button>
             <button
