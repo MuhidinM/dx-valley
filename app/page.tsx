@@ -6,7 +6,7 @@ import Offer from "@/components/landing/offer";
 import { SectionRight, SectionLeft } from "@/components/section";
 import Stats from "@/components/landing/stats";
 import React from "react";
-import { SVG1, SVG2 } from "@/constants";
+import { stats, SVG1, SVG2 } from "@/constants";
 
 const Page = () => {
   return (
@@ -31,7 +31,7 @@ const Page = () => {
         buttonText="Call to Action"
       />
       <Offer />
-      <Stats />
+      <Stats items={stats} />
       <CTA buttonText="Apply" title="Have a start-up idea?" />
       <SlidingCompanies />
       <ContactUs />

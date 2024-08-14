@@ -19,9 +19,11 @@ export const SectionRight: React.FC<SectionProps> = ({
           <div className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
             {description}
           </div>
-          <Button className="bg-coopBlue hover:bg-coopBlueHover">
-            {buttonText}
-          </Button>
+          {buttonText && (
+            <Button className="bg-coopBlue hover:bg-coopBlueHover">
+              {buttonText}
+            </Button>
+          )}
         </div>
       </div>
     </section>

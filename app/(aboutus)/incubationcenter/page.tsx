@@ -1,7 +1,8 @@
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
+import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
-import { SVG1 } from "@/constants";
+import { stats, SVG1 } from "@/constants";
 import React from "react";
 
 const Page = () => {
@@ -22,10 +23,10 @@ const Page = () => {
             </ul>
           </>
         }
-        buttonText="Call to Action"
       />
       <Feature />
       <CTA buttonText="Apply for Call" title="Have a start-up idea?" />
+      <Stats items={stats} />
     </div>
   );
 };
