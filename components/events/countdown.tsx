@@ -33,7 +33,7 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
 
         setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
       } else {
-        setTimeLeft("Event has started or passed");
+        setTimeLeft("Event has passed");
       }
     };
 
