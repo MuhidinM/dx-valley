@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 interface ContestCardProps {
   event: Event;

@@ -1,4 +1,4 @@
-import AdmineEvent from "@/components/admin-event";
+import AdmineEvent from "@/components/events/admin-event";
 
 const page = () => {
   return <AdmineEvent />;

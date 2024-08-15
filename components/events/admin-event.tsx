@@ -18,9 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "../ui/textarea";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { format } from "date-fns";
 
 import { Calendar as CalendarIcon } from "lucide-react";

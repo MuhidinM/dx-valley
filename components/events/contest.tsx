@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Countdown from "@/components/countdown";
+import Countdown from "@/components/events/countdown";
 import { Event } from "@/types/types";
 
 export default function ContestsPage() {
