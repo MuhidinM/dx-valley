@@ -6,22 +6,22 @@ const Offer = () => {
   const features = [
     {
       image: "/peep-35.svg",
-      title: "Fast Refresh",
+      title: "Training",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
     },
     {
       image: "/peep-sitting-14.svg",
-      title: "Fast Refresh",
+      title: "Coaching and Mentoring",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
     },
     {
       image: "/peep-103.svg",
-      title: "Fast Refresh",
+      title: "Linkage and Awards",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
     },
     {
       image: "/peep-72.svg",
-      title: "Fast Refresh",
+      title: "Consultancy",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
     },
   ];
@@ -48,7 +48,9 @@ const Offer = () => {
               />
               <div className="bg-white dark:bg-gray-950 p-4 sm:p-6">
                 <Link href="#">
-                  <h3 className="mt-0.5 text-lg text-gray-900 dark:text-gray-200">{item.title}</h3>
+                  <h3 className="mt-0.5 text-lg text-gray-900 dark:text-gray-200">
+                    {item.title}
+                  </h3>
                 </Link>
 
                 <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
