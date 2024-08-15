@@ -1,9 +1,17 @@
-import React from 'react'
-
+import ContestsPage from "@/components/contest";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <>
+      <Card className="contest-title">
+        <CardHeader>
+          <CardTitle>Events</CardTitle>
+        </CardHeader>
+      </Card>
 
-export default Page
+      <ContestsPage />
+    </>
+  );
+};
+
+export default Page;
