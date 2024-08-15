@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Event } from "@/app/contest/types";
+import { Event } from "@/types/types";
 
 import {
   Card,
@@ -44,23 +44,23 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
   }, [event.targetDate]);
 
   return (
-    <Card>
+    <Card className="contest-card">
       <CardHeader>
         <CardTitle>{event.name}</CardTitle>
         <CardDescription>
-          {/* <p>Category: {event.category}</p> */}
           <p>Target Date: {new Date(event.targetDate).toLocaleDateString()}</p>
         </CardDescription>
         <p>{event.description}</p>
       </CardHeader>
       <CardContent>
         <div className="border p-4 rounded shadow">
-          {/* <h3 className="text-xl font-semibold">{event.name}</h3> */}
           <p className="mt-4 text-lg text-red-500">Countdown: {timeLeft}</p>
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Register to participate</Button>
+        <Button className="w-full bg-coopBlue hover:bg-amber-500">
+          Register to participate
+        </Button>
       </CardFooter>
     </Card>
   );

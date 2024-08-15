@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Countdown from "@/components/countdown";
-import { Event } from "@/app/contest/types";
+import { Event } from "@/types/types";
 
 export default function ContestsPage() {
   const [events, setEvents] = useState<Event[]>([]);
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -28,12 +27,10 @@ export default function ContestsPage() {
     fetchEvents();
   }, []);
 
-  // if (loading) return <div>Loading...</div>;
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {events.map((event) => (
-        <Countdown key={event._id} event={event} />
+        <Countdown key={event.id} event={event} />
       ))}
     </div>
   );

@@ -24,10 +24,8 @@ import { Button } from "./ui/button";
 import { format } from "date-fns";
 
 import { Calendar as CalendarIcon } from "lucide-react";
-// import { useState } from "react";
 
 import { cn } from "@/lib/utils";
-// import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -35,11 +33,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export default function AdminPage() {
+export default function AdminEvent() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   //   const [targetDate, setTargetDate] = useState("");
-  const [targetDate, setTargetDate] = useState<Date | undefined>(undefined); // State to store the selected date as a Date object
+  const [targetDate, setTargetDate] = useState<Date | undefined>(undefined);
 
   const [category, setCategory] = useState("");
 
@@ -68,7 +66,7 @@ export default function AdminPage() {
   };
 
   return (
-    <Card className="card w-[500px]">
+    <Card className="admin-event w-[500px]">
       <CardHeader>
         <CardTitle>Event</CardTitle>
         <CardDescription>Description</CardDescription>
@@ -97,7 +95,7 @@ export default function AdminPage() {
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Target date</Label>
-              {/* <DatePickerDemo /> */}
+
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -118,8 +116,8 @@ export default function AdminPage() {
                 <PopoverContent className="w-auto p-0">
                   <Calendar
                     mode="single"
-                    selected={targetDate} // Correctly pass the Date object
-                    onSelect={(date) => setTargetDate(date || undefined)} // Ensure a Date object is set, or undefined if cleared
+                    selected={targetDate}
+                    onSelect={(date) => setTargetDate(date || undefined)}
                     initialFocus
                   />
                 </PopoverContent>
@@ -138,7 +136,7 @@ export default function AdminPage() {
               </Select>
             </div>
           </div>
-          <Button className="but bg-blue-500 text-white font-bold cursor-pointer px-6 py-2">
+          <Button className="admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
             Create event
           </Button>
         </form>
