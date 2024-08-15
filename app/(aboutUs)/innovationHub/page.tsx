@@ -4,6 +4,7 @@ import CTA from "@/components/cta";
 import DxDescription from "@/components/dxDesc";
 import Mission from "@/components/mission";
 import { IncubationPhase } from "@/components/incubationPhase";
+import HowWeWorkSection from "@/components/howWeWork";
 const InnovationHubPage = () => {
     return (
         <div className="bg-slate-50">
@@ -12,7 +13,6 @@ const InnovationHubPage = () => {
                 <DxDescription />
                 <div className="grid grid-cols-2 gap-2 px-2 py-8">
                     <Mission />
-                    {/* <IncubationPhase /> */}
                     <CTA />
                 </div>
 
