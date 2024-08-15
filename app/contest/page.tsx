@@ -6,7 +6,6 @@ const page = () => {
       <Card className="contest-title">
         <CardHeader>
           <CardTitle>Events</CardTitle>
-          {/* <CardDescription>Card Description</CardDescription> */}
         </CardHeader>
       </Card>
 
