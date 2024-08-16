@@ -1,6 +1,8 @@
 import DxDescription from '@/components/dxDesc'
 import FocusAreas from '@/components/focusAreas'
 import HowWeWorkSection from '@/components/howWeWork'
+import ContactUs from '@/components/landing/contactus'
+import Mission from '@/components/mission'
 
 import React from 'react'
 
@@ -11,8 +13,9 @@ const Page = () => {
         <div className="space-y-8 mb-8 justify-center">
            
             <DxDescription />
-            <FocusAreas />
             <HowWeWorkSection />
+            <FocusAreas />
+            <ContactUs />
         </div>
 
     )

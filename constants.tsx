@@ -10,12 +10,17 @@ export const menuItems = [
       {
         href: "/innovationhub",
         title: "Innovation Hub",
-        description: "link 1 description",
+        description: "Dx Valley 1.0",
       },
       {
-        href: "https://coopbankoromia.com.et/",
+        href: "/incubationcenter",
+        title: "Incubation Lab",
+        description: "Dx Valley 2.0",
+      },
+      {
+        href: "www.coopbankoromia.com.et/about/",
         title: "Coop Bank",
-        description: "link 2 description",
+        description: "Cooperative Bank of Oromia",
       },
     ],
   },
@@ -49,6 +54,10 @@ export const menuItems = [
     },
     links: [
       {
+        href: "/training",
+        title: "Training Areas",
+        description: "Beautifully photo of Training.",
+},{
         href: "/contests",
         title: "Contests",
         description: "link 1 description",

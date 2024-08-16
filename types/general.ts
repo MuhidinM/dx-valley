@@ -25,3 +25,8 @@ export type StatItem = {
 export type StatsProps = {
   items: StatItem[];
 };
+
+// export type SectionProps = {
+//   button: String
+// }
+
