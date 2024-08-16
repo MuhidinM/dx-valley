@@ -1,3 +1,5 @@
+/** @format */
+
 import { Card } from "@/components/card";
 import PageTitle from "@/components/collab/pageTitle";
 import CTA from "@/components/cta";
@@ -87,7 +89,7 @@ const Page = () => {
         </Button>
       </div> */}
 
-      <FocusAreas items = {focusArea}       />
+      <FocusAreas items={focusArea} />
       <Stats items={stats} />
     </div>
   );
