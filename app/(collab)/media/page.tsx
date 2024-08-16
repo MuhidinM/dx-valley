@@ -1,14 +1,13 @@
 /** @format */
 
-import CollabForm from "@/components/call-for-collab-form";
+import CollabForm from "@/components/collab/call-for-collab-form";
 import CTA from "@/components/cta";
-import Objectives from "@/components/objectives";
-import PageTitle from "@/components/pageTitle";
+import Objectives from "@/components/collab/objectives";
+import PageTitle from "@/components/collab/pageTitle";
 import { SectionRight } from "@/components/section";
 import { SVG1 } from "@/constants";
 import Head from "next/head";
 import React from "react";
-
 
 const Page = () => {
   return (

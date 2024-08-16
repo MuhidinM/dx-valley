@@ -45,7 +45,7 @@ const FocusAreas = () => {
             Focus Areas
           </h2>
         </div>
-        <ul className='tabs flex flex-row w-full md:w-4/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-12 justify-center gap-12 '>
+        <ul className='tabs flex  flex-row w-full md:w-5/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-12 justify-center lg:gap-12 px-5 '>
           {tabs.map((tab) => (
             <li
               key={tab.id}
@@ -55,7 +55,7 @@ const FocusAreas = () => {
                   ? "border-b-2 border-coopOrange font-semibold"
                   : "border-b-2 border-transparent hover:border-gray-300"
               }`}>
-              <h3 className='text-lg md:text-l font-bold'> {tab.title} </h3>
+              {tab.title}
             </li>
           ))}
         </ul>
@@ -73,9 +73,7 @@ const FocusAreas = () => {
                 className='w-full md:w-1/2 rounded-lg'
               />
               <div className='text-center md:text-left ml-10'>
-                <h3 className='text-xl md:text-2xl font-bold mb-3 md:mb-5'>
-                  {content.title}
-                </h3>
+                <h3 className='text-lg md:text-l font-bold'>{content.title}</h3>
                 <p className='text-gray-700'>{content.text}</p>
               </div>
             </div>
