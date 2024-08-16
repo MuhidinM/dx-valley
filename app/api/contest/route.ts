@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function POST(req) {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { name, description, targetDate, category } = await req.json();
 
@@ -20,7 +20,7 @@ export async function POST(req) {
       { message: "Event registered", event: newEvent },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       "Error creating event:",
       error.message,
@@ -36,12 +36,12 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
     const events = await prisma.event.findMany();
 
     return NextResponse.json(events, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching events:", error);
 
     return NextResponse.json(
