@@ -41,7 +41,7 @@ const FocusAreas = () => {
     return (
       <div className='bg-gray-50 text-gray-900'>
         <div className='mx-auto max-w-screen-sm text-center mt-12'>
-          <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
+          <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-coopBlue underline-offset-auto dark:text-white'>
             Focus Areas
           </h2>
         </div>
