@@ -6,6 +6,16 @@ export interface SectionProps {
   description: ReactNode;
   buttonText?: string;
 }
+
+export interface focusAreaItems {
+  image: string;
+  tab: string;
+  contentTitle: string;
+  contentDesc: string;
+}
+export interface focusAreaProps {
+    items: focusAreaItems[];
+}
 export interface ctaProps {
   title: string;
   buttonText?: string;
