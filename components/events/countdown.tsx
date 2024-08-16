@@ -18,6 +18,7 @@ interface ContestCardProps {
 
 const Countdown: React.FC<ContestCardProps> = ({ event }) => {
   const [timeLeft, setTimeLeft] = useState("");
+  const [eventHasPassed, setEventHasPassed] = useState(false);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -33,7 +34,8 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
 
         setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
       } else {
-        setTimeLeft("Event has started or passed");
+        setTimeLeft("Event has passed");
+        setEventHasPassed(true);
       }
     };
 
@@ -42,6 +44,10 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
 
     return () => clearInterval(timerId);
   }, [event.targetDate]);
+
+  if (eventHasPassed) {
+    return null;
+  }
 
   return (
     <Card className="contest-card">

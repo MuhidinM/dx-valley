@@ -1,4 +1,3 @@
-
 import ContestsPage from "@/components/events/contest";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 const Page = () => {
@@ -15,6 +14,4 @@ const Page = () => {
   );
 };
 
-
 export default Page;
-
