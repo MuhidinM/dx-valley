@@ -7,18 +7,19 @@ import React from 'react'
 
 
 const Page = () => {
-  return (
-    // <div>Page</div>
-<div>
-          {/* <Section1 /> */}
-          <DxDescription />
-          <FocusAreas />
-          <HowWeWorkSection /> 
-        
+    return (
+        // <div>Page</div>
+        <div>
+            {/* <Section1 /> */}
+            <DxDescription />
+            <FocusAreas />
+            <HowWeWorkSection />
 
-</div>
 
-  )
+        </div>
+
+    )
 }
 
 export default Page
+
