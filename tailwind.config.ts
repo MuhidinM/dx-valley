@@ -40,12 +40,12 @@ const config = {
       colors: {
         coopBlue: "#00adef",
         coopBlueHover: "#0086ba",
+        coopOrange: "#E38524",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
-        coopBlue: '#00ADEF',
-        coopBlueHover: '#0091CB',
+        coopBlueHover1: "#0091CB",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",

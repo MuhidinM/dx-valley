@@ -4,8 +4,10 @@ const Page = () => {
     return (
         <div>
             
-            <Card />
+            <Card img={undefined} title={""} description={""} />
 
         </div>
     )
 }
+
+export default Page;

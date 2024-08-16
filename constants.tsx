@@ -8,7 +8,7 @@ export const menuItems = [
     },
     links: [
       {
-        href: "/innovationHub",
+        href: "/innovationhub",
         title: "Innovation Hub",
         description: "Dx Valley 1.0",
       },
@@ -18,9 +18,9 @@ export const menuItems = [
         description: "Dx Valley 2.0",
       },
       {
-        href: "/coopbank",
+        href: "www.coopbankoromia.com.et/about/",
         title: "Coop Bank",
-        description: "https://coopbankoromia.com.et/about/",
+        description: "Cooperative Bank of Oromia",
       },
     ],
   },
