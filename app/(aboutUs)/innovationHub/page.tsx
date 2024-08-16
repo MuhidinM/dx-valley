@@ -1,6 +1,8 @@
 import DxDescription from '@/components/dxDesc'
 import FocusAreas from '@/components/focusAreas'
 import HowWeWorkSection from '@/components/howWeWork'
+import ContactUs from '@/components/landing/contactus'
+import Mission from '@/components/mission'
 
 import React from 'react'
 
@@ -12,6 +14,8 @@ const Page = () => {
            
             <DxDescription />
             <HowWeWorkSection />
+            <FocusAreas />
+            <ContactUs />
         </div>
 
     )
