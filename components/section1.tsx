@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 
-const Section1 = () => {
+const Section1: React.FC<section1Props> = ({ btnTitle }) => {
   return (
     <section className="dark:bg-gray-900">
       <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
@@ -29,7 +29,7 @@ const Section1 = () => {
             eaque, ex molestiae labore sint aperiam reprehenderit officia
             voluptatum esse!
           </p>
-          <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button>
+          <Button className="bg-coopBlue hover:bg-coopBlueHover">{btnTitle}</Button>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 
-const Section2 = () => {
+const Section2 = ({ btnTitle }) => {
   return (
     <section className="dark:bg-gray-900">
       <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
@@ -16,7 +16,7 @@ const Section2 = () => {
             at beatae nam aliquid. Ab animi rerum totam fuga id inventore esse
             consequuntur sit!
           </p>
-          <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button>
+          <Button className="bg-coopBlue hover:bg-coopBlueHover">{btnTitle}</Button>
         </div>
         <svg
           viewBox="0 0 200 200"

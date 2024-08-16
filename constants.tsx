@@ -54,6 +54,10 @@ export const menuItems = [
     },
     links: [
       {
+        href: "/training",
+        title: "Training Areas",
+        description: "Beautifully photo of Training.",
+},{
         href: "/contests",
         title: "Contests",
         description: "link 1 description",

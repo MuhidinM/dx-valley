@@ -39,15 +39,15 @@ const FocusAreas = () => {
     ];
 
     return (
-        <div className="bg-gray-300 text-gray-200">
-            <ul className="tabs flex w-4/5 h-24 mx-auto mt-12 shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-gray-50 text-gray-200">
+            <ul className="tabs flex w-4/5 h-24 space-x-2 mx-auto mt-12 shadow-lg rounded-lg overflow-hidden mb-4">
                 {tabs.map((tab) => (
                     <li
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`cursor-pointer flex-1 flex items-center justify-center transition duration-500 ease-in-out ${activeTab === tab.id
-                                ? 'bg-gray-800 text-orange-500 shadow-md rounded-lg'
-                                : 'bg-gray-900 text-gray-300'
+                        className={`cursor-pointer  flex-1 flex items-center justify-center shadow-lg transition duration-500 ease-in-out ${activeTab === tab.id
+                            ? 'bg-orange-500 text-gray-900 shadow-md rounded-lg'
+                            : 'bg-coopBlue text-gray-900 rounded-lg'
                             }`}
                     >
                         {tab.title}
@@ -55,11 +55,11 @@ const FocusAreas = () => {
                 ))}
             </ul>
 
-            <div className="contents w-4/5 mx-auto mt-12 flex flex-wrap justify-between gap-8">
+            <div className="contents w-4/5 mx-auto mt-12 flex flex-wrap justify-between gap-8 ">
                 {contents.map((content) => (
                     <div
                         key={content.id}
-                        className={`box flex flex-col md:flex-row gap-5 p-6 bg-gray-100 shadow-lg rounded-lg transition-transform duration-1000 ease-in-out ${activeTab === content.id ? 'opacity-100' : 'hidden opacity-0'
+                        className={`box flex flex-col md:flex-row gap-5 p-6 bg-gray-100 shadow-lg rounded-lg transition-transform duration-1200 ease-in-out ${activeTab === content.id ? 'opacity-100' : 'hidden opacity-0'
                             }`}
                     >
                         <img
@@ -68,8 +68,8 @@ const FocusAreas = () => {
                             className="w-full md:w-1/2 rounded-lg"
                         />
                         <div>
-                            <h3 className="text-2xl font-bold mb-5">{content.title}</h3>
-                            <p className="text-gray-400">{content.text}</p>
+                            <h3 className="text-2xl font-bold mb-5 text-gray-900">{content.title}</h3>
+                            <p className="text-gray-700">{content.text}</p>
                         </div>
                     </div>
                 ))}
