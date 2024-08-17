@@ -13,6 +13,10 @@ const Page = () => {
         <div className="space-y-8 mb-8 justify-center">
            
             <DxDescription />
+           <div className='grid grid-3 gap-6 mx-auto max-w-screen-xl xl:gap-6 md:grid md:grid-cols-2'>
+            <Mission />
+            <CTA title={"collabotare"} buttonText={"Apply For Call"} />
+           </div>
             <HowWeWorkSection />
             <FocusAreas />
             <ContactUs />
