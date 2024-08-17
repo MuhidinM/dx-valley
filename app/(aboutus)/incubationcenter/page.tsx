@@ -1,13 +1,11 @@
 /** @format */
 
 import { Card } from "@/components/card";
-import PageTitle from "@/components/collab/pageTitle";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
-import { Button } from "@/components/ui/button";
 import { stats, SVG1, focusArea } from "@/constants";
 import Image from "next/image";
 import React from "react";

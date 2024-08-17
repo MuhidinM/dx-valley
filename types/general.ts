@@ -33,6 +33,7 @@ export interface CardProps {
   title: string;
   description: string;
   buttonText?: string;
+  buttonText2?: string;
 }
 
 export type StatItem = {
