@@ -8,6 +8,7 @@ import { SectionLeft, SectionRight } from "@/components/section";
 import { objectives, SVG1 } from "@/constants";
 import Head from "next/head";
 import React from "react";
+import Overview from "@/components/collab/overview";
 
 const Page = () => {
   return (
@@ -19,6 +20,7 @@ const Page = () => {
         description='description'
         buttonText={"hidden"}
       />
+   <Overview />
       <CTA title='Apply' buttonText='Apply For Call' />
       <Objectives items={objectives} />
       {/* <InputForm /> */}
