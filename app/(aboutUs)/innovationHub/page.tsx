@@ -1,11 +1,13 @@
-import DxDescription from '@/components/dxDesc'
-import FocusAreas from '@/components/focusAreas'
-import HowWeWorkSection from '@/components/howWeWork'
-import ContactUs from '@/components/landing/contactus'
-import Mission from '@/components/mission'
+/** @format */
 
-import React from 'react'
-
+import CTA from "@/components/cta";
+import DxDescription from "@/components/dxDesc";
+import FocusAreas from "@/components/focusAreas";
+import HowWeWorkSection from "@/components/howWeWork";
+import ContactUs from "@/components/landing/contactus";
+import Mission from "@/components/mission";
+import {focusArea } from "@/constants";
+import React from "react";
 
 const Page = () => {
   return (
