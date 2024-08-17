@@ -1,4 +1,3 @@
-import CTA from '@/components/cta'
 import DxDescription from '@/components/dxDesc'
 import FocusAreas from '@/components/focusAreas'
 import HowWeWorkSection from '@/components/howWeWork'
