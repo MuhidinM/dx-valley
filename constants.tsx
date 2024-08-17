@@ -35,15 +35,24 @@ export const menuItems = [
     },
     links: [
       {
+        href: "/organizations",
+        title: "Organizations",
+        description: "Collab with Organizations.",
+      },
+      {
         href: "/trainers",
         title: "Trainers",
-        description: "link 1 description",
+        description: "Collab with Trainers",
       },
-      { href: "/media", title: "Media", description: "link 2 description" },
+      {
+        href: "/media",
+        title: "Media",
+        description: "Collab with Media",
+      },
       {
         href: "/stakeholders",
         title: "Stakeholders",
-        description: "link 3 description",
+        description: "Collab with Stakeholders",
       },
     ],
   },
@@ -58,17 +67,17 @@ export const menuItems = [
       {
         href: "/training",
         title: "Training Areas",
-        description: "Beautifully photo of Training.",
+        description: "StartUp Trainings",
       },
       {
         href: "/contests",
         title: "Contests",
-        description: "link 1 description",
+        description: "Call for Contesters",
       },
       {
         href: "/showcase",
         title: "Showcase",
-        description: "link 2 description",
+        description: "Incubated Products",
       },
     ],
   },
