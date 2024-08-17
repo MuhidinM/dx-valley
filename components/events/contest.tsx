@@ -26,11 +26,14 @@ export default function ContestsPage() {
 
     fetchEvents();
   }, []);
+  const Events = events.filter(
+    (event) => event.category !== "call for proposal"
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {events.length > 0 ? (
-        events.map((event) => <Countdown key={event.id} event={event} />)
+      {Events.length > 0 ? (
+        Events.map((event) => <Countdown key={event.id} event={event} />)
       ) : (
         <div className="col-span-full text-center py-10">
           <p className="text-lg font-semibold">No events available.</p>
