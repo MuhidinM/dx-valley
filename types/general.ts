@@ -7,6 +7,14 @@ export interface SectionProps {
   buttonText?: string;
 }
 
+export interface objectivesItems {
+  icon: string;
+  description: string;
+}
+
+export interface objectivesProps {
+ items: objectivesItems[];
+}
 export interface focusAreaItems {
   image: string;
   tab: string;
