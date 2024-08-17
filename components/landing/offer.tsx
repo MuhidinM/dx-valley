@@ -30,10 +30,10 @@ const Offer = () => {
       <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
-            What we offer
+            What We Offer
           </h2>
         </div>
-        <div className="grid gap-4 grid-cols-4">
+        <div className="grid gap-4   grid-cols-4">
           {features.map((item, index) => (
             <article
               key={index}
@@ -41,10 +41,10 @@ const Offer = () => {
             >
               <Image
                 alt=""
-                width={10}
+                width={1}
                 height={10}
                 src={item.image}
-                className="w-full object-cover"
+                className="w-4/6 h-64 object-center"
               />
               <div className="bg-white dark:bg-gray-950 p-4 sm:p-6">
                 <Link href="#">

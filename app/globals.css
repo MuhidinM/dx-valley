@@ -59,6 +59,42 @@
   }
 }
 
+/* globals.css or a specific CSS file */
+/* .process-direction {
+  @apply relative border-t-8 border-dotted border-coopBlue border-y-8 ;
+  transform: rotate(117deg);
+  left: -67%;
+  width: 97%;
+  top: 10px;
+} */
+ .process-direction {
+  @apply absolute !important;
+  transform: rotate(89.75deg);
+  left: -67%;
+  top: 128px;
+  width: 97%;
+  height: 100px; /* Adjust this to control the length of the line */
+}
+
+
+.process-direction2 {
+  @apply absolute border-t-4 border-dotted border-coopBlue;
+  transform: rotate(100deg);
+  left: -130%;
+  width: 97%;
+  top: -150px;
+}
+
+.process-direction-last {
+  @apply absolute border-t-4 border-dotted border-coopBlue;
+  transform: rotate(130deg);
+  left: 38%;
+  top: -205px;
+}
+
+
+
+
 @layer base {
   * {
     @apply border-border;
