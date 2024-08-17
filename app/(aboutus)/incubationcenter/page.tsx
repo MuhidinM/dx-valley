@@ -1,11 +1,12 @@
+/** @format */
+
 import { Card } from "@/components/card";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
-import { Button } from "@/components/ui/button";
-import { stats, SVG1 } from "@/constants";
+import { stats, SVG1, focusArea } from "@/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -33,8 +34,11 @@ const Page = () => {
 
       <div className='mx-auto max-w-screen-sm text-center'>
         <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
-          Training Areas
+          <span className=' text-coopBlue'> Training</span> Areas
         </h2>
+        <div className='flex justify-center mt-2  mb-12'>
+          <div className='w-20 h-1 bg-coopOrange'></div>
+        </div>
       </div>
       <div className='md:grid md:grid-cols-3 space-y-4 md:space-y-0'>
         <Card
@@ -82,8 +86,8 @@ const Page = () => {
           Load More
         </Button>
       </div> */}
-     
-      <FocusAreas />
+
+      <FocusAreas items={focusArea} />
       <Stats items={stats} />
     </div>
   );

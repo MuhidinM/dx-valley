@@ -26,22 +26,25 @@ export function Feature() {
   return (
     <div className='container'>
       <div className='text-center mb-20'>
-        <h2 className='text-3xl font-medium mb-4 shrink-0 text-coopBlue'>
-          How does it work ?
+        <h2 className='text-3xl b-4 shrink-0 font-bold'>
+          <span className=' text-coopBlue'> How</span> Does It Work ?
         </h2>
+        <div className='flex justify-center mt-2  mb-12'>
+          <div className='w-20 h-1 bg-coopOrange'></div>
+        </div>
       </div>
       <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
         <div className='space-y-6 '>
           {features.map((item, index) => (
             <button
+              key={item.title}
               type='button'
               className='w-full'
-              key={item.title}
               onClick={() => {
                 setFeatureOpen(index);
                 setTimer(0);
               }}
-              title=''>
+              title={item.title}>
               <TextComponent
                 number={index + 1}
                 title={item.title}
