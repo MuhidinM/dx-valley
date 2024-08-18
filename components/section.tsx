@@ -46,6 +46,7 @@ export const SectionLeft: React.FC<SectionProps> = ({
           <p className='mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400'>
             {description}
           </p>
+
           {
             buttonText !== "hidden" && (<Button
             className="bg-coopBlue hover:bg-coopBlueHover "

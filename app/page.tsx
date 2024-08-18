@@ -30,7 +30,7 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
-        title="Let's create more tools and ideas that brings us together."
+        title="Innovation hub: Land of Great Digital Product"
         description="Our Innovation Hub is a center of excellence for developing 
         cutting-edge in-house products and forming strategic partnerships with both
          financial and non-financial partners. We are committed to creating a dependable 

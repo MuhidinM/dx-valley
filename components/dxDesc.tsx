@@ -12,13 +12,14 @@ const DxDescription = () => {
                     <Hero />
                     <div className="mt-4 md:mt-0">
                         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                            Let&apos;s create more tools and ideas that brings us together.
+                            Innovation hub : Land of Great Digital Product.
                         </h2>
                         <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                            quidem possimus dolorum sed est facilis eaque laborum. Vitae ea unde
-                            eaque, ex molestiae labore sint aperiam reprehenderit officia
-                            voluptatum esse!
+                        The Innovation Hub is where we develop exceptional in-house products,
+                        designed to seamlessly integrate with other companies, fintech solutions, 
+                        and various industries. It's a collaborative space where innovation meets partnership,
+                        allowing us to create groundbreaking solutions that work harmoniously 
+                        across the financial ecosystem and beyond!
                         </p>
                         {/* <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button> */}
                     </div>
