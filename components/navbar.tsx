@@ -17,7 +17,7 @@ const Navbar = () => {
             </span>
           </Link>
           <div className="flex items-center lg:order-2 space-x-2">
-            <ModeToggle />
+             <ModeToggle />
             <Button
               className="bg-coopBlue hover:bg-coopBlueHover"
               onClick={() => {}}

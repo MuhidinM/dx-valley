@@ -108,7 +108,9 @@ import {
 
 const CollabForm = () => {
   return (
-    <div className='admin-event mx-8  flex w-3/4 justify-center p-6 '>
+    <div
+      className='admin-event mx-8  flex w-3/4 justify-center p-6 '
+      id='#collab-form'>
       <Card className=' w-auto items-center p-10 '>
         <CardHeader>
           <CardTitle className='flex-col justify-center items-center mb-10'>
@@ -159,7 +161,7 @@ const CollabForm = () => {
               </div>
               <div className='flex flex-col space-y-1.5'>
                 <Label htmlFor='category'>Catagory</Label>
-                <Select className='w-full' value={"contest"}>
+                <Select  value={"contest"}>
                   <SelectTrigger id='category'>
                     <SelectValue placeholder='Select' />
                   </SelectTrigger>
@@ -174,7 +176,7 @@ const CollabForm = () => {
               <div className='flex flex-col space-y-1.5 md:col-span-2'>
                 <Label htmlFor='description'>Description</Label>
                 <Textarea
-                   placeholder='Why do you want to work with us? '
+                  placeholder='Why do you want to work with us? '
                   value={""}
                   onChange={(e) => <div> hello </div>}
                   required
@@ -195,9 +197,11 @@ const CollabForm = () => {
                 </Popover>
               </div> */}
             </div>
-            <Button className='admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4'>
-              Submit
-            </Button>
+            <div className='md:items-center md:justify-center'>
+              <Button className=' bg-coopBlue text-white  font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4'>
+                Submit
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

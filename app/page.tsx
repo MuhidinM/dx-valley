@@ -27,6 +27,7 @@ const Page = () => {
         just starting out or have just idea, our Incubation center provides the  guidance,
          and support you need to succeed"
         buttonText="Explore the Incubation center"
+        href={"/incubationcenter"}
       />
       <SectionLeft
         svg={<SVG2 />}
@@ -39,10 +40,11 @@ const Page = () => {
          our Innovation Hub stands at the forefront of building a future in which businesses prosper
          and customers enjoy unprecedented security and convenience."
         buttonText="Explore Our Solutions"
+        href={"/innovationhub"}
       />
       <Offer />
       <Stats items={stats} />
-      <CTA buttonText="Apply" title="Have a start-up idea?" />
+      <CTA buttonText="Apply" title="Have a start-up idea?" href={""} />
       <SlidingCompanies />
       <ContactUs />
     </div>

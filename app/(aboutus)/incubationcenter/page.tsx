@@ -35,9 +35,15 @@ const Page = () => {
             </ul>
           </>
         }
+        buttonText={"hidden"}
+        href={"/innovationhub"}
       />
       <Feature />
-      <CTA buttonText='Apply for Call' title='Have a start-up idea?' />
+      <CTA
+        buttonText='Apply for Call'
+        title='Have a start-up idea?'
+        href='/callforproposal'
+      />
 
       <div className='mx-auto max-w-screen-sm text-center'>
         <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>

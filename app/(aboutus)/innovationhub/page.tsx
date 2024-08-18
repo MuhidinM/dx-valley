@@ -43,7 +43,7 @@ const Page = () => {
           }
           description='Missio of ours '
         /> */}
-        <CTA title={"collabotare"} buttonText={"Apply For Call"} />
+        <CTA title={"collabotare"} buttonText={"Apply For Call"} href={"#collab-form"} />
       </div>
       <HowWeWorkSection />
       {/* <FocusAreas items={focusArea} /> */}
