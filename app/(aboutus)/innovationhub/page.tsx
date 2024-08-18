@@ -8,15 +8,32 @@ import Header from "@/components/header";
 import HowWeWorkSection from "@/components/howWeWork";
 import ContactUs from "@/components/landing/contactus";
 import Mission from "@/components/mission";
-import { focusArea } from "@/constants";
+import { SectionLeft } from "@/components/section";
+import { focusArea, SVG1 } from "@/constants";
 import React from "react";
 
 const Page = () => {
   return (
     // <div>Page</div>
     <div className='space-y-8 mb-8 justify-center'>
-      <DxDescription />
-
+      {/* <DxDescription />{" "} */}
+      <SectionLeft
+        svg={<SVG1 />}
+        title='Innovation Hub: Where Ideas Come to Life'
+        description={
+          <>
+            Dx-VALLEY is a physical or virtual space designed to nurture
+            innovation in a particular field. It brings together researchers,
+            creators, and innovators to nurture ideas into industry-changing
+            products and services. These hubs can serve as the focal point of a
+            city or be part of an innovation district, encouraging collaboration
+            and serving as a springboard for new ideas. Let me provide you with
+            more details about innovation hubs:
+          </>
+        }
+        buttonText={"hidden"}
+        href={"/innovationhub"}
+      />
       <div className='grid grid-col-2 gap-6 mx-auto max-w-screen-xl xl:gap-6 md:grid md:grid-cols-2'>
         <Mission />
         {/* <Card
@@ -43,7 +60,11 @@ const Page = () => {
           }
           description='Missio of ours '
         /> */}
-        <CTA title={"collabotare"} buttonText={"Apply For Call"} href={"#collab-form"} />
+        <CTA
+          title={"collabotare"}
+          buttonText={"Apply For Call"}
+          href={"#collab-form"}
+        />
       </div>
       <HowWeWorkSection />
       {/* <FocusAreas items={focusArea} /> */}

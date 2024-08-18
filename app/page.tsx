@@ -14,7 +14,7 @@ const Page = () => {
       <Hero />
       <SectionRight
         svg={<SVG1 />}
-        title="Incubation center:Your Gateway to Startup Success"
+        title="Our Incubation center: Your Gateway to Startup Success"
         // description=" Ignite Your Startup Journey with Expert Guidance.
         //  Turn your ideas into impactful businesses with tailored training, 
         // coaching, and access to a network of investors and consultants!"
@@ -31,7 +31,7 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
-        title="Let's create more tools and ideas that brings us together."
+        title="Our Innovation Hub: Where Ideas Come to Life."
         description="Our Innovation Hub is a center of excellence for developing 
         cutting-edge in-house products and forming strategic partnerships with both
          financial and non-financial partners. We are committed to creating a dependable 
