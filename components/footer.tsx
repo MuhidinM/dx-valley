@@ -55,7 +55,7 @@ const Footer = () => {
                   </li>
                 </ul> */}
                 <p className='flex font-sans text-white'>
-                At DXValley, we drive digital transformation by empowering 
+                At DxValley, we drive digital transformation by empowering 
                 businesses with cutting-edge innovation and strategic collaboration. 
                 Our mission is to create a thriving ecosystem where technology 
                 and industry converge to shape a secure and sustainable future.

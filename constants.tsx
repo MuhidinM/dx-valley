@@ -605,8 +605,8 @@ export const objectives = [
     icon: "",
     description: "",
   },
-  {
-    icon: "",
-    description: "",
-  },
+  // {
+  //   icon: "",
+  //   description: "",
+  // },
 ];

@@ -15,22 +15,24 @@ const Page = () => {
     <div className='space-y-8 mb-8 justify-center'>
       <SectionRight
         svg={<SVG1 />}
-        title="Incubation center:  Your Gateway to Startup Success."
+        title='Incubation center:  Your Gateway to Startup Success.'
         description={
           <>
-            Welcome to our incubation center, where startups grow and turn their boldest dreams into reality.
-            We fill every gap and handle essential elements, allowing you to focus on innovation.
-            Our comprehensive support includes investor networking, market strategy development, financial coaching, and training.
-            With our expert guidance, we transform potential into performance, helping you succeed faster and shine brighter. 
-            Your startup’s success is our passion and ultimate goal. Our support includes:
-            <br /> 
-            <ul className=" pl-12">
+            Welcome to our incubation center, where startups grow and turn their
+            boldest dreams into reality. We fill every gap and handle essential
+            elements, allowing you to focus on innovation. Our comprehensive
+            support includes investor networking, market strategy development,
+            financial coaching, and training. With our expert guidance, we
+            transform potential into performance, helping you succeed faster and
+            shine brighter. Your startup’s success is our passion and ultimate
+            goal. Our support includes:
+            <br />
+            <ul className=' pl-12 space-y-4 mt-3 list-disc'>
               <li>Investor networking</li>
               <li>Market strategy development</li>
               <li>Financial coaching</li>
               <li>Comprehensive training</li>
             </ul>
-            
           </>
         }
       />
@@ -45,7 +47,7 @@ const Page = () => {
           <div className='w-20 h-1 bg-coopOrange'></div>
         </div>
       </div>
-      <div className='md:grid md:grid-cols-3 space-y-4 md:space-y-0'>
+      <div className='md:flex flex-row md:grid-cols-1 '>
         <Card
           title='Leadership and Management'
           description='Training in this area focuses on developing skills to inspire and guide teams, manage resources effectively, and make strategic decisions to drive startup success.'
@@ -54,21 +56,21 @@ const Page = () => {
               className='rounded-t-lg'
               src='https://media.istockphoto.com/id/1473642411/photo/happy-business-leader-talking-to-group-of-his-colleagues-on-a-seminar-in-board-room.jpg?s=612x612&w=0&k=20&c=wrMbY6cJmqSukmZACmfrkHcas5S9L8VCyeppKcOMXpo='
               alt=''
-              width={100}
+              width={1000}
               height={0}
             />
           }
         />
-        
+
         <Card
           title='Marketing and Sales'
           description='This training covers strategies to promote products, generate leads, and convert them into sales, helping startups build their brand and drive revenue growth.'
           img={
             <Image
               className='rounded-t-lg'
-              src='https://media.istockphoto.com/id/1314304121/photo/side-view-happy-business-partners-shaking-hands-making-deal.jpg?s=612x612&w=0&k=20&c=tzrJLGSbKQSMQf_kSimS39MJsh_SMoV-9TAscSw6GHk='
+              src='https://media.istockphoto.com/id/1473642411/photo/happy-business-leader-talking-to-group-of-his-colleagues-on-a-seminar-in-board-room.jpg?s=612x612&w=0&k=20&c=wrMbY6cJmqSukmZACmfrkHcas5S9L8VCyeppKcOMXpo='
               alt=''
-              width={100}
+              width={1000}
               height={0}
             />
           }
@@ -81,7 +83,7 @@ const Page = () => {
               className='rounded-t-lg'
               src='https://media.istockphoto.com/id/1322157962/photo/groups-of-young-man-who-talking-together-to-discuss-the-work-in-the-workplace.jpg?s=612x612&w=0&k=20&c=33t8hk1NDm2DHuQFyY-m9NaPkFmdEsOeFFQX4LgqXNU='
               alt=''
-              width={100}
+              width={1000}
               height={0}
             />
           }

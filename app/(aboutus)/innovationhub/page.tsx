@@ -46,7 +46,7 @@ const Page = () => {
         <CTA title={"collabotare"} buttonText={"Apply For Call"} />
       </div>
       <HowWeWorkSection />
-      <FocusAreas items={focusArea} />
+      {/* <FocusAreas items={focusArea} /> */}
       <Header />
       <Card
         img={""}

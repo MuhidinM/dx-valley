@@ -14,7 +14,7 @@ export const Card: React.FC<CardProps> = ({
       <Link href='#'>{img}</Link>
       <div className='p-5'>
         <a href='#'>
-          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline'>
             {title}
           </h5>
         </a>
