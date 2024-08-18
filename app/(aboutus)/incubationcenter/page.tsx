@@ -15,17 +15,22 @@ const Page = () => {
     <div className='space-y-8 mb-8 justify-center'>
       <SectionRight
         svg={<SVG1 />}
-        title="Let's create more tools and ideas that brings us together."
+        title="Incubation center:  Your Gateway to Startup Success."
         description={
           <>
-            Lorem ipsum dolor sit amet consectetur adipisicing quidem possimus
-            dolorum sed est facilis eaque Vitae ea unde ex molestiae labore sint
-            aperiam reprehenderit officia voluptatum <br /> <br />
-            <ul>
-              <li>Facility 1</li>
-              <li>Facility 2</li>
-              <li>Facility 3</li>
+            Welcome to our incubation center, where startups grow and turn their boldest dreams into reality.
+            We fill every gap and handle essential elements, allowing you to focus on innovation.
+            Our comprehensive support includes investor networking, market strategy development, financial coaching, and training.
+            With our expert guidance, we transform potential into performance, helping you succeed faster and shine brighter. 
+            Your startup’s success is our passion and ultimate goal. Our support includes:
+            <br /> 
+            <ul className=" pl-12">
+              <li>Investor networking</li>
+              <li>Market strategy development</li>
+              <li>Financial coaching</li>
+              <li>Comprehensive training</li>
             </ul>
+            
           </>
         }
       />
@@ -42,12 +47,26 @@ const Page = () => {
       </div>
       <div className='md:grid md:grid-cols-3 space-y-4 md:space-y-0'>
         <Card
-          title='Test'
-          description='lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.'
+          title='Leadership and Management'
+          description='Training in this area focuses on developing skills to inspire and guide teams, manage resources effectively, and make strategic decisions to drive startup success.'
           img={
             <Image
               className='rounded-t-lg'
-              src='/peep-35.svg'
+              src='https://media.istockphoto.com/id/1473642411/photo/happy-business-leader-talking-to-group-of-his-colleagues-on-a-seminar-in-board-room.jpg?s=612x612&w=0&k=20&c=wrMbY6cJmqSukmZACmfrkHcas5S9L8VCyeppKcOMXpo='
+              alt=''
+              width={100}
+              height={0}
+            />
+          }
+        />
+        
+        <Card
+          title='Marketing and Sales'
+          description='This training covers strategies to promote products, generate leads, and convert them into sales, helping startups build their brand and drive revenue growth.'
+          img={
+            <Image
+              className='rounded-t-lg'
+              src='https://media.istockphoto.com/id/1314304121/photo/side-view-happy-business-partners-shaking-hands-making-deal.jpg?s=612x612&w=0&k=20&c=tzrJLGSbKQSMQf_kSimS39MJsh_SMoV-9TAscSw6GHk='
               alt=''
               width={100}
               height={0}
@@ -55,25 +74,12 @@ const Page = () => {
           }
         />
         <Card
-          title='Test'
-          description='lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.'
+          title='Product Development'
+          description='We provide guidance on creating and refining products, from ideation and design to testing and launch, ensuring they meet market needs and drive innovation.'
           img={
             <Image
               className='rounded-t-lg'
-              src='/peep-35.svg'
-              alt=''
-              width={100}
-              height={0}
-            />
-          }
-        />
-        <Card
-          title='Test'
-          description='lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.'
-          img={
-            <Image
-              className='rounded-t-lg'
-              src='/peep-35.svg'
+              src='https://media.istockphoto.com/id/1322157962/photo/groups-of-young-man-who-talking-together-to-discuss-the-work-in-the-workplace.jpg?s=612x612&w=0&k=20&c=33t8hk1NDm2DHuQFyY-m9NaPkFmdEsOeFFQX4LgqXNU='
               alt=''
               width={100}
               height={0}

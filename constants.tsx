@@ -245,23 +245,23 @@ export const features = [
   {
     title: "Pre Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "Before entering our incubation center, startups must submit their proposals following the provided instructions. This ensures we understand your vision and can tailor our support to meet your specific needs.",
     srcImage:
-      "https://images.unsplash.com/photo-1717501219781-54ac9d09051b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8N3x8fGVufDB8fHx8fA%3D%3D",
+      "https://media.istockphoto.com/id/2160446868/photo/document-management-system-concept-businessman-working-laptop-virtual-screen-icons-folder-and.jpg?s=612x612&w=0&k=20&c=5JSrBpWPI102Gl2dNUWu6yqRmFw8-3Q0Vk1jt8TXuN8=",
   },
   {
     title: "During Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "At our incubation center, startups get targeted support to boost growth. We connect you with investors, develop market strategies, offer financial coaching, and provide essential training. Our goal is to address your key needs, so you can focus on innovation and drive your success",
     srcImage:
-      "https://images.unsplash.com/photo-1717501219074-943fc738e5a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8fA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1661416307260-5013ab7adc3f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb2dyYW1tZXIlMjBsYWJ8ZW58MHx8MHx8fDA%3D",
   },
   {
     title: "Post Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "After the incubation period, startups transition to the next phase of their journey. We continue to support them through follow-up mentorship, networking opportunities, and resources to ensure a smooth transition to scaling their business. Our aim is to help startups sustain their success, navigate new challenges, and achieve long-term growth.",
     srcImage:
-      "https://images.unsplash.com/photo-1717501218636-a390f9ac5957?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8fA%3D%3D",
+      "https://media.istockphoto.com/id/1465094822/photo/business-development-discussion-panel.jpg?s=612x612&w=0&k=20&c=EI-XUIFv0aPKkGqoLLeDYW-3di49ULhH1hT3N7Xl1VE=",
   },
 ];
 
@@ -509,20 +509,29 @@ export const reviews = [
 export const focusArea = [
   {
     image:
-      "https://images.pexels.com/photos/5088009/pexels-photo-5088009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tab: "Education",
-    contentTitle: "Lorem ipsum dolor",
+      "https://modernofficesystems.com/wp-content/uploads/Farm-One-0021-HighRes_preview.jpeg",
+    tab: "Agro-tech",
+    contentTitle: "Agricultural Technology",
     contentDesc:
-      "hehakjhjadfadjcimus, magni iure a repudiandae molestias nemo voluptatibus voluptas earum excepturi architecto, iusto necessitatibus sequi perferendis veritatis! Voluptatem?",
+      "In the agrotech sector, our incubation program is dedicated to advancing agricultural technologies that enhance productivity and sustainability. We support startups in creating innovative smart farming solutions, integrating technology with traditional agricultural practices, and addressing challenges such as resource management and climate adaptation. Our focus includes developing solutions for precision agriculture, farm automation, and supply chain optimization. We provide expertise in navigating industry-specific regulations and connecting with stakeholders to drive technological advancements in agriculture.",
   },
   {
     image:
-      "https://images.pexels.com/photos/5088009/pexels-photo-5088009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tab: "Education",
-    contentTitle: "Lorem ipsum dolor",
+      "https://lifeboat.com/blog.images/artificial-intelligence-construction-technologys-next-frontier.jpg",
+    tab: "Artificial intelligence",
+    contentTitle: "Artificial intelligence",
     contentDesc:
-      "hehakjhjadfadjcimus, magni iure a repudiandae molestias nemo voluptatibus voluptas earum excepturi architecto, iusto necessitatibus sequi perferendis veritatis! Voluptatem?",
+      "For startups focused on artificial intelligence, our program offers comprehensive guidance on developing and implementing cutting-edge AI technologies. We assist in optimizing machine learning models, managing and analyzing large datasets, and integrating AI solutions into practical applications. Our support extends to addressing ethical considerations and ensuring responsible AI practices. We provide hands-on training with the latest AI tools and technologies, strategic insights for scaling AI solutions, and practical advice on navigating the competitive landscape of AI development.",
   },
+  {
+    image:
+      "https://th.bing.com/th/id/OIP._3ThLmnK_OYZA0q6XonRxgHaEc?w=263&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    tab: "Fintech",
+    contentTitle: "Financial Technology",
+    contentDesc:
+      "Our incubation program provides startups in the fintech sector with specialized expertise to navigate the complexities of financial technologies. We offer in-depth support in developing and refining innovative payment solutions, ensuring regulatory compliance, and leveraging emerging technologies. Our program also focuses on crafting effective market entry strategies, connecting startups with potential investors, and refining business models to address the evolving needs of the financial industry. We aim to empower fintech startups to drive financial innovation and achieve sustainable growth.",
+  },
+  
 ];
 
 export const objectives = [
