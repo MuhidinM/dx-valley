@@ -70,7 +70,7 @@ const Page = () => {
       {/* <FocusAreas items={focusArea} /> */}
       <Header />
       <Card
-        img={""}
+        img={<SVG1 />}
         title={"Deboo"}
         buttonText={"Visit Site"}
         buttonText2={"Read More"}
