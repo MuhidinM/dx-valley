@@ -14,21 +14,31 @@ const Page = () => {
       <Hero />
       <SectionRight
         svg={<SVG1 />}
-        title="Let's create more tools and ideas that brings us together."
-        description=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-            quidem possimus dolorum sed est facilis eaque laborum. Vitae ea unde
-            eaque, ex molestiae labore sint aperiam reprehenderit officia
-            voluptatum esse!"
-        buttonText="Call to Action"
+        title="Incubation center:Your Gateway to Startup Success"
+        // description=" Ignite Your Startup Journey with Expert Guidance.
+        //  Turn your ideas into impactful businesses with tailored training, 
+        // coaching, and access to a network of investors and consultants!"
+        description="Our Incubation center is a dynamic ecosystem designed to empower 
+        aspiring entrepreneurs at every stage of their journey. We offer comprehensive training
+         programs to sharpen your skills, personalized coaching tailored to your unique challenges, 
+         and direct connections to a network of seasoned investors. 
+        Our expert consultancy services ensure that your startup idea is nurtured and refined, 
+        transforming your vision into a thriving business. Whether you're 
+        just starting out or have just idea, our Incubation center provides the  guidance,
+         and support you need to succeed"
+        buttonText="Explore the Incubation center"
       />
       <SectionLeft
         svg={<SVG2 />}
         title="Let's create more tools and ideas that brings us together."
-        description=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-            quidem possimus dolorum sed est facilis eaque laborum. Vitae ea unde
-            eaque, ex molestiae labore sint aperiam reprehenderit officia
-            voluptatum esse!"
-        buttonText="Call to Action"
+        description="Our Innovation Hub is a center of excellence for developing 
+        cutting-edge in-house products and forming strategic partnerships with both
+         financial and non-financial partners. We are committed to creating a dependable 
+         financial environment that drives industry innovation while also providing customers 
+         with secure and seamless services. By merging varied knowledge and resources, 
+         our Innovation Hub stands at the forefront of building a future in which businesses prosper
+         and customers enjoy unprecedented security and convenience."
+        buttonText="Explore Our Solutions"
       />
       <Offer />
       <Stats items={stats} />

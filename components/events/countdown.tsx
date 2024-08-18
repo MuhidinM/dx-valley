@@ -14,9 +14,15 @@ import { Button } from "../ui/button";
 
 interface ContestCardProps {
   event: Event;
+  onTimeLeftCalculated?: (timeLeft: string) => void;
+  renderUI?: boolean;
 }
 
-const Countdown: React.FC<ContestCardProps> = ({ event }) => {
+const Countdown: React.FC<ContestCardProps> = ({
+  event,
+  onTimeLeftCalculated,
+  renderUI = true,
+}) => {
   const [timeLeft, setTimeLeft] = useState("");
   const [eventHasPassed, setEventHasPassed] = useState(false);
 
@@ -32,7 +38,13 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
         const minutes = Math.floor((difference / 1000 / 60) % 60);
         const seconds = Math.floor((difference / 1000) % 60);
 
-        setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        const calculatedTimeLeft = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        setTimeLeft(calculatedTimeLeft);
+
+        if (onTimeLeftCalculated) {
+          onTimeLeftCalculated(calculatedTimeLeft);
+        }
       } else {
         setTimeLeft("Event has passed");
         setEventHasPassed(true);
@@ -43,9 +55,12 @@ const Countdown: React.FC<ContestCardProps> = ({ event }) => {
     const timerId = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timerId);
-  }, [event.targetDate]);
+  }, [event.targetDate, onTimeLeftCalculated]);
 
   if (eventHasPassed) {
+    return null;
+  }
+  if (!renderUI) {
     return null;
   }
 
