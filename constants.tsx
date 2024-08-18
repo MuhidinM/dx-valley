@@ -83,6 +83,12 @@ export const menuItems = [
   },
 ];
 
+export const overview = [
+{
+  description: "Dx Valley is a platform that facilitates innovation and collaboration. It provides an interactive platform for innovation and collaboration.",
+}
+]
+
 export const SVG1 = () => (
   <svg
     viewBox='0 0 200 200'
@@ -245,31 +251,31 @@ export const features = [
   {
     title: "Pre Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "Filterign Methods ",
     srcImage:
       "https://images.unsplash.com/photo-1717501219781-54ac9d09051b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8N3x8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "During Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "Space, training options.",
     srcImage:
       "https://images.unsplash.com/photo-1717501219074-943fc738e5a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Post Incubation",
     content:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
+      "Stake holder opportunities and partnerships.",
     srcImage:
       "https://images.unsplash.com/photo-1717501218636-a390f9ac5957?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
 export const stats = [
-  { value: "73", label: "Developers" },
-  { value: "17", label: "Contributors" },
-  { value: "4", label: "Organizations" },
-  { value: "10", label: "Open Seats" },
+  { value: "73", label: "Incubated Projects" },
+  { value: "17", label: "Partnerships" },
+  { value: "4", label: "Launched StartUps" },
+  // { value: "10", label: "Open Seats" },
   { value: "21", label: "Trainers" },
 ];
 
@@ -290,8 +296,8 @@ export const reviews = [
         />
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review One",
+    link: "www.google.com",
   },
   {
     id: 2,
@@ -309,8 +315,8 @@ export const reviews = [
         />
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review Two",
+    link: "www.google.com",
   },
   {
     id: 3,
@@ -338,8 +344,8 @@ export const reviews = [
         </defs>
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review Three",
+    link: "www.google.com",
   },
   {
     id: 4,
@@ -505,6 +511,66 @@ export const reviews = [
     link: "",
   },
 ];
+
+export const divisions = [
+  {
+    title: "Innovation Hub",
+    href: "/innovationhub",
+  },
+  {
+    title: "Incubation Lab",
+    href: "/incubationcenter",
+  },
+  {
+    title: "Coop Bank",
+    href: "www.coopbankoromia.com.et",
+  },
+];
+
+
+export const otherLinks = [
+  {
+    title: "News",
+    href: "/news",
+  },
+  {
+    title: "Call For StartUps",
+    href: "/call",
+  },
+  {
+    title: "Licence Registration",
+    href: "licence",
+  },
+  {
+    title: "Stake Holders",
+    href: "/stakeholders",
+  },
+  {
+    title: "Funding",
+    href: "licence",
+  },
+  {
+    title: "Social Media",
+    href: "/socialmedia",
+  },
+  {
+    title: "Projects",
+    href: "licence",
+  },
+  {
+    title: "Events",
+    href: "/events",
+  },
+  {
+    title: "Filtering Criterias",
+    href: "licence",
+  },
+  {
+    title: "Gallery",
+    href: "/gallery",
+  },
+];
+
 
 export const focusArea = [
   {

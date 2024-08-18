@@ -5,14 +5,19 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { divisions, otherLinks } from "@/constants";
 
+
+const divisionItems = divisions
+
+const otherLinksItems = otherLinks
 const Footer = () => {
   return (
     <footer className='font-sans bg-coopBlue text-white'>
       <div className='mx-auto max-w-screen-xl px-4 '>
         <div className='border-b border-gray-100 py-4 dark:border-gray-700 md:py-4 lg:py-12'>
           <div className='items-start gap-6 md:gap-8 lg:flex'>
-            <div className='grid min-w-0 flex-1 grid-cols-1 gap-16 md:gap-12 xl:grid-cols-3 p-6'>
+            <div className='grid min-w-0 flex-1 grid-cols-1 gap-6 md:gap-16 xl:grid-cols-3 p-6'>
               <div>
                 <h6 className=' font-sans mb-4 text-xl font-extrabold '>
                   About{"  "}
@@ -56,37 +61,41 @@ const Footer = () => {
                   sit amet consectetur adipisicing elit.
                 </p>
               </div>
-
               <div>
+                {" "}
                 <h6 className='mb-4 text-xl font-sans font-extrabold text-white '>
                   Divisions
                 </h6>
-                <ul className='space-y-3 font-sans text-white'>
-                  <li>
-                    <Link
-                      href='#'
-                      title=''
-                      className='text-white hover:text-white'>
-                      test
-                    </Link>
-                  </li>
-                </ul>
+                {divisionItems?.map((divisionItems) => (
+                  <ul className='space-y-3 font-sans text-white'>
+                    <li>
+                      <Link
+                        href={divisionItems.href}
+                        title=''
+                        className='text-white hover:text-white'>
+                        {divisionItems.title}
+                      </Link>
+                    </li>
+                  </ul>
+                ))}
               </div>
 
               <div>
                 <h6 className='mb-4 text-xl font-sans font-extrabold '>
                   Other Links
                 </h6>
-                <ul className='space-y-3'>
-                  <li>
-                    <Link
-                      href='#'
-                      title=''
-                      className='text-white font-sans hover:text-white'>
-                      test
-                    </Link>
-                  </li>
-                </ul>
+                {otherLinksItems?.map((otherLinks) => (
+                  <ul className='space-y-3 font-sans text-white'>
+                    <li>
+                      <Link
+                        href={otherLinks.href}
+                        title=''
+                        className='text-white hover:text-white'>
+                        {otherLinks.title}
+                      </Link>
+                    </li>
+                  </ul>
+                ))}
               </div>
               {/* <div>
                 <h6 className='mb-4 text-xl font-extrabold '>Contact Info</h6>
