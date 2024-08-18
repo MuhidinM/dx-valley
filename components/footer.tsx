@@ -112,7 +112,7 @@ const Footer = () => {
               <div className='space-y-5 rounded-lg p-6'>
                 <form action='#'>
                   <div className='items-end space-y-4 sm:flex sm:space-y-0'>
-                    <div className='relative mr-3 w-full sm:w-96 lg:w-full space-y-2'>
+                    <div className='relative mr-3 w-full sm:w-96 lg:w-full space-y-2 text-black' >
                       {/* <label className='font-sans mb-2 block text-sm font-medium text-white'>
                         Get the latest deals and more.
                       </label> */}

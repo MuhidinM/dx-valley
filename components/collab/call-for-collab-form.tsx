@@ -119,33 +119,69 @@ const CollabForm = () => {
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
-          <CardDescription className='flex mb-10'>Description</CardDescription>
+          <CardDescription className='flex mb-10'>Write to Us!</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={(e) => e.preventDefault()}>
             <div className='grid w-full gap-4 md:grid-cols-2 mb-4'>
               <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='name'>Name</Label>
+                <Label htmlFor='name'>Full Name</Label>
                 <Input
                   type='text'
-                  placeholder='Event Name'
+                  // placeholder='Event Name'
                   value={""}
                   onChange={(e) => <div> hello </div>}
                   required
                   className='w-full'
                 />
               </div>
-              <div className='flex flex-col space-y-1.5 md:col-span-2'>
-                <Label htmlFor='description'>Description</Label>
-                <Textarea
-                  placeholder='Event Description'
-                  value={"description"}
+              <div className='flex flex-col space-y-1.5'>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  type='text'
+                  // placeholder='Event Name'
+                  value={""}
                   onChange={(e) => <div> hello </div>}
                   required
                   className='w-full'
                 />
               </div>
               <div className='flex flex-col space-y-1.5'>
+                <Label htmlFor='phoneNo'>Phone Number</Label>
+                <Input
+                  type='text'
+                  // placeholder='Event Name'
+                  value={""}
+                  onChange={(e) => <div> hello </div>}
+                  required
+                  className='w-full'
+                />
+              </div>
+              <div className='flex flex-col space-y-1.5'>
+                <Label htmlFor='category'>Catagory</Label>
+                <Select className='w-full' value={"contest"}>
+                  <SelectTrigger id='category'>
+                    <SelectValue placeholder='Select' />
+                  </SelectTrigger>
+                  <SelectContent position='popper'>
+                    <SelectItem value='trainer'>Trainer</SelectItem>
+                    <SelectItem value='organizer'>Organizer</SelectItem>
+                    <SelectItem value='trainer'>Media</SelectItem>
+                    <SelectItem value='organizer'>Stake Holder</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className='flex flex-col space-y-1.5 md:col-span-2'>
+                <Label htmlFor='description'>Description</Label>
+                <Textarea
+                   placeholder='Why do you want to work with us? '
+                  value={""}
+                  onChange={(e) => <div> hello </div>}
+                  required
+                  className='w-full'
+                />
+              </div>
+              {/* <div className='flex flex-col space-y-1.5'>
                 <Label htmlFor='target-date'>Target date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -157,19 +193,7 @@ const CollabForm = () => {
                   </PopoverTrigger>
                   <PopoverContent className='w-auto p-0'></PopoverContent>
                 </Popover>
-              </div>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='category'>Event Category</Label>
-                <Select className='w-full' value={"contest"}>
-                  <SelectTrigger id='category'>
-                    <SelectValue placeholder='Select' />
-                  </SelectTrigger>
-                  <SelectContent position='popper'>
-                    <SelectItem value='contest'>Contest</SelectItem>
-                    <SelectItem value='tech expo'>Tech Expo</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              </div> */}
             </div>
             <Button className='admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4'>
               Submit
