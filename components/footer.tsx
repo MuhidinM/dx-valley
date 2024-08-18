@@ -50,10 +50,10 @@ const Footer = () => {
                   </li>
                 </ul> */}
                 <p className='flex font-sans text-white'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-                  ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor
-                  sit amet consectetur adipisicing elit.
+                At DXValley, we drive digital transformation by empowering 
+                businesses with cutting-edge innovation and strategic collaboration. 
+                Our mission is to create a thriving ecosystem where technology 
+                and industry converge to shape a secure and sustainable future.
                 </p>
               </div>
 

@@ -7,22 +7,22 @@ const Offer = () => {
     {
       image: "/peep-35.svg",
       title: "Training",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
+      desc: "Empower your entrepreneurial journey with our comprehensive training programs. We provide you with the essential skills, knowledge, and tools needed to transform your innovative ideas into successful ventures.",
     },
     {
       image: "/peep-sitting-14.svg",
       title: "Coaching and Mentoring",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
+      desc: "Benefit from personalized coaching and mentoring by industry experts. Our tailored guidance helps you navigate challenges, refine your strategy, and accelerate your startup's growth",
     },
     {
       image: "/peep-103.svg",
       title: "Linkage and Awards",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
+      desc: "Gain access to a network of investors and industry leaders through our strategic linkages. We also recognize and reward outstanding startups, providing them with the visibility and support needed to succeed",
     },
     {
       image: "/peep-72.svg",
       title: "Consultancy",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque dignissimos. Molestias explicabo corporis voluptatem?",
+      desc: "Leverage our expert consultancy services to fine-tune your business model, optimize operations, and ensure sustainable growth. Our consultants work closely with you to turn your vision into reality",
     },
   ];
   return (
