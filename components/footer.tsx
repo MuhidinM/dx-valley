@@ -1,7 +1,7 @@
 /** @format */
-
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -11,7 +11,27 @@ import { divisions, otherLinks } from "@/constants";
 const divisionItems = divisions
 
 const otherLinksItems = otherLinks
+
+
 const Footer = () => {
+  const [email, setEmail] = useState("");
+const handleSubmit = async (e: { preventDefault: () => void }) => {
+e.preventDefault();
+    const response = await fetch("/api/subscriber", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+if (response.ok) {
+      alert("subscribed successfully!");
+      setEmail("");
+    } else {
+      alert("Failed to be subscribed!");
+    }
+  };
+
   return (
     <footer className='font-sans bg-coopBlue text-white'>
       <div className='mx-auto max-w-screen-xl px-4 '>
@@ -67,6 +87,7 @@ const Footer = () => {
                   Divisions
                 </h6>
                 {divisionItems?.map((divisionItems) => (
+                  // eslint-disable-next-line react/jsx-key
                   <ul className='space-y-3 font-sans text-white'>
                     <li>
                       <Link
@@ -85,6 +106,7 @@ const Footer = () => {
                   Other Links
                 </h6>
                 {otherLinksItems?.map((otherLinks) => (
+                  // eslint-disable-next-line react/jsx-key
                   <ul className='space-y-3 font-sans text-white'>
                     <li>
                       <Link
@@ -110,7 +132,7 @@ const Footer = () => {
           <div className='mt-0 flex justify-end'>
             <div className='mt-4 w-full md:mt-0 lg:mt-0 lg:max-w-lg justify-end'>
               <div className='space-y-5 rounded-lg p-6'>
-                <form action='#'>
+                <form  onSubmit={handleSubmit} >
                   <div className='items-end space-y-4 sm:flex sm:space-y-0'>
                     <div className='relative mr-3 w-full sm:w-96 lg:w-full space-y-2 text-black' >
                       {/* <label className='font-sans mb-2 block text-sm font-medium text-white'>

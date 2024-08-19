@@ -4,15 +4,19 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Subscriber {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+}
 
 model event {
   id          Int      @id @default(autoincrement())
