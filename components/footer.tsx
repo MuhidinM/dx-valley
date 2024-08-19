@@ -1,13 +1,31 @@
 /** @format */
-
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { collaborations, divisions, events, otherLinks } from "@/constants";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+const handleSubmit = async (e: { preventDefault: () => void }) => {
+e.preventDefault();
+    const response = await fetch("/api/subscriber", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+if (response.ok) {
+      alert("subscribed successfully!");
+      setEmail("");
+    } else {
+      alert("Failed to be subscribed!");
+    }
+  };
+
   return (
     <footer className="font-sans bg-coopBlue text-white">
       <div className="mx-auto max-w-screen-xl px-4 ">
@@ -118,6 +136,51 @@ const Footer = () => {
                       {event.title}
                     </Link>
                   </li>
+
+                </ul> */}
+                <p className='flex font-sans text-white'>
+                At DxValley, we drive digital transformation by empowering 
+                businesses with cutting-edge innovation and strategic collaboration. 
+                Our mission is to create a thriving ecosystem where technology 
+                and industry converge to shape a secure and sustainable future.
+                </p>
+              </div>
+              <div>
+                {" "}
+                <h6 className='mb-4 text-xl font-sans font-extrabold text-white '>
+                  Divisions
+                </h6>
+                {divisionItems?.map((divisionItems) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <ul className='space-y-3 font-sans text-white'>
+                    <li>
+                      <Link
+                        href={divisionItems.href}
+                        title=''
+                        className='text-white hover:text-white'>
+                        {divisionItems.title}
+                      </Link>
+                    </li>
+                  </ul>
+                ))}
+              </div>
+
+              <div>
+                <h6 className='mb-4 text-xl font-sans font-extrabold '>
+                  Other Links
+                </h6>
+                {otherLinksItems?.map((otherLinks) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <ul className='space-y-3 font-sans text-white'>
+                    <li>
+                      <Link
+                        href={otherLinks.href}
+                        title=''
+                        className='text-white hover:text-white'>
+                        {otherLinks.title}
+                      </Link>
+                    </li>
+                  </ul>
                 ))}
               </ul>
             </div>

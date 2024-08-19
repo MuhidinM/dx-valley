@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
+import { PrismaClient } from '../../../node_modules/.prisma/client';
 const prisma = new PrismaClient();
-
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { name, description, targetDate, category } = await req.json();
-
     const newEvent = await prisma.event.create({
       data: {
         name,
@@ -15,7 +12,6 @@ export async function POST(req: Request): Promise<NextResponse> {
         category,
       },
     });
-
     return NextResponse.json(
       { message: "Event registered", event: newEvent },
       { status: 201 }
@@ -35,15 +31,12 @@ export async function POST(req: Request): Promise<NextResponse> {
     await prisma.$disconnect();
   }
 }
-
 export async function GET(): Promise<NextResponse> {
   try {
     const events = await prisma.event.findMany();
-
     return NextResponse.json(events, { status: 200 });
   } catch (error: any) {
     console.error("Error fetching events:", error);
-
     return NextResponse.json(
       { message: "Error fetching events", error: error.message },
       { status: 500 }
