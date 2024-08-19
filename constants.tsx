@@ -4,6 +4,7 @@ import incubationPhoto from "@/public/image/incubation-center.png";
 import souqpassPhoto from "@/public/image/souqpass.png";
 import debboPhoto from "@/public/image/debbo.png";
 import streamPhoto from "@/public/image/coop-stream.png";
+import diasporaPhoto from "@/public/image/diaspora.png";
 import michuPhoto from "@/public/image/MICHU.png";
 
 export const menuItems = [
@@ -298,6 +299,12 @@ export const reviews = [
   {
     id: 4,
     img: <Image src={michuPhoto} width={100} alt="incubation" />,
+    name: "",
+    link: "",
+  },
+  {
+    id: 5,
+    img: <Image src={diasporaPhoto} width={100} alt="incubation" />,
     name: "",
     link: "",
   },
