@@ -5,11 +5,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./modeToggle";
 import { MenuIcon } from "lucide-react";
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from "next/navigation"; // Updated import
 
 const Navbar = () => {
-  const router = useRouter();
+  const router = useRouter(); // Hook to use router
+
   return (
     <header>
       <nav className="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-900">
@@ -20,10 +20,12 @@ const Navbar = () => {
             </span>
           </Link>
           <div className="flex items-center lg:order-2 space-x-2">
-             <ModeToggle />
+            <ModeToggle />
             <Button
               className="bg-coopBlue hover:bg-coopBlueHover"
-              onClick={() => router.push("/callforproposal")}
+              onClick={() => {
+                router.push("/callforproposal");
+              }}
             >
               Call for Proposal
             </Button>

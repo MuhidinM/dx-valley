@@ -2,9 +2,6 @@ import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import { reviews } from "@/constants";
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
-
 const Companies = ({ img }: { img: string }) => {
   return (
     <figure
@@ -26,7 +23,7 @@ export function SlidingCompanies() {
 
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background">
         <Marquee pauseOnHover className="[--duration:20s]">
-          {firstRow.map((review) => (
+          {reviews.map((review) => (
             <Companies key={review.id} {...review} />
           ))}
         </Marquee>

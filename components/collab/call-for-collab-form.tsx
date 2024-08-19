@@ -70,9 +70,8 @@
 //     </Form>
 //   );
 // }
-
 "use client";
-import { useRouter } from "next/router";
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -92,32 +91,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "../ui/textarea";
-
 import { Button } from "../ui/button";
-import { format } from "date-fns";
-
-import { Calendar as CalendarIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 const CollabForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState(""); 
+  const [phoneNo, setPhoneNo] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+
   return (
     <div
-      className='admin-event mx-8  flex w-3/4 justify-center p-6 '
-      id='#collab-form'>
-      <Card className=' w-auto items-center p-10 '>
+      className='admin-event mx-8 flex w-3/4 justify-center p-6 '
+      id='collab-form'>
+      <Card className='w-auto items-center p-10'>
         <CardHeader>
           <CardTitle className='flex-col justify-center items-center mb-10'>
-            <span className=' flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Collaboration Form
             </span>
-            <div className='flex justify-center '>
+            <div className='flex justify-center'>
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
@@ -130,9 +123,8 @@ const CollabForm = () => {
                 <Label htmlFor='name'>Full Name</Label>
                 <Input
                   type='text'
-                  // placeholder='Event Name'
-                  value={""}
-                  onChange={(e) => <div> hello </div>}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                   className='w-full'
                 />
@@ -140,10 +132,9 @@ const CollabForm = () => {
               <div className='flex flex-col space-y-1.5'>
                 <Label htmlFor='email'>Email</Label>
                 <Input
-                  type='text'
-                  // placeholder='Event Name'
-                  value={""}
-                  onChange={(e) => <div> hello </div>}
+                  type='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className='w-full'
                 />
@@ -152,53 +143,42 @@ const CollabForm = () => {
                 <Label htmlFor='phoneNo'>Phone Number</Label>
                 <Input
                   type='text'
-                  // placeholder='Event Name'
-                  value={""}
-                  onChange={(e) => <div> hello </div>}
+                  value={phoneNo}
+                  onChange={(e) => setPhoneNo(e.target.value)}
                   required
                   className='w-full'
                 />
               </div>
               <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='category'>Catagory</Label>
-                <Select  value={"contest"}>
+                <Label htmlFor='category'>Category</Label>
+                <Select value={category} onValueChange={setCategory}>
                   <SelectTrigger id='category'>
                     <SelectValue placeholder='Select' />
                   </SelectTrigger>
                   <SelectContent position='popper'>
                     <SelectItem value='trainer'>Trainer</SelectItem>
                     <SelectItem value='organizer'>Organizer</SelectItem>
-                    <SelectItem value='trainer'>Media</SelectItem>
-                    <SelectItem value='organizer'>Stake Holder</SelectItem>
+                    <SelectItem value='media'>Media</SelectItem>{" "}
+                    {/* Fixed duplicate keys */}
+                    <SelectItem value='stakeholder'>Stakeholder</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className='flex flex-col space-y-1.5 md:col-span-2'>
                 <Label htmlFor='description'>Description</Label>
                 <Textarea
-                  placeholder='Why do you want to work with us? '
-                  value={""}
-                  onChange={(e) => <div> hello </div>}
+                  placeholder='Why do you want to work with us?'
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
                   className='w-full'
                 />
               </div>
-              {/* <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='target-date'>Target date</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className='w-full justify-start text-left font-normal'>
-                      <CalendarIcon className='mr-2 h-4 w-4' />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className='w-auto p-0'></PopoverContent>
-                </Popover>
-              </div> */}
             </div>
             <div className='md:items-center md:justify-center'>
-              <Button className=' bg-coopBlue text-white  font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4'>
+              <Button
+                type='submit'
+                className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4'>
                 Submit
               </Button>
             </div>
