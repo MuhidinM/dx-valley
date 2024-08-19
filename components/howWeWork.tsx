@@ -8,7 +8,6 @@ const HowWeWorkSection = () => {
     <div className='container mx-auto px-40 items-center justify-center'>
       <section className='relative py-10 lg:py-20'>
         <div className='container mx-auto py-10'>
-          
           <div className='text-center'>
             <h2 className='text-4xl font-bold'>
               <span className='text-coopBlue'>How</span> We Work
@@ -18,8 +17,8 @@ const HowWeWorkSection = () => {
             </div>
           </div>
 
-          <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center   '>
-            <div className='lg:w-1/3 w-full mb-8 lg:mb-3'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center md:items-center md:justify-center    '>
+            <div className='lg:w-1/3 w-full mb-8 lg:mb-3 items-center justify-center '>
               <Image
                 src='/image/doctor.png'
                 alt=''
@@ -29,24 +28,30 @@ const HowWeWorkSection = () => {
                 id='image1'
               />
             </div>
-            <div className='lg:w-2/3 w-full relative'>
+            <div className='lg:w-2/3 w-full '>
               <div className='flex items-center mb-4'>
                 <span className='h-4 w-4 bg-coopBlue rounded-full'></span>
                 <h4 className='text-2xl font-semibold ml-4' id='title1'>
-                  IDEATION
+                  Ideation
                 </h4>
               </div>
-              <p className='mt-5 mb-3' id='description_11'>
-                Donec mi nulla, auctor nec sem a, ornare auctor m faucibus orci
-                luctus et ultrices posuere cubilia Curai. Sed mi tortor, commodo
-                a felis in, fringilla tincidunt nulla.
-              </p>
-              <p id='description_12'>
-                fringilla tincidunt nulla onec mi nulla, auctor nec sem a,
-                ornare auctor m faucibus orci luctus et ultrices posuere cubilia
-                Curai. Sed mi tortor, commodo a felis in.
-              </p>
-              <div className='process-direction'>
+
+              <div className='mt-5 mb-3 w-full text-left'>
+                <p id='description_11 '>
+                  An innovation hub's ideation process begins with structured
+                  brainstorming sessions, hackathons, and innovation challenges
+                  to stimulate creativity and collaboration. By fostering a
+                  culture of openness and curiosity, the hub encourages team
+                  members to propose a wide array of ideas. After generating
+                  ideas, the hub evaluates and prioritizes them based on
+                  feasibility, market potential, and alignment with
+                  organizational goals. Initial screening filters out less
+                  viable ideas, while promising concepts undergo detailed
+                  feasibility studies and risk assessments.
+                </p>
+              </div>
+
+              {/* <div className='process-direction'>
                 <svg
                   className='absolute'
                   width='100%'
@@ -63,7 +68,7 @@ const HowWeWorkSection = () => {
                     strokeDasharray='5,5'
                   />
                 </svg>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -75,23 +80,26 @@ const HowWeWorkSection = () => {
                 </h4>
                 <span className='h-4 w-4 bg-coopBlue rounded-full'></span>
               </div>
-              <ul className='mt-5 mb-3 list-none' id='work_1'>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Cras justo odio
-                </li>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Dapibus ac facilisis
-                </li>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Morbi leo risus
-                </li>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Porta ac consectetur
-                </li>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Vestibulum at eros
-                </li>
-              </ul>
+              <div className='mt-5 mb-3 w-full text-left list-dis'>
+                <ul className='mt-5 mb-3 list-none list-dis' id='work_2'>
+                  <li className='flex items-center mb-2'>
+                    <i className='fas fa-check mr-3'></i>Idea Generation
+                  </li>
+                  <li className='flex items-center mb-2'>
+                    <i className='fas fa-check mr-3'></i>Idea Evaluation
+                  </li>
+                  <li className='flex items-center mb-2'>
+                    <i className='fas fa-check mr-3'></i>Prototyping and Testing
+                  </li>
+                  <li className='flex items-center mb-2'>
+                    <i className='fas fa-check mr-3'></i>Collaboration and
+                    Development
+                  </li>
+                  <li className='flex items-center mb-2'>
+                    <i className='fas fa-check mr-3'></i>Monitoring and Metrics
+                  </li>
+                </ul>
+              </div>
             </div>
             <div className='lg:w-1/3 w-full'>
               <Image
@@ -123,17 +131,18 @@ const HowWeWorkSection = () => {
                   Production
                 </h4>
               </div>
-              <p className='mt-5 mb-3' id='description_21'>
-                Fringilla tincidunt nulla onec mi nulla, auctor nec sem a,
-                ornare auctor m faucibus orci luctus et ultrices posuere cubilia
-                Curai. Sed mi tortor, commodo a felis in.
-              </p>
-              <p id='description_22'>
-                Donec mi nulla, auctor nec sem a, ornare auctor m faucibus orci
-                luctus et ultrices posuere cubilia Curai. Sed mi tortor, commodo
-                a felis in, fringilla tincidunt nulla.
-              </p>
-              <div className='process-direction2'></div>
+              <div className='mt-5 mb-3 w-full text-left'>
+                <p id='description_11 '>
+                  Cross-functional teams are assembled to bring diverse
+                  expertise to the project, ensuring all aspects from design to
+                  functionality are addressed. Prototypes and minimum viable
+                  products (MVPs) are created and iteratively tested,
+                  incorporating feedback from stakeholders and potential users.
+                  Once the product meets the required standards and goals, it is
+                  scaled for full production.
+                </p>
+              </div>
+              {/* <div className='process-direction2'></div> */}
             </div>
           </div>
 
@@ -145,24 +154,25 @@ const HowWeWorkSection = () => {
                 </h4>
                 <span className='h-4 w-4 bg-coopBlue rounded-full'></span>
               </div>
-              <ul className='mt-5 mb-3 list-none' id='work_2'>
-                <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Cras justo odio
+              <ul className='mt-5 mb-3 list-disc' id='work_2'>
+                <li className='flex items-center mb-2 list-dis'>
+                  <i className='fas fa-check mr-3'></i> Initial Screening
                 </li>
                 <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Dapibus ac facilisis
+                  <i className='fas fa-check mr-3'></i>Detailed Feasibility
+                  Analysis
                 </li>
                 <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Morbi leo risus
+                  <i className='fas fa-check mr-3'></i>Risk Assessment
                 </li>
                 <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Porta ac consectetur
+                  <i className='fas fa-check mr-3'></i>Decision-Making
                 </li>
                 <li className='flex items-center mb-2'>
-                  <i className='fas fa-check mr-3'></i>Vestibulum at eros
+                  <i className='fas fa-check mr-3'></i>Feedback Loop
                 </li>
               </ul>
-              <div className='process-direction-last'></div>
+              {/* <div className='process-direction-last'></div> */}
             </div>
             <div className='lg:w-1/3 w-full'>
               <Image

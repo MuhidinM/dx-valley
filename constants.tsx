@@ -83,6 +83,12 @@ export const menuItems = [
   },
 ];
 
+export const overview = [
+{
+  description: "Dx Valley is a platform that facilitates innovation and collaboration. It provides an interactive platform for innovation and collaboration.",
+}
+]
+
 export const SVG1 = () => (
   <svg
     viewBox='0 0 200 200'
@@ -252,7 +258,7 @@ export const features = [
   {
     title: "During Incubation",
     content:
-      "At our incubation center, startups get targeted support to boost growth. We connect you with investors, develop market strategies, offer financial coaching, and provide essential training. Our goal is to address your key needs, so you can focus on innovation and drive your success",
+        "lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque euismod, nisl sit amet ultricies lacinia, nunc nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.",
     srcImage:
       "https://plus.unsplash.com/premium_photo-1661416307260-5013ab7adc3f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb2dyYW1tZXIlMjBsYWJ8ZW58MHx8MHx8fDA%3D",
   },
@@ -266,10 +272,10 @@ export const features = [
 ];
 
 export const stats = [
-  { value: "73", label: "Developers" },
-  { value: "17", label: "Contributors" },
-  { value: "4", label: "Organizations" },
-  { value: "10", label: "Open Seats" },
+  { value: "73", label: "Incubated Projects" },
+  { value: "17", label: "Partnerships" },
+  { value: "4", label: "Launched StartUps" },
+  // { value: "10", label: "Open Seats" },
   { value: "21", label: "Trainers" },
 ];
 
@@ -290,8 +296,8 @@ export const reviews = [
         />
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review One",
+    link: "www.google.com",
   },
   {
     id: 2,
@@ -309,8 +315,8 @@ export const reviews = [
         />
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review Two",
+    link: "www.google.com",
   },
   {
     id: 3,
@@ -338,8 +344,8 @@ export const reviews = [
         </defs>
       </svg>
     ),
-    name: "",
-    link: "",
+    name: "Review Three",
+    link: "www.google.com",
   },
   {
     id: 4,
@@ -506,6 +512,66 @@ export const reviews = [
   },
 ];
 
+export const divisions = [
+  {
+    title: "Innovation Hub",
+    href: "/innovationhub",
+  },
+  {
+    title: "Incubation Lab",
+    href: "/incubationcenter",
+  },
+  {
+    title: "Coop Bank",
+    href: "www.coopbankoromia.com.et",
+  },
+];
+
+
+export const otherLinks = [
+  {
+    title: "News",
+    href: "/news",
+  },
+  {
+    title: "Call For StartUps",
+    href: "/call",
+  },
+  {
+    title: "Licence Registration",
+    href: "licence",
+  },
+  {
+    title: "Stake Holders",
+    href: "/stakeholders",
+  },
+  {
+    title: "Funding",
+    href: "licence",
+  },
+  {
+    title: "Social Media",
+    href: "/socialmedia",
+  },
+  {
+    title: "Projects",
+    href: "licence",
+  },
+  {
+    title: "Events",
+    href: "/events",
+  },
+  {
+    title: "Filtering Criterias",
+    href: "licence",
+  },
+  {
+    title: "Gallery",
+    href: "/gallery",
+  },
+];
+
+
 export const focusArea = [
   {
     image:
@@ -539,8 +605,8 @@ export const objectives = [
     icon: "",
     description: "",
   },
-  {
-    icon: "",
-    description: "",
-  },
+  // {
+  //   icon: "",
+  //   description: "",
+  // },
 ];

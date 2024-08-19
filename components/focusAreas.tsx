@@ -63,7 +63,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
         ))}
       </ul>
 
-      <div className='contents w-full md:w-4/5 mx-auto mt-6 md:mt-12  flex-wrap justify-between gap-4 md:gap-8'>
+      <div className='contents w-half md:w-4/5 mx-auto mt-6 md:mt-12  flex-wrap justify-between gap-4 md:gap-8'>
         {items?.map((item, index) => (
           <div
             key={index}
@@ -71,13 +71,15 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
               activeTab === index ? "opacity-100" : "hidden opacity-0"
             }`}>
             <img
+              className='w-full md:w-2/5 rounded-lg'
               src={item.image}
-              alt={"iamge"}
-              className='w-full md:w-1/2 rounded-lg'
+              alt={"image"}
             />
-            <div className='text-center md:text-left ml-10'>
-              <h3 className='text-lg md:text-l font-bold'>{item.contentTitle}</h3>
-              <p className='text-gray-700'>{item.contentDesc}</p>
+            <div className='text-left md:text-left ml-10 space-y-3'>
+              <h3 className='text-lg md:text-l font-bold'>
+                {item.contentTitle}
+              </h3>
+              <p className='text-gray-700 space-y-10'>{item.contentDesc}</p>
             </div>
           </div>
         ))}

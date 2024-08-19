@@ -5,6 +5,7 @@ export interface SectionProps {
   title: string;
   description: ReactNode;
   buttonText?: string;
+  href: string;
 }
 
 export interface objectivesItems {
@@ -27,6 +28,7 @@ export interface focusAreaProps {
 export interface ctaProps {
   title: string;
   buttonText?: string;
+  href: string;
 }
 export interface CardProps {
   img: ReactNode;

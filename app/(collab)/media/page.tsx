@@ -16,15 +16,22 @@ const Page = () => {
       <PageTitle />
       <SectionLeft
         svg={<SVG1 />}
-        title='title'
-        description='description'
+        title='Trainers'
+        description='As trainings are crutila aspect of the incubation center`s progression, we have an option of callout for all professional who would like to give tranings on relating fields to our incubatees. If you are an individual who want to give trainings and work with us dont hesitate to contact us for more details. Let`s work together to empower our innovative youngsters'
         buttonText={"hidden"}
+        href={" "}
       />
-   <Overview />
-      <CTA title='Apply' buttonText='Apply For Call' />
+      <Overview />
+      <CTA
+        title='Want to Work with Us?'
+        buttonText='Apply For Call'
+        href={"#collab-form"}
+      />
       <Objectives items={objectives} />
       {/* <InputForm /> */}
-      <CollabForm />
+      <div id='collab-form'>
+        <CollabForm />
+      </div>
     </div>
   );
 };

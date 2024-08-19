@@ -14,7 +14,7 @@ export const Card: React.FC<CardProps> = ({
       <Link href='#'>{img}</Link>
       <div className='p-5'>
         <a href='#'>
-          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline'>
             {title}
           </h5>
         </a>
@@ -22,16 +22,20 @@ export const Card: React.FC<CardProps> = ({
           {description}
         </p>
         <div className='grid grid-cols-2 sm:grid-cols-2  gap-6 items-center justify-center sm:gap-6 sm:justify-center sm:items-center'>
-          {buttonText && (
-            <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
-              {buttonText}
-            </Button>
-          )}
-          {buttonText2 && (
-            <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
-              {buttonText2}
-            </Button>
-          )}
+          <Link href="#">
+            {buttonText && (
+              <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
+                {buttonText}
+              </Button>
+            )}
+          </Link>
+          <Link href="#" >
+            {buttonText2 && (
+              <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
+                {buttonText2}
+              </Button>
+            )}
+          </Link>
         </div>
       </div>
     </div>

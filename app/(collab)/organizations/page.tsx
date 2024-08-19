@@ -19,12 +19,18 @@ const Page = () => {
         title='title'
         description='description'
         buttonText={"hidden"}
+        href={" "}
       />
-      <Overview />
-      <CTA title='Apply' buttonText='Apply For Call' />
+      <CTA
+        title='Want to Work with Us?'
+        buttonText='Apply For Call'
+        href={"#collab-form"}
+      />
       <Objectives items={objectives} />
       {/* <InputForm /> */}
-      <CollabForm />
+      <div id='collab-form'>
+        <CollabForm />
+      </div>
     </div>
   );
 };

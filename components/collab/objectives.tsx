@@ -6,10 +6,10 @@ import { objectivesProps } from "@/types/general";
 const Objectives: React.FC<objectivesProps> = ({ items }) => {
   return (
     <div className='flex p-16   items-center justify-center bg-gray-50'>
-      <Head>
+      {/* <Head>
         <title>Objectives</title>
-      </Head>
-
+      </Head> */}
+        
       <div className='w-full max-w-6xl mx-auto'>
         <h1 className='text-center text-3xl font-extrabold text-gray-800 mb-12'>
           Objectives
@@ -85,18 +85,7 @@ const Objectives: React.FC<objectivesProps> = ({ items }) => {
             {/* Objective 4 */}
             <div className='flex flex-col items-center space-y-4'>
               <div className='w-20 h-20 bg-gradient-to-r from-green-400 to-teal-600 text-white flex items-center justify-center rounded-lg shadow-lg'>
-                <svg
-                  className='w-10 h-10'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  viewBox='0 0 24 24'
-                  xmlns='http://www.w3.org/2000/svg'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M13.414 10L18 14.586l-1.414 1.414L12 11.414l-4.586 4.586L6 14.586 10.586 10 6 5.414 7.414 4 12 8.586l4.586-4.586L18 5.414 13.414 10z'></path>
-                </svg>
+               
               </div>
               <div className='text-center text-lg font-medium text-gray-800'>
                 {item.description}
