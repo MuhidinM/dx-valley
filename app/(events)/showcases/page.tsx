@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import incubationPhoto from "@/public/image/incubation-center.png";
+import { Popup } from "@/components/popup";
 
 const Page = () => {
   return (
@@ -57,9 +58,7 @@ const Page = () => {
             </CardContent>
             <CardFooter className="flex justify-between">
               <div className=""></div>
-              <Button className="bg-coopBlue hover:bg-coopBlueHover">
-                Read More
-              </Button>
+              <Popup />
             </CardFooter>
           </Card>
         </div>
