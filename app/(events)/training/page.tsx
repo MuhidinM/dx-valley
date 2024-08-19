@@ -1,8 +1,8 @@
-import CTA from '@/components/cta'
-import { SectionRight } from '@/components/section'
-import { SectionLeft } from '@/components/section'
-import { SVG1 } from '@/constants'
-import React from 'react'
+import CTA from "@/components/cta";
+import { SectionRight } from "@/components/section";
+import { SectionLeft } from "@/components/section";
+import { SVG1 } from "@/constants";
+import React from "react";
 
 const Page = () => {
   return (
@@ -20,11 +20,7 @@ const Page = () => {
 
       <CTA title={"Want To Give a Training?"} buttonText={"Apply"} />
     </div>
-  )
-}
+  );
+};
 
-export default Page
-
-
-
-
+export default Page;

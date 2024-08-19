@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+
+import Callforproposal from "@/components/events/callforproposal";
 
 const Page = () => {
-  return (
-    <div>Page</div>
-  )
-}
+  return <Callforproposal />;
+};
 
-export default Page
+export default Page;
