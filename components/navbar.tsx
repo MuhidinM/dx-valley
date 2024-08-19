@@ -5,8 +5,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./modeToggle";
 import { MenuIcon } from "lucide-react";
+import { useRouter } from 'next/navigation';
+
 
 const Navbar = () => {
+  const router = useRouter();
   return (
     <header>
       <nav className="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-900">
@@ -20,7 +23,7 @@ const Navbar = () => {
              <ModeToggle />
             <Button
               className="bg-coopBlue hover:bg-coopBlueHover"
-              onClick={() => {}}
+              onClick={() => router.push("/callforproposal")}
             >
               Call for Proposal
             </Button>
