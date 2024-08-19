@@ -46,8 +46,8 @@ const Page = () => {
       />
       <Mission />
       <CTA
-        title={"collabotare"}
-        buttonText={"Apply For Call"}
+        title={"Work with Us!"}
+        buttonText={"Get in Touch!"}
         href={"#collab-form"}
       />
       <HowWeWorkSection />
