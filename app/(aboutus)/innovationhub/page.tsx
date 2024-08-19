@@ -6,6 +6,7 @@ import DxDescription from "@/components/dxDesc";
 import FocusAreas from "@/components/focusAreas";
 import Header from "@/components/header";
 import HowWeWorkSection from "@/components/howWeWork";
+import { SlidingCompanies } from "@/components/landing/company";
 import ContactUs from "@/components/landing/contactus";
 import Mission from "@/components/mission";
 import { SectionLeft } from "@/components/section";
@@ -42,6 +43,7 @@ const Page = () => {
       />
       <HowWeWorkSection />
       {/* <FocusAreas items={focusArea} /> */}
+      <SlidingCompanies />
       <Header />
       <Card
         img={<SVG1 />}
