@@ -61,6 +61,81 @@ const Page = () => {
               <Popup />
             </CardFooter>
           </Card>
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle>Relevance AI</CardTitle>
+              <CardDescription>
+                Relevance AI is a machine learning startup on mission to help
+                companies build an AI workforce that automates workflows with no
+                code.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Image src={incubationPhoto} alt="incubation" />
+              <div className="flex justify-between my-2">
+                <div className="">
+                  <h3 className="font-bold">Founders</h3>
+                  <ul className="text-gray-500">
+                    <li>Name</li>
+                    <li>Name</li>
+                    <li>Name</li>
+                  </ul>
+                </div>
+                <div className="">
+                  <h3 className="font-bold">Co-Investors</h3>
+                  <ul className="text-gray-500">
+                    <li>Name</li>
+                    <li>Name</li>
+                    <li>Name</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <div className=""></div>
+              <Popup />
+            </CardFooter>
+          </Card>
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle>Relevance AI</CardTitle>
+              <CardDescription>
+                Relevance AI is a machine learning startup on mission to help
+                companies build an AI workforce that automates workflows with no
+                code.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Image src={incubationPhoto} alt="incubation" />
+              <div className="flex justify-between my-2">
+                <div className="">
+                  <h3 className="font-bold">Founders</h3>
+                  <ul className="text-gray-500">
+                    <li>Name</li>
+                    <li>Name</li>
+                    <li>Name</li>
+                  </ul>
+                </div>
+                <div className="">
+                  <h3 className="font-bold">Co-Investors</h3>
+                  <ul className="text-gray-500">
+                    <li>Name</li>
+                    <li>Name</li>
+                    <li>Name</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <div className=""></div>
+              <Popup />
+            </CardFooter>
+          </Card>
+          <div className="col-span-3">
+            <Button className="bg-coopBlue hover:bg-coopBlueHover">
+              Load More
+            </Button>
+          </div>
         </div>
       </div>
     </div>
