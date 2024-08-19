@@ -28,8 +28,15 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
+
         title='Our Innovation Hub: The Breeding Ground for Breakthrough'
         description="Our Innovation Hub is a center of excellence for developing 
+
+        title="Innovation hub: Land of Great Digital Product"
+        description="Our Innovation Hub is a center of excellence for developing 
+        title='Our Innovation Hub: The Breeding Ground for Breakthroughs.'
+        description='Our Innovation Hub is a center of excellence for developing 
+
         cutting-edge in-house products and forming strategic partnerships with both
          financial and non-financial partners. We are committed to creating a dependable 
          financial environment that drives industry innovation while also providing customers 
