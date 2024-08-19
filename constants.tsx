@@ -22,7 +22,7 @@ export const menuItems = [
         description: "Dx Valley 2.0",
       },
       {
-        href: "www.coopbankoromia.com.et/about/",
+        href: "https://coopbankoromia.com.et/about/",
         title: "Coop Bank",
         description: "Cooperative Bank of Oromia",
       },
@@ -534,7 +534,42 @@ export const divisions = [
   },
   {
     title: "Coop Bank",
-    href: "www.coopbankoromia.com.et",
+    href: "https://coopbankoromia.com.et/about/",
+  },
+];
+
+export const collaborations = [
+  {
+    href: "/organizations",
+    title: "Organizations",
+  },
+  {
+    href: "/trainers",
+    title: "Trainers",
+    description: "Collab with Trainers",
+  },
+  {
+    href: "/media",
+    title: "Media",
+  },
+  {
+    href: "/stakeholders",
+    title: "Stakeholders",
+  },
+];
+
+export const events = [
+  {
+    href: "/training",
+    title: "Training Areas",
+  },
+  {
+    href: "/contests",
+    title: "Contests",
+  },
+  {
+    href: "/showcase",
+    title: "Showcase",
   },
 ];
 
