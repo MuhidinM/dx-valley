@@ -11,6 +11,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import {heroImages} from "@/constants";
+
 export function Hero() {
   const plugin = React.useRef(Autoplay({ delay: 2000 }));
 
@@ -18,12 +20,12 @@ export function Hero() {
     <div className="mx-8">
       <Carousel plugins={[plugin.current]} className="w-full">
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index}>
+          {heroImages.map((image) => (
+            <CarouselItem key={image?.id}>
               <div className="p-1">
                 <Card>
                   <CardContent className="flex items-center h-[550px] justify-center p-6">
-                    <span className="text-4xl font-semibold">{index + 1}</span>
+                    <span className="text-4xl font-semibold">{image?.img} This is the content</span>
                   </CardContent>
                 </Card>
               </div>
