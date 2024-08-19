@@ -24,7 +24,7 @@ const Navbar = () => {
             <Button
               className="bg-coopBlue hover:bg-coopBlueHover"
               onClick={() => {
-                router.push("/callforproposal"); // Updated navigation
+                router.push("/callforproposal");
               }}
             >
               Call for Proposal
