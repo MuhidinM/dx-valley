@@ -51,7 +51,6 @@ export const SectionLeft: React.FC<SectionProps> = ({
           <p className='mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
             {description}
           </p>
-<<<<<<< HEAD
 
           {
             buttonText !== "hidden" && (<Button
@@ -60,15 +59,6 @@ export const SectionLeft: React.FC<SectionProps> = ({
             {buttonText}
           </Button> )
           }
-=======
-          {buttonText !== "hidden" && (
-            <Link href={href}>
-              <Button className='bg-coopBlue hover:bg-coopBlueHover '>
-                {buttonText}
-              </Button>
-            </Link>
-          )}
->>>>>>> c7775d24ed1d0e87d06c2c59b03ca0a03e9c2e8e
         </div>
         {svg}
       </div>
