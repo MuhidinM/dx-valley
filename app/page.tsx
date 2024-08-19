@@ -31,19 +31,16 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
-<<<<<<< HEAD
         title="Innovation hub: Land of Great Digital Product"
         description="Our Innovation Hub is a center of excellence for developing 
-=======
         title='Our Innovation Hub: The Breeding Ground for Breakthroughs.'
         description='Our Innovation Hub is a center of excellence for developing 
->>>>>>> c7775d24ed1d0e87d06c2c59b03ca0a03e9c2e8e
         cutting-edge in-house products and forming strategic partnerships with both
          financial and non-financial partners. We are committed to creating a dependable 
          financial environment that drives industry innovation while also providing customers 
          with secure and seamless services. By merging varied knowledge and resources, 
          our Innovation Hub stands at the forefront of building a future in which businesses prosper
-         and customers enjoy unprecedented security and convenience.'
+         and customers enjoy unprecedented security and convenience."
         buttonText='Explore Our Solutions'
         href={"/innovationhub"}
       />
