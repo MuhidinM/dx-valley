@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from '../../../node_modules/.prisma/client';
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { email } = await req.json();
     const newSubscriber = await prisma.subscriber.create({
       data: {
-        email
+        email,
       },
     });
     return NextResponse.json(
