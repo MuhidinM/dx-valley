@@ -10,17 +10,29 @@ import { SlidingCompanies } from "@/components/landing/company";
 import ContactUs from "@/components/landing/contactus";
 import Mission from "@/components/mission";
 import { SectionLeft } from "@/components/section";
-import { focusArea, SVG1 } from "@/constants";
+
+import {
+  focusArea,
+  SVG1,
+  DiasporaImage,
+  CoopayrollImage,
+  ReconcillationImage,
+  CoopstreamImage,
+  MichuImage,
+  SouqpassImage,
+  DeboImage,
+ 
+} from "@/constants";
 import React from "react";
 
 const Page = () => {
   return (
     // <div>Page</div>
-    <div className="space-y-8 mb-8 justify-center">
+    <div className='space-y-8 mb-8 justify-center'>
       {/* <DxDescription />{" "} */}
       <SectionLeft
         svg={<SVG1 />}
-        title="Innovation Hub: Where Ideas Come to Life"
+        title='Innovation Hub: Where Ideas Come to Life'
         description={
           <>
             Dx-VALLEY is a physical or virtual space designed to nurture
@@ -37,21 +49,64 @@ const Page = () => {
       />
       <Mission />
       <CTA
-        title={"collabotare"}
-        buttonText={"Apply For Call"}
+        title={"Work with Us!"}
+        buttonText={"Get in Touch!"}
         href={"#collab-form"}
       />
       <HowWeWorkSection />
       {/* <FocusAreas items={focusArea} /> */}
       <SlidingCompanies />
       <Header />
-      <Card
-        img={<SVG1 />}
-        title={"Deboo"}
-        buttonText={"Visit Site"}
-        buttonText2={"Read More"}
-        description="This is product descriptiom "
-      />
+      <div className='flex aligin-center justify-center'>
+        <Card
+          img={<SVG1 />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+        <Card
+          img={<SVG1 />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+
+        <Card
+          img={<SVG1 />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+      </div>
+      <div className='flex aligin-center justify-center'>
+        <Card
+          img={<SVG1 />}
+          title={"VSLA"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+          />
+        <Card
+          img={<SVG1 />}
+          title={"Diaspora Banking"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+         
+          description='This is product descriptiom '
+        />
+
+        <Card
+          img={<SVG1 />}
+          title={"Souqpass"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+      </div>
+
       <ContactUs />
     </div>
   );
