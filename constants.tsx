@@ -1,7 +1,13 @@
 /** @format */
-import Image from 'next/image';
-import incubationPhoto from "@/public/image/incubation-center.png"
-
+import Image from "next/image";
+import incubationPhoto from "@/public/image/incubation-center.png";
+import DeboPhoto from "@/public/image/debo-image.png";
+import SouqpassPhoto from "@/public/image/souqpass-image.png";
+import Coopayroll from "@/public/image/coopayroll-image.png";
+import Michu from "@/public/image/michu-image.png";
+import Reconcillation from "@/public/image/reconcilation-image.png";
+import Coopstream from "@/public/image/coop-stream.png";
+import Diaspora from "@/public/image/diaspora-image.png";
 export const menuItems = [
   {
     trigger: "About Us",
@@ -85,11 +91,26 @@ export const menuItems = [
   },
 ];
 
+export const SouqpassImage = () => <Image src={SouqpassPhoto} alt='souqpass' />;
+export const CoopayrollImage = () => (
+  <Image src={Coopayroll} alt='coopayroll' />
+);
+export const DiasporaImage = () => <Image src={Diaspora} alt='diaspora' />;
+
+export const MichuImage = () => <Image src={Michu} alt='michu' />;
+export const ReconcillationImage = () => (
+  <Image src={Reconcillation} alt='reconcillation' />
+);
+export const CoopstreamImage = () => (
+  <Image src={Coopstream} alt='coopstream' />
+);
+
 export const overview = [
-{
-  description: "Dx Valley is a platform that facilitates innovation and collaboration. It provides an interactive platform for innovation and collaboration.",
-}
-]
+  {
+    description:
+      "Dx Valley is a platform that facilitates innovation and collaboration. It provides an interactive platform for innovation and collaboration.",
+  },
+];
 
 export const SVG1 = () => (
   // <svg
@@ -102,7 +123,11 @@ export const SVG1 = () => (
   //     fill='black'
   //   />
   // </svg>
-  <Image src={incubationPhoto} alt="incubation" />
+  <Image src={incubationPhoto} alt='incubation' />
+);
+
+export const DeboImage = () => (
+  <Image src={DeboPhoto} alt='Debo crowdfund platform' />
 );
 
 export const SVG2 = () => (
@@ -261,7 +286,7 @@ export const features = [
   {
     title: "During Incubation",
     content:
-        "During incubation, startups thrive in an environment that turns ideas into viable businesses. We offer investor networks, hands-on training in hard and soft skills, and collaborative spaces that spark innovation. Our mission is to equip entrepreneurs with the resources and support they need to refine their concepts and prepare for market success.",
+      "During incubation, startups thrive in an environment that turns ideas into viable businesses. We offer investor networks, hands-on training in hard and soft skills, and collaborative spaces that spark innovation. Our mission is to equip entrepreneurs with the resources and support they need to refine their concepts and prepare for market success.",
     srcImage:
       "https://plus.unsplash.com/premium_photo-1661416307260-5013ab7adc3f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb2dyYW1tZXIlMjBsYWJ8ZW58MHx8MHx8fDA%3D",
   },
@@ -530,7 +555,6 @@ export const divisions = [
   },
 ];
 
-
 export const otherLinks = [
   {
     title: "News",
@@ -574,7 +598,6 @@ export const otherLinks = [
   },
 ];
 
-
 export const focusArea = [
   {
     image:
@@ -600,7 +623,6 @@ export const focusArea = [
     contentDesc:
       "Our incubation program provides startups in the fintech sector with specialized expertise to navigate the complexities of financial technologies. We offer in-depth support in developing and refining innovative payment solutions, ensuring regulatory compliance, and leveraging emerging technologies. Our program also focuses on crafting effective market entry strategies, connecting startups with potential investors, and refining business models to address the evolving needs of the financial industry. We aim to empower fintech startups to drive financial innovation and achieve sustainable growth.",
   },
-  
 ];
 
 export const objectives = [

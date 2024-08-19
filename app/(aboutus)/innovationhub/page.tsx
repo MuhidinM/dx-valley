@@ -9,7 +9,17 @@ import HowWeWorkSection from "@/components/howWeWork";
 import ContactUs from "@/components/landing/contactus";
 import Mission from "@/components/mission";
 import { SectionLeft } from "@/components/section";
-import { focusArea, SVG1 } from "@/constants";
+import {
+  focusArea,
+  SVG1,
+  DiasporaImage,
+  CoopayrollImage,
+  ReconcillationImage,
+  CoopstreamImage,
+  MichuImage,
+  SouqpassImage,
+  DeboImage,
+} from "@/constants";
 import React from "react";
 
 const Page = () => {
@@ -69,13 +79,55 @@ const Page = () => {
       <HowWeWorkSection />
       {/* <FocusAreas items={focusArea} /> */}
       <Header />
-      <Card
-        img={<SVG1 />}
-        title={"Deboo"}
-        buttonText={"Visit Site"}
-        buttonText2={"Read More"}
-        description='This is product descriptiom '
-      />
+      <div className='flex aligin-center justify-center'>
+        <Card
+          img={<DeboImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+        <Card
+          img={<ReconcillationImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+
+        <Card
+          img={<SouqpassImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+      </div>
+      <div className='flex aligin-center justify-center'>
+        <Card
+          img={<DiasporaImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+        <Card
+          img={<CoopstreamImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+
+        <Card
+          img={<CoopayrollImage />}
+          title={"Deboo"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='This is product descriptiom '
+        />
+      </div>
+
       <ContactUs />
     </div>
   );
