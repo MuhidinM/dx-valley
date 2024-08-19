@@ -15,9 +15,6 @@ const Page = () => {
       <SectionRight
         svg={<SVG1 />}
         title='Our Incubation center: Your Gateway to Startup Success'
-        // description=" Ignite Your Startup Journey with Expert Guidance.
-        //  Turn your ideas into impactful businesses with tailored training,
-        // coaching, and access to a network of investors and consultants!"
         description="Our Incubation center is a dynamic ecosystem designed to empower 
         aspiring entrepreneurs at every stage of their journey. We offer comprehensive training
          programs to sharpen your skills, personalized coaching tailored to your unique challenges, 
@@ -31,10 +28,8 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
-        title="Innovation hub: Land of Great Digital Product"
+        title='Our Innovation Hub: The Breeding Ground for Breakthrough'
         description="Our Innovation Hub is a center of excellence for developing 
-        title='Our Innovation Hub: The Breeding Ground for Breakthroughs.'
-        description='Our Innovation Hub is a center of excellence for developing 
         cutting-edge in-house products and forming strategic partnerships with both
          financial and non-financial partners. We are committed to creating a dependable 
          financial environment that drives industry innovation while also providing customers 
