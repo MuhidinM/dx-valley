@@ -132,6 +132,9 @@ export default function AdminEvent() {
                 <SelectContent position="popper">
                   <SelectItem value="contest">Contest</SelectItem>
                   <SelectItem value="tech expo">Tech Expo</SelectItem>
+                  <SelectItem value="call for proposal">
+                    call for proposal
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
