@@ -15,11 +15,11 @@ import React from "react";
 const Page = () => {
   return (
     // <div>Page</div>
-    <div className='space-y-8 mb-8 justify-center'>
+    <div className="space-y-8 mb-8 justify-center">
       {/* <DxDescription />{" "} */}
       <SectionLeft
         svg={<SVG1 />}
-        title='Innovation Hub: Where Ideas Come to Life'
+        title="Innovation Hub: Where Ideas Come to Life"
         description={
           <>
             Dx-VALLEY is a physical or virtual space designed to nurture
@@ -34,7 +34,7 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/innovationhub"}
       />
-      <div className='grid grid-col-2 gap-6 mx-auto max-w-screen-xl xl:gap-6 md:grid md:grid-cols-2'>
+      <div className="grid grid-col-2 gap-6 mx-auto max-w-screen-xl xl:gap-6 md:grid md:grid-cols-2">
         <Mission />
         {/* <Card
           title={"Our Mission"}
@@ -46,9 +46,9 @@ const Page = () => {
               viewBox='0 0 24 24'
               fill='none'
               stroke='currentColor'
-              stroke-width='2'
-              stroke-linecap='round'
-              stroke-linejoin='round'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
               className='lucide lucide-scan-eye'>
               <path d='M3 7V5a2 2 0 0 1 2-2h2' />
               <path d='M17 3h2a2 2 0 0 1 2 2v2' />
@@ -74,7 +74,7 @@ const Page = () => {
         title={"Deboo"}
         buttonText={"Visit Site"}
         buttonText2={"Read More"}
-        description='This is product descriptiom '
+        description="This is product descriptiom "
       />
       <ContactUs />
     </div>
