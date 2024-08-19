@@ -9,8 +9,8 @@ import { collaborations, divisions, events, otherLinks } from "@/constants";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-const handleSubmit = async (e: { preventDefault: () => void }) => {
-e.preventDefault();
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     const response = await fetch("/api/subscriber", {
       method: "POST",
       headers: {
@@ -18,7 +18,7 @@ e.preventDefault();
       },
       body: JSON.stringify({ email }),
     });
-if (response.ok) {
+    if (response.ok) {
       alert("subscribed successfully!");
       setEmail("");
     } else {
@@ -51,7 +51,7 @@ if (response.ok) {
               <div className="mt-0 flex justify-end">
                 <div className="mt-4 w-full md:mt-0 lg:mt-0 lg:max-w-lg justify-end">
                   <div className="space-y-5 rounded-lg p-6">
-                    <form action="#">
+                    <form onSubmit={handleSubmit} action="#">
                       <div className="items-end space-y-4 sm:flex sm:space-y-0">
                         <div className="relative mr-3 w-full sm:w-96 lg:w-full space-y-2 text-black">
                           {/* <label className='font-sans mb-2 block text-sm font-medium text-white'>
@@ -65,6 +65,7 @@ if (response.ok) {
                             type="email"
                             color="coopBlue"
                             placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                         </div>
                         <div>
@@ -136,55 +137,9 @@ if (response.ok) {
                       {event.title}
                     </Link>
                   </li>
-
-                </ul> */}
-                <p className='flex font-sans text-white'>
-                At DxValley, we drive digital transformation by empowering 
-                businesses with cutting-edge innovation and strategic collaboration. 
-                Our mission is to create a thriving ecosystem where technology 
-                and industry converge to shape a secure and sustainable future.
-                </p>
-              </div>
-              <div>
-                {" "}
-                <h6 className='mb-4 text-xl font-sans font-extrabold text-white '>
-                  Divisions
-                </h6>
-                {divisionItems?.map((divisionItems) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <ul className='space-y-3 font-sans text-white'>
-                    <li>
-                      <Link
-                        href={divisionItems.href}
-                        title=''
-                        className='text-white hover:text-white'>
-                        {divisionItems.title}
-                      </Link>
-                    </li>
-                  </ul>
-                ))}
-              </div>
-
-              <div>
-                <h6 className='mb-4 text-xl font-sans font-extrabold '>
-                  Other Links
-                </h6>
-                {otherLinksItems?.map((otherLinks) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <ul className='space-y-3 font-sans text-white'>
-                    <li>
-                      <Link
-                        href={otherLinks.href}
-                        title=''
-                        className='text-white hover:text-white'>
-                        {otherLinks.title}
-                      </Link>
-                    </li>
-                  </ul>
                 ))}
               </ul>
             </div>
-
             <div>
               <h6 className="mb-4 text-xl font-sans font-extrabold text-white">
                 Other Links
