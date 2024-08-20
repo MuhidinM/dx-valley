@@ -28,7 +28,6 @@ const Page = () => {
       />
       <SectionLeft
         svg={<SVG2 />}
-
         title='Our Innovation Hub: The Breeding Ground for Breakthrough'
         description="Our Innovation Hub is a center of excellence for developing 
         cutting-edge in-house products and forming strategic partnerships with both
@@ -42,7 +41,7 @@ const Page = () => {
       />
       <Offer />
       <Stats items={stats} />
-      <CTA buttonText='Apply' title='Have a start-up idea?' href={""} />
+      <CTA buttonText='Apply' title='Have a Start-Up Idea?' href={"/callforproposal"} />
       <SlidingCompanies />
       <ContactUs />
     </div>

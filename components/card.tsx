@@ -1,3 +1,5 @@
+/** @format */
+
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { CardProps } from "@/types/general";
@@ -8,7 +10,6 @@ export const Card: React.FC<CardProps> = ({
   title,
   img,
   description,
-  href
 }) => {
   return (
     <div className='max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4'>
@@ -23,14 +24,14 @@ export const Card: React.FC<CardProps> = ({
           {description}
         </p>
         <div className='grid grid-cols-2 sm:grid-cols-2  gap-6 items-center justify-center sm:gap-6 sm:justify-center sm:items-center'>
-          <Link href="#">
+          <Link href='#'>
             {buttonText && (
               <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
                 {buttonText}
               </Button>
             )}
           </Link>
-          <Link href="#" >
+          <Link href='#'>
             {buttonText2 && (
               <Button className='bg-coopBlue hover:bg-coopBlueHover w-full sm:w-auto'>
                 {buttonText2}
