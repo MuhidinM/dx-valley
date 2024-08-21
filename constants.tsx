@@ -19,7 +19,8 @@ import HeroImage1 from "@/public/image/hero1.jpg";
 import HeroImage2 from "@/public/image/hero2.jpg";
 import HeroImage3 from "@/public/image/hero3.jpg";
 import HeroImage4 from "@/public/image/hero4.jpg";
-
+import equbImage from "@/public/image/equb-image.png";
+import coopAmbition from "@/public/image/coopAmbition.jpg"
 export const menuItems = [
   {
     trigger: "About Us",
@@ -326,49 +327,61 @@ export const stats = [
 export const reviews = [
   {
     id: 1,
-    img: <Image src={souqpassPhoto} width={100} alt="Souqpass" />,
+    img: <Image src={souqpassPhoto} width={100} alt='Souqpass' />,
     name: "Review One",
     link: "www.google.com",
   },
   {
     id: 2,
-    img: <Image src={debboPhoto} width={100} alt="Deboo" />,
+    img: <Image src={debboPhoto} width={100} alt='Deboo' />,
     name: "Review Two",
     link: "www.google.com",
   },
   {
     id: 3,
-    img: <Image src={streamPhoto} width={100} alt="Coop Stream" />,
+    img: <Image src={streamPhoto} width={100} alt='Coop Stream' />,
     name: "Review Three",
     link: "www.google.com",
   },
   {
     id: 4,
-    img: <Image src={michuPhoto} width={100} alt="Michu" />,
+    img: <Image src={michuPhoto} width={100} alt='Michu' />,
     name: "",
     link: "",
   },
   {
     id: 5,
-    img: <Image src={diasporaPhoto} width={100} alt="Diaspora Banking" />,
+    img: <Image src={diasporaPhoto} width={100} alt='Diaspora Banking' />,
     name: "",
     link: "",
   },
   {
     id: 6,
-    img: <Image src={VSLAPhoto} width={55} alt="VSLA" />,
+    img: <Image src={VSLAPhoto} width={55} alt='VSLA' />,
     name: "",
     link: "",
   },
   {
     id: 7,
-    img: <Image src={Coopayroll} width={100} alt="Coop PayRoll" />,
+    img: <Image src={Coopayroll} width={100} alt='Coop PayRoll' />,
     name: "",
     link: "",
   },
   {
     id: 8,
-    img: <Image src={Reconcillation} width={100} alt="Coop Reconciliation" />,
+    img: <Image src={Reconcillation} width={100} alt='Coop Reconciliation' />,
+    name: "",
+    link: "",
+  },
+  {
+    id: 9,
+    img: <Image src={equbImage} width={100} alt='equb' />,
+    name: "",
+    link: "",
+  },
+  {
+    id: 10,
+    img: <Image src={coopAmbition} width={50} alt='coop-ambition' />,
     name: "",
     link: "",
   },
