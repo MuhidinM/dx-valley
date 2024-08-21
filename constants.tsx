@@ -20,7 +20,7 @@ import HeroImage2 from "@/public/image/hero2.jpg";
 import HeroImage3 from "@/public/image/hero3.jpg";
 import HeroImage4 from "@/public/image/hero4.jpg";
 import equbImage from "@/public/image/equb-image.png";
-
+import coopAmbition from "@/public/image/coopAmbition.jpg"
 export const menuItems = [
   {
     trigger: "About Us",
@@ -374,8 +374,14 @@ export const reviews = [
     link: "",
   },
   {
-    id: 8,
+    id: 9,
     img: <Image src={equbImage} width={100} alt='equb' />,
+    name: "",
+    link: "",
+  },
+  {
+    id: 10,
+    img: <Image src={coopAmbition} width={50} alt='coop-ambition' />,
     name: "",
     link: "",
   },
