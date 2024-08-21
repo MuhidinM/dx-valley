@@ -4,6 +4,7 @@ import { Event } from "@/types/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Countdown from "./countdown";
+import Link from "next/link";
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -28,12 +29,14 @@ export default function Callforproposal() {
 
     fetchEvents();
   }, []);
+
   const handleTimeLeftCalculated = (id: string, calculatedTimeLeft: string) => {
     setTimeLeft((prev) => ({
       ...prev,
       [id]: calculatedTimeLeft,
     }));
   };
+
   const callForProposalEvents = events.filter(
     (event) => event.category === "call for proposal"
   );
@@ -61,7 +64,7 @@ export default function Callforproposal() {
                   style={{ top: "-2.5rem" }}
                 >
                   <p className="text-lg text-red-500 m-0 leading-none">
-                    Countdown:{timeLeft[event.id]}
+                    Countdown: {timeLeft[event.id]}
                   </p>
                 </div>
               </CardHeader>
@@ -70,9 +73,11 @@ export default function Callforproposal() {
                 <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
                   {event.description}
                 </p>
-                <Button className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
-                  Apply
-                </Button>
+                <Link href="/incubationform" passHref>
+                  <Button className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
+                    Apply
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </div>
