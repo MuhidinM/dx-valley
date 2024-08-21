@@ -20,7 +20,6 @@ import HeroImage2 from "@/public/image/hero2.jpg";
 import HeroImage3 from "@/public/image/hero3.jpg";
 import HeroImage4 from "@/public/image/hero4.jpg";
 
-
 export const menuItems = [
   {
     trigger: "About Us",
@@ -104,21 +103,21 @@ export const menuItems = [
   },
 ];
 
-export const SouqpassImage = () => <Image src={SouqpassPhoto} alt='souqpass' />;
+export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
-  <Image src={Coopayroll} alt='coopayroll' />
+  <Image src={Coopayroll} alt="coopayroll" />
 );
-export const DiasporaImage = () => <Image src={Diaspora} alt='diaspora' />;
+export const DiasporaImage = () => <Image src={Diaspora} alt="diaspora" />;
 
-export const MichuImage = () => <Image src={Michu} alt='michu' />;
+export const MichuImage = () => <Image src={Michu} alt="michu" />;
 export const ReconcillationImage = () => (
-  <Image src={Reconcillation} alt='reconcillation' />
+  <Image src={Reconcillation} alt="reconcillation" />
 );
 export const CoopstreamImage = () => (
-  <Image src={Coopstream} alt='coopstream' />
+  <Image src={Coopstream} alt="coopstream" />
 );
 
-export const VSLAImage = () => <Image src={VSLAPhoto} alt='coopstream' />;
+export const VSLAImage = () => <Image src={VSLAPhoto} alt="coopstream" />;
 
 export const overview = [
   {
@@ -138,11 +137,11 @@ export const SVG1 = () => (
   //     fill='black'
   //   />
   // </svg>
-  <Image src={incubationPhoto} alt='incubation' />
+  <Image src={incubationPhoto} alt="incubation" />
 );
 
 export const DeboImage = () => (
-  <Image src={DeboPhoto} alt='Debo crowdfund platform' />
+  <Image src={DeboPhoto} alt="Debo crowdfund platform" />
 );
 
 export const SVG2 = () => (
@@ -289,7 +288,7 @@ export const SVG2 = () => (
   //     fill="black"
   //   />
   // </svg>
-  <Image src={Innovation} alt='reconcillation' />
+  <Image src={Innovation} alt="reconcillation" />
 );
 
 export const features = [
@@ -327,49 +326,49 @@ export const stats = [
 export const reviews = [
   {
     id: 1,
-    img: <Image src={souqpassPhoto} width={100} alt='Souqpass' />,
+    img: <Image src={souqpassPhoto} width={100} alt="Souqpass" />,
     name: "Review One",
     link: "www.google.com",
   },
   {
     id: 2,
-    img: <Image src={debboPhoto} width={100} alt='Deboo' />,
+    img: <Image src={debboPhoto} width={100} alt="Deboo" />,
     name: "Review Two",
     link: "www.google.com",
   },
   {
     id: 3,
-    img: <Image src={streamPhoto} width={100} alt='Coop Stream' />,
+    img: <Image src={streamPhoto} width={100} alt="Coop Stream" />,
     name: "Review Three",
     link: "www.google.com",
   },
   {
     id: 4,
-    img: <Image src={michuPhoto} width={100} alt='Michu' />,
+    img: <Image src={michuPhoto} width={100} alt="Michu" />,
     name: "",
     link: "",
   },
   {
     id: 5,
-    img: <Image src={diasporaPhoto} width={100} alt='Diaspora Banking' />,
+    img: <Image src={diasporaPhoto} width={100} alt="Diaspora Banking" />,
     name: "",
     link: "",
   },
   {
     id: 6,
-    img: <Image src={VSLAPhoto} width={55} alt='VSLA' />,
+    img: <Image src={VSLAPhoto} width={55} alt="VSLA" />,
     name: "",
     link: "",
   },
   {
     id: 7,
-    img: <Image src={Coopayroll} width={100} alt='Coop PayRoll' />,
+    img: <Image src={Coopayroll} width={100} alt="Coop PayRoll" />,
     name: "",
     link: "",
   },
   {
     id: 8,
-    img: <Image src={Reconcillation} width={100} alt='Coop Reconciliation' />,
+    img: <Image src={Reconcillation} width={100} alt="Coop Reconciliation" />,
     name: "",
     link: "",
   },
@@ -377,19 +376,22 @@ export const reviews = [
 
 export const heroImages = [
   {
-    id: 1,
-    img: <Image src={HeroImage1} width={100} alt='HeroImage1' />,
-    name: "",
-    link: "",
+    src: HeroImage1,
+    alt: "Image 1",
   },
   {
-    id: 2,
-    img: <Image src={HeroImage2} width={100} alt='HeroImage1' />,
-    name: "",
-    link: "",
+    src: HeroImage2,
+    alt: "Image 2",
+  },
+  {
+    src: HeroImage3,
+    alt: "Image 3",
+  },
+  {
+    src: HeroImage4,
+    alt: "Image 4",
   },
 ];
-
 export const divisions = [
   {
     title: "Innovation Hub",
