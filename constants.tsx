@@ -21,6 +21,11 @@ import HeroImage3 from "@/public/image/hero3.jpg";
 import HeroImage4 from "@/public/image/hero4.jpg";
 import equbImage from "@/public/image/equb-image.png";
 import coopAmbition from "@/public/image/coopAmbition.jpg"
+import entrepreneur from "@/public/image/entrepreneur.png";
+import relationship from "@/public/image/relationship.png";
+import business from "@/public/image/business.png";
+
+
 export const menuItems = [
   {
     trigger: "About Us",
@@ -292,6 +297,9 @@ export const SVG2 = () => (
   <Image src={Innovation} alt="reconcillation" />
 );
 
+
+
+
 export const features = [
   {
     title: "Pre Incubation",
@@ -317,17 +325,35 @@ export const features = [
 ];
 
 export const stats = [
-  { value: "73", label: "Incubated Projects" },
-  { value: "17", label: "Partnerships" },
-  { value: "4", label: "Launched StartUps" },
+  {
+    img: business,
+    value: "73",
+    label: "Incubated Projects",
+  },
+
+  {
+    img: relationship,
+    value: "17",
+    label: "Partnerships",
+  },
+
+  {
+    img:entrepreneur,
+    value: "4",
+    label: "Launched StartUps",
+  },
   // { value: "10", label: "Open Seats" },
-  { value: "21", label: "Trainers" },
+  {
+    img:business,
+    value: "21",
+    label: "Trainers",
+  },
 ];
 
 export const reviews = [
   {
     id: 1,
-    img: <Image src={souqpassPhoto} width={100} alt='Souqpass' />,
+    img: "",
     name: "Review One",
     link: "www.google.com",
   },
