@@ -12,11 +12,15 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href }) => {
         </h2>
         <div className='mt-8 lg:mt-0'>
           <Link href={href}>
-            <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'> 
+            <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'>
               {buttonText}
             </Button>
           </Link>
         </div>
+        <p>
+          {" "}
+          <em className="text-gray-700">Let’s Walk Together Your Innovation Journey</em>{" "}
+        </p>
       </div>
     </section>
   );
