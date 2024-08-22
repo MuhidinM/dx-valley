@@ -1,6 +1,6 @@
 "use client";
-
-import * as React from "react";
+import React from "react";
+import {useState, useEffect} from "react";
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -10,14 +10,47 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+
 import { cn } from "@/lib/utils";
-import { menuItems } from "@/constants";
+// import { menuItems } from "@/constants";
+import { menuItemFetch } from "@/services/menu";
+// import { MenuItem } from "@/types/strapi-types";
+
+interface Links {
+  href: string;
+  title: string;
+  description: string;
+}
+
+interface Highlight {
+  href: string;
+  title: string;
+  description: string;
+  img: string; // Adjust this type as per your actual image data structure
+}
+
+interface MenuItem {
+  trigger: string;
+  highlight: Highlight;
+  links: Links[];
+}
 
 export function Menu() {
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]); // Initialize as an empty array
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      const data = await menuItemFetch();
+      setMenuItems(data);
+    };
+
+    fetchMenuItems();
+  }, []);
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {menuItems.map((item, index) => (
+        {menuItems && menuItems.map((item, index) => (
           <NavigationMenuItem key={index}>
             <NavigationMenuTrigger>{item.trigger}</NavigationMenuTrigger>
             <NavigationMenuContent>
