@@ -1,3 +1,4 @@
+// menu constants interface
 interface ImageFormat {
     url: string;
     width: number;
@@ -14,7 +15,7 @@ interface ImageFormat {
       small: ImageFormat;
     };
   }
-  
+  // common for image attribute 
   interface ImageData {
     data: {
       id: number;
@@ -59,3 +60,57 @@ interface ImageFormat {
       };
     };
   }
+
+  // footers interface
+
+  interface FooterLink {
+    id: number,
+    link: string,
+    href: string
+  }
+  
+  export interface FooterItems {
+    data : {
+        id: number,
+        attributes: {
+            title: string,
+            description: string,
+            divisions: FooterLink[],
+            collaboration: FooterLink[],
+            events: FooterLink[],
+            otherlinks: FooterLink[],
+            logo_white: ImageData,
+            logo_black: ImageData
+        }
+    }
+  }
+  export interface FooterData {
+    title: string,
+    description: string,
+    divisions: {
+        link: string,
+        href: string
+      }[],
+    collaboration: {
+        link: string,
+        href: string
+      }[],
+    events: {
+        link: string,
+        href: string
+      }[],
+    otherlinks: {
+        link: string,
+        href: string
+      }[],
+    logo_white: {
+      small: string,
+      medium: string,
+      large: string
+    },
+    logo_black:  {
+      small: string,
+      medium: string,
+      large: string
+    },
+}
