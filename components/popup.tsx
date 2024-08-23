@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
-import incubationPhoto from "@/public/image/incubation-center.png";
+import AiUserImage from "@/public/image/ai-user-image.png";
 
 export function Popup() {
   return (
@@ -26,48 +26,46 @@ export function Popup() {
             <div className="flex justify-between">
               <div className="">
                 <p className="font-bold">Launched</p>
-                <p>November 2023</p>
+                <p>November 2022</p>
               </div>
               <div className="">
                 <p className="font-bold">Published</p>
-                <p>October 2023</p>
+                <p>February 2023</p>
               </div>
             </div>
           </div>
           <div className="">
-            <Image src={incubationPhoto} alt="incubation" />
+            <Image src={AiUserImage} alt="incubation" />
           </div>
         </div>
         <div className="bg-coopBlue text-white p-8 space-y-4 rounded-lg">
           <div className="flex justify-between my-2">
             <div className="">
-              <h3 className="font-bold">Founders</h3>
-              <ul className="">
-                <li>Name</li>
-                <li>Name</li>
-                <li>Name</li>
-              </ul>
-            </div>
-            <div className="">
-              <h3 className="font-bold">Co-Investors</h3>
-              <ul className="">
-                <li>Name</li>
-                <li>Name</li>
-                <li>Name</li>
-              </ul>
-            </div>
+                  <h3 className="font-bold">Founders</h3>
+                  <ul className="text-gray-100">
+                    <li>Gadaa Jarraa</li>
+                    <li>Danuu Bulchaa</li>
+                    <li>Daba Wayesa</li>
+                  </ul>
+                </div>
+                <div className="">
+                  <h3 className="font-bold">Co-Investors</h3>
+                  <ul className="text-gray-100">
+                    <li>Gamechu Wakjira</li>
+                    <li>Kulani Obsa</li>
+                    <li>Kanani Misbah</li>
+                  </ul>
+                </div>
           </div>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-            dicta officiis est ratione. Repellat nesciunt quam voluptatum
-            deleniti recusandae voluptate officiis at laudantium modi, id
-            molestiae exercitationem beatae eum expedita.
+          <span className="font-bold">Relevance AI</span> is an advanced AI-driven platform designed to deliver precise, context-aware insights to businesses.
+          By analyzing extensive datasets, it identifies the most relevant information to guide decision-making and strategy development.
+          
           </p>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-            dicta officiis est ratione. Repellat nesciunt quam voluptatum
-            deleniti recusandae voluptate officiis at laudantium modi, id
-            molestiae exercitationem beatae eum expedita.
+          The platform empowers companies to optimize their operations, enhance customer experiences,
+          and maintain a competitive edge in a dynamic market environment. 
+          With <span className="font-bold">Relevance AI</span>, businesses can unlock the full potential of their data and make informed, impactful choices.
           </p>
         </div>
       </DialogContent>
