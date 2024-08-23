@@ -36,9 +36,9 @@ const objectiveItems: ObjectiveItem[] = [
 
 export default function Component() {
   return (
-    <div className="bg-gray-50 py-8 px-4">
+    <div className="bg-gray-50 py-8 px-4 m-10">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
+        <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-10">
           Training Objectives
         </h2>
         <div className="flex flex-wrap justify-center gap-6">

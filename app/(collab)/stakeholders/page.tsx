@@ -18,8 +18,8 @@ const Page = () => {
       <PageTitle />
       <SectionLeft
         svg={<SVG1 />}
-        title='title'
-        description='description'
+        title='Unite for Impact: Stakeholder Collaboration Call'
+        description='Join us in driving transformative change by collaborating with like-minded stakeholders. Our platform fosters synergy, enabling organizations, communities, and innovators to work together, share insights, and co-create solutions that empower and uplift lives. Be a part of our collective journey toward a digital future that leaves no one behind.'
         buttonText={"hidden"}
         href={" "}
       />

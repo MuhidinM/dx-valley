@@ -6,6 +6,7 @@ import React, { forwardRef, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
+import Image from "next/image";
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -17,7 +18,8 @@ const Circle = forwardRef<
       className={cn(
         "z-10 flex size-12 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
         className
-      )}>
+      )}
+    >
       {children}
     </div>
   );
@@ -38,38 +40,81 @@ export function ProductsBeam() {
 
   return (
     <div
-      className='relative flex h-[600px] w-full items-center justify-center overflow-hidden rounded-lg'
-      ref={containerRef}>
-      <div className='flex size-full flex-col max-w-lg max-h-[200px] items-stretch justify-between gap-10'>
-        <h1 className='px-14 text-2xl font-bold'>Some Products We've Launched</h1>
-        <div className='flex flex-row items-center justify-between'>
-          <Circle ref={div1Ref} className='size-20'>
-            <img src='/image/companies/recon.png' alt='recon' />
+      className="relative flex h-[600px] w-full items-center justify-center overflow-hidden rounded-lg"
+      ref={containerRef}
+    >
+      <div className="flex size-full flex-col max-w-lg max-h-[200px] items-stretch justify-between gap-10">
+        <h1 className="px-14 text-2xl font-bold">
+          Some Products We&apos;ve Launched
+        </h1>
+        <div className="flex flex-row items-center justify-between">
+          <Circle ref={div1Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/recon.png"
+              alt="recon"
+            />
           </Circle>
-          <Circle ref={div5Ref} className='size-20'>
-            <img src='/image/companies/diaspora.png' alt='diasporabanking' />
+          <Circle ref={div5Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/diaspora.png"
+              alt="diasporabanking"
+            />
           </Circle>
         </div>
-        <div className='flex flex-row items-center justify-between'>
-          <Circle ref={div2Ref} className='size-20'>
-            <img src='/image/companies/debbo.png' alt='deboo' />
+        <div className="flex flex-row items-center justify-between">
+          <Circle ref={div2Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/debbo.png"
+              alt="deboo"
+            />
           </Circle>
-          <Circle ref={div4Ref} className='size-20'>
-            <img src='/image/companies/dx.jpg' alt='coop' />
+          <Circle ref={div4Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/dx.jpg"
+              alt="coop"
+            />
           </Circle>
-          <Circle ref={div6Ref} className='size-20'>
-            <img src='/image/companies/VSLA-image.png' alt='vsla' />
+          <Circle ref={div6Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/VSLA-image.png"
+              alt="vsla"
+            />
           </Circle>
         </div>
-        <div className='flex flex-row items-center justify-between'>
-          <Circle ref={div3Ref} className='size-20'>
-            <img src='/image/companies/coop-stream.png' alt='coop=stream' />
+        <div className="flex flex-row items-center justify-between">
+          <Circle ref={div3Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/coop-stream.png"
+              alt="coop=stream"
+            />
           </Circle>
-          <Circle ref={div7Ref} className='size-20'>
-            <img src='/image/companies/souqpass.png' alt='souqpass' />
+          <Circle ref={div7Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/souqpass.png"
+              alt="souqpass"
+            />
           </Circle>
-          <Circle ref={div8Ref} className='size-20'>
-            <img src='/image/companies/equb.png' alt='equb' />
+          <Circle ref={div8Ref} className="size-20">
+            <Image
+              width={100}
+              height={100}
+              src="/image/companies/equb.png"
+              alt="equb"
+            />
           </Circle>
         </div>
       </div>
@@ -126,4 +171,3 @@ export function ProductsBeam() {
     </div>
   );
 }
-
