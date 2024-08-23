@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChartIcon, ArrowRightIcon } from "lucide-react"
 
-export default function ProfessionalOverview() {
+export default function Component() {
   return (
     <Card className='w-full max-w-5xl mx-auto items-center justify-center my-4 overflow-hidden border-t-4 border-t-[#00adef] shadow-md'>
       <CardHeader className='bg-gradient-to-r from-[#00adef]/5 to-[#E38524]/5 pb-4'>
