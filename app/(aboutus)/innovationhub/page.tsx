@@ -21,18 +21,17 @@ import {
   MichuImage,
   SouqpassImage,
   DeboImage,
- 
 } from "@/constants";
 import React from "react";
 
 const Page = () => {
   return (
     // <div>Page</div>
-    <div className='space-y-8 mb-8 justify-center'>
+    <div className="space-y-8 mb-8 justify-center">
       {/* <DxDescription />{" "} */}
       <SectionLeft
         svg={<SVG1 />}
-        title='Innovation Hub: Where Ideas Come to Life'
+        title="Innovation Hub: Where Ideas Come to Life"
         description={
           <>
             Dx-VALLEY is a physical or virtual space designed to nurture
@@ -57,20 +56,20 @@ const Page = () => {
       {/* <FocusAreas items={focusArea} /> */}
       <SlidingCompanies />
       <Header />
-      <div className='flex aligin-center justify-center'>
+      <div className="flex aligin-center justify-center">
         <Card
           img={<SVG1 />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description="Crowd Funding Platform"
         />
         <Card
           img={<SVG1 />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description="This is product description"
         />
 
         <Card
@@ -78,24 +77,23 @@ const Page = () => {
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description="This is product description"
         />
       </div>
-      <div className='flex aligin-center justify-center'>
+      <div className="flex aligin-center justify-center">
         <Card
           img={<SVG1 />}
           title={"VSLA"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
-          />
+          description="This is product description"
+        />
         <Card
           img={<SVG1 />}
           title={"Diaspora Banking"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-         
-          description='This is product descriptiom '
+          description="This is product description"
         />
 
         <Card
@@ -103,7 +101,7 @@ const Page = () => {
           title={"Souqpass"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description="This is product description"
         />
       </div>
 
