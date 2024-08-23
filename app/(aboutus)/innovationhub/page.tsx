@@ -17,10 +17,12 @@ import {
   DiasporaImage,
   CoopayrollImage,
   ReconcillationImage,
-  CoopstreamImage,
   MichuImage,
   SouqpassImage,
-  DeboImage,
+
+  EkubImage,
+  DaboImage
+
 } from "@/constants";
 import React from "react";
 
@@ -65,7 +67,7 @@ const Page = () => {
           description='crowdfunding platform, connecting ideas with funding to empower communities. It enables individuals and businesses to raise funds by tapping into a supportive network, driving innovation and fostering collective success.'
         />
         <Card
-          img={<SVG1 />}
+          img={<DaboImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
@@ -73,7 +75,7 @@ const Page = () => {
         />
 
         <Card
-          img={<SVG1 />}
+          img={<EkubImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
