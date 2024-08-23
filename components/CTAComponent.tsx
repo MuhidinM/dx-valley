@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function CTAComponent() {
   return (
@@ -20,18 +21,26 @@ export default function CTAComponent() {
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
-              I&apos;m a Trainer
-            </Button>
-            <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
-              I&apos;m an Organization
-            </Button>
-            <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
-              I&apos;m Media
-            </Button>
-            <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
-              I&apos;m a Stakeholder
-            </Button>
+            <Link href={"/trainers"}>
+              <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
+                I&apos;m a Trainer
+              </Button>
+            </Link>
+            <Link href={"/organizations"}>
+              <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
+                I&apos;m an Organization
+              </Button>
+            </Link>
+            <Link href={"/media"}>
+              <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
+                I&apos;m Media
+              </Button>
+            </Link>
+            <Link href={"/stakeholders"}>
+              <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
+                I&apos;m a Stakeholder
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
