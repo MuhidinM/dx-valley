@@ -38,6 +38,7 @@ const Countdown: React.FC<ContestCardProps> = ({
 
       const calculatedTimeLeft = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
+      // Only update state if the time left has changed
       setTimeLeft((prevTimeLeft) =>
         prevTimeLeft !== calculatedTimeLeft ? calculatedTimeLeft : prevTimeLeft
       );
@@ -53,13 +54,13 @@ const Countdown: React.FC<ContestCardProps> = ({
   };
 
   useEffect(() => {
-    calculateTimeLeft();
-    intervalRef.current = window.setInterval(calculateTimeLeft, 1000);
+    calculateTimeLeft(); // Initial calculation
+    intervalRef.current = window.setInterval(calculateTimeLeft, 1000); // Update every second
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current); // Clear the interval on component unmount
     };
-  }, []);
+  }, []); // Empty dependency array ensures this effect only runs once
 
   if (eventHasPassed || !renderUI) {
     return null;
