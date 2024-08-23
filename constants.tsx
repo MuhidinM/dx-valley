@@ -18,6 +18,7 @@ import equbImage from "@/public/image/companies/equb.png";
 import coopAmbition from "@/public/image/companies/coopAmbition.png";
 import entrepreneur from "@/public/image/entrepreneur.png";
 import relationship from "@/public/image/relationship.png";
+import trainer from "@/public/image/trainer.png";
 import business from "@/public/image/business.png";
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
@@ -95,7 +96,7 @@ export const stats = [
   },
   // { value: "10", label: "Open Seats" },
   {
-    img: business,
+    img: trainer,
     value: "21",
     label: "Trainers",
   },
