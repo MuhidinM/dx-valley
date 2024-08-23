@@ -17,11 +17,10 @@ import {
   DiasporaImage,
   CoopayrollImage,
   ReconcillationImage,
-  CoopstreamImage,
   MichuImage,
   SouqpassImage,
-  DeboImage,
- 
+  EkubImage,
+  DaboImage
 } from "@/constants";
 import React from "react";
 
@@ -66,7 +65,7 @@ const Page = () => {
           description='This is product descriptiom '
         />
         <Card
-          img={<SVG1 />}
+          img={<DaboImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
@@ -74,7 +73,7 @@ const Page = () => {
         />
 
         <Card
-          img={<SVG1 />}
+          img={<EkubImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
