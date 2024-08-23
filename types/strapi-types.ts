@@ -114,3 +114,44 @@ interface ImageFormat {
       large: string
     },
 }
+
+// interfaces for training tab
+
+
+interface CardLink {
+  id: number;
+  href: string;
+  title: string;
+}
+
+interface Card {
+  id: number;
+  title: string;
+  description: string;
+  link: CardLink;
+  img: ImageData;
+}
+
+export interface CardData {
+  title: string,
+  description: string,
+  link: {
+    title: string,
+    href: string
+  }
+  img:  {
+    small: string,
+    medium: string,
+    large: string
+  },
+}
+
+export interface CardResponse {
+
+  data: {
+    id: number,
+    attributes: {
+      cards: Card[]
+    }
+  };
+}
