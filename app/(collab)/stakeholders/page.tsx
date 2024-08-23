@@ -9,6 +9,8 @@ import { objectives, SVG1 } from "@/constants";
 import Head from "next/head";
 import React from "react";
 import Overview from "@/components/collab/overview";
+import ProfessionalOverview from "@/components/ProfessionalOverview";
+import CollabObjectives from "@/components/CollabObjectives";
 
 const Page = () => {
   return (
@@ -21,14 +23,15 @@ const Page = () => {
         buttonText={"hidden"}
         href={" "}
       />
-      <Overview />
+      <ProfessionalOverview />
       <CTA
         title='
       Want to Work with Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
       />
-      <Objectives items={objectives} />
+      {/* <Objectives items={objectives} /> */}
+      <CollabObjectives />
       {/* <InputForm /> */}
       <div id='collab-form'>
         <CollabForm />
