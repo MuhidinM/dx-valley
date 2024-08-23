@@ -23,14 +23,19 @@ import business from "@/public/image/business.png";
 import VusiTembekuwayo from "@/public/image/VusiTembekuwayo.png"
 import Media from "@/public/image/Media1.png"
 import Organization from "@/public/image/org-collaboration.png"
-import HardSkillTraining from "@/public/image/org-collaboration.png"
-import SoftSkill from "@/public/image/sales-training.png"
+import HardSkillTraining from "@/public/image/hard-skill-black.png"
+import SoftSkill from "@/public/image/softskill-training.png"
+import TrainerOne from   "@/public/image/tariners-one.png"
+import DaboImageOne from "@/public/image/dabo-image.png"
+import EkubImageOne from "@/public/image/ekub-image.png"
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
   <Image src={Coopayroll} alt="coopayroll" />
 );
 export const DiasporaImage = () => <Image src={Diaspora} alt="diaspora" />;
+export const DaboImage = ()=> <Image src={DaboImageOne} alt="dabo "/>
+export const EkubImage = () => <Image src={EkubImageOne} alt="ekub" />
 
 export const MichuImage = () => <Image src={Michu} alt="michu" />;
 export const ReconcillationImage = () => (
@@ -39,6 +44,9 @@ export const ReconcillationImage = () => (
 export const HardSkillTrainingImage = () => (
   <Image src={HardSkillTraining} alt="Hard Skill Training" />
 );
+
+export const Trainer = ()=>
+  <Image src={TrainerOne} alt="tariner"/>
 
 export const SoftSkillImage = () => (
   <Image src={SoftSkill} alt="Soft Skill" />

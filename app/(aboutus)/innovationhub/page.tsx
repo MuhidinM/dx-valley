@@ -17,11 +17,12 @@ import {
   DiasporaImage,
   CoopayrollImage,
   ReconcillationImage,
-  CoopstreamImage,
   MichuImage,
   SouqpassImage,
-  DeboImage,
- 
+
+  EkubImage,
+  DaboImage
+
 } from "@/constants";
 import React from "react";
 
@@ -63,22 +64,22 @@ const Page = () => {
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='crowdfunding platform, connecting ideas with funding to empower communities. It enables individuals and businesses to raise funds by tapping into a supportive network, driving innovation and fostering collective success.'
         />
         <Card
-          img={<SVG1 />}
+          img={<DaboImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='This is product description'
         />
 
         <Card
-          img={<SVG1 />}
+          img={<EkubImage />}
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='This is product description'
         />
       </div>
       <div className='flex aligin-center justify-center'>
@@ -87,15 +88,14 @@ const Page = () => {
           title={"VSLA"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
-          />
+          description='This is product description'
+        />
         <Card
           img={<SVG1 />}
           title={"Diaspora Banking"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-         
-          description='This is product descriptiom '
+          description='This is product description'
         />
 
         <Card
@@ -103,7 +103,7 @@ const Page = () => {
           title={"Souqpass"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='This is product description'
         />
       </div>
 
