@@ -10,6 +10,7 @@ import Head from "next/head";
 import React from "react";
 import Overview from "@/components/collab/overview";
 import CollabObjectives from "@/components/CollabObjectives";
+import ProfessionalOverview from "@/components/ProfessionalOverview";
 
 const Page = () => {
   return (
@@ -24,6 +25,7 @@ const Page = () => {
         buttonText={"hidden"}
         href={" "}
       />
+      <ProfessionalOverview />
       <CTA
         title='Want to Work with Us?'
         buttonText='Apply For Call'

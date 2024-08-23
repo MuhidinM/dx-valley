@@ -33,6 +33,7 @@ const Page = () => {
         buttonText='Apply For Call'
         href={"#collab-form"}
       />
+
       <CollabObjectives />
       {/* <Objectives items={objectives} /> */}
       {/* <InputForm /> */}
