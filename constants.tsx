@@ -25,7 +25,7 @@ import Media from "@/public/image/Media1.png"
 import Organization from "@/public/image/org-collaboration.png"
 import HardSkillTraining from "@/public/image/hard-skill-black.png"
 import SoftSkill from "@/public/image/softskill-training.png"
-import TrainerOne from "@/public/image/tariners-one.png"
+import TrainerOne from   "@/public/image/tariners-one.png"
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
