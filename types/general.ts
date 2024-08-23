@@ -39,6 +39,7 @@ export interface CardProps {
 }
 
 export type StatItem = {
+  img: ReactNode;
   value: string;
   label: string;
 };

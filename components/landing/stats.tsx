@@ -4,6 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import { StatsProps } from "@/types/general";
+import Image from "next/image";
 
 const Stats: React.FC<StatsProps> = ({ items }) => {
   const [inView, setInView] = useState(false);
@@ -40,8 +41,17 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
           {items.map((item, index) => (
             <div
               key={index}
-              className='flex flex-col items-center justify-center p-6 bg-gray-600 dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300'>
-              <dt className='mb-3 text-4xl font-bold text-white dark:text-white'>
+              className='flex flex-col items-center justify-center p-6 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300'>
+              <div>
+                <Image
+                  alt=''
+                  width={60}
+                  height={0}
+                  src={item?.img}
+                className="pb-6"
+                />
+              </div>
+              <dt className='mb-3 text-4xl font-bold text-gray-900 dark:text-white'>
                 {inView ? (
                   <CountUp
                     start={0}
@@ -53,7 +63,7 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
                   0
                 )}
               </dt>
-              <dd className='text-lg font-medium text-white dark:text-gray-300'>
+              <dd className='text-2xl font-extrabold text-gray-700 dark:text-gray-300 '>
                 {item.label}
               </dd>
             </div>

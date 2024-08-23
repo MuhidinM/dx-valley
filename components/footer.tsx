@@ -1,11 +1,13 @@
 /** @format */
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { collaborations, divisions, events, otherLinks } from "@/constants";
+import { FooterItemFetch } from '@/services/footer'
+import { FooterData, FooterItems } from "@/types/strapi-types";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +28,18 @@ const Footer = () => {
     }
   };
 
+
+  const [FooterItems, setFooterItems] = useState<FooterData>(); // Initialize as an empty array
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      const data = await FooterItemFetch();
+      setFooterItems(data);
+    };
+
+    fetchMenuItems();
+  }, []);
+
   return (
     <footer className="font-sans bg-coopBlue text-white">
       <div className="mx-auto max-w-screen-xl px-4 ">
@@ -34,17 +48,13 @@ const Footer = () => {
             <div className="grid min-w-0 flex-1 grid-cols-1 gap-6 md:gap-16 xl:grid-cols-2 p-6">
               <div>
                 <h6 className=" font-sans mb-4 text-xl font-extrabold ">
-                  About
+                {FooterItems?.title}
                   <span className=" text-gray-800 font-bold mx-2">
                     D<span className="text-coopOrange"> X </span>VALLEY{" "}
                   </span>
                 </h6>
                 <p className="flex font-sans text-white">
-                  At DxValley, we drive digital transformation by empowering
-                  businesses with cutting-edge innovation and strategic
-                  collaboration. Our mission is to create a thriving ecosystem
-                  where technology and industry converge to shape a secure and
-                  sustainable future.
+                {FooterItems?.description}
                 </p>
               </div>
 
@@ -91,14 +101,14 @@ const Footer = () => {
                 Divisions
               </h6>
               <ul className="space-y-3 font-sans text-white">
-                {divisions?.map((divisionItem) => (
+                {FooterItems?.divisions.map((divisionItem) => (
                   <li key={divisionItem.href}>
                     <Link
                       href={divisionItem.href}
                       title=""
                       className="text-gray-200 hover:text-gray-300"
                     >
-                      {divisionItem.title}
+                      {divisionItem.link}
                     </Link>
                   </li>
                 ))}
@@ -109,14 +119,14 @@ const Footer = () => {
                 Collaboration
               </h6>
               <ul className="space-y-3 font-sans text-white">
-                {collaborations?.map((collaboration) => (
+                {FooterItems?.collaboration.map((collaboration) => (
                   <li key={collaboration.href}>
                     <Link
                       href={collaboration.href}
                       title=""
                       className="text-gray-200 hover:text-gray-300"
                     >
-                      {collaboration.title}
+                      {collaboration.link}
                     </Link>
                   </li>
                 ))}
@@ -127,14 +137,14 @@ const Footer = () => {
                 Events
               </h6>
               <ul className="space-y-3 font-sans text-white">
-                {events?.map((event) => (
+                {FooterItems?.events.map((event) => (
                   <li key={event.href}>
                     <Link
                       href={event.href}
                       title=""
                       className="text-gray-200 hover:text-gray-300"
                     >
-                      {event.title}
+                      {event.link}
                     </Link>
                   </li>
                 ))}
@@ -145,14 +155,14 @@ const Footer = () => {
                 Other Links
               </h6>
               <ul className="space-y-3 font-sans text-white">
-                {otherLinks?.map((otherLinks) => (
+                {FooterItems?.otherlinks.map((otherLinks) => (
                   <li key={otherLinks.href}>
                     <Link
                       href={otherLinks.href}
                       title=""
                       className="text-gray-200 hover:text-gray-300"
                     >
-                      {otherLinks.title}
+                      {otherLinks.link}
                     </Link>
                   </li>
                 ))}
@@ -170,7 +180,7 @@ const Footer = () => {
             </Link>
 
             <p className="text-sm">
-              © 2024{" "}
+              © { new Date().getFullYear() } {" "}
               <Link href="#" className="hover:underline">
                 Cooperative Bank of Oromia
               </Link>
