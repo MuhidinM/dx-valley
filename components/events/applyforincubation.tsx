@@ -102,6 +102,13 @@ export default function ApplyForIncubation() {
     }
   };
 
+  const handleRemoveVideo = () => {
+    setFormData((prev) => ({ ...prev, video: null }));
+    if (videoInputRef.current) {
+      videoInputRef.current.value = "";
+    }
+  };
+
   const handleRemoveDocument = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -128,9 +135,6 @@ export default function ApplyForIncubation() {
         break;
       case 2:
         if (!formData.idea.trim()) stepErrors.idea = "Startup idea is required";
-        if (!formData.video) stepErrors.video = "Video pitch is required";
-        if (formData.documents.length === 0)
-          stepErrors.documents = "At least one document is required";
         break;
     }
     return stepErrors;
@@ -350,14 +354,26 @@ export default function ApplyForIncubation() {
             {currentStep === 2 && (
               <div className='space-y-4'>
                 <div className='space-y-2'>
-                  <Label htmlFor='video'>Video Pitch (Max 100MB)</Label>
-                  <Input
-                    id='video'
-                    type='file'
-                    accept='video/*'
-                    onChange={(e) => handleFileChange(e, "video")}
-                    ref={videoInputRef}
-                  />
+                  <Label htmlFor='video'>
+                    Video Pitch (Optional, Max 100MB)
+                  </Label>
+                  <div className='flex items-center space-x-2'>
+                    <Input
+                      id='video'
+                      type='file'
+                      accept='video/*'
+                      onChange={(e) => handleFileChange(e, "video")}
+                      ref={videoInputRef}
+                    />
+                    {formData.video && (
+                      <Button
+                        type='button'
+                        variant='outline'
+                        onClick={handleRemoveVideo}>
+                        <X className='h-4 w-4' />
+                      </Button>
+                    )}
+                  </div>
                   {formData.video && (
                     <p className='text-sm text-gray-500'>
                       {formData.video.name}
@@ -368,7 +384,9 @@ export default function ApplyForIncubation() {
                   )}
                 </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='documents'>Documents (Max 10MB each)</Label>
+                  <Label htmlFor='documents'>
+                    Documents (Optional, Max 10MB each)
+                  </Label>
                   <Input
                     id='documents'
                     type='file'
