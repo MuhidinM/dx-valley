@@ -18,21 +18,40 @@ import equbImage from "@/public/image/companies/equb.png";
 import coopAmbition from "@/public/image/companies/coopAmbition.png";
 import entrepreneur from "@/public/image/entrepreneur.png";
 import relationship from "@/public/image/relationship.png";
+import trainer from "@/public/image/trainer.png";
 import business from "@/public/image/business.png";
+import VusiTembekuwayo from "@/public/image/VusiTembekuwayo.png"
+import Media from "@/public/image/Media1.png"
+import Organization from "@/public/image/org-collaboration.png"
+import HardSkillTraining from "@/public/image/hard-skill-black.png"
+import SoftSkill from "@/public/image/softskill-training.png"
+import TrainerOne from   "@/public/image/tariners-one.png"
+import DaboImageOne from "@/public/image/dabo-image.png"
+import EkubImageOne from "@/public/image/ekub-image.png"
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
   <Image src={Coopayroll} alt="coopayroll" />
 );
 export const DiasporaImage = () => <Image src={Diaspora} alt="diaspora" />;
+export const DaboImage = ()=> <Image src={DaboImageOne} alt="dabo "/>
+export const EkubImage = () => <Image src={EkubImageOne} alt="ekub" />
 
 export const MichuImage = () => <Image src={Michu} alt="michu" />;
 export const ReconcillationImage = () => (
   <Image src={Reconcillation} alt="reconcillation" />
 );
-export const CoopstreamImage = () => (
-  <Image src={Coopstream} alt="coopstream" />
+export const HardSkillTrainingImage = () => (
+  <Image src={HardSkillTraining} alt="Hard Skill Training" />
 );
+
+export const Trainer = ()=>
+  <Image src={TrainerOne} alt="tariner"/>
+
+export const SoftSkillImage = () => (
+  <Image src={SoftSkill} alt="Soft Skill" />
+);
+
 
 export const VSLAImage = () => <Image src={VSLAPhoto} alt="coopstream" />;
 
@@ -44,6 +63,10 @@ export const overview = [
 ];
 
 export const SVG1 = () => <Image src={incubationPhoto} alt="incubation" />;
+export const Vusi = () => <Image src={VusiTembekuwayo} alt="vusi-tembekuwayo" />;
+export const Media1 = () => <Image src={Media} alt="media" />;
+export const Organizaion = ()=> <Image src={Organization} alt="" />;
+
 
 export const DeboImage = () => (
   <Image src={DeboPhoto} alt="Debo crowdfund platform" />
@@ -77,25 +100,25 @@ export const features = [
 
 export const stats = [
   {
-    img: business,
+    img: <Image src={business} alt=""/>,
     value: "73",
     label: "Incubated Projects",
   },
 
   {
-    img: relationship,
+    img: <Image src={relationship} alt=""/>,
     value: "17",
     label: "Partnerships",
   },
 
   {
-    img: entrepreneur,
+    img: <Image src={entrepreneur} alt=""/>,
     value: "4",
     label: "Launched StartUps",
   },
   // { value: "10", label: "Open Seats" },
   {
-    img: business,
+    img: <Image src={business} alt=""/>,
     value: "21",
     label: "Trainers",
   },

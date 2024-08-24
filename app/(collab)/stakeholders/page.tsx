@@ -9,6 +9,8 @@ import { objectives, SVG1 } from "@/constants";
 import Head from "next/head";
 import React from "react";
 import Overview from "@/components/collab/overview";
+import ProfessionalOverview from "@/components/ProfessionalOverview";
+import CollabObjectives from "@/components/CollabObjectives";
 
 const Page = () => {
   return (
@@ -16,19 +18,20 @@ const Page = () => {
       <PageTitle />
       <SectionLeft
         svg={<SVG1 />}
-        title='title'
-        description='description'
+        title='Unite for Impact: Stakeholder Collaboration Call'
+        description='Join us in driving transformative change by collaborating with like-minded stakeholders. Our platform fosters synergy, enabling organizations, communities, and innovators to work together, share insights, and co-create solutions that empower and uplift lives. Be a part of our collective journey toward a digital future that leaves no one behind.'
         buttonText={"hidden"}
         href={" "}
       />
-      <Overview />
+      <ProfessionalOverview />
       <CTA
         title='
       Want to Work with Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
       />
-      <Objectives items={objectives} />
+      {/* <Objectives items={objectives} /> */}
+      <CollabObjectives />
       {/* <InputForm /> */}
       <div id='collab-form'>
         <CollabForm />

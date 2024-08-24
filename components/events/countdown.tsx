@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Event } from "@/types/types";
-
 import {
   Card,
   CardContent,
@@ -9,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Button } from "../ui/button";
 
 interface ContestCardProps {
@@ -25,42 +23,46 @@ const Countdown: React.FC<ContestCardProps> = ({
 }) => {
   const [timeLeft, setTimeLeft] = useState("");
   const [eventHasPassed, setEventHasPassed] = useState(false);
+  const intervalRef = useRef<number | null>(null);
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const targetDate = new Date(event.targetDate);
+    const difference = targetDate.getTime() - now.getTime();
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / 1000 / 60) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+
+      const calculatedTimeLeft = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      // Only update state if the time left has changed
+      setTimeLeft((prevTimeLeft) =>
+        prevTimeLeft !== calculatedTimeLeft ? calculatedTimeLeft : prevTimeLeft
+      );
+
+      if (onTimeLeftCalculated) {
+        onTimeLeftCalculated(calculatedTimeLeft);
+      }
+    } else {
+      setTimeLeft("Event has passed");
+      setEventHasPassed(true);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    }
+  };
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const targetDate = new Date(event.targetDate);
-      const difference = targetDate.getTime() - now.getTime();
+    calculateTimeLeft(); // Initial calculation
+    intervalRef.current = window.setInterval(calculateTimeLeft, 1000); // Update every second
 
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / 1000 / 60) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-
-        // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-        const calculatedTimeLeft = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        setTimeLeft(calculatedTimeLeft);
-
-        if (onTimeLeftCalculated) {
-          onTimeLeftCalculated(calculatedTimeLeft);
-        }
-      } else {
-        setTimeLeft("Event has passed");
-        setEventHasPassed(true);
-      }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current); // Clear the interval on component unmount
     };
+  }, []); // Empty dependency array ensures this effect only runs once
 
-    calculateTimeLeft();
-    const timerId = setInterval(calculateTimeLeft, 1000);
-
-    return () => clearInterval(timerId);
-  }, [event.targetDate, onTimeLeftCalculated]);
-
-  if (eventHasPassed) {
-    return null;
-  }
-  if (!renderUI) {
+  if (eventHasPassed || !renderUI) {
     return null;
   }
 

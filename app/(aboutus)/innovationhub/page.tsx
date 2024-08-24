@@ -17,11 +17,10 @@ import {
   DiasporaImage,
   CoopayrollImage,
   ReconcillationImage,
-  CoopstreamImage,
   MichuImage,
   SouqpassImage,
-  DeboImage,
- 
+  EkubImage,
+  DaboImage,
 } from "@/constants";
 import React from "react";
 
@@ -63,39 +62,39 @@ const Page = () => {
           title={"Deboo"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='crowdfunding platform, connecting ideas with funding to empower communities. It enables individuals and businesses to raise funds by tapping into a supportive network, driving innovation and fostering collective success.'
         />
         <Card
-          img={<SVG1 />}
-          title={"Deboo"}
+          img={<EkubImage />}
+          title={"Equb"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='The Equb product by Coop Bank of Oromia offers a traditional savings model that allows groups to pool resources together, providing members with a lump sum of money on a rotating basis. This community-driven financial tool helps individuals manage their finances, invest in personal or business needs, and build stronger social ties, all while promoting a culture of saving and mutual support'
         />
 
-        <Card
-          img={<SVG1 />}
-          title={"Deboo"}
-          buttonText={"Visit Site"}
-          buttonText2={"Read More"}
-          description='This is product descriptiom '
-        />
-      </div>
-      <div className='flex aligin-center justify-center'>
         <Card
           img={<SVG1 />}
           title={"VSLA"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
-          />
+          description='A  empowers rural communities by providing a structured way to save, access loans, and improve financial literacy. It enables members to pool their savings, create a sustainable credit system, and invest in income-generating activities, fostering economic growth and self-reliance at the grassroots level.'
+        />
+      </div>
+      <div className='flex aligin-center justify-center'>
+        <Card
+          img={<SVG1 />}
+          title={"Coop Recon"}
+          buttonText={"Visit Site"}
+          buttonText2={"Read More"}
+          description='
+A reconciliation platform by Coop Bank of Oromia automates and simplifies the process of matching transactions with bank statements. It enhances accuracy, streamlines financial operations, and reduces administrative tasks, ensuring efficient and transparent financial management.n'
+        />
         <Card
           img={<SVG1 />}
           title={"Diaspora Banking"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-         
-          description='This is product descriptiom '
+          description='Diaspora Banking by Coop Bank of Oromia is tailored for Ethiopians living abroad, offering seamless financial services to connect them with their homeland. It provides easy access to savings, investments, and remittance solutions, ensuring that the diaspora community can contribute to and benefit from Ethiopia`s growth while staying connected to their roots.'
         />
 
         <Card
@@ -103,7 +102,7 @@ const Page = () => {
           title={"Souqpass"}
           buttonText={"Visit Site"}
           buttonText2={"Read More"}
-          description='This is product descriptiom '
+          description='Revenue-based financing platform, designed to support businesses by offering flexible funding options. It empowers entrepreneurs to grow their ventures without giving up equity, providing a smart financial solution tailored to their revenue streams'
         />
       </div>
 
