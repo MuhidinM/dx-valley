@@ -194,98 +194,99 @@ export const heroImages = [
     link: "/test",
   },
 ];
-export const divisions = [
-  {
-    title: "Innovation Hub",
-    href: "/innovationhub",
-  },
-  {
-    title: "Incubation Lab",
-    href: "/incubationcenter",
-  },
-  {
-    title: "Coop Bank",
-    href: "https://coopbankoromia.com.et/about/",
-  },
-];
 
-export const collaborations = [
-  {
-    href: "/organizations",
-    title: "Organizations",
-  },
-  {
-    href: "/trainers",
-    title: "Trainers",
-    description: "Collab with Trainers",
-  },
-  {
-    href: "/media",
-    title: "Media",
-  },
-  {
-    href: "/stakeholders",
-    title: "Stakeholders",
-  },
-];
+// export const divisions = [
+//   {
+//     title: "Innovation Hub",
+//     href: "/innovationhub",
+//   },
+//   {
+//     title: "Incubation Lab",
+//     href: "/incubationcenter",
+//   },
+//   {
+//     title: "Coop Bank",
+//     href: "https://coopbankoromia.com.et/about/",
+//   },
+// ];
 
-export const events = [
-  {
-    href: "/training",
-    title: "Training Areas",
-  },
-  {
-    href: "/contests",
-    title: "Contests",
-  },
-  {
-    href: "/showcase",
-    title: "Showcase",
-  },
-];
+// export const collaborations = [
+//   {
+//     href: "/organizations",
+//     title: "Organizations",
+//   },
+//   {
+//     href: "/trainers",
+//     title: "Trainers",
+//     description: "Collab with Trainers",
+//   },
+//   {
+//     href: "/media",
+//     title: "Media",
+//   },
+//   {
+//     href: "/stakeholders",
+//     title: "Stakeholders",
+//   },
+// ];
 
-export const otherLinks = [
-  {
-    title: "News",
-    href: "/news",
-  },
-  {
-    title: "Call For StartUps",
-    href: "/call",
-  },
-  {
-    title: "Licence Registration",
-    href: "licence",
-  },
-  {
-    title: "Stake Holders",
-    href: "/stakeholders",
-  },
-  {
-    title: "Funding",
-    href: "licence",
-  },
-  {
-    title: "Social Media",
-    href: "/socialmedia",
-  },
-  {
-    title: "Projects",
-    href: "licence",
-  },
-  {
-    title: "Events",
-    href: "/events",
-  },
-  {
-    title: "Filtering Criterias",
-    href: "licence",
-  },
-  {
-    title: "Gallery",
-    href: "/gallery",
-  },
-];
+// export const events = [
+//   {
+//     href: "/training",
+//     title: "Training Areas",
+//   },
+//   {
+//     href: "/contests",
+//     title: "Contests",
+//   },
+//   {
+//     href: "/showcase",
+//     title: "Showcase",
+//   },
+// ];
+
+// export const otherLinks = [
+//   {
+//     title: "News",
+//     href: "/news",
+//   },
+//   {
+//     title: "Call For StartUps",
+//     href: "/call",
+//   },
+//   {
+//     title: "Licence Registration",
+//     href: "licence",
+//   },
+//   {
+//     title: "Stake Holders",
+//     href: "/stakeholders",
+//   },
+//   {
+//     title: "Funding",
+//     href: "licence",
+//   },
+//   {
+//     title: "Social Media",
+//     href: "/socialmedia",
+//   },
+//   {
+//     title: "Projects",
+//     href: "licence",
+//   },
+//   {
+//     title: "Events",
+//     href: "/events",
+//   },
+//   {
+//     title: "Filtering Criterias",
+//     href: "licence",
+//   },
+//   {
+//     title: "Gallery",
+//     href: "/gallery",
+//   },
+// ];
 
 export const focusArea = [
   {

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { CardData } from "@/types/strapi-types"
 
 const Page = () => {
-  const [trainingItems, setTrainingItems] = useState<CardData[]>([]); // Initialize as an empty array
+  const [trainingItems, setTrainingItems] = useState<CardData[]>([]);
 
     useEffect(() => {
       const fetchTrainngItems = async () => {
