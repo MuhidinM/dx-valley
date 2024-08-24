@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,8 +8,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, Plus, X, Loader2 } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import Confetti from 'react-confetti'
 
 const steps = [
   { id: 'startup', title: 'Startup Info' },
@@ -17,234 +19,445 @@ const steps = [
   { id: 'idea', title: 'Your Idea' },
 ]
 
-export default function ApplyForIncubation() {
-  const router = useRouter()
-  const [currentStep, setCurrentStep] = useState(0)
-  const [formData, setFormData] = useState({
-    startupName: '',
-    stage: '',
-    founderName: '',
-    email: '',
-    phone: '',
-    idea: '',
-  })
-  const [errors, setErrors] = useState({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
+const startupNameSuggestions = [
+  "TechNova", "InnoVenture", "FuturePulse", "QuantumLeap", "NexusWave",
+  "ZenithSpark", "PixelPioneer", "EcoSphere", "CyberForge", "BioSync"
+]
 
-  const handleChange = (name, value) => {
-    setFormData(prevState => ({
+export default function ApplyForIncubation() {
+  const router = useRouter();
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    startupName: "",
+    stage: "",
+    founderNames: [""],
+    email: "",
+    phone: "",
+    idea: "",
+    video: null,
+    documents: [],
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const videoInputRef = useRef(null);
+  const documentInputRef = useRef(null);
+
+  const handleChange = (name, value, index = null) => {
+    if (index !== null) {
+      const newFounderNames = [...formData.founderNames];
+      newFounderNames[index] = value;
+      setFormData((prevState) => ({
+        ...prevState,
+        founderNames: newFounderNames,
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleAddFounder = () => {
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
-    }))
-  }
+      founderNames: [...prevState.founderNames, ""],
+    }));
+  };
+
+  const handleRemoveFounder = (index) => {
+    const newFounderNames = formData.founderNames.filter((_, i) => i !== index);
+    setFormData((prevState) => ({
+      ...prevState,
+      founderNames: newFounderNames,
+    }));
+  };
+
+  const handleFileChange = (event, type) => {
+    const files = Array.from(event.target.files);
+    if (type === "video") {
+      if (files[0] && files[0].size > 100 * 1024 * 1024) {
+        setErrors((prev) => ({
+          ...prev,
+          video: "Video file size must be less than 100MB",
+        }));
+        return;
+      }
+      setFormData((prev) => ({ ...prev, video: files[0] || null }));
+    } else if (type === "document") {
+      const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024);
+      if (validFiles.length < files.length) {
+        setErrors((prev) => ({
+          ...prev,
+          documents: "Some documents exceeded 10MB limit and were not added",
+        }));
+      }
+      setFormData((prev) => ({
+        ...prev,
+        documents: [...prev.documents, ...validFiles],
+      }));
+    }
+  };
+
+  const handleRemoveDocument = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      documents: prev.documents.filter((_, i) => i !== index),
+    }));
+  };
 
   const validateStep = (step) => {
-    let stepErrors = {}
+    let stepErrors = {};
     switch (step) {
       case 0:
-        if (!formData.startupName.trim()) stepErrors.startupName = 'Startup name is required'
-        if (!formData.stage) stepErrors.stage = 'Current stage is required'
-        break
+        if (!formData.startupName.trim())
+          stepErrors.startupName = "Startup name is required";
+        if (!formData.stage) stepErrors.stage = "Current stage is required";
+        break;
       case 1:
-        if (!formData.founderName.trim()) stepErrors.founderName = 'Founder\'s name is required'
-        if (!formData.email.trim()) stepErrors.email = 'Email is required'
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) stepErrors.email = 'Email is invalid'
-        if (!formData.phone.trim()) stepErrors.phone = 'Phone number is required'
-        break
+        if (formData.founderNames.some((name) => !name.trim()))
+          stepErrors.founderNames = "All founder names are required";
+        if (!formData.email.trim()) stepErrors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(formData.email))
+          stepErrors.email = "Email is invalid";
+        if (!formData.phone.trim())
+          stepErrors.phone = "Phone number is required";
+        break;
       case 2:
-        if (!formData.idea.trim()) stepErrors.idea = 'Startup idea is required'
-        break
+        if (!formData.idea.trim()) stepErrors.idea = "Startup idea is required";
+        if (!formData.video) stepErrors.video = "Video pitch is required";
+        if (formData.documents.length === 0)
+          stepErrors.documents = "At least one document is required";
+        break;
     }
-    return stepErrors
-  }
+    return stepErrors;
+  };
 
   const handleNext = () => {
-    const stepErrors = validateStep(currentStep)
+    const stepErrors = validateStep(currentStep);
     if (Object.keys(stepErrors).length > 0) {
-      setErrors(stepErrors)
-      return
+      setErrors(stepErrors);
+      return;
     }
-    setErrors({})
-    setCurrentStep(prev => Math.min(prev + 1, steps.length - 1))
-  }
+    setErrors({});
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
 
   const handlePrevious = () => {
-    setCurrentStep(prev => Math.max(prev - 1, 0))
-  }
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const stepErrors = validateStep(currentStep)
+    e.preventDefault();
+    const stepErrors = validateStep(currentStep);
     if (Object.keys(stepErrors).length > 0) {
-      setErrors(stepErrors)
-      return
+      setErrors(stepErrors);
+      return;
     }
-    setIsSubmitting(true)
+    setShowConfirmDialog(true);
+  };
+
+  const confirmSubmit = async () => {
+    setShowConfirmDialog(false);
+    setIsSubmitting(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setSubmitSuccess(true)
-    // Redirect to a thank you page after 2 seconds
-    setTimeout(() => {
-      router.push('/thank-you')
-    }, 2000)
-  }
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    setShowConfetti(true);
+  };
+
+  const generateStartupName = () => {
+    const randomIndex = Math.floor(
+      Math.random() * startupNameSuggestions.length
+    );
+    setFormData((prev) => ({
+      ...prev,
+      startupName: startupNameSuggestions[randomIndex],
+    }));
+  };
 
   if (submitSuccess) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <Alert className="w-full max-w-md">
-          <CheckCircle2 className="h-4 w-4" />
-          <AlertTitle>Success</AlertTitle>
-          <AlertDescription>
-            Your application has been submitted successfully. We'll be in touch soon!
-          </AlertDescription>
-        </Alert>
+      <div className='flex flex-col items-center justify-center min-h-screen bg-gray-50'>
+        {showConfetti && <Confetti colors={["#00adef"]} />}
+        <div className='text-center space-y-4'>
+          <div className='inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100'>
+            <CheckCircle2 className='w-8 h-8 text-green-600' />
+          </div>
+          <h1 className='text-4xl font-bold text-gray-900'>
+            Submission Successful!
+          </h1>
+          <p className='text-xl text-gray-600'>
+            Good luck! Stay tuned for our email.
+          </p>
+          <Button onClick={() => router.push("/")} className='mt-8'>
+            Go back to home
+          </Button>
+        </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Apply for Startup Incubation</CardTitle>
+    <div className='min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+      <Card className='max-w-2xl mx-auto'>
+        <CardHeader className='space-y-1'>
+          <CardTitle className='text-2xl font-bold'>
+            Apply for Startup Incubation
+          </CardTitle>
           <CardDescription>
             Join Dx Valley's Incubation Program and turn your idea into reality!
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="mb-8">
-            <div className="flex justify-between">
+          <div className='mb-8'>
+            <div className='flex justify-between'>
               {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
-                  <div className={`rounded-full h-8 w-8 flex items-center justify-center ${index <= currentStep ? 'bg-[#00adef] text-white' : 'bg-gray-200 text-gray-600'}`}>
+                <div key={step.id} className='flex flex-col items-center'>
+                  <div
+                    className={`rounded-full h-8 w-8 flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-[#00adef] text-white"
+                        : "bg-gray-200 text-gray-600"
+                    }`}>
                     {index + 1}
                   </div>
-                  <div className="text-xs mt-2">{step.title}</div>
+                  <div className='text-xs mt-2'>{step.title}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-4 h-2 bg-gray-200 rounded-full">
+            <div className='mt-4 h-2 bg-gray-200 rounded-full'>
               <div
-                className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
-                style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-              ></div>
+                className='h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out'
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}></div>
             </div>
           </div>
           <form onSubmit={handleSubmit}>
             {currentStep === 0 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="startupName">Startup Name</Label>
-                  <Input
-                    id="startupName"
-                    placeholder="Enter your startup name"
-                    value={formData.startupName}
-                    onChange={(e) => handleChange('startupName', e.target.value)}
-                  />
+              <div className='space-y-4'>
+                <div className='space-y-2'>
+                  <Label htmlFor='startupName'>Startup Name</Label>
+                  <div className='flex space-x-2'>
+                    <Input
+                      id='startupName'
+                      placeholder='Enter your startup name'
+                      value={formData.startupName}
+                      onChange={(e) =>
+                        handleChange("startupName", e.target.value)
+                      }
+                    />
+                    <Button type='button' onClick={generateStartupName}>
+                      Generate
+                    </Button>
+                  </div>
                   {errors.startupName && (
-                    <p className="text-sm text-red-500">{errors.startupName}</p>
+                    <p className='text-sm text-red-500'>{errors.startupName}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="stage">Current Stage</Label>
-                  <Select onValueChange={(value) => handleChange('stage', value)} value={formData.stage}>
+                <div className='space-y-2'>
+                  <Label htmlFor='stage'>Current Stage</Label>
+                  <Select
+                    onValueChange={(value) => handleChange("stage", value)}
+                    value={formData.stage}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select your current stage" />
+                      <SelectValue placeholder='Select your current stage' />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="idea">Idea</SelectItem>
-                      <SelectItem value="prototype">Prototype</SelectItem>
-                      <SelectItem value="mvp">MVP</SelectItem>
-                      <SelectItem value="early-revenue">Early Revenue</SelectItem>
+                      <SelectItem value='idea'>Idea</SelectItem>
+                      <SelectItem value='prototype'>Prototype</SelectItem>
+                      <SelectItem value='mvp'>MVP</SelectItem>
+                      <SelectItem value='early-revenue'>
+                        Early Revenue
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   {errors.stage && (
-                    <p className="text-sm text-red-500">{errors.stage}</p>
+                    <p className='text-sm text-red-500'>{errors.stage}</p>
                   )}
                 </div>
               </div>
             )}
             {currentStep === 1 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="founderName">Founder's Name</Label>
+              <div className='space-y-4'>
+                {formData.founderNames.map((name, index) => (
+                  <div key={index} className='space-y-2'>
+                    <Label htmlFor={`founderName-${index}`}>
+                      Founder's Name
+                    </Label>
+                    <div className='flex space-x-2'>
+                      <Input
+                        id={`founderName-${index}`}
+                        placeholder="Enter founder's name"
+                        value={name}
+                        onChange={(e) =>
+                          handleChange("founderNames", e.target.value, index)
+                        }
+                      />
+                      {index > 0 && (
+                        <Button
+                          type='button'
+                          variant='outline'
+                          onClick={() => handleRemoveFounder(index)}>
+                          <X className='h-4 w-4' />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type='button'
+                  variant='outline'
+                  onClick={handleAddFounder}>
+                  <Plus className='h-4 w-4 mr-2' /> Add Founder
+                </Button>
+                {errors.founderNames && (
+                  <p className='text-sm text-red-500'>{errors.founderNames}</p>
+                )}
+                <div className='space-y-2'>
+                  <Label htmlFor='email'>Email</Label>
                   <Input
-                    id="founderName"
-                    placeholder="Enter founder's name"
-                    value={formData.founderName}
-                    onChange={(e) => handleChange('founderName', e.target.value)}
-                  />
-                  {errors.founderName && (
-                    <p className="text-sm text-red-500">{errors.founderName}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
+                    id='email'
+                    type='email'
+                    placeholder='Enter your email'
                     value={formData.email}
-                    onChange={(e) => handleChange('email', e.target.value)}
+                    onChange={(e) => handleChange("email", e.target.value)}
                   />
                   {errors?.email && (
-                    <p className="text-sm text-red-500">{errors.email}</p>
+                    <p className='text-sm text-red-500'>{errors.email}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
+                <div className='space-y-2'>
+                  <Label htmlFor='phone'>Phone Number</Label>
                   <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
+                    id='phone'
+                    type='tel'
+                    placeholder='Enter your phone number'
                     value={formData.phone}
-                    onChange={(e) => handleChange('phone', e.target.value)}
+                    onChange={(e) => handleChange("phone", e.target.value)}
                   />
                   {errors.phone && (
-                    <p className="text-sm text-red-500">{errors.phone}</p>
+                    <p className='text-sm text-red-500'>{errors.phone}</p>
                   )}
                 </div>
               </div>
             )}
             {currentStep === 2 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="idea">Startup Idea</Label>
+              <div className='space-y-4'>
+                <div className='space-y-2'>
+                  <Label htmlFor='video'>Video Pitch (Max 100MB)</Label>
+                  <Input
+                    id='video'
+                    type='file'
+                    accept='video/*'
+                    onChange={(e) => handleFileChange(e, "video")}
+                    ref={videoInputRef}
+                  />
+                  {formData.video && (
+                    <p className='text-sm text-gray-500'>
+                      {formData.video.name}
+                    </p>
+                  )}
+                  {errors.video && (
+                    <p className='text-sm text-red-500'>{errors.video}</p>
+                  )}
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='documents'>Documents (Max 10MB each)</Label>
+                  <Input
+                    id='documents'
+                    type='file'
+                    multiple
+                    accept='.pdf,.doc,.docx,.txt'
+                    onChange={(e) => handleFileChange(e, "document")}
+                    ref={documentInputRef}
+                  />
+                  {formData.documents.map((doc, index) => (
+                    <div
+                      key={index}
+                      className='flex items-center justify-between'>
+                      <span>{doc.name}</span>
+                      <Button
+                        type='button'
+                        variant='ghost'
+                        onClick={() => handleRemoveDocument(index)}>
+                        <X className='h-4 w-4' />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type='button'
+                    variant='outline'
+                    onClick={() => documentInputRef.current.click()}>
+                    <Plus className='h-4 w-4 mr-2' /> Add Document
+                  </Button>
+                  {errors.documents && (
+                    <p className='text-sm text-red-500'>{errors.documents}</p>
+                  )}
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='idea'>Startup Idea</Label>
                   <Textarea
-                    id="idea"
-                    placeholder="Describe your startup idea"
+                    id='idea'
+                    placeholder='Describe your startup idea'
                     value={formData.idea}
-                    onChange={(e) => handleChange('idea', e.target.value)}
+                    onChange={(e) => handleChange("idea", e.target.value)}
                     rows={5}
                   />
                   {errors.idea && (
-                    <p className="text-sm text-red-500">{errors.idea}</p>
+                    <p className='text-sm text-red-500'>{errors.idea}</p>
                   )}
                 </div>
               </div>
             )}
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className='flex justify-between'>
           <Button
-            variant="outline"
+            variant='outline'
             onClick={handlePrevious}
-            disabled={currentStep === 0}
-          >
+            disabled={currentStep === 0}>
             Previous
           </Button>
           {currentStep < steps.length - 1 ? (
             <Button onClick={handleNext}>Next</Button>
           ) : (
             <Button onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              {isSubmitting ? "Submitting..." : "Submit Application"}
             </Button>
           )}
         </CardFooter>
       </Card>
+
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Submission</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to submit your application? Please review
+              all information before confirming.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant='outline'
+              onClick={() => setShowConfirmDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={confirmSubmit} disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              ) : null}
+              {isSubmitting ? "Submitting..." : "Confirm Submission"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
-  )
+  );
 }

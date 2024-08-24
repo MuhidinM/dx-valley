@@ -4,6 +4,7 @@ import { Card } from "@/components/card";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
+import Offer from "@/components/landing/offer";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
 import { stats, SVG1, focusArea } from "@/constants";
@@ -39,6 +40,7 @@ const Page = () => {
         href={"/innovationhub"}
       />
       <Feature />
+      <Offer />
       <CTA
         buttonText='Apply for Call'
         title='Have a start-up idea?'
