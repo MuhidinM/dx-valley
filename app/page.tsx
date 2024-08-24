@@ -39,6 +39,9 @@ const Page = () => {
         href={"/callforproposal"}
       />
       <CTAComponent />
+      <h1 className="text-3xl font-bold m-0 text-center">
+            Some Products We&apos;ve Launched
+          </h1><br></br>
       <ProductsBeam />
       {/* <SlidingCompanies /> */}
       <ContactUs />
