@@ -25,6 +25,10 @@
   --tw-content: '';
 }
 
+
+/* Other global styles */
+
+
 /*
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -429,6 +433,30 @@ object {
   vertical-align: middle;
   /* 2 */
 }
+
+
+
+.gap-8 {
+  gap: 2rem; /* Adjust gap as needed */
+}
+
+.md:grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr); /* Two columns on medium screens and up */
+}
+
+@media (max-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+}
+.custom-button {
+  padding: 0.75rem 1.5rem; /* Adjust as needed */
+  font-size: 1.125rem; /* Larger text size */
+  font-weight: 700; /* Bold text */
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+
 
 /*
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
