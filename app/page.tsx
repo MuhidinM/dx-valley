@@ -3,7 +3,6 @@ import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
 import { Hero } from "@/components/landing/hero";
 import Offer from "@/components/landing/offer";
-import { SectionRight, SectionLeft } from "@/components/section";
 import Stats from "@/components/landing/stats";
 import React from "react";
 import { stats, SVG1, SVG2 } from "@/constants";
@@ -11,12 +10,13 @@ import { ProductsBeam } from "@/components/products-beam";
 import CooperativeVision from "@/components/cooperativevision";
 import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
+import CardContainer from "@/components/cardContainer";
 const Page = () => {
   return (
     <div className=''>
       {/* <Hero /> */}
       <SlidingHero />
-      <SectionRight
+      {/* <SectionRight
         svg={<SVG1 />}
         title='Our Incubation center: Your Gateway to Startup Success'
         description="Our Incubation Center is a dynamic ecosystem that empowers entrepreneurs at every stage. We provide comprehensive training, personalized coaching, and direct access to seasoned investors. Whether you're just starting out or refining an idea, we offer the guidance and support needed to succeed"
@@ -29,7 +29,15 @@ const Page = () => {
         description='Our Innovation Hub excels in developing cutting-edge products and forming strategic partnerships. We create a secure financial environment that fosters industry innovation and offers seamless customer services. By uniting diverse expertise, we lead the way in building a future where businesses thrive and customers experience unmatched security and convenience..'
         buttonText='Explore Our Solutions'
         href={"/innovationhub"}
-      />
+      /> */}
+      <div className="flex flex-wrap gap- mt-2 p-0">
+        <div className="flex-1 min-w-[250px]p-0 m-0">
+          <CardContainer />
+        </div>
+        <div className="flex-1 min-w-[400px]  ">
+          <CTAComponent />
+        </div>
+      </div>
       <CooperativeVision />
       {/* <Offer /> */}
       <Stats items={stats} />
@@ -37,10 +45,10 @@ const Page = () => {
         buttonText='Apply'
         title='Have a Start-Up Idea?'
         href={"/callforproposal"}
-      />
-      <CTAComponent />
+      /><br/>
+      
       <h1 className="text-3xl font-bold m-0 text-center">
-            Some Products We&apos;ve Launched
+            Products We&apos;ve Launched
           </h1><br></br>
       <ProductsBeam />
       {/* <SlidingCompanies /> */}
