@@ -19,7 +19,7 @@ const CardContainer: React.FC = () => {
   const cards = [
     {
       image: <SVG1 />,
-      title: " Our Incubation Center",
+      title: "Our Incubation Center",
       description:
         "Nurturing entrepreneurs with tailored training and investor access.",
       buttonText: "Explore Incubation Center",
@@ -32,16 +32,23 @@ const CardContainer: React.FC = () => {
     },
     {
       image: <Dx1_Team />,
-      title: " Our Innovation Hub",
+      title: "Our Innovation Hub",
       description:
         "Driving industry advancements with cutting-edge products and partnerships.",
       buttonText: "Explore Innovation Hub",
       href: "/innovationhub",
-      article: {
-        title: "Breakthrough in Quantum Computing Research",
-        date: "2024-03-10",
-        link: "#",
-      },
+      article: [
+        {
+          title: "Breakthrough in Quantum Computing Research",
+          date: "2024-03-10",
+          link: "#",
+        },
+        {
+          title: "New Advances in Artificial Intelligence",
+          date: "2024-05-15",
+          link: "#",
+        },
+      ],
     },
   ];
 
@@ -65,17 +72,33 @@ const CardContainer: React.FC = () => {
               <CardDescription>{card.description}</CardDescription>
             </CardHeader>
             <CardContent className='flex-grow'>
-              <div className='bg-muted p-4 rounded-lg'>
-                <span className='text-muted-foreground ml-0 text-xs flex flex-row  gap-2 my-2 '>
-                  <Calendar className='ml-2 h-4 w-4' />
-                  {card.article.date}
-                </span>
-                <a
-                  href={card.article.link}
-                  className='text-sm text-primary hover:underline block italic'>
-                  <span className='font-semibold'>{card.article.title}</span>
-                </a>
-              </div>
+              {Array.isArray(card.article) ? ( 
+                card.article.map((article, index) => (
+                  <div key={index} className='bg-muted p-4 rounded-lg mb-2'>
+                    <span className='text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2'>
+                      <Calendar className='ml-2 h-4 w-4' />
+                      {article.date}
+                    </span>
+                    <a
+                      href={article.link}
+                      className='text-sm text-primary hover:underline block italic'>
+                      <span className='font-semibold'>{article.title}</span>
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <div className='bg-muted p-4 rounded-lg'>
+                  <span className='text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2'>
+                    <Calendar className='ml-2 h-4 w-4' />
+                    {card.article.date}
+                  </span>
+                  <a
+                    href={card.article.link}
+                    className='text-sm text-primary hover:underline block italic'>
+                    <span className='font-semibold'>{card.article.title}</span>
+                  </a>
+                </div>
+              )}
             </CardContent>
             <CardFooter>
               <Button asChild className='w-full'>

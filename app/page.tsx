@@ -17,7 +17,7 @@ const Page = () => {
     <div>
       {/* <Hero /> */}
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-0 items-center '>
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-0 items-center mt-10 '>
         <div className='lg:col-span-2'>
           <SlidingHero />
         </div>
