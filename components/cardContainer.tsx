@@ -13,13 +13,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar } from "lucide-react";
 
 import Image from "next/image";
-import { SVG1 } from "@/constants";
+import { Dx1_Team, SVG1 } from "@/constants";
 
 const CardContainer: React.FC = () => {
   const cards = [
     {
       image: <SVG1 />,
-      title: "Incubation Center",
+      title: " Our Incubation Center",
       description:
         "Nurturing entrepreneurs with tailored training and investor access.",
       buttonText: "Explore Incubation Center",
@@ -31,8 +31,8 @@ const CardContainer: React.FC = () => {
       },
     },
     {
-      image: <SVG1 />,
-      title: "Innovation Hub",
+      image: <Dx1_Team />,
+      title: " Our Innovation Hub",
       description:
         "Driving industry advancements with cutting-edge products and partnerships.",
       buttonText: "Explore Innovation Hub",
@@ -66,13 +66,13 @@ const CardContainer: React.FC = () => {
             </CardHeader>
             <CardContent className='flex-grow'>
               <div className='bg-muted p-4 rounded-lg'>
-                <span className='text-muted-foreground ml-0 text-xs flex flex-row  gap-2 my-2'>
+                <span className='text-muted-foreground ml-0 text-xs flex flex-row  gap-2 my-2 '>
                   <Calendar className='ml-2 h-4 w-4' />
                   {card.article.date}
                 </span>
                 <a
                   href={card.article.link}
-                  className='text-sm text-primary hover:underline block'>
+                  className='text-sm text-primary hover:underline block italic'>
                   <span className='font-semibold'>{card.article.title}</span>
                 </a>
               </div>
