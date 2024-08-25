@@ -4,6 +4,7 @@ import { Card } from "@/components/card";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
+import Offer from "@/components/landing/offer";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
 import { stats, SVG1, focusArea } from "@/constants";
@@ -38,12 +39,14 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/innovationhub"}
       />
-      <Feature />
       <CTA
         buttonText='Apply for Call'
         title='Have a start-up idea?'
         href='/callforproposal'
       />
+      <Feature />
+      <FocusAreas items={focusArea} />
+      <Offer />
 
       <div className='mx-auto max-w-screen-sm text-center'>
         <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
@@ -101,7 +104,6 @@ const Page = () => {
         </Button>
       </div> */}
 
-      <FocusAreas items={focusArea} />
       <Stats items={stats} />
     </div>
   );

@@ -46,7 +46,7 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/innovationhub"}
       />
-      <Mission />
+      {/* <Mission /> */}
       <CTA
         title={"Work with Us!"}
         buttonText={"Get in Touch!"}
