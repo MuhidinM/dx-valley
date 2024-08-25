@@ -48,7 +48,7 @@ const Page = () => {
       <br />
 
       <h1 className='text-3xl font-bold m-0 text-center'>
-        Products We&apos;ve Launched
+        Breakthroughs We've Delivered
       </h1>
       <br></br>
       <ProductsBeam />
