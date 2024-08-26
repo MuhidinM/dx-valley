@@ -186,7 +186,7 @@ export default function ApplyForIncubation() {
 
   if (submitSuccess) {
     return (
-      <div className='flex flex-col items-center justify-center min-h-screen bg-gray-50'>
+      <div className='flex flex-col items-center justify-center  bg-gray-50'>
         {showConfetti && <Confetti colors={["#00adef"]} />}
         <div className='text-center space-y-4'>
           <div className='inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100'>
@@ -207,7 +207,7 @@ export default function ApplyForIncubation() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <Card className='max-w-2xl mx-auto'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl font-bold'>
