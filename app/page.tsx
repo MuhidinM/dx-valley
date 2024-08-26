@@ -11,45 +11,46 @@ import CooperativeVision from "@/components/cooperativevision";
 import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
 import CardContainer from "@/components/cardContainer";
+import Motto from "@/components/motto";
 const Page = () => {
   return (
-    <div className=''>
+    <div>
       {/* <Hero /> */}
-      <SlidingHero />
-      {/* <SectionRight
-        svg={<SVG1 />}
-        title='Our Incubation center: Your Gateway to Startup Success'
-        description="Our Incubation Center is a dynamic ecosystem that empowers entrepreneurs at every stage. We provide comprehensive training, personalized coaching, and direct access to seasoned investors. Whether you're just starting out or refining an idea, we offer the guidance and support needed to succeed"
-        buttonText='Explore the Incubation center'
-        href={"/incubationcenter"}
-      />
-      <SectionLeft
-        svg={<SVG2 />}
-        title='Our Innovation Hub: The Breeding Ground for Breakthrough'
-        description='Our Innovation Hub excels in developing cutting-edge products and forming strategic partnerships. We create a secure financial environment that fosters industry innovation and offers seamless customer services. By uniting diverse expertise, we lead the way in building a future where businesses thrive and customers experience unmatched security and convenience..'
-        buttonText='Explore Our Solutions'
-        href={"/innovationhub"}
-      /> */}
-      <div className="flex flex-wrap gap- mt-2 p-0">
-        <div className="flex-1 min-w-[250px]p-0 m-0">
-          <CardContainer />
+
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-0 items-center mt-10 '>
+        <div className='lg:col-span-2'>
+          <SlidingHero />
         </div>
-        <div className="flex-1 min-w-[400px]  ">
-          <CTAComponent />
+        <div className='lg:col-span-1'>
+          <Motto />
         </div>
       </div>
-      <CooperativeVision />
-      {/* <Offer /> */}
-      <Stats items={stats} />
+
       <CTA
         buttonText='Apply'
         title='Have a Start-Up Idea?'
         href={"/callforproposal"}
-      /><br/>
-      
-      <h1 className="text-3xl font-bold m-0 text-center">
-            Products We&apos;ve Launched
-          </h1><br></br>
+      />
+      <CooperativeVision />
+
+      <div className='flex flex-wrap mt-2 p-0'>
+        <div className='flex-1 min-w-[850px] p-0 m-0'>
+          <CardContainer />
+        </div>
+        <div className='flex-1 min-w-[250px]  '>
+          <CTAComponent />
+        </div>
+      </div>
+
+      {/* <Offer /> */}
+      <Stats items={stats} />
+
+      <br />
+
+      <h1 className='text-3xl font-bold m-0 text-center'>
+        Breakthroughs We've Delivered
+      </h1>
+      <br></br>
       <ProductsBeam />
       {/* <SlidingCompanies /> */}
       <ContactUs />
