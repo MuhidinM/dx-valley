@@ -28,6 +28,7 @@ import SoftSkill from "@/public/image/softskill-training.png"
 import TrainerOne from   "@/public/image/tariners-one.png"
 import DaboImageOne from "@/public/image/dabo-image.png"
 import EkubImageOne from "@/public/image/ekub-image.png"
+import dx1_team from "@/public/image/dx1_team.png"
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
@@ -67,6 +68,8 @@ export const Vusi = () => <Image src={VusiTembekuwayo} alt="vusi-tembekuwayo" />
 export const Media1 = () => <Image src={Media} alt="media" />;
 export const Organizaion = ()=> <Image src={Organization} alt="" />;
 
+
+export const Dx1_Team = () => <Image src={dx1_team} alt='dx1_team' />;
 
 export const DeboImage = () => (
   <Image src={DeboPhoto} alt="Debo crowdfund platform" />
