@@ -95,9 +95,14 @@ import { Button } from "../ui/button";
 
 type CollaborationType = "trainer" | "organization" | "media" | "stakeholder";
 const categoryOptions: Record<CollaborationType, string[]> = {
-  trainer: ["Fitness", "Wellness", "Sports", "Music"],
-  organization: ["Non-Profit", "Corporate", "Educational", "Healthcare"],
-  media: ["Television", "Radio", "Online", "Print"],
+  trainer: [
+    "Digital Farming Consultants",
+    "IoT in Agriculture Trainers",
+    "Tech-Driven Leadership Coaches",
+    "Data-Driven Decision-Making Coaches",
+  ],
+  organization: ["Non-Profit", "Corporate", "Educational", "tech"],
+  media: ["Television", "podcast", "Webinars"],
   stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
 };
 
@@ -126,18 +131,19 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
         Phonenumber,
         description,
         category,
+        type,
       }),
     });
 
     if (response.ok) {
-      alert("Contest created successfully!");
+      alert("submitted successfully!");
       setName("");
       setEmail("");
       setPhoneNo("");
       setDescription("");
       setCategory("");
     } else {
-      alert("Failed to create contest");
+      alert("Failed to submit");
     }
   };
 
@@ -199,10 +205,6 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    {/* <SelectItem value="trainer">Trainer</SelectItem>
-                    <SelectItem value="organizer">Organizer</SelectItem>
-                    <SelectItem value="media">Media</SelectItem>{" "}
-                    <SelectItem value="stakeholder">Stakeholder</SelectItem> */}
                     {categoryOptions[type].map((category, index) => (
                       <SelectItem key={index} value={category}>
                         {category}
