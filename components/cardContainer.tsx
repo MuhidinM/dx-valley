@@ -53,7 +53,7 @@ const CardContainer: React.FC = () => {
   ];
 
   return (
-    <section className='py-4 px-2 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+    <section className='py-2 px-2 mx-auto max-w-screen-xl sm:py-6 lg:px-6'>
       <div className='grid gap-2 md:grid-cols-2'>
         {cards.map((card, index) => (
           <Card key={index} className='flex flex-col'>

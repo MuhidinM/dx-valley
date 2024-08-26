@@ -12,35 +12,42 @@ import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
 import CardContainer from "@/components/cardContainer";
 import Motto from "@/components/motto";
+import MediaAndNews from "@/components/MediaAndNews";
 const Page = () => {
   return (
     <div>
       {/* <Hero /> */}
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-0 items-center mt-10 '>
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 '>
         <div className='lg:col-span-2'>
-          <SlidingHero />
+          <SlidingHero />  
+           <CTA
+            buttonText='Apply'
+            title='Have a Start-Up Idea?'
+            href={"/callforproposal"}
+          />
+          <CooperativeVision /> 
         </div>
         <div className='lg:col-span-1'>
-          <Motto />
+          <Motto />< MediaAndNews />
         </div>
       </div>
 
-      <CTA
-        buttonText='Apply'
-        title='Have a Start-Up Idea?'
-        href={"/callforproposal"}
-      />
-      <CooperativeVision />
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-4 '>
+        <div className='lg:col-span-2'>
+       <CardContainer />
+        </div>
+        <div className='lg:col-span-1'><CTAComponent /></div>
+      </div>
 
-      <div className='flex flex-wrap mt-2 p-0'>
+      {/* <div className='flex flex-wrap mt-2 p-0'>
         <div className='flex-1 min-w-[850px] p-0 m-0'>
-          <CardContainer />
+         
         </div>
         <div className='flex-1 min-w-[250px]  '>
-          <CTAComponent />
+          
         </div>
-      </div>
+      </div> */}
 
       {/* <Offer /> */}
       <Stats items={stats} />

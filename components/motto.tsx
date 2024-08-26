@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Motto() {
@@ -11,18 +11,43 @@ export default function Motto() {
     accent: "#000000", // Black
   };
 
+  const [inView, setInView] = useState(false);
+  const mottoRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect(); // Stop observing once the animation is triggered
+        }
+      },
+      { threshold: 0.5 } // Adjust the threshold as needed
+    );
+
+    if (mottoRef.current) {
+      observer.observe(mottoRef.current);
+    }
+
+    return () => {
+      if (mottoRef.current) {
+        observer.unobserve(mottoRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className='py-12 px-4 max-w-xl mx-auto'>
+    <div ref={mottoRef} className='py-2 px-4 max-w-xl mx-auto'>
       <motion.h2
         className='text-5xl md:text-5xl lg:text-5xl font-extrabold text-center leading-tight'
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}>
         <motion.span
           className='block mb-2'
           style={{ color: colors.accent }}
           initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          animate={inView ? { x: 0, opacity: 1 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}>
           Empowering
         </motion.span>
@@ -30,14 +55,14 @@ export default function Motto() {
           className='block mb-2 italic'
           style={{ color: colors.secondary }}
           initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          animate={inView ? { x: 0, opacity: 1 } : {}}
           transition={{ delay: 0.4, duration: 0.8 }}>
           Communities,
         </motion.span>
         <motion.div
           className='relative inline-block'
           initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          animate={inView ? { scale: 1, opacity: 1 } : {}}
           transition={{ delay: 0.6, duration: 0.8, type: "spring" }}>
           <span
             className='block relative z-10'
@@ -54,7 +79,7 @@ export default function Motto() {
               stroke={colors.secondary}
               strokeWidth='4'
               initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
+              animate={inView ? { pathLength: 1 } : {}}
               transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
             />
           </svg>
@@ -63,7 +88,7 @@ export default function Motto() {
           className='block italic'
           style={{ color: colors.primary }}
           initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ delay: 0.8, duration: 0.8 }}>
           Lives
         </motion.span>
