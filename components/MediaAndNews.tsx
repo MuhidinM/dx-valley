@@ -141,7 +141,7 @@ export default function MediaAndNews() {
                   />
                   <div>
                     <h3
-                      className={`font-semibold group-hover:text-primary transition-colors  ${
+                      className={`font-semibold group-hover:text-primary hover:underline transition-colors  ${
                         index === 0 ? "text-sm " : "text-xs"
                       }`}>
                       {item.title}

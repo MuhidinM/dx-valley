@@ -22,7 +22,7 @@ const Page = () => {
         <div className='lg:col-span-2'>
           <SlidingHero />  
            <CTA
-            buttonText='Apply'
+            buttonText='Apply For Call'
             title='Have a Start-Up Idea?'
             href={"/callforproposal"}
           />

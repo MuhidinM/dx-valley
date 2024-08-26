@@ -41,7 +41,7 @@ const Page = () => {
       />
       <CTA
         buttonText='Apply for Call'
-        title='Have a start-up idea?'
+        title='Have a Start-Up Idea?'
         href='/callforproposal'
       />
       <Feature />
