@@ -38,7 +38,7 @@ const Page = () => {
       {/* <Objectives items={objectives} /> */}
       {/* <InputForm /> */}
       <div id='collab-form'>
-        <CollabForm />
+        <CollabForm type="media" />
       </div>
     </div>
   );

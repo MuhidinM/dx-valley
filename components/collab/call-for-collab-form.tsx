@@ -93,7 +93,19 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 
-const CollabForm = () => {
+type CollaborationType = "trainer" | "organization" | "media" | "stakeholder";
+const categoryOptions: Record<CollaborationType, string[]> = {
+  trainer: ["Fitness", "Wellness", "Sports", "Music"],
+  organization: ["Non-Profit", "Corporate", "Educational", "Healthcare"],
+  media: ["Television", "Radio", "Online", "Print"],
+  stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
+};
+
+interface RegistrationFormProps {
+  type: CollaborationType;
+}
+
+const CollabForm = ({ type }: RegistrationFormProps) => {
   const [Fullname, setName] = useState("");
   const [email, setEmail] = useState("");
   const [Phonenumber, setPhoneNo] = useState("");
@@ -108,7 +120,13 @@ const CollabForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ Fullname, email, Phonenumber, description, category }),
+      body: JSON.stringify({
+        Fullname,
+        email,
+        Phonenumber,
+        description,
+        category,
+      }),
     });
 
     if (response.ok) {
@@ -181,11 +199,15 @@ const CollabForm = () => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="trainer">Trainer</SelectItem>
+                    {/* <SelectItem value="trainer">Trainer</SelectItem>
                     <SelectItem value="organizer">Organizer</SelectItem>
                     <SelectItem value="media">Media</SelectItem>{" "}
-                    {/* Fixed duplicate keys */}
-                    <SelectItem value="stakeholder">Stakeholder</SelectItem>
+                    <SelectItem value="stakeholder">Stakeholder</SelectItem> */}
+                    {categoryOptions[type].map((category, index) => (
+                      <SelectItem key={index} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

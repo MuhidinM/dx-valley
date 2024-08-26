@@ -34,7 +34,7 @@ const Page = () => {
       <CollabObjectives />
       {/* <InputForm /> */}
       <div id='collab-form'>
-        <CollabForm />
+        <CollabForm type="stakeholder" />
       </div>
     </div>
   );
