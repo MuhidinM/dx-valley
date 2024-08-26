@@ -3,15 +3,19 @@
 "use client";
 
 import React, { useState, forwardRef, useRef } from "react";
-
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 import Image from "next/image";
 
 const Circle = forwardRef<
   HTMLDivElement,
-  { className?: string; children?: React.ReactNode; onClick?: () => void }
->(({ className, children, onClick }, ref) => {
+  { 
+    className?: string; 
+    children?: React.ReactNode; 
+    onClick?: () => void;
+    onMouseEnter?: () => void;
+  }
+>(({ className, children, onClick, onMouseEnter }, ref) => {
   return (
     <div
       ref={ref}
@@ -20,6 +24,7 @@ const Circle = forwardRef<
         className
       )}
       onClick={onClick}
+      onMouseEnter={onMouseEnter} // Add the onMouseEnter event
     >
       {children}
     </div>
@@ -69,6 +74,7 @@ export function ProductsBeam() {
               ref={div1Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div1')}
+              onMouseEnter={() => setActiveTag('div1')} // Change description on hover
             >
               <Image
                 width={100}
@@ -81,6 +87,7 @@ export function ProductsBeam() {
               ref={div5Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div5')}
+              onMouseEnter={() => setActiveTag('div5')} // Change description on hover
             >
               <Image
                 width={100}
@@ -95,6 +102,7 @@ export function ProductsBeam() {
               ref={div2Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div2')}
+              onMouseEnter={() => setActiveTag('div2')} // Change description on hover
             >
               <Image
                 width={100}
@@ -107,6 +115,7 @@ export function ProductsBeam() {
               ref={div4Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div4')}
+              onMouseEnter={() => setActiveTag('div4')} // Change description on hover
             >
               <Image
                 width={100}
@@ -119,6 +128,7 @@ export function ProductsBeam() {
               ref={div6Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div6')}
+              onMouseEnter={() => setActiveTag('div6')} // Change description on hover
             >
               <Image
                 width={100}
@@ -133,6 +143,7 @@ export function ProductsBeam() {
               ref={div3Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div3')}
+              onMouseEnter={() => setActiveTag('div3')} // Change description on hover
             >
               <Image
                 width={100}
@@ -145,6 +156,7 @@ export function ProductsBeam() {
               ref={div7Ref}
               className="w-25 h-25  hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div7')}
+              onMouseEnter={() => setActiveTag('div7')} // Change description on hover
             >
               <Image
                 width={100}
@@ -157,6 +169,7 @@ export function ProductsBeam() {
               ref={div8Ref}
               className="w-25 h-25 hover:scale-110 hover:bg-cooplightBlueHover2 border-2 border-transparent hover:border-white"
               onClick={() => handleCircleClick('div8')}
+              onMouseEnter={() => setActiveTag('div8')} // Change description on hover
             >
               <Image
                 width={100}
