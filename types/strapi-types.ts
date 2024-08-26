@@ -62,7 +62,6 @@ interface ImageFormat {
   }
 
   // footers interface
-
   interface FooterLink {
     id: number,
     link: string,
@@ -116,8 +115,6 @@ interface ImageFormat {
 }
 
 // interfaces for training tab
-
-
 interface CardLink {
   id: number;
   href: string;
@@ -151,6 +148,22 @@ export interface CardResponse {
   data: {
     id: number,
     attributes: {
+      cards: Card[]
+    }
+  };
+}
+
+// interfaces for organization tab
+export interface OrgData {
+  overview: string,
+  cards: CardData[]
+}
+export interface OrgResponse {
+
+  data: {
+    id: number,
+    attributes: {
+      overview: string,
       cards: Card[]
     }
   };
