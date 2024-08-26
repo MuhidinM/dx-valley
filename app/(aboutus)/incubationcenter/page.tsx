@@ -1,6 +1,6 @@
 /** @format */
 
-import { Card } from "@/components/card";
+import Card  from "@/components/card";
 import CTA from "@/components/cta";
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
