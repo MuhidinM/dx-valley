@@ -8,7 +8,7 @@ interface CardProps extends SectionProps {
   // Add any additional props if needed
 }
 
-const Card: React.FC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   svg,
   title,
   description,
@@ -65,4 +65,4 @@ const Card: React.FC<CardProps> = ({
   );
 };
 
-export default Card;
+// export default Card;

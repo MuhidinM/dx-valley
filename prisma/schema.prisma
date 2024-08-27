@@ -17,6 +17,7 @@ model collaborationOpportunity {
   Fullname        String
   email           String
   Phonenumber     String
+  type            String
   category        String
   description     String
   createdAt   DateTime @default(now())
