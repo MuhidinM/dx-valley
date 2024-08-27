@@ -46,7 +46,7 @@ export default function Motto() {
       >
         <motion.span
           className="block mb-2"
-          style={{ color: colors.accent }}
+          // style={{ color: colors.accent }}
           initial={{ x: -50, opacity: 0 }}
           animate={inView ? { x: 0, opacity: 1 } : {}}
           transition={{ delay: 0.2, duration: 0.8 }}
@@ -70,7 +70,6 @@ export default function Motto() {
         >
           <span
             className="block relative z-10"
-            style={{ color: colors.accent }}
           >
             Transforming
           </span>
