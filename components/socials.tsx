@@ -3,7 +3,7 @@ import {
   Facebook,
   Instagram,
   Linkedin,
-  MessageCircle,
+  Youtube,
   Send,
   Twitter,
 } from "lucide-react";
@@ -17,27 +17,37 @@ const Socials = () => {
           <div className=""></div>
           <div className="flex items-center lg:order-2 text-blue-500 space-x-4">
             <Facebook
-              onClick={() => window.open("https://facebook.com")}
+              onClick={() =>
+                window.open("https://www.facebook.com/cooperativebankoforomia")
+              }
               className="cursor-pointer"
             />
             <Instagram
-              onClick={() => window.open("https://facebook.com")}
+              onClick={() =>
+                window.open("https://www.instagram.com/coop_bank/")
+              }
               className="cursor-pointer"
             />
-            <MessageCircle
-              onClick={() => window.open("https://facebook.com")}
+            <Youtube
+              onClick={() =>
+                window.open("https://www.youtube.com/@CoopbankoromiaEthio")
+              }
               className="cursor-pointer"
             />
             <Twitter
-              onClick={() => window.open("https://facebook.com")}
+              onClick={() => window.open("https://twitter.com/coopbankoromia")}
               className="cursor-pointer"
             />
             <Linkedin
-              onClick={() => window.open("https://facebook.com")}
+              onClick={() =>
+                window.open(
+                  "https://www.linkedin.com/company/cooperative-bank-of-oromia/"
+                )
+              }
               className="cursor-pointer"
             />
             <Send
-              onClick={() => window.open("https://facebook.com")}
+              onClick={() => window.open("https://t.me/s/coopbankoromia")}
               className="cursor-pointer"
             />
           </div>
