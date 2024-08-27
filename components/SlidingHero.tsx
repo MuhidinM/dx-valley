@@ -1,5 +1,3 @@
-/** @format */
-
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
@@ -18,11 +16,7 @@ const quotes = [
   "Opening doors for anyone who wants to work together.",
 ];
 
-const links = [
-  "/innovationhub",
-  "/incubationcenter",
-  "/callforproposal",
-];
+const links = ["/innovationhub", "/incubationcenter", "/callforproposal"];
 
 export default function SlidingHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,7 +33,7 @@ export default function SlidingHero() {
   };
 
   return (
-    <div className='relative h-[500px] overflow-hidden'>
+    <div className="relative h-[650px] overflow-hidden">
       {images.map((img, index) => (
         <div
           key={index}
@@ -53,22 +47,22 @@ export default function SlidingHero() {
           }}
         />
       ))}
-      <div className='absolute inset-0 bg-black bg-opacity-70' />
-      <div className='absolute inset-0 flex flex-col justify-center text-white p-8 md:p-16 max-w-2xl'>
-        <h1 className='text-5xl md:text-4xl font-bold mb-2'>
+      <div className="absolute inset-0 bg-black bg-opacity-70" />
+      <div className="absolute inset-0 flex flex-col justify-end text-white p-8 md:p-16 max-w-2xl">
+        <h1 className="text-5xl md:text-4xl font-bold mb-2">
           {mottos[currentIndex]}
         </h1>
-        <p className='text-md md:text-base italic md:mt-1 mt-2 '>
+        <p className="text-md md:text-base italic md:mt-1 mt-2 ">
           "{quotes[currentIndex]}"
         </p>
         <Button
-          className='w-36 bg-coopBlue mt-5 text-white font-bold font-sans  hover:bg-coopBlueHover  hover:cursor-pointer'
-       onClick={() => (window.location.href = links[currentIndex])}>
-
+          className="w-36 bg-coopBlue mt-5 text-white font-bold font-sans  hover:bg-coopBlueHover  hover:cursor-pointer"
+          onClick={() => (window.location.href = links[currentIndex])}
+        >
           Explore More
         </Button>
       </div>
-      <div className='absolute bottom-4 left-8 flex space-x-2'>
+      <div className="absolute bottom-4 left-8 flex space-x-2">
         {images.map((_, index) => (
           <button
             key={index}

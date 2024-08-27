@@ -37,47 +37,53 @@ export default function Motto() {
   }, []);
 
   return (
-    <div ref={mottoRef} className='py-2 px-4 max-w-xl mx-auto'>
+    <div ref={mottoRef} className="py-2 px-4 max-w-xl mx-auto">
       <motion.h2
-        className='text-5xl md:text-5xl lg:text-5xl font-extrabold text-center leading-tight'
+        className="text-5xl md:text-5xl lg:text-5xl font-extrabold text-center leading-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}>
+        transition={{ duration: 0.8 }}
+      >
         <motion.span
-          className='block mb-2'
+          className="block mb-2"
           style={{ color: colors.accent }}
           initial={{ x: -50, opacity: 0 }}
           animate={inView ? { x: 0, opacity: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.8 }}>
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
           Empowering
         </motion.span>
         <motion.span
-          className='block mb-2 italic'
+          className="block mb-2 italic"
           style={{ color: colors.secondary }}
           initial={{ x: 50, opacity: 0 }}
           animate={inView ? { x: 0, opacity: 1 } : {}}
-          transition={{ delay: 0.4, duration: 0.8 }}>
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
           Communities,
         </motion.span>
         <motion.div
-          className='relative inline-block'
+          className="relative inline-block"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={inView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ delay: 0.6, duration: 0.8, type: "spring" }}>
+          transition={{ delay: 0.6, duration: 0.8, type: "spring" }}
+        >
           <span
-            className='block relative z-10'
-            style={{ color: colors.accent }}>
+            className="block relative z-10"
+            style={{ color: colors.accent }}
+          >
             Transforming
           </span>
           <svg
-            className='absolute inset-0 w-full h-full'
-            viewBox='0 0 300 70'
-            preserveAspectRatio='none'>
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 300 70"
+            preserveAspectRatio="none"
+          >
             <motion.path
-              d='M0,50 Q150,0 300,50'
-              fill='none'
+              d="M0,50 Q150,0 300,50"
+              fill="none"
               stroke={colors.secondary}
-              strokeWidth='4'
+              strokeWidth="4"
               initial={{ pathLength: 0 }}
               animate={inView ? { pathLength: 1 } : {}}
               transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
@@ -85,11 +91,12 @@ export default function Motto() {
           </svg>
         </motion.div>
         <motion.span
-          className='block italic'
+          className="block italic"
           style={{ color: colors.primary }}
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ delay: 0.8, duration: 0.8 }}>
+          transition={{ delay: 0.8, duration: 0.8 }}
+        >
           Lives
         </motion.span>
       </motion.h2>
