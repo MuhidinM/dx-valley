@@ -16,7 +16,7 @@ const Page = () => {
       {/* <Hero /> */}
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 '>
-        <div className='lg:col-span-2'>
+        <div className='lg:col-span-2 lg:mt-28'>
           <SlidingHero />
           <CTA
             buttonText='Apply For Call'
@@ -31,7 +31,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center'>
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-16'>
         <div className='lg:col-span-2'>
           <CardContainer />
         </div>
