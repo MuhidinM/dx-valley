@@ -2,13 +2,10 @@
 
 import CollabForm from "@/components/collab/call-for-collab-form";
 import CTA from "@/components/cta";
-import Objectives from "@/components/collab/objectives";
 import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
-import { objectives, Vusi, Trainer } from "@/constants";
-import Head from "next/head";
+import { Trainer } from "@/constants";
 import React, { useEffect, useState } from "react";
-import Overview from "@/components/collab/overview";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import CollabObjectives from "@/components/CollabObjectives";
 import { OrgData } from "@/types/strapi-types";

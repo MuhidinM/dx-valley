@@ -6,7 +6,6 @@ import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
 import { Organizaion } from "@/constants";
 import React, { useState, useEffect } from "react";
-import CollabObjectives from "@/components/CollabObjectives";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
@@ -84,7 +83,7 @@ const Page = () => {
         buttonText="Apply For Call"
         href={"#collab-form"}
       />
-      <CollabObjectives />
+      {/* <CollabObjectives /> */}
       <div id="collab-form">
         <CollabForm type="organization" />
       </div>
