@@ -1,7 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChartIcon, ArrowRightIcon } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { BarChartIcon, ArrowRightIcon } from "lucide-react"
+
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
 
 export default function Component({ overview }: { overview: string }) {
   return (
@@ -12,6 +13,7 @@ export default function Component({ overview }: { overview: string }) {
           Collaboration Overview
         </CardTitle>
       </CardHeader>
+
       <CardContent className="prose dp-4 space-y-3">
         <p className="prose text-md leading-relaxed text-gray-600">
           <ReactMarkdown children={overview} remarkPlugins={[remarkGfm]} />
