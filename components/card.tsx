@@ -15,30 +15,7 @@ export const Card: React.FC<CardProps> = ({
   buttonText,
   href,
 }) => {
-  // Function to apply orange color to specific words
-  const formatTitle = (title: string) => {
-    // Define words or phrases to highlight in orange
-    const wordsToHighlight = ["Innovation", "Incubation"];
 
-    return title.split(" ").map((word, index, array) => {
-      // Check if the current word or phrase needs highlighting
-      const isHighlighted = wordsToHighlight.some(phrase =>
-        phrase.split(" ").every((highlightWord, i) => 
-          array.slice(index, index + phrase.split(" ").length)[i] === highlightWord
-        )
-      );
-
-      if (isHighlighted) {
-        return (
-          <span key={index} className="text-coopOrange">
-            {word}
-            {index < array.length - 1 && " "} {/* Add space between words */}
-          </span>
-        );
-      }
-      return word + " ";
-    });
-  };
 
   return (
     <div
@@ -59,7 +36,7 @@ export const Card: React.FC<CardProps> = ({
         )}
       >
         <h2 className="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-          {formatTitle(title)}
+          
         </h2>
 
         {/* Description, hidden until hover */}

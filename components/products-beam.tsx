@@ -49,7 +49,7 @@ export function ProductsBeam() {
   // Descriptions for each tag
   const descriptions = {
     div1: "We'd love to hear from you! Have a question about our products or services? Need help with an order? Our friendly customer support team is here to assist you.",
-    div2: "Description for Debbo",
+    div2: "Deboo is a crowdfunding platform that provides a secure environment for individuals and organizations to receive donations and for contributors to support trustworthy causes. It serves as a bridge between potential donors and equity contributors, facilitating the connection between those seeking financial support and those willing to provide it.",
     div3: "Description for Coop Stream",
     div4: "Description for Dx-valley",
     div5: "Description for Diaspora Banking",
@@ -186,7 +186,7 @@ export function ProductsBeam() {
           <p className="text-lg  mb-4">
             {descriptions[activeTag || 'div1']}
           </p>
-          <button className="bg-coopBlue text-white px-6 py-2 rounded-md hover:bg-coopBlueHover transition">
+          <button onClick={() => window.location.href = '#'} className="bg-coopBlue text-white px-6 py-2 rounded-md hover:bg-coopBlueHover transition">
             Learn More
           </button>
         </div>
