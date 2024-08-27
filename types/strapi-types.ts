@@ -168,3 +168,53 @@ export interface OrgResponse {
     }
   };
 }
+
+// interfaces for showcases tab
+interface Names {
+  name: string
+}
+
+interface Incubated {
+  projectName: string,
+  small_description: string,
+  long_description: string,
+  launched: Date,
+  published: Date,
+  investors: Names[],
+  founders: Names[],
+  img_1: ImageData,
+  img_2: ImageData,
+  link: CardLink
+}
+export interface ShowCaseData{
+  projectName: string,
+  small_description: string,
+  long_description: string,
+  launched: Date,
+  published: Date,
+  investors: Names[],
+  founders: Names[],
+  img_1: {
+    small: string,
+    medium: string,
+    large: string
+  },
+  img_2: {
+    small: string,
+    medium: string,
+    large: string
+  },
+  link: {
+    href: string,
+    title: string
+  }
+}
+
+export interface ShowCaseResponse{
+  data: {
+    id: number,
+    attributes: {
+      incubated: Incubated[]
+    }
+  }[];
+}

@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChartIcon, ArrowRightIcon } from "lucide-react"
+
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
 
@@ -14,7 +15,7 @@ export default function Component({overview}:{overview:string}) {
       </CardHeader>
       <CardContent className='prose dp-4 space-y-3'>
         <p className='prose text-md leading-relaxed text-gray-600'>
-            <ReactMarkdown children={overview} remarkPlugins={[remarkGfm]} />
+            <ReactMarkdown children={overview} remarkPlugins={[remarkGfm]}/>
         </p>
         <div className='mt-4 flex justify-between items-center text-sm'>
           <span className='text-lg font-bold text-coopOrange italic'>
