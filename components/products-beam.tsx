@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "./ui/animated-beam";
@@ -26,6 +26,19 @@ const Circle = forwardRef<
 Circle.displayName = "Circle";
 
 export function ProductsBeam() {
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  const descriptions = {
+    div1: "We'd love to hear from you! Have a question about our products or services? Need help with an order? Our friendly customer support team is here to assist you.",
+    div2: "Deboo is a crowdfunding platform that provides a secure environment for individuals and organizations to receive donations and for contributors to support trustworthy causes. It serves as a bridge between potential donors and equity contributors, facilitating the connection between those seeking financial support and those willing to provide it.",
+    div3: "Description for Coop Stream",
+    div4: "Description for Dx-valley",
+    div5: "Description for Diaspora Banking",
+    div6: "Description for VSLA",
+    div7: "Description for Souqpass",
+    div8: "Description for Equb",
+  };
+
   const containerRef = useRef<HTMLDivElement>(null);
   const div1Ref = useRef<HTMLDivElement>(null);
   const div2Ref = useRef<HTMLDivElement>(null);
