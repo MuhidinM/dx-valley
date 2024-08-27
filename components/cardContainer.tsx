@@ -25,7 +25,7 @@ const CardContainer: React.FC = () => {
       buttonText: "Explore Incubation Center",
       href: "/incubationcenter",
       article: {
-        title: "New AI Startup Joins Incubation Program",
+        title: "DxValley 2.0 and CRM Inaguraion",
         date: "2024-03-15",
         link: "#",
       },
@@ -38,13 +38,13 @@ const CardContainer: React.FC = () => {
       buttonText: "Explore Innovation Hub",
       href: "/innovationhub",
       article: [
-        {
-          title: "Breakthrough in Quantum Computing Research",
+        {id:1,
+          title: "Diaspora Banking Inaguration",
           date: "2024-03-10",
           link: "#",
         },
-        {
-          title: "New Advances in Artificial Intelligence",
+        {id:2,
+          title: "SouqPass Securies Loan from MatserCard",
           date: "2024-05-15",
           link: "#",
         },
@@ -69,7 +69,7 @@ const CardContainer: React.FC = () => {
                 {card.image}
               </div>
               <CardTitle className='text-2xl font-bold'>{card.title}</CardTitle>
-              <CardDescription>{card.description}</CardDescription>
+              <CardDescription className='text-lg'>{card.description}</CardDescription>
             </CardHeader>
             <CardContent className='flex-grow'>
               {Array.isArray(card.article) ? ( 

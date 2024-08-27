@@ -53,7 +53,7 @@ const news = [
   },
   {
     id: 2,
-    title: "New AI Model Surpasses Human Performance",
+    title: "DxValley 2.0 and CRM Inaguraion",
     date: "2023-07-14",
     description:
       "GPT-4 demonstrates unprecedented language understanding and generation capabilities.",
@@ -62,7 +62,7 @@ const news = [
   },
   {
     id: 3,
-    title: "Renewable Energy Milestone Reached",
+    title: "The Launch of Michu 2.0",
     date: "2023-07-13",
     description:
       "Solar and wind power now account for over 50% of global energy production.",
