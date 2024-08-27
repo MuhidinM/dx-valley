@@ -181,7 +181,7 @@ const Footer = () => {
 
             <p className="text-sm">
               © { new Date().getFullYear() } {" "}
-              <Link href="#" className="hover:underline">
+              <Link href="https://coopbankoromia.com.et/" className="hover:underline">
                 Cooperative Bank of Oromia
               </Link>
               , Inc. All rights reserved.
