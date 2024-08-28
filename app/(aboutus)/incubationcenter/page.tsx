@@ -16,7 +16,7 @@ const Page = () => {
     <div className="space-y-8 mb-8 justify-center">
       <SectionRight
         svg={<SVG1 />}
-        title="Your Launchpad to Success!"
+        title="Incubation Center : Your Launchpad to Success"
         description={
           <>
             Welcome to our Incubation Center,where bold dreams take flight and
