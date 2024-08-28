@@ -31,14 +31,13 @@ const Page = () => {
 
       <SectionLeft
         svg={<Organizaion />}
-        title="Ignite Innovation: Partner with Us"
-        description="This is an invitation to visionary organizations to join forces with us and make a significant difference. Whether you want to sponsor, invest, or integrate, your help may turn developing ideas into profitable businesses.
+        title='Ignite Innovation: Partner with Us'
+        description='This is an invitation to visionary organizations to join forces with us and make a significant difference. Whether you want to sponsor, invest, or integrate, your help may turn developing ideas into profitable businesses.
                   By working with us, you will be at the vanguard of innovation, helping to shape the next generation of trailblazers. Your collaboration will not only help these entrepreneurs, but will also promote advancement across industries. Together, we can create a healthy ecosystem in which ideas thrive and aspirations come true.
-                  Join us on this exciting adventure to invent, inspire, and grow together!"
+                  Join us on this exciting adventure to invent, inspire, and grow together!'
         buttonText={"hidden"}
         href={" "}
       />
-      <ProfessionalOverview />
 
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
@@ -46,7 +45,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img.large}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -62,7 +61,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img.large}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -75,17 +74,17 @@ const Page = () => {
           />
         );
       })}
+      <CTA
+        title='Want to Work with Us?'
+        buttonText='Apply For Call'
+        href={"#collab-form"}
+      />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />
 
-      <CTA
-        title="Want to Work with Us?"
-        buttonText="Apply For Call"
-        href={"#collab-form"}
-      />
       {/* <CollabObjectives /> */}
-      <div id="collab-form">
-        <CollabForm type="organization" />
+      <div id='collab-form'>
+        <CollabForm type='organization' />
       </div>
     </div>
   );

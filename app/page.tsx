@@ -15,35 +15,37 @@ const Page = () => {
     <div>
       {/* <Hero /> */}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 ">
-        <div className="lg:col-span-2">
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 '>
+        <div className='lg:col-span-2 lg:mt-28'>
           <SlidingHero />
           <CTA
-            buttonText="Apply For Call"
-            title="Have a Start-Up Idea?"
+            buttonText='Apply For Call'
+            title='Have a Start-Up Idea?'
             href={"/callforproposal"}
           />
           <CooperativeVision />
         </div>
-        <div className="lg:col-span-1">
+        <div className='lg:col-span-1'>
           <Motto />
           <MediaAndNews />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center">
-        <div className="lg:col-span-2">
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-16'>
+        <div className='lg:col-span-2'>
           <CardContainer />
         </div>
-        <div className="lg:col-span-1">
+        <div className='lg:col-span-1'>
           <CTAComponent />
         </div>
       </div>
-      <Stats items={stats} />
+      <div className="mt-12 mb-12">
+        <Stats items={stats} />
+      </div>
 
       <br />
 
-      <h1 className="text-3xl font-bold m-0 text-center">
+      <h1 className='text-3xl font-bold m-0 text-center'>
         Breakthroughs We&apos;ve Delivered
       </h1>
       <br></br>
