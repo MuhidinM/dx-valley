@@ -93,6 +93,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
+const focusAreaOptions = ["Agritech", "Fintech", "Other"];
+const interestAreaOptions = ["Support", "Invest", "Sponsor", "Other"];
+
 const CollabForm = () => {
   const [countryOptions, setCountryOptions] = useState<
     { name: string; code: string }[]
@@ -103,16 +106,13 @@ const CollabForm = () => {
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [description, setDescription] = useState("");
   const [tinNumber, setTinNumber] = useState("");
   const [phoneNo1, setPhoneNo1] = useState("");
   const [phoneNo2, setPhoneNo2] = useState("");
   const [focusArea, setFocusArea] = useState<string[]>([]);
-  const [interestArea, setInterestArea] = useState("");
-  const [otherInterestArea, setOtherInterestArea] = useState("");
-
-  const interestAreaOptions = ["support", "invest", "sponsor", "other"];
+  const [interestArea, setInterestArea] = useState<string>("");
+  const [otherInterestArea, setOtherInterestArea] = useState<string>("");
 
   const toggleFocusArea = (area: string) => {
     setFocusArea((prev) =>
@@ -133,13 +133,13 @@ const CollabForm = () => {
       body: JSON.stringify({
         fullName,
         email,
-        phoneNumber,
         description,
         tinNumber,
         phoneNo1,
         phoneNo2,
         focusArea,
         interestArea,
+        otherInterestArea,
       }),
     });
 
@@ -147,8 +147,14 @@ const CollabForm = () => {
       alert("Submitted successfully!");
       setFullName("");
       setEmail("");
-      setPhoneNumber("");
+
       setDescription("");
+      setTinNumber("");
+      setPhoneNo1("");
+      setPhoneNo2("");
+      setFocusArea([]);
+      setInterestArea("");
+      setOtherInterestArea("");
     } else {
       alert("Failed to submit");
     }
@@ -171,19 +177,16 @@ const CollabForm = () => {
 
   useEffect(() => {
     if (country) {
-      fetch(`https://countriesnow.space/api/v0.1/countries/cities`, {
+      fetch("https://countriesnow.space/api/v0.1/countries/cities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          country,
-        }),
+        body: JSON.stringify({ country }),
       })
         .then((response) => response.json())
         .then((data) => {
-          const cities = data.data || [];
-          setCityOptions(cities);
+          setCityOptions(data.data || []);
         })
         .catch((error) => console.error("Error fetching cities:", error));
     }
@@ -210,12 +213,23 @@ const CollabForm = () => {
           <form onSubmit={handleSubmit}>
             <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="fullName">Full Name</Label>
                 <Input
                   type="text"
-                  id="name"
+                  id="fullName"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
+                  required
+                  className="w-full"
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full"
                 />
@@ -259,12 +273,9 @@ const CollabForm = () => {
                     <SelectValue placeholder="Select Country" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    {countryOptions.map((countryOption) => (
-                      <SelectItem
-                        key={countryOption.code}
-                        value={countryOption.name}
-                      >
-                        {countryOption.name}
+                    {countryOptions.map((option) => (
+                      <SelectItem key={option.code} value={option.name}>
+                        {option.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -286,20 +297,18 @@ const CollabForm = () => {
                 </Select>
               </div>
               <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="focusArea">Focus Area</Label>
+                <Label>Focus Area</Label>
                 <div className="flex flex-wrap gap-2">
-                  <Checkbox
-                    id="agritech"
-                    checked={focusArea.includes("Agritech")}
-                    onChange={() => toggleFocusArea("Agritech")}
-                  />
-                  <Label htmlFor="agritech">Agritech</Label>
-                  <Checkbox
-                    id="fintech"
-                    checked={focusArea.includes("Fintech")}
-                    onChange={() => toggleFocusArea("Fintech")}
-                  />
-                  <Label htmlFor="fintech">Fintech</Label>
+                  {focusAreaOptions.map((option) => (
+                    <div key={option} className="flex items-center gap-2">
+                      <Checkbox
+                        id={option}
+                        checked={focusArea.includes(option)}
+                        onChange={() => toggleFocusArea(option)}
+                      />
+                      <Label htmlFor={option}>{option}</Label>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="flex flex-col space-y-1.5">
@@ -317,7 +326,7 @@ const CollabForm = () => {
                   </SelectContent>
                 </Select>
               </div>
-              {interestArea === "other" && (
+              {interestArea === "Other" && (
                 <div className="flex flex-col space-y-1.5 md:col-span-2">
                   <Label htmlFor="otherInterestArea">Other Interest Area</Label>
                   <Textarea
