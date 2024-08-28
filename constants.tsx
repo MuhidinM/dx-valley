@@ -26,12 +26,17 @@ import Organization from "@/public/image/org-collaboration.png"
 import HardSkillTraining from "@/public/image/hard-skill-black.png"
 import SoftSkill from "@/public/image/softskill-training.png"
 import TrainerOne from   "@/public/image/tariners-one.png"
+import DaboImageOne from "@/public/image/dabo-image.png"
+import EkubImageOne from "@/public/image/ekub-image.png"
+import dx1_team from "@/public/image/dx1_team.png"
 
 export const SouqpassImage = () => <Image src={SouqpassPhoto} alt="souqpass" />;
 export const CoopayrollImage = () => (
   <Image src={Coopayroll} alt="coopayroll" />
 );
 export const DiasporaImage = () => <Image src={Diaspora} alt="diaspora" />;
+export const DaboImage = ()=> <Image src={DaboImageOne} alt="dabo "/>
+export const EkubImage = () => <Image src={EkubImageOne} alt="ekub" />
 
 export const MichuImage = () => <Image src={Michu} alt="michu" />;
 export const ReconcillationImage = () => (
@@ -63,6 +68,8 @@ export const Vusi = () => <Image src={VusiTembekuwayo} alt="vusi-tembekuwayo" />
 export const Media1 = () => <Image src={Media} alt="media" />;
 export const Organizaion = ()=> <Image src={Organization} alt="" />;
 
+
+export const Dx1_Team = () => <Image src={dx1_team} alt='dx1_team' />;
 
 export const DeboImage = () => (
   <Image src={DeboPhoto} alt="Debo crowdfund platform" />
@@ -213,98 +220,99 @@ export const heroImages = [
     link: "/test",
   },
 ];
-export const divisions = [
-  {
-    title: "Innovation Hub",
-    href: "/innovationhub",
-  },
-  {
-    title: "Incubation Lab",
-    href: "/incubationcenter",
-  },
-  {
-    title: "Coop Bank",
-    href: "https://coopbankoromia.com.et/about/",
-  },
-];
 
-export const collaborations = [
-  {
-    href: "/organizations",
-    title: "Organizations",
-  },
-  {
-    href: "/trainers",
-    title: "Trainers",
-    description: "Collab with Trainers",
-  },
-  {
-    href: "/media",
-    title: "Media",
-  },
-  {
-    href: "/stakeholders",
-    title: "Stakeholders",
-  },
-];
+// export const divisions = [
+//   {
+//     title: "Innovation Hub",
+//     href: "/innovationhub",
+//   },
+//   {
+//     title: "Incubation Lab",
+//     href: "/incubationcenter",
+//   },
+//   {
+//     title: "Coop Bank",
+//     href: "https://coopbankoromia.com.et/about/",
+//   },
+// ];
 
-export const events = [
-  {
-    href: "/training",
-    title: "Training Areas",
-  },
-  {
-    href: "/contests",
-    title: "Contests",
-  },
-  {
-    href: "/showcase",
-    title: "Showcase",
-  },
-];
+// export const collaborations = [
+//   {
+//     href: "/organizations",
+//     title: "Organizations",
+//   },
+//   {
+//     href: "/trainers",
+//     title: "Trainers",
+//     description: "Collab with Trainers",
+//   },
+//   {
+//     href: "/media",
+//     title: "Media",
+//   },
+//   {
+//     href: "/stakeholders",
+//     title: "Stakeholders",
+//   },
+// ];
 
-export const otherLinks = [
-  {
-    title: "News",
-    href: "/news",
-  },
-  {
-    title: "Call For StartUps",
-    href: "/call",
-  },
-  {
-    title: "Licence Registration",
-    href: "licence",
-  },
-  {
-    title: "Stake Holders",
-    href: "/stakeholders",
-  },
-  {
-    title: "Funding",
-    href: "licence",
-  },
-  {
-    title: "Social Media",
-    href: "/socialmedia",
-  },
-  {
-    title: "Projects",
-    href: "licence",
-  },
-  {
-    title: "Events",
-    href: "/events",
-  },
-  {
-    title: "Filtering Criterias",
-    href: "licence",
-  },
-  {
-    title: "Gallery",
-    href: "/gallery",
-  },
-];
+// export const events = [
+//   {
+//     href: "/training",
+//     title: "Training Areas",
+//   },
+//   {
+//     href: "/contests",
+//     title: "Contests",
+//   },
+//   {
+//     href: "/showcase",
+//     title: "Showcase",
+//   },
+// ];
+
+// export const otherLinks = [
+//   {
+//     title: "News",
+//     href: "/news",
+//   },
+//   {
+//     title: "Call For StartUps",
+//     href: "/call",
+//   },
+//   {
+//     title: "Licence Registration",
+//     href: "licence",
+//   },
+//   {
+//     title: "Stake Holders",
+//     href: "/stakeholders",
+//   },
+//   {
+//     title: "Funding",
+//     href: "licence",
+//   },
+//   {
+//     title: "Social Media",
+//     href: "/socialmedia",
+//   },
+//   {
+//     title: "Projects",
+//     href: "licence",
+//   },
+//   {
+//     title: "Events",
+//     href: "/events",
+//   },
+//   {
+//     title: "Filtering Criterias",
+//     href: "licence",
+//   },
+//   {
+//     title: "Gallery",
+//     href: "/gallery",
+//   },
+// ];
 
 export const focusArea = [
   {

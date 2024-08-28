@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    const { Fullname, email, Phonenumber, category, description } =
+    const { Fullname, email, Phonenumber, category, description, type} =
       await req.json();
 
     const newCollab = await prisma.collaborationOpportunity.create({
@@ -15,6 +15,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         Phonenumber,
         category,
         description,
+        type,
       },
     });
 

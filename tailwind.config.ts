@@ -56,6 +56,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         coopBlueHover1: "#0091CB",
+        cooplightBlueHover2:"#F5F5F5",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -93,7 +94,10 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('@tailwindcss/typography')
+  ],
 } satisfies Config;
 
 export default config;

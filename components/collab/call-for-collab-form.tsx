@@ -93,7 +93,24 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 
-const CollabForm = () => {
+type CollaborationType = "trainer" | "organization" | "media" | "stakeholder";
+const categoryOptions: Record<CollaborationType, string[]> = {
+  trainer: [
+    "Digital Farming Consultants",
+    "IoT in Agriculture Trainers",
+    "Tech-Driven Leadership Coaches",
+    "Data-Driven Decision-Making Coaches",
+  ],
+  organization: ["Non-Profit", "Corporate", "Educational", "tech"],
+  media: ["Television", "podcast", "Webinars"],
+  stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
+};
+
+interface RegistrationFormProps {
+  type: CollaborationType;
+}
+
+const CollabForm = ({ type }: RegistrationFormProps) => {
   const [Fullname, setName] = useState("");
   const [email, setEmail] = useState("");
   const [Phonenumber, setPhoneNo] = useState("");
@@ -108,18 +125,25 @@ const CollabForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ Fullname, email, Phonenumber, description, category }),
+      body: JSON.stringify({
+        Fullname,
+        email,
+        Phonenumber,
+        description,
+        category,
+        type,
+      }),
     });
 
     if (response.ok) {
-      alert("Contest created successfully!");
+      alert("submitted successfully!");
       setName("");
       setEmail("");
       setPhoneNo("");
       setDescription("");
       setCategory("");
     } else {
-      alert("Failed to create contest");
+      alert("Failed to submit");
     }
   };
 
@@ -181,11 +205,11 @@ const CollabForm = () => {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    <SelectItem value="trainer">Trainer</SelectItem>
-                    <SelectItem value="organizer">Organizer</SelectItem>
-                    <SelectItem value="media">Media</SelectItem>{" "}
-                    {/* Fixed duplicate keys */}
-                    <SelectItem value="stakeholder">Stakeholder</SelectItem>
+                    {categoryOptions[type].map((category, index) => (
+                      <SelectItem key={index} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
