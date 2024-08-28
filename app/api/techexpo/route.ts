@@ -1,35 +1,39 @@
-import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const {
-      teamLeaderName,
+      fullName,
       email,
       phoneNumber,
-      teamName,
-      numberOfMembers,
-      teamMembers,
-      projectTitle,
-      projectDescription,
-      techStack,
-      projectUrl,
+      companyName,
+      jobTitle,
+      participantType,
+      setupRequirements,
+      presentationTitle,
+      presentationAbstract,
+      productName,
+      productDescription,
+      websiteUrl,
     } = await req.json();
 
-    const newParticipant = await prisma.contestParticipant.create({
+    const newParticipant = await prisma.expoParticipant.create({
       data: {
-        teamLeaderName,
+        fullName,
         email,
         phoneNumber,
-        teamName,
-        numberOfMembers,
-        teamMembers: teamMembers.join(","), // Convert array to comma-separated string
-        projectTitle,
-        projectDescription,
-        techStack,
-        projectUrl,
+        companyName,
+        jobTitle,
+        participantType,
+        setupRequirements,
+        presentationTitle,
+        presentationAbstract,
+        productName,
+        productDescription,
+        websiteUrl,
       },
     });
     return NextResponse.json(

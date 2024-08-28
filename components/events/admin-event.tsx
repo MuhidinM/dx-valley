@@ -46,7 +46,7 @@ export default function AdminEvent() {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const response = await fetch("/api/contest", {
+    const response = await fetch("/api/event", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

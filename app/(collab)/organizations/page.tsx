@@ -1,6 +1,6 @@
 "use client";
 
-import CollabForm from "@/components/collab/call-for-collab-form";
+import CollabForm from "@/components/collab/call-for-collab-form-organization";
 import CTA from "@/components/cta";
 import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
