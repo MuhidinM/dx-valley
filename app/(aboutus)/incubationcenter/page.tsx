@@ -16,7 +16,7 @@ const Page = () => {
     <div className="space-y-8 mb-8 justify-center">
       <SectionRight
         svg={<SVG1 />}
-        title="Incubation center:  Your Gateway to Startup Success."
+        title="Your Launchpad to Success!"
         description={
           <>
             Welcome to our incubation center, where startups grow and turn their
