@@ -84,7 +84,8 @@ const Page = () => {
 
       {/* <CollabObjectives /> */}
       <div id='collab-form'>
-        <CollabForm type='organization' />
+        {/* <CollabForm type='organization' /> */}
+        <CollabForm/>
       </div>
     </div>
   );
