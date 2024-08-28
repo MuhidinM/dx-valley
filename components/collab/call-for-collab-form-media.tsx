@@ -257,7 +257,8 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                 </Select>
               </div>
               
-              <div className="flex flex-col space-y-1.5 md:col-span-2">
+              <div className="flex flex-c ol space-y-1.5 md:col-span-2">
+                {/* this will get changed later */}
                 <Label htmlFor="description">Motivation</Label>
                 <Textarea
                   placeholder="Why do you want to work with us?"
