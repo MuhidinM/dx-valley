@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Event } from "@/types/types";
 import {
@@ -9,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 interface ContestCardProps {
   event: Event;
@@ -21,6 +23,8 @@ const Countdown: React.FC<ContestCardProps> = ({
   onTimeLeftCalculated,
   renderUI = true,
 }) => {
+  const router = useRouter();
+
   const [timeLeft, setTimeLeft] = useState("");
   const [eventHasPassed, setEventHasPassed] = useState(false);
   const intervalRef = useRef<number | null>(null);
@@ -66,6 +70,23 @@ const Countdown: React.FC<ContestCardProps> = ({
     return null;
   }
 
+  const handleRegisterClick = () => {
+    let formRoute = "/register";
+
+    switch (event.category) {
+      case "contest":
+        formRoute = "/register/hackathon";
+        break;
+      case "tech expo":
+        formRoute = "/register/techexpo";
+        break;
+      default:
+        formRoute = "/register/general";
+    }
+
+    router.push(formRoute);
+  };
+
   return (
     <Card className="contest-card">
       <CardHeader>
@@ -81,7 +102,10 @@ const Countdown: React.FC<ContestCardProps> = ({
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full bg-coopBlue hover:bg-amber-500">
+        <Button
+          className="w-full bg-coopBlue hover:bg-amber-500"
+          onClick={handleRegisterClick}
+        >
           Register to participate
         </Button>
       </CardFooter>

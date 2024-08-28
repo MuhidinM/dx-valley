@@ -42,7 +42,7 @@ const objectiveItems: ObjectiveItem[] = [
 ];
 
 export default function Component() {
-  return (
+  return ( 
     <div className="bg-gray-50 py-8 px-4 mt-10 rounded-lg dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-10 dark:text-white">
