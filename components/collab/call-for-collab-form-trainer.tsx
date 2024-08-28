@@ -90,32 +90,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
-type CollaborationType = "trainer" | "organization" | "media" | "stakeholder";
-const categoryOptions: Record<CollaborationType, string[]> = {
-  trainer: [
-    "Digital Farming Consultants",
-    "IoT in Agriculture Trainers",
-    "Tech-Driven Leadership Coaches",
-    "Data-Driven Decision-Making Coaches",
-  ],
-  organization: ["Non-Profit", "Corporate", "Educational", "tech"],
-  media: ["Television", "podcast", "Webinars"],
-  stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
-};
+const expertiseOptions = [
+  "Tech Sales",
+  "Leadership",
+  "Marketing",
+  "Development",
+  "Data Analysis",
+];
 
-interface RegistrationFormProps {
-  type: CollaborationType;
-}
+const professionOptions = [
+  "Trainer",
+  "Consultant",
+  "Manager",
+  "Developer",
+  "Analyst",
+];
 
-const CollabForm = ({ type }: RegistrationFormProps) => {
-  const [Fullname, setName] = useState("");
+const scheduleOptions = [
+  {
+    value: "2hr/week",
+    description: "Available for a commitment of 2 hours per week.",
+  },
+  {
+    value: "On Call",
+    description: "Available to respond as needed on an on-call basis.",
+  },
+  { value: "Other", description: "Custom schedule arrangement." },
+];
+
+const titleOptions = ["Dr", "Prof", "Mr", "Mrs", "Other"];
+
+const CollabForm = () => {
+  const [title, setTitle] = useState<string>("");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
-  const [Phonenumber, setPhoneNo] = useState("");
+  const [phoneno, setPhoneno] = useState("");
+  const [expertise, setExpertise] = useState("");
+  const [profession, setProfession] = useState("");
+  const [schedule, setSchedule] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -126,22 +143,27 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Fullname,
+        title,
+        fullname,
         email,
-        Phonenumber,
+        phoneno,
+        expertise,
+        profession,
+        schedule,
         description,
-        category,
-        type,
       }),
     });
 
     if (response.ok) {
-      alert("submitted successfully!");
-      setName("");
+      alert("Submitted successfully!");
+      setTitle("");
+      setFullname("");
       setEmail("");
-      setPhoneNo("");
+      setPhoneno("");
+      setExpertise("");
+      setProfession("");
+      setSchedule("");
       setDescription("");
-      setCategory("");
     } else {
       alert("Failed to submit");
     }
@@ -149,74 +171,136 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
 
   return (
     <div
-      className="admin-event mx-8 flex w-3/4 justify-center p-6 "
+      className="admin-event mx-8 flex w-3/4 justify-center p-6"
       id="collab-form"
     >
       <Card className="w-auto items-center p-10">
         <CardHeader>
           <CardTitle className="flex-col justify-center items-center mb-10">
             <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Collaboration Form
+              Trainer Registration Form
             </span>
             <div className="flex justify-center">
               <div className="w-20 h-1 bg-coopOrange"></div>
             </div>
           </CardTitle>
-          <CardDescription className="flex mb-10">Write to Us!</CardDescription>
+          <CardDescription className="flex mb-10">
+            Write for Us!
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          {/* <form onSubmit={(e) => e.preventDefault()}> */}
           <form onSubmit={handleSubmit}>
             <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
+              {/* Title Section */}
+              <div className="flex flex-col space-y-1.5 mb-4">
+                <Label>Title</Label>
+                <div className="flex flex-wrap gap-2">
+                  {titleOptions.map((option) => (
+                    <div key={option} className="flex items-center gap-2">
+                      <Checkbox
+                        id={option}
+                        checked={title === option}
+                        onChange={() => setTitle(option)}
+                      />
+                      <Label htmlFor={option}>{option}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="fullname">Full Name</Label>
                 <Input
                   type="text"
-                  value={Fullname}
-                  onChange={(e) => setName(e.target.value)}
+                  id="fullname"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
                   required
                   className="w-full"
                 />
               </div>
+
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
+                  id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full"
                 />
               </div>
+
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneNo">Phone Number</Label>
+                <Label htmlFor="phoneno">Phone Number</Label>
                 <Input
                   type="text"
-                  value={Phonenumber}
-                  onChange={(e) => setPhoneNo(e.target.value)}
+                  id="phoneno"
+                  value={phoneno}
+                  onChange={(e) => setPhoneno(e.target.value)}
                   required
                   className="w-full"
                 />
               </div>
+
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="category">Category</Label>
-                <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger id="category">
+                <Label htmlFor="expertise">Expertise</Label>
+                <Select value={expertise} onValueChange={setExpertise}>
+                  <SelectTrigger id="expertise">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    {categoryOptions[type].map((category, index) => (
-                      <SelectItem key={index} value={category}>
-                        {category}
+                    {expertiseOptions.map((option, index) => (
+                      <SelectItem key={index} value={option}>
+                        {option}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
+
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="profession">Profession</Label>
+                <Select value={profession} onValueChange={setProfession}>
+                  <SelectTrigger id="profession">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {professionOptions.map((option, index) => (
+                      <SelectItem key={index} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="schedule">Schedule</Label>
+                <Select value={schedule} onValueChange={setSchedule}>
+                  <SelectTrigger id="schedule">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {scheduleOptions.map((option, index) => (
+                      <SelectItem
+                        key={index}
+                        value={option.value}
+                        title={option.description}
+                      >
+                        {option.value}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Motivation</Label>
                 <Textarea
                   placeholder="Why do you want to work with us?"
+                  id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required
