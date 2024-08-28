@@ -38,3 +38,37 @@ model event {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model contestParticipant {
+  id                Int      @id @default(autoincrement())
+  teamLeaderName    String
+  email             String   @unique
+  phoneNumber       String
+  teamName          String   @unique
+  numberOfMembers   Int
+  teamMembers       String   
+  projectTitle      String   @unique
+  projectDescription String
+  techStack         String?  
+  projectUrl        String?  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model expoParticipant {
+  id                      Int      @id @default(autoincrement())
+  fullName                String
+  email                   String
+  phoneNumber             String
+  companyName             String?
+  jobTitle                String?
+  participantType         String
+  setupRequirements       String?
+  presentationTitle       String?
+  presentationAbstract    String?
+  productName             String?
+  productDescription      String?
+  websiteUrl              String?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}

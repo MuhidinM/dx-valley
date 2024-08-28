@@ -77,8 +77,8 @@ const Countdown: React.FC<ContestCardProps> = ({
       case "contest":
         formRoute = "/register/hackathon";
         break;
-      case "expo":
-        formRoute = "/register/expo";
+      case "tech expo":
+        formRoute = "/register/techexpo";
         break;
       default:
         formRoute = "/register/general";
