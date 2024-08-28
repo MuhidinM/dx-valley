@@ -19,21 +19,22 @@ const Page = () => {
         title="Your Launchpad to Success!"
         description={
           <>
-            Welcome to our incubation center, where startups grow and turn their
-            boldest dreams into reality. We fill every gap and handle essential
-            elements, allowing you to focus on innovation. Our comprehensive
-            support includes investor networking, market strategy development,
-            financial coaching, and training. With our expert guidance, we
-            transform potential into performance, helping you succeed faster and
-            shine brighter. Your startup’s success is our passion and ultimate
-            goal. Our support includes:
+            Welcome to our Incubation Center,where bold dreams take flight and
+            startups flourish. We’re here to bridge every gap, allowing you to
+            focus solely on innovation.
             <br />
+            Here’s How We Fuel Your Journey:
             <ul className=" pl-12 space-y-4 mt-3 list-disc">
-              <li>Investor networking</li>
-              <li>Market strategy development</li>
-              <li>Financial coaching</li>
-              <li>Comprehensive training</li>
+              <li>Investor Networking: Connect with the right people.</li>
+              <li>
+                Market Strategy Development: Navigate your path to success.
+              </li>
+              <li>Financial Coaching: Build a solid foundation.</li>
+              <li>Comprehensive Training : Equip yourself for growth.</li>
             </ul>
+            <br />
+            With our expert guidance, we turn potential into performance,
+            helping you succeed faster and shine brighter.
           </>
         }
         buttonText={"hidden"}
