@@ -106,6 +106,9 @@ const categoryOptions: Record<CollaborationType, string[]> = {
   stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
 };
 
+const focus_area = ["Fintech","Agrotech","AI "]
+const interest_area = ["Report Event","Podcast","Promote startup","Other"]
+const media_type = ["TV","Youtuber"]
 interface RegistrationFormProps {
   type: CollaborationType;
 }
@@ -156,20 +159,26 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
         <CardHeader>
           <CardTitle className="flex-col justify-center items-center mb-10">
             <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Collaboration Form
+              Media registration form
             </span>
             <div className="flex justify-center">
               <div className="w-20 h-1 bg-coopOrange"></div>
             </div>
+            {/* <div className="flex w-full justify-between shadow-lg dark:bg-red-500 h-16 items-center p-6">
+              <div>Put some info here</div>
+              <div>Vedio introduction</div>
+            </div> */}
+            
+            
           </CardTitle>
-          <CardDescription className="flex mb-10">Write to Us!</CardDescription>
+          <CardDescription className="flex mb-10">Write for Us!</CardDescription>
         </CardHeader>
         <CardContent>
           {/* <form onSubmit={(e) => e.preventDefault()}> */}
           <form onSubmit={handleSubmit}>
             <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">Media Name</Label>
                 <Input
                   type="text"
                   value={Fullname}
@@ -178,6 +187,8 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                   className="w-full"
                 />
               </div>
+
+              
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -199,13 +210,13 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">Interest In</Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger id="category">
+                <SelectTrigger id="category">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
-                    {categoryOptions[type].map((category, index) => (
+                    {interest_area.map((category, index) => (
                       <SelectItem key={index} value={category}>
                         {category}
                       </SelectItem>
@@ -213,8 +224,41 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                   </SelectContent>
                 </Select>
               </div>
+
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="category">Focus Area </Label>
+                <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger id="category">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {focus_area.map((category, index) => (
+                      <SelectItem key={index} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="category">Media type </Label>
+                <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger id="category">
+                    <SelectValue placeholder="Select" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {media_type.map((category, index) => (
+                      <SelectItem key={index} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
               <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Motivation</Label>
                 <Textarea
                   placeholder="Why do you want to work with us?"
                   value={description}
@@ -223,6 +267,7 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
                   className="w-full"
                 />
               </div>
+
             </div>
             <div className="md:items-center md:justify-center">
               <Button
