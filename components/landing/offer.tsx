@@ -26,34 +26,34 @@ const Offer = () => {
     },
   ];
   return (
-    <section className="dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-sm text-center">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
+    <section className='dark:bg-gray-900'>
+      <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+        <div className='mx-auto max-w-screen-sm text-center'>
+          <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
             What We Offer
           </h2>
+   x
         </div>
-        <div className="grid gap-4 grid-cols-4">
+        <div className='grid gap-4 grid-cols-4'>
           {features.map((item, index) => (
             <article
               key={index}
-              className="overflow-hidden rounded-lg shadow transition hover:shadow-lg"
-            >
+              className='overflow-hidden rounded-lg shadow transition hover:shadow-lg'>
               <Image
-                alt=""
-                width={1}
-                height={10}
+                alt=''
+                width={100}
+                height={100}
                 src={item.image}
-                className="w-5/6 h-64 object-center items-center"
+                className='w-5/6 h-44 object-center items-center'
               />
-              <div className="bg-white dark:bg-gray-950 p-4 sm:p-6">
-                <Link href="#">
-                  <h3 className="mt-0.5 text-lg text-gray-900 dark:text-gray-200">
+              <div className='bg-white dark:bg-gray-950 p-4 sm:p-6'>
+                <Link href='#'>
+                  <h3 className='mt-0.5 text-lg text-gray-900 dark:text-gray-200'>
                     {item.title}
                   </h3>
                 </Link>
 
-                <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+                <p className='mt-2 text-sm/relaxed text-gray-500'>
                   {item.desc}
                 </p>
               </div>
