@@ -12,6 +12,7 @@ import { CheckCircle2, Plus, X, Loader2 } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Confetti from 'react-confetti'
+import SubmissionSuccess from '../submissionSuccess'
 
 const steps = [
   { id: 'startup', title: 'Startup Info' },
@@ -188,20 +189,11 @@ export default function ApplyForIncubation() {
     return (
       <div className='flex flex-col items-center justify-center  bg-gray-50'>
         {showConfetti && <Confetti colors={["#00adef"]} />}
-        <div className='text-center space-y-4'>
-          <div className='inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100'>
-            <CheckCircle2 className='w-8 h-8 text-green-600' />
-          </div>
-          <h1 className='text-4xl font-bold text-gray-900'>
-            Submission Successful!
-          </h1>
-          <p className='text-xl text-gray-600'>
-            Good luck! Stay tuned for our email.
-          </p>
-          <Button onClick={() => router.push("/")} className='mt-8'>
-            Go back to home
-          </Button>
-        </div>
+        <SubmissionSuccess
+          title={" Submission Successful!"}
+          icon= {<CheckCircle2 className='w-8 h-8 text-coopOrange'/>}
+          desc={" Good luck! Stay tuned for our email."}
+        />
       </div>
     );
   }
