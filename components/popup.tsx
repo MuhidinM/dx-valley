@@ -61,7 +61,7 @@ export function Popup({details}:{details:ShowCaseData}) {
             </div>
           </div>
           <div className="">
-            <Image src={`http://10.1.151.64:1337${getBestImageUrl(details.img_2)}`} width={800} height={800} alt="incubation" />
+            <Image src={`http://10.1.151.64:1337${details.img_2}`} width={800} height={800} alt="incubation" />
           </div>
         </div>
         <div className="bg-coopBlue text-white p-8 space-y-4 rounded-lg">

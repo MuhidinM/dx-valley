@@ -26,21 +26,21 @@ const Page = () => {
     <div>
       {trainingItems.map((cards, indx ) => {
         return indx % 2 ? 
-        <SectionLeft svg={<Image src={`http://10.1.151.64:1337${cards.img.large}`} alt="Image Left Not Found" width={500} height={800}/>}
+        <SectionLeft svg={<Image src={`http://10.1.151.64:1337${cards.img}`} alt="Image Left Not Found" width={500} height={800}/>}
         key={indx}
         title={cards.title}
         href={cards.link.href}
         description={cards.description}
         buttonText={cards.link.title} /> :
 
-      <SectionRight svg={<Image src={`http://10.1.151.64:1337${cards.img.large}`} alt="Image Left Not Found" width={500} height={800}/>}
-      key={indx}
+      <SectionRight svg={<Image src={`http://10.1.151.64:1337${cards.img}`} alt="Image Left Not Found" width={500} height={800}/>}
+        key={indx}
         title={cards.title}
         href={cards.link.href}
         description={cards.description}
         buttonText={cards.link.title} />
         
-      })}
+      })} 
       <CTA title={"Want To Give a Training?"} buttonText={"Apply"}  href=""/>
 
     </div>
