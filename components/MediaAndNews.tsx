@@ -18,25 +18,27 @@ const videos = [
   {
     id: 1,
     title: "የDx Valley እንቅስቃሴያችን በEBS ሲቃኝ",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "84-4C8X1vio?si=KORabFCho88NFHwo",
   },
   {
     id: 2,
     title: "Our CRM and DxValley 2.0 Inaguration",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "fEgG3F5Ce-c?si=zEy5Sr6QRVdlnfd_",
   },
   {
     id: 3,
     title: "Presentation by Mr. Aman Semir",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "0OIhoVDCoX0?si=wQ5p2-h1-lMRzn7d",
   },
   // {
   //   id: 4,
   //   title: "Another Video",
-  //   thumbnail: "/placeholder.svg?height=90&width=160",
+  //   thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
   //   youtubeId: "J---aiyznGQ",
   // },
 ];
