@@ -37,6 +37,8 @@ model event {
   category    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  contests    contestParticipant[] // Relation to contestParticipant
+  expos       expoParticipant[]    // Relation to expoParticipant
 }
 
 model contestParticipant {
@@ -51,6 +53,8 @@ model contestParticipant {
   projectDescription String
   techStack         String?  
   projectUrl        String?  
+  eventId            Int      // Foreign key to event
+  event              event    @relation(fields: [eventId], references: [id])
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
@@ -69,6 +73,8 @@ model expoParticipant {
   productName             String?
   productDescription      String?
   websiteUrl              String?
+  eventId               Int      // Foreign key to event
+  event                 event    @relation(fields: [eventId], references: [id])
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 }

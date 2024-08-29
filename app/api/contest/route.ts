@@ -16,6 +16,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       projectDescription,
       techStack,
       projectUrl,
+      eventId
     } = await req.json();
 
     const newParticipant = await prisma.contestParticipant.create({
@@ -30,6 +31,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         projectDescription,
         techStack,
         projectUrl,
+        eventId: parseInt(eventId, 10), 
       },
     });
     return NextResponse.json(

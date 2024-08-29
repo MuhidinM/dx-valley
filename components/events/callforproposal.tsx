@@ -82,7 +82,11 @@ export default function Callforproposal() {
 
                 <Button
                   className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500"
-                  onClick={() => router.push("/incubationform")}
+                  onClick={() => {
+                    let formRoute = "/incubationform";
+                    const eventId = event.id.toString();
+                    router.push(`${formRoute}?eventId=${eventId}`);
+                  }}
                 >
                   Apply
                 </Button>

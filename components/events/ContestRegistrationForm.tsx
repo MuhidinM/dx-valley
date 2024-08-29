@@ -14,10 +14,17 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 const prisma = new PrismaClient();
 
 const ContestRegistrationForm = () => {
+  // const router = useRouter();
+  // const { eventId } = router.query;
+  const searchParams = useSearchParams();
+  const eventId = searchParams.get("eventId");
+
   const [formData, setFormData] = useState({
     teamLeaderName: "",
     email: "",
@@ -29,6 +36,7 @@ const ContestRegistrationForm = () => {
     projectDescription: "",
     techStack: "",
     projectUrl: "",
+    eventId: eventId || "",
   });
 
   const handleChange = (
@@ -71,6 +79,7 @@ const ContestRegistrationForm = () => {
       projectDescription,
       techStack,
       projectUrl,
+      eventId,
     } = formData;
 
     try {
@@ -90,6 +99,7 @@ const ContestRegistrationForm = () => {
           projectDescription,
           techStack,
           projectUrl,
+          eventId,
         }),
       });
 
@@ -106,6 +116,7 @@ const ContestRegistrationForm = () => {
           projectDescription: "",
           techStack: "",
           projectUrl: "",
+          eventId: "",
         });
       } else {
         alert("Failed to register contest");
@@ -116,74 +127,74 @@ const ContestRegistrationForm = () => {
     }
   };
   return (
-    <Card className='admin-event w-[900px]'>
+    <Card className="admin-event w-[900px]">
       <CardHeader>
-        <CardTitle className='text-center'>Contest Registration Form</CardTitle>
+        <CardTitle className="text-center">Contest Registration Form</CardTitle>
         {/* <CardDescription>Description</CardDescription> */}
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className='grid w-full items-center gap-4'>
-            <h2 className='font-extrabold text-xl'> Team Leader Information</h2>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='teamLeaderName'>Full Name</Label>
+          <div className="grid w-full items-center gap-4">
+            <h2 className="font-extrabold text-xl"> Team Leader Information</h2>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="teamLeaderName">Full Name</Label>
 
               <Input
-                type='text'
-                id='teamLeaderName'
-                name='teamLeaderName'
-                placeholder='e.g., John Doe'
+                type="text"
+                id="teamLeaderName"
+                name="teamLeaderName"
+                placeholder="e.g., John Doe"
                 value={formData.teamLeaderName}
                 onChange={handleChange}
                 required
                 minLength={3}
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='email'>Email Address</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="email">Email Address</Label>
               <Input
-                type='email'
-                id='email'
-                name='email'
-                placeholder='e.g., johndoe@example.com'
+                type="email"
+                id="email"
+                name="email"
+                placeholder="e.g., johndoe@example.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='phoneNumber'>Phone Number</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input
-                type='tel'
-                id='phoneNumber'
-                name='phoneNumber'
-                placeholder='e.g., +1234567890'
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                placeholder="e.g., +1234567890"
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 required
-                pattern='^\+?\d{10,15}$'
+                pattern="^\+?\d{10,15}$"
               />
             </div>
-            <h2 className='font-extrabold text-xl'>Team Information</h2>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='teamName'>Team Name</Label>
+            <h2 className="font-extrabold text-xl">Team Information</h2>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="teamName">Team Name</Label>
               <Input
-                type='text'
-                id='teamName'
-                name='teamName'
-                placeholder='e.g., Innovators'
+                type="text"
+                id="teamName"
+                name="teamName"
+                placeholder="e.g., Innovators"
                 value={formData.teamName}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='numberOfMembers'>Number of Team Members</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="numberOfMembers">Number of Team Members</Label>
               <Input
-                type='number'
-                id='numberOfMembers'
-                name='numberOfMembers'
-                placeholder='e.g., 5'
+                type="number"
+                id="numberOfMembers"
+                name="numberOfMembers"
+                placeholder="e.g., 5"
                 value={formData.numberOfMembers}
                 onChange={handleNumberOfMembersChange}
                 required
@@ -191,14 +202,14 @@ const ContestRegistrationForm = () => {
                 max={10}
               />
             </div>
-            <h3 className='font-extrabold text-xl'>List of Team Members</h3>
+            <h3 className="font-extrabold text-xl">List of Team Members</h3>
             {formData.teamMembers.map((member, index) => (
-              <div className='flex flex-col space-y-1.5' key={index}>
+              <div className="flex flex-col space-y-1.5" key={index}>
                 <Label htmlFor={`teamMember${index + 1}`}>
                   Team Member {index + 1}:
                 </Label>
                 <Input
-                  type='text'
+                  type="text"
                   id={`teamMember${index + 1}`}
                   placeholder={`e.g., Member ${index + 1}`}
                   value={member}
@@ -209,25 +220,25 @@ const ContestRegistrationForm = () => {
                 />
               </div>
             ))}
-            <h2 className='font-extrabold text-xl'>Project Information</h2>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='projectTitle'>Project Title</Label>
+            <h2 className="font-extrabold text-xl">Project Information</h2>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="projectTitle">Project Title</Label>
               <Input
-                type='text'
-                id='projectTitle'
-                name='projectTitle'
-                placeholder='e.g., AI-powered Traffic Management System'
+                type="text"
+                id="projectTitle"
+                name="projectTitle"
+                placeholder="e.g., AI-powered Traffic Management System"
                 value={formData.projectTitle}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='projectDescription'>Project Description</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="projectDescription">Project Description</Label>
               <Textarea
-                id='projectDescription'
-                name='projectDescription'
-                placeholder='Briefly describe your project...'
+                id="projectDescription"
+                name="projectDescription"
+                placeholder="Briefly describe your project..."
                 value={formData.projectDescription}
                 onChange={handleChange}
                 required
@@ -235,30 +246,30 @@ const ContestRegistrationForm = () => {
                 maxLength={500}
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='techStack'>Preferred Technology Stack</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="techStack">Preferred Technology Stack</Label>
               <Input
-                type='text'
-                id='techStack'
-                name='techStack'
-                placeholder='e.g., React, Node.js, MongoDB'
+                type="text"
+                id="techStack"
+                name="techStack"
+                placeholder="e.g., React, Node.js, MongoDB"
                 value={formData.techStack}
                 onChange={handleChange}
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='projectUrl'>Project URL (if any):</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="projectUrl">Project URL (if any):</Label>
               <Input
-                type='url'
-                id='projectUrl'
-                name='projectUrl'
-                placeholder='e.g., https://github.com/your-project'
+                type="url"
+                id="projectUrl"
+                name="projectUrl"
+                placeholder="e.g., https://github.com/your-project"
                 value={formData.projectUrl}
                 onChange={handleChange}
               />
             </div>
           </div>
-          <Button className='admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500'>
+          <Button className="admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
             Register
           </Button>
         </form>
