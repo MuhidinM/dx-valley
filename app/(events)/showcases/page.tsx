@@ -9,14 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+
 import Image from "next/image";
-import incubationPhoto from "@/public/image/incubation-center.png";
-import AIImage from "@/public/image/ai-image.png"
 import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
-
+import { getImageUrl } from "@/lib/utils";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
 
@@ -29,16 +27,6 @@ const Page = () => {
       fetchShowCaseItems();
     }, []);
 
-    const getBestImageUrl = (img: {
-      small?: string;
-      medium?: string;
-      large?: string;
-    }): string => {
-      if (img.large) return img.large;
-      if (img.medium) return img.medium;
-      if (img.small) return img.small;
-      return ''; 
-    };
   return (
     <div className="flex items-center justify-center">
       <div className="text-center my-8">
@@ -62,10 +50,10 @@ const Page = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Image src={`http://10.1.151.64:1337${getBestImageUrl(projects.img_1)}`} width={800} height={800} alt="incubation" />
+                    <Image src={`http://10.1.151.64:1337${projects.img_1}`} width={800} height={800} alt="incubation" />
                     <div className="flex justify-between my-2">
                       <div className="">
-                        <h3 className="font-bold">Founders</h3>
+                        <h3 className="font-bold">Founders</h3> 
                         <ul className="text-gray-500">
 
                           {projects.founders.map((founder, inx) => {
