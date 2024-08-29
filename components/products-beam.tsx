@@ -22,7 +22,7 @@ const Circle = forwardRef<
       <div
         ref={ref}
         className={cn(
-          "z-10 flex size-24 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)] cursor-pointer transition-transform hover:scale-105",
+          "z-10 flex lg:size-24 md:size-24  sm:size-20 xs: size-16 items-center justify-center rounded-full border-2 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)] cursor-pointer transition-transform hover:scale-105",
           className
         )}
         onClick={onClick}>
@@ -55,38 +55,45 @@ export function ProductsBeam() {
       name: "Equb",
       description: "Description for Equb",
       image: "/image/companies/equb.png",
+      href: "/",
     },
     div2: {
       name: "Deboo",
       description:
         "Deboo is a crowdfunding platform that provides a secure environment for individuals and organizations to receive donations and for contributors to support trustworthy causes.",
       image: "/image/companies/debbo.png",
+      href: "debo.coopbankoromiasc.com",
     },
     div3: {
       name: "Coop Stream",
       description: "Description for Coop Stream",
       image: "/image/companies/coop-stream.png",
+      href: "debo.coopbankoromiasc.com",
     },
     div4: {
       name: "DX Valley",
       description:
         "DX Valley is an innovative tech hub fostering digital transformation and entrepreneurship in Ethiopia. It serves as a collaborative space for startups, developers, and tech enthusiasts to create cutting-edge solutions and drive technological advancement in the region.",
       image: "/image/companies/DX.jpg",
+      href: "debo.coopbankoromiasc.com",
     },
     div5: {
       name: "Diaspora Banking",
       description: "Description for Diaspora Banking",
       image: "/image/companies/diaspora.png",
+      href: "debo.coopbankoromiasc.com",
     },
     div6: {
       name: "VSLA",
       description: "Description for VSLA",
       image: "/image/companies/VSLA-image.png",
+      href: "debo.coopbankoromiasc.com",
     },
     div7: {
       name: "Souqpass",
       description: "Description for Souqpass",
       image: "/image/companies/souqpass.png",
+      href: "debo.coopbankoromiasc.com",
     },
   };
 
@@ -103,11 +110,11 @@ export function ProductsBeam() {
     <div
       className='relative rounded-lg border bg-background p-10 grid lg:grid-cols-2 gap-4 sm:grid-cols-1'
       ref={containerRef}>
-      <div className='flex size-full flex-col max-w-lg items-stretch justify-between '>
+      <div className='flex  flex-col max-w-lg justify-between '>
         <div className='flex flex-row items-center justify-between'>
           <Circle
             ref={div1Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             onClick={() => setActiveTag("div1")}
             name={""}>
             <Image
@@ -119,7 +126,7 @@ export function ProductsBeam() {
           </Circle>
           <Circle
             ref={div5Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             onClick={() => setActiveTag("div5")}
             name={""}>
             <Image
@@ -133,7 +140,7 @@ export function ProductsBeam() {
         <div className='flex flex-row items-center justify-between'>
           <Circle
             ref={div2Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             onClick={() => setActiveTag("div2")}
             name={""}>
             <Image
@@ -145,7 +152,7 @@ export function ProductsBeam() {
           </Circle>
           <Circle
             ref={div4Ref}
-            className='w-36 h-36'
+            className='w-24 h-24 xs:w-12 xs:h-12'
             onClick={() => setActiveTag("div4")}
             name={""}>
             <Image
@@ -157,7 +164,7 @@ export function ProductsBeam() {
           </Circle>
           <Circle
             ref={div6Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             onClick={() => setActiveTag("div6")}
             name={""}>
             <Image
@@ -171,7 +178,7 @@ export function ProductsBeam() {
         <div className='flex flex-row items-center justify-between'>
           <Circle
             ref={div3Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             onClick={() => setActiveTag("div3")}
             name={""}>
             <Image
@@ -183,7 +190,7 @@ export function ProductsBeam() {
           </Circle>
           <Circle
             ref={div7Ref}
-            className='w-24 h-24'
+            // className='w-24 h-24'
             // onHover={() => setActiveTag("div7")}
             // onLeave={() => setActiveTag(null)}
             onClick={() => setActiveTag("div7")}
@@ -213,7 +220,10 @@ export function ProductsBeam() {
         </div>
         <div className='flex gap-8'>
           <Link href='#'>
-            <Button> Visit Site <ArrowRight /> </Button>
+            <Button>
+              {" "}
+              Visit Site <ArrowRight />{" "}
+            </Button>
           </Link>
           <Button variant='outline'>Read More</Button>
         </div>
