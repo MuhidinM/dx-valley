@@ -29,7 +29,7 @@ const Page = () => {
     <div>
       <PageTitle />
 
-      <SectionLeft
+      {/* <SectionLeft
         svg={<Organizaion />}
         title='Ignite Innovation: Partner with Us'
         description='This is an invitation to visionary organizations to join forces with us and make a significant difference. Whether you want to sponsor, invest, or integrate, your help may turn developing ideas into profitable businesses.
@@ -37,7 +37,7 @@ const Page = () => {
                   Join us on this exciting adventure to invent, inspire, and grow together!'
         buttonText={"hidden"}
         href={" "}
-      />
+      /> */}
 
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (

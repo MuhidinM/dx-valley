@@ -62,12 +62,13 @@ const news = [
   },
   {
     id: 3,
-    title: "The Launch of Michu 2.0",
-    date: "2023-07-13",
+    title:
+      "ECMA Opens Door to Capital Market Innovation with Launch of Sandbox",
+    date: "2024-08-29 ",
     description:
       "Solar and wind power now account for over 50% of global energy production.",
     image: "/placeholder.svg?height=60&width=100",
-    link: "/news/renewable-energy-milestone",
+    link: "https://shega.co/post/ecma-opens-door-to-capital-market-innovation-with-launch-of-sandbox/",
   },
 ];
 
