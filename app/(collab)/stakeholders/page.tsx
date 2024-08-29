@@ -20,7 +20,7 @@ const Page = () => {
     };
 
     fetchStakeHolderItems();
-  }, []);
+  }, []); 
   return (
     <div>
       <PageTitle />
@@ -29,7 +29,7 @@ const Page = () => {
           <SectionLeft
             svg={
               <Image
-                src={`http://10.1.151.64:1337${cards.img.large}`}
+                src={`http://10.1.151.64:1337${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
                 height={800}
@@ -45,7 +45,7 @@ const Page = () => {
           <SectionRight
             svg={
               <Image
-                src={`http://10.1.151.64:1337${cards.img.large}`}
+                src={`http://10.1.151.64:1337${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
                 height={800}

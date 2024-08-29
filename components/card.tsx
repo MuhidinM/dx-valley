@@ -3,6 +3,8 @@ import { Button } from "./ui/button";
 import { SectionProps } from "@/types/general";
 import Link from "next/link";
 import classNames from "classnames";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface CardProps extends SectionProps {
   // Add any additional props if needed
@@ -49,7 +51,8 @@ export const Card: React.FC<CardProps> = ({
             }
           )}
         >
-          {description}
+          <ReactMarkdown children={description?.toString() || ""} remarkPlugins={[remarkGfm]} />
+          
         </div>
 
         {/* Button, always visible */}

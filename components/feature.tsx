@@ -1,12 +1,14 @@
 /** @format */
 
 "use client";
-import { features } from "@/constants";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { IncubationData, CardNoLinkData } from "@/types/strapi-types";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-export function Feature() {
+export function Feature({ focus }: { focus: CardNoLinkData[]}) {
   const [featureOpen, setFeatureOpen] = useState<number>(0);
   const [timer, setTimer] = useState<number>(0);
   useEffect(() => {
@@ -18,7 +20,7 @@ export function Feature() {
 
   useEffect(() => {
     if (timer > 10000) {
-      setFeatureOpen((prev) => (prev + 1) % features.length);
+      setFeatureOpen((prev) => (prev + 1) % focus.length);
       setTimer(0);
     }
   }, [timer]);
@@ -35,7 +37,7 @@ export function Feature() {
       </div>
       <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
         <div className='space-y-6 '>
-          {features.map((item, index) => (
+          {focus.map((item, index) => (
             <button
               key={item.title}
               type='button'
@@ -48,7 +50,7 @@ export function Feature() {
               <TextComponent
                 number={index + 1}
                 title={item.title}
-                content={item.content}
+                content={item.description}
                 isOpen={featureOpen === index}
                 loadingWidthPercent={featureOpen === index ? timer / 100 : 0}
               />
@@ -60,10 +62,10 @@ export function Feature() {
             className={cn(
               "relative h-[500px]  w-full rounded-lg overflow-hidden"
             )}>
-            {features.map((item, index) => (
+            {focus.map((item, index) => (
               <Image
                 key={item.title}
-                src={item.srcImage}
+                src={`http://10.1.151.64:1337${item?.img ?? "" }`}
                 alt={item.title}
                 width={400}
                 height={800}
@@ -72,7 +74,7 @@ export function Feature() {
                   featureOpen === index ? "scale-100" : "scale-70",
                   featureOpen > index ? "translate-y-full" : ""
                 )}
-                style={{ zIndex: features.length - index }}
+                style={{ zIndex: focus.length - index }}
               />
             ))}
           </div>

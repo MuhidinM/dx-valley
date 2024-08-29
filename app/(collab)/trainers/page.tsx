@@ -31,6 +31,7 @@ const Page = () => {
         svg={<Trainer />}
         title="Empower the Next Generation: Become a Volunteer Trainer"
         description={`Become a volunteer trainer and help shape the future. At our incubation center, we value education and mentorship to unlock potential. We're looking for professionals to share their expertise in hard and soft skills, guiding young minds toward success. Your impact will help them thrive. Join us in making a difference and inspire the next generation. Become a volunteer trainer today and make dreams come true!`}
+        href={""}
         buttonText={"hidden"}
       />
       {trainersItems?.cards.map((cards, indx) => {
@@ -38,7 +39,7 @@ const Page = () => {
           <SectionLeft
             svg={
               <Image
-                src={`http://10.1.151.64:1337${cards.img.large}`}
+                src={`http://10.1.151.64:1337${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
                 height={800}
@@ -54,7 +55,7 @@ const Page = () => {
           <SectionRight
             svg={
               <Image
-                src={`http://10.1.151.64:1337${cards.img.large}`}
+                src={`http://10.1.151.64:1337${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
                 height={800}

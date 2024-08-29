@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "./ui/button";
 import { SectionProps } from "@/types/general";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const SectionRight: React.FC<SectionProps> = ({
   svg,
@@ -18,8 +20,8 @@ export const SectionRight: React.FC<SectionProps> = ({
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             {title}
           </h2>
-          <div className="mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
-            {description}
+          <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
+              <ReactMarkdown children={description?.toString()} remarkPlugins={[remarkGfm]} />
           </div>
           {buttonText !== "hidden" && (
             <Link href={href}>
@@ -48,9 +50,9 @@ export const SectionLeft: React.FC<SectionProps> = ({
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             {title}
           </h2>
-          <p className="mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
-            {description}
-          </p>
+          <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
+              <ReactMarkdown children={description?.toString()} remarkPlugins={[remarkGfm]} />
+          </div>
 
           {buttonText !== "hidden" && (
             <Link href={href}>

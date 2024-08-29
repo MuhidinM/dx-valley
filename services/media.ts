@@ -15,11 +15,7 @@ export const MediaItemFetch = async ()=>{
                 title: card?.link?.title,
                 href: card?.link?.href
             },
-            img: {
-                small: card.img.data?.attributes.formats.small.url || "",
-                medium: card.img.data?.attributes.formats.medium.url || "",
-                large: card.img.data?.attributes.formats.large.url || ""
-            }
+            img: card.img.data?.attributes.url || ""
         })) || {}
     }
     return mediaItems
