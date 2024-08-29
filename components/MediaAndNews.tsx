@@ -186,7 +186,7 @@ export default function MediaAndNews() {
             </div>
           ))}
           <Link
-            href='/events'
+            href='/contests'
             className='text-sm font-semibold text-primary hover:underline flex items-center'>
             View All Events
             <ArrowRightIcon className='ml-1 h-3 w-3' />

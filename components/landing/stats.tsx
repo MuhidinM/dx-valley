@@ -50,6 +50,7 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
                   src={item?.img}
                 className="pb-6"
                 />
+                {/* <div className="w-60 h-60">{item.img}</div> */}
               </div>
               <dt className='mb-3 text-4xl font-bold text-gray-900 dark:text-white'>
                 {inView ? (

@@ -9,19 +9,22 @@ import remarkGfm from "remark-gfm";
 const Offer = ({ features }: { features: CardNoLinkData[]}) => {
   
   return (
-    <section className="dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-sm text-center">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
+    <section className='dark:bg-gray-900'>
+      <div className='py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6'>
+        <div className='mx-auto max-w-screen-sm text-center'>
+          <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
             What We Offer
           </h2>
+   x
         </div>
         <div className="grid gap-4 grid-cols-4">
-          
+     
+
           {features.map((item, index) => (
             
             <article
               key={index}
+
               className="overflow-hidden rounded-lg shadow transition hover:shadow-lg"
             >
               <img
@@ -42,6 +45,7 @@ const Offer = ({ features }: { features: CardNoLinkData[]}) => {
                 <div className="prose mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
                     <ReactMarkdown children={item.description} remarkPlugins={[remarkGfm]} />
                 </div>
+
 
               </div>
             </article>

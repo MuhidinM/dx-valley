@@ -40,6 +40,7 @@ const Page = () => {
         // <Image src={`http://10.1.151.64:1337${incubationItems?.intro?.img}`} alt="Image Left Not Found" width={500} height={800}/>
         title={incubationItems?.intro.title || ""}
         description={incubationItems?.intro.description}
+
         buttonText={"hidden"}
         href={"/innovationhub"}
       />

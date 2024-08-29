@@ -31,6 +31,14 @@ export interface ctaProps {
   buttonText?: string;
   href: string;
 }
+
+
+export interface submissonSuccess{
+  title: string;
+  icon: SVGSVGElement;
+  desc: string;
+
+}
 export interface CardProps {
   img: ReactNode;
   title: string;
