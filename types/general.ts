@@ -35,7 +35,7 @@ export interface ctaProps {
 
 export interface submissonSuccess{
   title: string;
-  icon: SVGSVGElement;
+  // icon: SVGSVGElement;
   desc: string;
 
 }
