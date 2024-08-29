@@ -3,7 +3,7 @@ import { OrgResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const OrgItemFetch = async ()=>{
-    const res = await axios.get<OrgResponse>('http://10.1.151.64:1337/api/organization?populate=cards.link,cards.img');
+    const res = await axios.get<OrgResponse>('http://10.1.151.64:1337/api/media?populate=cards.img');
 
     const data = res.data.data;
     const orgItems = {
@@ -15,11 +15,8 @@ export const OrgItemFetch = async ()=>{
                 title: card?.link?.title,
                 href: card?.link?.href
             },
-            img: {
-                small: card.img.data?.attributes.formats.small.url || "",
-                medium: card.img.data?.attributes.formats.medium.url || "",
-                large: card.img.data?.attributes.formats.large.url || ""
-            }
+            img: card.img.data?.attributes.url || ""
+
         })) || {}
     }
     return orgItems

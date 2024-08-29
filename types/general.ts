@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { CardNoLinkData } from "./strapi-types";
 
 export interface SectionProps {
   svg: ReactNode;
@@ -23,12 +24,20 @@ export interface focusAreaItems {
   contentDesc: string;
 }
 export interface focusAreaProps {
-    items: focusAreaItems[];
+    items: CardNoLinkData[];
 }
 export interface ctaProps {
   title: string;
   buttonText?: string;
   href: string;
+}
+
+
+export interface submissonSuccess{
+  title: string;
+  icon: SVGSVGElement;
+  desc: string;
+
 }
 export interface CardProps {
   img: ReactNode;

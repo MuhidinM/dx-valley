@@ -23,16 +23,8 @@ export const ShowCaseItemFetch = async ()=>{
         founders: item.founders.map(investor => ({
             name: investor.name
         })) || {},
-        img_1: {
-            small: item.img_1.data?.attributes.formats.small?.url || "",
-            medium: item.img_1.data?.attributes.formats.medium?.url || "",
-            large: item.img_1.data?.attributes.formats.large?.url || ""
-        },
-        img_2: {
-            small: item.img_2.data?.attributes.formats.small?.url || "",
-            medium: item.img_2.data?.attributes.formats.medium?.url || "",
-            large: item.img_2.data?.attributes.formats.large?.url || ""
-        }
+        img_1: item.img_1.data?.attributes.url || "",
+        img_2: item.img_2.data?.attributes.url || ""
         
     }));
     //console.log("showCaseItems: ", showCaseItems)

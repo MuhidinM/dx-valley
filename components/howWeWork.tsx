@@ -20,7 +20,7 @@ const HowWeWorkSection = () => {
           <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center md:items-center md:justify-center    '>
             <div className='lg:w-1/3 w-full mb-8 lg:mb-3 items-center justify-center '>
               <Image
-                src='/image/idea.gif'
+                src='/image/ideation.svg'
                 alt=''
                 className='rounded-full'
                 width={300}
@@ -103,7 +103,7 @@ const HowWeWorkSection = () => {
             </div>
             <div className='lg:w-1/3 w-full'>
               <Image
-                src='/image/prototyping.gif'
+                src='/image/prototyping.svg'
                 alt=''
                 className='rounded-full'
                 width={300}
@@ -116,7 +116,7 @@ const HowWeWorkSection = () => {
           <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center mb-20'>
             <div className='lg:w-1/3 w-full mb-8 lg:mb-0'>
               <Image
-                src='/image/software.gif'
+                src='/image/production.svg'
                 alt=''
                 className='rounded-full'
                 width={300}
@@ -176,7 +176,7 @@ const HowWeWorkSection = () => {
             </div>
             <div className='lg:w-1/3 w-full'>
               <Image
-                src='/image/evaluation.gif'
+                src='/image/evaluation.svg'
                 alt=''
                 className='rounded-full'
                 width={300}

@@ -103,25 +103,25 @@ export const features = [
 
 export const stats = [
   {
-    img: <Image src={business} alt=""/>,
+    img: business,
     value: "73",
     label: "Incubated Projects",
   },
 
   {
-    img: <Image src={relationship} alt=""/>,
+    img: relationship,
     value: "17",
     label: "Partnerships",
   },
 
   {
-    img: <Image src={entrepreneur} alt=""/>,
+    img: entrepreneur,
     value: "4",
     label: "Launched StartUps",
   },
   // { value: "10", label: "Open Seats" },
   {
-    img: <Image src={business} alt=""/>,
+    img: trainer,
     value: "21",
     label: "Trainers",
   },

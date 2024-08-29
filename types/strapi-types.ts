@@ -136,11 +136,7 @@ export interface CardData {
     title: string,
     href: string
   }
-  img:  {
-    small: string,
-    medium: string,
-    large: string
-  },
+  img: string,
 }
 
 export interface CardResponse {
@@ -194,16 +190,8 @@ export interface ShowCaseData{
   published: Date,
   investors: Names[],
   founders: Names[],
-  img_1: {
-    small: string,
-    medium: string,
-    large: string
-  },
-  img_2: {
-    small: string,
-    medium: string,
-    large: string
-  },
+  img_1: string,
+  img_2: string,
   link: {
     href: string,
     title: string
@@ -217,4 +205,35 @@ export interface ShowCaseResponse{
       incubated: Incubated[]
     }
   }[];
+}
+
+// interfaces for incubation tab
+interface CardNoLink{
+  title: string,
+  description: string,
+  img: ImageData
+}
+export interface CardNoLinkData{
+  title: string,
+  description: string,
+  img: string
+}
+export interface IncubationData{
+  intro: CardNoLinkData,
+  incubation_process: CardNoLinkData[],
+  offers: CardNoLinkData[],
+  training: CardNoLinkData[],
+  focus: CardNoLinkData[]
+}
+export interface IncubationResponse{
+  data: {
+    id: number,
+    attributes: {
+      intro: CardNoLink,
+      incubation_process: CardNoLink[],
+      offers: CardNoLink[],
+      training: CardNoLink[],
+      focus: CardNoLink[],
+    }
+  };
 }
