@@ -37,7 +37,7 @@ export default function CTAComponent() {
           </Link>
           <Link href={"/stakeholders"}>
             <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white font-['Arial'] text-lg py-0 transition-colors duration-300">
-             Stakeholder
+               Partners
             </Button>
           </Link>
         </div>
