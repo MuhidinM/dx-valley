@@ -1,6 +1,11 @@
 "use client";
 import { useState } from 'react';
 import {focusAreaProps} from "@/types/general"
+import { getImageUrl } from '@/lib/utils';
+
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
+
 const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -58,7 +63,13 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
                 ? "border-b-2 border-coopOrange font-semibold"
                 : "border-b-2 border-transparent hover:border-gray-300"
             }`}>
-            {item.tab}
+            {
+              item.title === "Agricultural Technology" 
+              ? "Agrotech" 
+              : item.title === "Financial Technology" 
+              ? "Fintech" 
+              : item.title
+            }
           </li>
         ))}
       </ul>
@@ -72,14 +83,16 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
             }`}>
             <img
               className='w-full md:w-2/5 rounded-lg'
-              src={item.image}
+              src={`http://10.1.151.64:1337${item?.img ?? ""}`}
               alt={"image"}
             />
             <div className='text-left md:text-left ml-10 space-y-3'>
               <h3 className='text-lg md:text-l font-bold'>
-                {item.contentTitle}
+                {item.title}
               </h3>
-              <p className='text-gray-700 space-y-10'>{item.contentDesc}</p>
+              <div className='text-gray-700 space-y-10 prose'>
+                <ReactMarkdown children={item.description} remarkPlugins={[remarkGfm]} />
+              </div>
             </div>
           </div>
         ))}
