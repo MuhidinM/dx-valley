@@ -1,5 +1,5 @@
 "use client";
-import React,  from "react";
+import React from "react";
 import { Menu } from "@/components/menu";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import useScroll from "./useScroll"; //Custom Hook for scroll
 
 const Navbar = () => {
-const router = useRouter(); // Hook to use router
-const scroll = useScroll();
+  const router = useRouter(); // Hook to use router
+  const scroll = useScroll();
   return (
     <header>
       <nav
