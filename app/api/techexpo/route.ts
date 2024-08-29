@@ -18,6 +18,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       productName,
       productDescription,
       websiteUrl,
+      eventId,
     } = await req.json();
 
     const newParticipant = await prisma.expoParticipant.create({
@@ -34,6 +35,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         productName,
         productDescription,
         websiteUrl,
+        eventId: parseInt(eventId, 10),
       },
     });
     return NextResponse.json(
