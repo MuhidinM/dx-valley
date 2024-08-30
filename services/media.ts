@@ -16,6 +16,7 @@ export const MediaItemFetch = async ()=>{
                 href: card?.link?.href
             },
             img: card.img.data?.attributes.url || ""
+
         })) || {}
     }
     return mediaItems

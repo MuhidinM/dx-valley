@@ -20,10 +20,14 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import { useRouter } from "next/router";
 const prisma = new PrismaClient();
+import { useSearchParams } from 'next/navigation';
 
 const TechExpoRegistrationForm = () => {
+  const searchParams = useSearchParams();
+  const eventId = searchParams.get('eventId');
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -37,9 +41,7 @@ const TechExpoRegistrationForm = () => {
     productName: "",
     productDescription: "",
     websiteUrl: "",
-
-    dietaryPreferences: "",
-    specialAccommodations: "",
+    eventId: eventId || "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -69,9 +71,7 @@ const TechExpoRegistrationForm = () => {
           productName: "",
           productDescription: "",
           websiteUrl: "",
-
-          dietaryPreferences: "",
-          specialAccommodations: "",
+          eventId: "",
         });
       } else {
         alert("Failed to register");

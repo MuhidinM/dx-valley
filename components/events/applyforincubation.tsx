@@ -187,19 +187,22 @@ export default function ApplyForIncubation() {
 
   if (submitSuccess) {
     return (
-      <div className='flex flex-col items-center justify-center  bg-gray-50'>
-        {showConfetti && <Confetti colors={["#00adef"]} />}
-        <SubmissionSuccess
-          title={" Submission Successful!"}
-          icon= {<CheckCircle2 className='w-8 h-8 text-coopOrange'/>}
-          desc={" Good luck! Stay tuned for our email."}
-        />
+
+        <div className=' bg-gray-50 py-28 px-4 sm:px-6 lg:px-8 '>
+          <div >
+            {showConfetti && <Confetti colors={["#00adef"]} />}
+            <SubmissionSuccess
+              title={" Submission Successful!"}
+              icon= {<CheckCircle2 className='w-8 h-8 text-coopOrange'/>}
+              desc={" Good luck! Stay tuned for our email."}
+            />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 min-h-screen'>
       <Card className='max-w-2xl mx-auto'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl font-bold'>

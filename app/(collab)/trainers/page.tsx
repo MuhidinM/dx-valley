@@ -71,7 +71,7 @@ const Page = () => {
       <CollabObjectives />
       {/* <InputForm /> */}
       <div id="collab-form">
-        <CollabForm type="trainer" />
+        <CollabForm/>
       </div>
     </div>
   );

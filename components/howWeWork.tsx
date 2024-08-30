@@ -19,7 +19,6 @@ const HowWeWorkSection = ({works}:{works:CardNoLinkData[]}) => {
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </div>
-
           {
             works.map((item, indx) => (
               indx % 2 == 0 ? (
@@ -78,6 +77,7 @@ const HowWeWorkSection = ({works}:{works:CardNoLinkData[]}) => {
               )
             ))
           }
+
         </div>
       </section>
     </div>

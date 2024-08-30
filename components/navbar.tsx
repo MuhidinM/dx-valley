@@ -5,14 +5,21 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./modeToggle";
 import { MenuIcon } from "lucide-react";
-import { useRouter } from "next/navigation"; // Updated import
+import { useRouter } from "next/navigation";
+import useScroll from "./useScroll"; //Custom Hook for scroll
 
 const Navbar = () => {
   const router = useRouter(); // Hook to use router
-
+  const scroll = useScroll();
   return (
     <header>
-      <nav className="border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-900">
+      <nav
+        className={
+          scroll
+            ? "h-15 w-full pt-3 top-0 left-0 right-0 fixed  transition ease-in-out duration-500 bg-white bg-clip-padding  bg-opacity-100 z-20  dark:bg-gray-900"
+            : "border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-900"
+        }
+      >
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link href="/" className="flex items-center">
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">

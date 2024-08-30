@@ -28,6 +28,7 @@ const Page = () => {
   return (
     <div>
       <PageTitle />
+
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
