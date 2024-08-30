@@ -78,3 +78,156 @@ model expoParticipant {
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 }
+//  Design for collaboration opportunities
+//  One to Many: One PersonalInfo can have multiple ContactInfo records
+//  One to Many: One PersonalInfo can have multiple AddressInfo records
+//  One to Many: One PersonalInfo can have multiple DocumentInfo records
+//  One to Many: One OrganizationInfo can have multiple ContactInfo records
+//  One to Many:One OrganizationInfo can have multiple AddressInfo records
+//  One to Many: One OrganizationInfo can have multiple DocumentInfo records
+//  Many to One: Each DocumentInfo record can reference either PersonalInfo or OrganizationInfo
+//  One to one : One PersonalInfo can only have One OrganizationInfo 
+
+
+
+model ContactInfo {
+  id               Int             @id @default(autoincrement())
+  email            String          @unique
+  phoneNumberOne   String
+  phoneNumberTwo   String
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  
+  // Foreign keys for relationships
+  personalInfoId     Int?
+  personalInfo       PersonalInfo?  @relation(fields: [personalInfoId], references: [id]) // Many-to-One: Links to PersonalInfo
+  organizationInfoId Int?
+  organizationInfo   OrganizationInfo? @relation(fields: [organizationInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+  MediaInfoId Int?
+  MediaInfo   MediaInfo? @relation(fields: [MediaInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+
+}
+
+model AddressInfo {
+  id                Int             @id @default(autoincrement())
+  city              String
+  state             String
+  country           String
+  addressType       String          // e.g., "Residential", "Business"
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  
+  // Foreign keys for relationships
+  personalInfoId     Int?
+  personalInfo       PersonalInfo?  @relation(fields: [personalInfoId], references: [id]) // One-to-Many: Links to PersonalInfo
+  organizationInfoId Int?
+  organizationInfo   OrganizationInfo? @relation(fields: [organizationInfoId], references: [id]) // One-to-Many: Links to OrganizationInfo
+  MediaInfoId Int?
+  MediaInfo   MediaInfo? @relation(fields: [MediaInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+}
+
+model OrganizationInfo {
+  id               Int             @id @default(autoincrement())
+  name             String
+  industry         String          // Industry of the organization
+  focusArea        String          // e.g., "AI", "FinTech", "AgroTech"
+  interestArea     String          // e.g., "Invest", "Support"
+  tradeLicense     String?
+  organizationType String          // e.g., "NGO", "Private", "Government"
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  // Relationships
+  contactInfo      ContactInfo[]   // One-to-Many: Multiple ContactInfo
+  addressInfo      AddressInfo[]   // One-to-Many: Multiple AddressInfo
+  documentInfo     DocumentInfo[]  // One-to-Many: Multiple DocumentInfo
+  PersonalInfo PersonalInfo?
+}
+model PersonalInfo {
+  id              Int              @id @default(autoincrement())
+  title           String?         
+  fullName        String
+  lastName        String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Relationships
+  contactInfo     ContactInfo[]    // One-to-Many: Multiple ContactInfo
+  addressInfo     AddressInfo[]    // One-to-Many: Multiple AddressInfo
+  documentInfo    DocumentInfo[]   // One-to-Many: Multiple DocumentInfo
+  organizationInfo OrganizationInfo? @relation(fields: [organizationInfoId], references: [id]) // One-to-One: OrganizationInfo
+  organizationInfoId Int?  @unique        // Foreign key to OrganizationInfo
+  
+  TrainerInfo TrainerInfo?
+
+  IndependentPartnerInfo IndependentPartnerInfo?
+}
+model DocumentInfo {
+  id               Int              @id @default(autoincrement())
+  documentType     String           // e.g., "Trade License", "Patent"
+  documentNumber   String
+  issuedDate       DateTime
+  expirationDate   DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  // Foreign keys for relationships with either PersonalInfo or OrganizationInfo
+  personalInfoId     Int?
+  personalInfo       PersonalInfo?  @relation(fields: [personalInfoId], references: [id])  // Many-to-One: PersonalInfo reference
+  organizationInfoId Int?
+  organizationInfo   OrganizationInfo? @relation(fields: [organizationInfoId], references: [id]) // Many-to-One: OrganizationInfo reference
+  MediaInfoId Int?
+  MediaInfo   MediaInfo? @relation(fields: [MediaInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+  TrainerInfoId Int?
+  TrainerInfo TrainerInfo?@relation(fields: [TrainerInfoId], references: [id])
+
+  IndependentPartnerInfoId  Int?
+  IndependentPartnerInfo IndependentPartnerInfo?@relation(fields: [IndependentPartnerInfoId], references: [id])
+}
+
+
+model MediaInfo {
+  id               Int             @id @default(autoincrement())
+  name             String
+  description      String
+  platform         String           //radio, youtube,TV
+  contentGenre     String          // e.g., "report", "podcast", "others"
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  // Relationships
+  contactInfo      ContactInfo[]   // One-to-Many: Multiple ContactInfo
+  addressInfo      AddressInfo[]   // One-to-Many: Multiple AddressInfo
+  documentInfo     DocumentInfo[]  // One-to-Many: Multiple DocumentInfo
+}
+
+model TrainerInfo {
+  id               Int             @id @default(autoincrement())
+  title            String
+  profession       String
+  expertice        String
+  schedule         String
+  motivation       String
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  // Relationships
+  personalInfo PersonalInfo? @relation(fields: [personalInfoId], references: [id]) // One-to-One: Personal Info
+  personalInfoId Int?  @unique    
+  documentInfo     DocumentInfo[]  // One-to-Many: Multiple DocumentInfo
+
+}
+
+model IndependentPartnerInfo {
+  id               Int             @id @default(autoincrement())
+  focusArea        String          // e.g., "AI", "FinTech", "AgroTech"
+  interestArea     String          // e.g., "Invest", "Support"
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  // Relationships
+  personalInfo PersonalInfo? @relation(fields: [personalInfoId], references: [id]) // One-to-One: Personal Info
+  personalInfoId Int?  @unique    
+  documentInfo     DocumentInfo[]  // One-to-Many: Multiple DocumentInfo
+
+}
