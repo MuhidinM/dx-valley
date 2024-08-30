@@ -1,37 +1,28 @@
 "use client";
-import React, { useState } from "react";
-import { PrismaClient } from "@prisma/client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-const prisma = new PrismaClient();
-
-const ContestRegistrationForm = () => {
-  // const router = useRouter();
-  // const { eventId } = router.query;
+const steps = [
+  { id: "team-info", title: "Team Information" },
+  { id: "project-details", title: "Project Details" },
+  { id: "confirm", title: "Confirm Info" },
+];
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get("eventId");
 
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     teamLeaderName: "",
     email: "",
     phoneNumber: "",
     teamName: "",
     numberOfMembers: 1,
-    teamMembers: [""],
+    teamMembers: [{ name: "", email: "" }],
     projectTitle: "",
     projectDescription: "",
     techStack: "",
@@ -48,9 +39,13 @@ const ContestRegistrationForm = () => {
     });
   };
 
-  const handleTeamMemberChange = (index: number, value: string) => {
+  const handleTeamMemberChange = (
+    index: number,
+    field: string,
+    value: string
+  ) => {
     const updatedMembers = [...formData.teamMembers];
-    updatedMembers[index] = value;
+    updatedMembers[index] = { ...updatedMembers[index], [field]: value };
     setFormData({ ...formData, teamMembers: updatedMembers });
   };
 
@@ -61,46 +56,27 @@ const ContestRegistrationForm = () => {
     setFormData({
       ...formData,
       numberOfMembers,
-      teamMembers: Array(numberOfMembers).fill(""),
+      teamMembers: Array(numberOfMembers).fill({ name: "", email: "" }),
     });
+  };
+
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const {
-      teamLeaderName,
-      email,
-      phoneNumber,
-      teamName,
-      numberOfMembers,
-      teamMembers,
-      projectTitle,
-      projectDescription,
-      techStack,
-      projectUrl,
-      eventId,
-    } = formData;
-
     try {
       const response = await fetch("/api/contest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          teamLeaderName,
-          email,
-          phoneNumber,
-          teamName,
-          numberOfMembers,
-          teamMembers, // This will send the array as is
-          projectTitle,
-          projectDescription,
-          techStack,
-          projectUrl,
-          eventId,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -111,7 +87,7 @@ const ContestRegistrationForm = () => {
           phoneNumber: "",
           teamName: "",
           numberOfMembers: 1,
-          teamMembers: [""],
+          teamMembers: [{ name: "", email: "" }],
           projectTitle: "",
           projectDescription: "",
           techStack: "",
@@ -126,156 +102,236 @@ const ContestRegistrationForm = () => {
       alert("An error occurred. Please try again.");
     }
   };
-  return (
-    <Card className="admin-event w-[900px]">
-      <CardHeader>
-        <CardTitle className="text-center">Contest Registration Form</CardTitle>
-        {/* <CardDescription>Description</CardDescription> */}
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit}>
-          <div className="grid w-full items-center gap-4">
-            <h2 className="font-extrabold text-xl"> Team Leader Information</h2>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="teamLeaderName">Full Name</Label>
 
-              <Input
-                type="text"
-                id="teamLeaderName"
-                name="teamLeaderName"
-                placeholder="e.g., John Doe"
-                value={formData.teamLeaderName}
-                onChange={handleChange}
-                required
-                minLength={3}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email Address</Label>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="e.g., johndoe@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="phoneNumber">Phone Number</Label>
-              <Input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                placeholder="e.g., +1234567890"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-                pattern="^\+?\d{10,15}$"
-              />
-            </div>
-            <h2 className="font-extrabold text-xl">Team Information</h2>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="teamName">Team Name</Label>
-              <Input
-                type="text"
-                id="teamName"
-                name="teamName"
-                placeholder="e.g., Innovators"
-                value={formData.teamName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="numberOfMembers">Number of Team Members</Label>
-              <Input
-                type="number"
-                id="numberOfMembers"
-                name="numberOfMembers"
-                placeholder="e.g., 5"
-                value={formData.numberOfMembers}
-                onChange={handleNumberOfMembersChange}
-                required
-                min={1}
-                max={10}
-              />
-            </div>
-            <h3 className="font-extrabold text-xl">List of Team Members</h3>
+  return (
+    <div className="mt-8 mb-8 flex items-center justify-center">
+      <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-lg">
+        {/* <div className="text-center flex justify-between p-2 m-3  rounded"> */}
+        <div className="mb-8 text-center text-2xl font-bold">
+          Register Contest Info
+        </div>
+        {/* <div>Help?</div> */}
+        {/* </div> */}
+        <div className="mb-4 text-center">
+          {steps.map((step, index) => (
+            <span
+              key={step.id}
+              className={`mx-2 ${
+                index <= currentStep ? "text-[#00ADEF]" : "text-gray-500"
+              }`}
+            >
+              {step.title}
+            </span>
+          ))}
+        </div>
+
+        {currentStep === 0 && (
+          <div className="mb-4">
+            <Label htmlFor="teamLeaderName" className="block mb-4 mt-4">
+              Team Leader Name
+            </Label>
+            <Input
+              id="teamLeaderName"
+              name="teamLeaderName"
+              className="w-full p-2 rounded"
+              value={formData.teamLeaderName}
+              onChange={handleChange}
+              placeholder="Enter the team leader's name"
+            />
+            <Label htmlFor="email" className="block mb-4 mt-4">
+              Email
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              className="w-full p-2  rounded"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter the email"
+            />
+            <Label htmlFor="phoneNumber" className="block mb-4 mt-4">
+              Phone Number
+            </Label>
+            <Input
+              id="phoneNumber"
+              name="phoneNumber"
+              className="w-full p-2  rounded"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              placeholder="Enter the phone number"
+            />
+            <Label htmlFor="teamName" className="block mb-4 mt-4">
+              Team Name
+            </Label>
+            <Input
+              id="teamName"
+              name="teamName"
+              className="w-full p-2  rounded"
+              value={formData.teamName}
+              onChange={handleChange}
+              placeholder="Enter the team name"
+            />
+            <Label htmlFor="numberOfMembers" className="block mb-4 mt-4">
+              Number of Members
+            </Label>
+            <Input
+              id="numberOfMembers"
+              type="number"
+              name="numberOfMembers"
+              className="w-full p-2  rounded"
+              value={formData.numberOfMembers}
+              onChange={handleNumberOfMembersChange}
+              min={1}
+              placeholder="Enter the number of team members"
+            />
             {formData.teamMembers.map((member, index) => (
-              <div className="flex flex-col space-y-1.5" key={index}>
-                <Label htmlFor={`teamMember${index + 1}`}>
-                  Team Member {index + 1}:
-                </Label>
-                <Input
-                  type="text"
-                  id={`teamMember${index + 1}`}
-                  placeholder={`e.g., Member ${index + 1}`}
-                  value={member}
-                  onChange={(e) =>
-                    handleTeamMemberChange(index, e.target.value)
-                  }
-                  required
-                />
+              <div key={index} className="mt-4 mb-4 flex space-x-4">
+                <div className="w-1/2">
+                  <Label className="block mb-2">Member Name</Label>
+                  <Input
+                    type="text"
+                    className="w-full p-2  rounded"
+                    value={member.name}
+                    onChange={(e) =>
+                      handleTeamMemberChange(index, "name", e.target.value)
+                    }
+                    placeholder="Enter team member's name"
+                  />
+                </div>
+                <div className="w-1/2">
+                  <Label className="block mb-2">Member Email</Label>
+                  <Input
+                    type="email"
+                    className="w-full p-2  rounded"
+                    value={member.email}
+                    onChange={(e) =>
+                      handleTeamMemberChange(index, "email", e.target.value)
+                    }
+                    placeholder="Enter team member's email"
+                  />
+                </div>
               </div>
             ))}
-            <h2 className="font-extrabold text-xl">Project Information</h2>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="projectTitle">Project Title</Label>
-              <Input
-                type="text"
-                id="projectTitle"
-                name="projectTitle"
-                placeholder="e.g., AI-powered Traffic Management System"
-                value={formData.projectTitle}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="projectDescription">Project Description</Label>
-              <Textarea
-                id="projectDescription"
-                name="projectDescription"
-                placeholder="Briefly describe your project..."
-                value={formData.projectDescription}
-                onChange={handleChange}
-                required
-                minLength={50}
-                maxLength={500}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="techStack">Preferred Technology Stack</Label>
-              <Input
-                type="text"
-                id="techStack"
-                name="techStack"
-                placeholder="e.g., React, Node.js, MongoDB"
-                value={formData.techStack}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="projectUrl">Project URL (if any):</Label>
-              <Input
-                type="url"
-                id="projectUrl"
-                name="projectUrl"
-                placeholder="e.g., https://github.com/your-project"
-                value={formData.projectUrl}
-                onChange={handleChange}
-              />
-            </div>
           </div>
-          <Button className="admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
-            Register
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
-  );
-};
+        )}
 
-export default ContestRegistrationForm;
+        {currentStep === 1 && (
+          <div className="mb-4">
+            <Label htmlFor="projectTitle" className="block mb-2">
+              Project Title
+            </Label>
+            <Input
+              id="projectTitle"
+              name="projectTitle"
+              className="w-full p-2  rounded"
+              value={formData.projectTitle}
+              onChange={handleChange}
+              placeholder="Enter the project title"
+            />
+            <Label htmlFor="projectDescription" className="block mb-2">
+              Project Description
+            </Label>
+            <Textarea
+              id="projectDescription"
+              name="projectDescription"
+              className="w-full p-2  rounded"
+              value={formData.projectDescription}
+              onChange={handleChange}
+              placeholder="Enter the project description"
+              rows={4}
+            />
+            <Label htmlFor="techStack" className="block mb-2">
+              Tech Stack
+            </Label>
+            <Input
+              id="techStack"
+              name="techStack"
+              className="w-full p-2  rounded"
+              value={formData.techStack}
+              onChange={handleChange}
+              placeholder="Enter the tech stack"
+            />
+            <Label htmlFor="projectUrl" className="block mb-2">
+              Project URL
+            </Label>
+            <Input
+              id="projectUrl"
+              name="projectUrl"
+              className="w-full p-2  rounded"
+              value={formData.projectUrl}
+              onChange={handleChange}
+              placeholder="Enter the project URL"
+            />
+          </div>
+        )}
+
+        {currentStep === 2 && (
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold mb-4">
+              Confirm Your Information
+            </h3>
+            <p>
+              <strong>Team Leader Name:</strong> {formData.teamLeaderName}
+            </p>
+            <p>
+              <strong>Email:</strong> {formData.email}
+            </p>
+            <p>
+              <strong>Phone Number:</strong> {formData.phoneNumber}
+            </p>
+            <p>
+              <strong>Team Name:</strong> {formData.teamName}
+            </p>
+            <p>
+              <strong>Number of Members:</strong> {formData.numberOfMembers}
+            </p>
+            <p>
+              <strong>Team Members:</strong> {formData.teamMembers.join(", ")}
+            </p>
+            <p>
+              <strong>Project Title:</strong> {formData.projectTitle}
+            </p>
+            <p>
+              <strong>Project Description:</strong>{" "}
+              {formData.projectDescription}
+            </p>
+            <p>
+              <strong>Technology Stack:</strong> {formData.techStack}
+            </p>
+            <p>
+              <strong>Project URL:</strong> {formData.projectUrl}
+            </p>
+          </div>
+        )}
+
+        <div className="flex justify-between mt-6">
+          <Button
+            type="button"
+            className="py-2 px-4 bg-gray-800 text-white hover:bg-[#E38524] rounded"
+            onClick={handlePrevious}
+            disabled={currentStep === 0}
+          >
+            Previous
+          </Button>
+          {currentStep === steps.length - 1 ? (
+            <Button
+              type="button"
+              className="py-2 px-4 bg-[#00adef] text-white hover:bg-[#E38524] rounded"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              className="py-2 px-4 bg-blue-500 text-white hover:bg-[#E38524] rounded"
+              onClick={handleNext}
+            >
+              Next
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
