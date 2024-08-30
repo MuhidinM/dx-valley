@@ -37,7 +37,6 @@ const Page = () => {
     <div className="space-y-8 mb-8 justify-center">
       <SectionRight
         svg={<Image src={`http://10.1.151.64:1337${incubationItems?.intro?.img ?? ""}`} alt="Image Left Not Found" width={500} height={800}/>}
-        // <Image src={`http://10.1.151.64:1337${incubationItems?.intro?.img}`} alt="Image Left Not Found" width={500} height={800}/>
         title={incubationItems?.intro.title || ""}
         description={incubationItems?.intro.description}
 

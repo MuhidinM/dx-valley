@@ -71,6 +71,8 @@ const Countdown: React.FC<ContestCardProps> = ({
   }
 
   const handleRegisterClick = () => {
+    // const router = useRouter();
+    const eventId = event.id.toString();
     let formRoute = "/register";
 
     switch (event.category) {
@@ -83,8 +85,13 @@ const Countdown: React.FC<ContestCardProps> = ({
       default:
         formRoute = "/register/general";
     }
-
-    router.push(formRoute);
+    const fullRoute = `${formRoute}?eventId=${eventId}`;
+    router.push(fullRoute);
+    // router.push(formRoute);
+    // router.push({
+    //   pathname: formRoute,
+    //   query: { eventId },
+    // });
   };
 
   return (
