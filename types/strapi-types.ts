@@ -207,7 +207,7 @@ export interface ShowCaseResponse{
   }[];
 }
 
-// interfaces for incubation tab
+// interfaces for incubation 
 interface CardNoLink{
   title: string,
   description: string,
@@ -234,6 +234,33 @@ export interface IncubationResponse{
       offers: CardNoLink[],
       training: CardNoLink[],
       focus: CardNoLink[],
+    }
+  };
+}
+
+// interfaces for innovation 
+export interface Address {
+  description: string,
+  phone: string,
+  email: string,
+  address: string,
+}
+export interface InnovationData{
+  intro: CardNoLinkData,
+  companies: CardNoLinkData[],
+  howeworks: CardNoLinkData[],
+  gallery: CardNoLinkData[],
+  connect: Address,
+}
+export interface InnovationResponse{
+  data: {
+    id: number,
+    attributes: {
+      intro: CardNoLink,
+      companies: CardNoLink[],
+      howeworks: CardNoLink[],
+      gallery: CardNoLink[],
+      connect: Address,
     }
   };
 }

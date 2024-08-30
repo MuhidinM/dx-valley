@@ -83,9 +83,10 @@ export const Card: React.FC<SectionProps> = ({
         <h2 className="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
           {title}
         </h2>
-        <p className="mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
-          {description}
-        </p>
+        <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
+          <ReactMarkdown children={description?.toString()} remarkPlugins={[remarkGfm]} />
+          {/* {description} */}
+        </div>
         <div className="mt-auto">
           {buttonText && buttonText !== "hidden" && (
             <Link href={href}>
