@@ -5,8 +5,11 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Mail, MapPinCheckInside, Phone } from "lucide-react";
+import { Address } from "@/types/strapi-types";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-const ContactUs = () => {
+const ContactUs = ({address}:{address:Address}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -41,29 +44,26 @@ const ContactUs = () => {
               Connect with Us
             </h1>
             <div className='mt-6 space-y-8 md:mt-8'>
-              <p>
-                We&apos;d love to hear from you! Have a question about our
-                products or services? Need help with an order? Our friendly
-                customer support team is here to assist you.
-              </p>
+              <div className="prose">
+                <ReactMarkdown children={address?.description?.toString()} remarkPlugins={[remarkGfm]} />
+              </div>
               <p className='flex items-start -mx-2'>
                 <Phone />
                 <span className='mx-2 text-gray-700 truncate w-72 dark:text-gray-400'>
-                  +251942100360
+                {address?.phone || ""}
                 </span>
               </p>
 
               <p className='flex items-start -mx-2'>
                 <Mail />
                 <span className='mx-2 text-gray-700 truncate w-72 dark:text-gray-400'>
-                  info@coopbank.com
+                {address?.email || ""}
                 </span>
               </p>
               <p className='flex items-start -mx-2'>
                 <MapPinCheckInside />
                 <span className='mx-2 text-gray-700  w-2/3 dark:text-gray-400'>
-                  Coop THQ, Bole Rwanda, Africa Ave, 
-                  Addis Ababa, Ethiopia
+                {address?.address || ""}
                 </span>
               </p>
             </div>
