@@ -18,25 +18,27 @@ const videos = [
   {
     id: 1,
     title: "የDx Valley እንቅስቃሴያችን በEBS ሲቃኝ",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "84-4C8X1vio?si=KORabFCho88NFHwo",
   },
   {
     id: 2,
     title: "Our CRM and DxValley 2.0 Inaguration",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "fEgG3F5Ce-c?si=zEy5Sr6QRVdlnfd_",
   },
   {
     id: 3,
     title: "Presentation by Mr. Aman Semir",
-    thumbnail: "/placeholder.svg?height=90&width=160",
+    thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     youtubeId: "0OIhoVDCoX0?si=wQ5p2-h1-lMRzn7d",
   },
   // {
   //   id: 4,
   //   title: "Another Video",
-  //   thumbnail: "/placeholder.svg?height=90&width=160",
+  //   thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
   //   youtubeId: "J---aiyznGQ",
   // },
 ];
@@ -48,26 +50,29 @@ const news = [
       "New Guarantee Helps Coop Unlock Billions in Collateral-Free Loans for MSMEs",
     date: "2023-07-15",
     description: "SuoqPass secured loan from masterCard.",
-    image: "/placeholder.svg?height=120&width=200",
+    image:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     link: "https://shega.co/post/coop-secures-570-million-br-guarantee-to-expand-collateral-free-lending/",
   },
   {
     id: 2,
     title: "DxValley 2.0 and CRM Inaguraion",
     date: "2023-07-14",
-    description:
-      "GPT-4 demonstrates unprecedented language understanding and generation capabilities.",
-    image: "/placeholder.svg?height=60&width=100",
+    description: "DxValley 2.0 and CRM Inaguraion",
+    image:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
     link: "/news/ai-model-surpasses-humans",
   },
   {
     id: 3,
-    title: "The Launch of Michu 2.0",
-    date: "2023-07-13",
+    title:
+      "ECMA Opens Door to Capital Market Innovation with Launch of Sandbox",
+    date: "2024-08-29 ",
     description:
       "Solar and wind power now account for over 50% of global energy production.",
-    image: "/placeholder.svg?height=60&width=100",
-    link: "/news/renewable-energy-milestone",
+    image:
+      "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
+    link: "https://shega.co/post/ecma-opens-door-to-capital-market-innovation-with-launch-of-sandbox/",
   },
 ];
 
@@ -76,19 +81,19 @@ const events = [
     id: 1,
     title: "Annual Tech Innovation Summit",
     date: "2023-08-15",
-    link: "/events/tech-innovation-summit",
+    link: "/contests",
   },
   {
     id: 2,
     title: "AI Ethics Workshop",
     date: "2023-08-22",
-    link: "/events/ai-ethics-workshop",
+    link: "/contests",
   },
   {
     id: 3,
     title: "Startup Pitch Competition",
     date: "2023-08-30",
-    link: "/events/startup-pitch-competition",
+    link: "/contests",
   },
 ];
 
@@ -130,13 +135,13 @@ export default function MediaAndNews() {
         <CardContent className='space-y-4 pt-0'>
           {news.map((item, index) => (
             <div key={item.id} className={index === 0 ? "mb-4" : "mb-2"}>
-              <Link href={item.link} className='group'>
+              <Link href={item.link} className='group' target="_blank">
                 <div className='flex items-start space-x-2 '>
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`object-cover rounded-sm ${
-                      index === 0 ? "w-20 h-20" : "w-12 h-12"
+                    className={`object-contain rounded-sm ${
+                      index === 0 ? "w-12 h-12" : "w-10 h-10"
                     }`}
                   />
                   <div>

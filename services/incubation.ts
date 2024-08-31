@@ -22,12 +22,12 @@ export const IncubationItemFetch = async ()=>{
             description: elmnt.description,
             img: elmnt.img.data?.attributes?.url || ""
         })) || [],
-        training: data.attributes?.focus?.map(elmnt => ({
+        training: data.attributes?.training?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
             img: elmnt.img.data?.attributes?.url || ""
         })) || [],
-        incubation_process: data.attributes?.focus?.map(elmnt => ({
+        incubation_process: data.attributes?.incubation_process?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
             img: elmnt.img.data?.attributes?.url || ""
