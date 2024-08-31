@@ -38,12 +38,12 @@ const CardContainer: React.FC = () => {
       buttonText: "Explore Innovation Hub",
       href: "/innovationhub",
       article: [
-        {
-          id: 1,
-          title: "Diaspora Banking Inaguration",
-          date: "2024-03-10",
-          link: "#",
-        },
+        // {
+        //   id: 1,
+        //   title: "Diaspora Banking Inaguration",
+        //   date: "2024-03-10",
+        //   link: "#",
+        // },
         {
           id: 2,
           title: "SouqPass Securies Loan from MatserCard",
