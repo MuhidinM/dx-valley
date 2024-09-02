@@ -31,11 +31,14 @@ export default function ContestsPage() {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-1/2">
+  {/* rest of the code remains the same */}
+
       {Events.length > 0 ? (
         Events.map((event) => <Countdown key={event.id} event={event} />)
       ) : (
-        <div className="col-span-full text-center py-10">
+        <div className="col-span-full text-center py-10 h-fit">
           <p className="text-lg font-semibold">No Events Available.</p>
         </div>
       )}

@@ -57,18 +57,16 @@ export function Feature({ focus }: { focus: CardNoLinkData[]}) {
             </button>
           ))}
         </div>
-        <div className='h-full'>
+        <div className='h-full w-full'>
           <div
-            className={cn(
-              "relative h-[500px]  w-full rounded-lg overflow-hidden"
-            )}>
+            className={cn("relative w-full h-full rounded-lg overflow-hidden")}>
             {focus.map((item, index) => (
               <Image
                 key={item.title}
-                src={`http://10.1.151.64:1337${item?.img ?? "" }`}
+                src={`http://10.1.151.64:1337${item?.img ?? ""}`}
                 alt={item.title}
-                width={400}
-                height={800}
+                width={200}
+                height={400}
                 className={cn(
                   "rounded-lg absolute w-full object-cover transition-all duration-300 h-[500px] transform-gpu",
                   featureOpen === index ? "scale-100" : "scale-70",
