@@ -133,7 +133,7 @@ export default function AdminEvent() {
                   <SelectItem value="contest">Contest</SelectItem>
                   <SelectItem value="tech expo">Tech Expo</SelectItem>
                   <SelectItem value="call for proposal">
-                    call for proposal
+                    Call for Proposal
                   </SelectItem>
                 </SelectContent>
               </Select>
