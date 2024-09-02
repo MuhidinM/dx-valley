@@ -1,8 +1,11 @@
 /** @format */
 
+import { Vision } from "@/types/strapi-types";
 import { Users, Quote, Sparkles, Handshake } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-const CooperativeVision = () => {
+const CooperativeVision = ({vision, motto_title}:{vision:Vision, motto_title:string}) => {
   return (
     <section className="mt-4">
       <div className="relative bg-white dark:bg-gray-950 rounded-xl shadow-xl p-6 sm:p-8 overflow-hidden">
@@ -20,31 +23,16 @@ const CooperativeVision = () => {
           <div className="flex items-center mb-4">
             <Users className="text-coopBlue w-6 h-6 sm:w-8 sm:h-8 mr-3" />
             <h2 className="text-sm sm:text-3xl font-bold text-gray-800 dark:text-gray-300 font-['Open Sans']">
-              Working Together for a Better Tomorrow
+              {vision?.title ?? ""}
             </h2>
           </div>
-          <p className="text-base sm:text-lg text-gray-600 leading-relaxed dark:text-gray-300 mb-3 font-['Open Sans']">
-            <em>
-              &ldquo;The key to overcoming poverty lies in the power of
-              cooperation and cooperatives&ldquo;
-            </em>
-            , as envisioned by{" "}
-            <span className="font-semibold text-coopOrange dark:text-coopOrange">
-              Obbo Haile Gebre Lubbe
-            </span>
-            , the founding father of CoopBank. He recognized the struggles and
-            neglect faced by rural and underprivileged communities.
-          </p>
-          <p className="text-lg sm:text-lg text-gray-600 leading-relaxed mb-4 font-['Open Sans'] dark:text-gray-300">
-            Inspired by his vision, we believe that{" "}
-            <em>a better tomorrow for our community</em> rests in the hands of
-            young innovators from these very communities. That&apos;s why we are
-            committed to <strong>cooperating</strong> with them to{" "}
-            <em>transform lives and create lasting change</em>.
-          </p>
+          <div className="prose text-base sm:text-lg text-gray-600 leading-relaxed dark:text-gray-300 mb-3 font-['Open Sans']">
+            <ReactMarkdown children={vision?.description?? ""} remarkPlugins={[remarkGfm]} />
+          </div>
+          
           <div className="flex justify-end">
             <div className="bg-orange-100 text-orange-800 text-xs sm:text-sm font-semibold py-1.5 px-3 rounded-full inline-block font-['Open Sans'] shadow-md">
-              Empowering Communities, Transforming Lives
+              {motto_title}
             </div>
           </div>
         </div>

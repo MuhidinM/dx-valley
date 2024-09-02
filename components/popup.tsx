@@ -15,17 +15,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
 
 export function Popup({details}:{details:ShowCaseData}) {
-  const getBestImageUrl = (img: {
-    small?: string;
-    medium?: string;
-    large?: string;
-  }): string => {
-    if (img.large) return img.large;
-    if (img.medium) return img.medium;
-    if (img.small) return img.small;
-    return ''; 
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>
