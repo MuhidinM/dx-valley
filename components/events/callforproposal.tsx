@@ -49,7 +49,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:mt-10'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => (
           <div key={event.id}>
@@ -60,34 +60,30 @@ export default function Callforproposal() {
                 handleTimeLeftCalculated(event.id, calculatedTimeLeft)
               }
             />
-            <Card style={{ marginTop: "40px", marginBottom: "40px" }}>
-              <CardHeader className="flex justify-between items-center">
-                <CardTitle className="text-center flex-grow">
+            <Card>
+              <CardHeader className=' flex flex-row justify-between p-4  rounded-lg m-4 sm:m-4'>
+                <CardTitle className=''>
                   Call for Proposal
                 </CardTitle>
-                <div
-                  className="border p-4 rounded shadow ml-auto flex items-center relative"
-                  style={{ top: "-2.5rem" }}
-                >
-                  <p className="text-lg text-red-500 m-0 leading-none">
-                    Countdown: {timeLeft[event.id] || "Calculating..."}
+                <div className=' '>
+                  <p className='text-lg flex text-left text-red-500 m-0 leading-none'>
+                    {timeLeft[event.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
 
               <CardContent>
-                <p className="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+                <p className='mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400'>
                   {event.description}
                 </p>
 
                 <Button
-                  className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500"
+                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500'
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();
                     router.push(`${formRoute}?eventId=${eventId}`);
-                  }}
-                >
+                  }}>
                   Apply
                 </Button>
               </CardContent>
@@ -95,8 +91,8 @@ export default function Callforproposal() {
           </div>
         ))
       ) : (
-        <div className="col-span-full text-center py-10">
-          <p className="text-lg font-semibold">No events available.</p>
+        <div className='col-span-full text-center py-10'>
+          <p className='text-lg font-semibold'>No events available.</p>
         </div>
       )}
     </div>

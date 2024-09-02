@@ -13,6 +13,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { UpdateData } from "@/types/strapi-types";
 
+
 export default function({update}:{update: UpdateData[]}){
   
   return (
