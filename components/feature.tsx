@@ -5,8 +5,7 @@ import { cn, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { IncubationData, CardNoLinkData } from "@/types/strapi-types";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+
 
 export function Feature({ focus }: { focus: CardNoLinkData[]}) {
   const [featureOpen, setFeatureOpen] = useState<number>(0);
@@ -26,8 +25,8 @@ export function Feature({ focus }: { focus: CardNoLinkData[]}) {
   }, [timer]);
 
   return (
-    <div className='container'>
-      <div className='text-center mb-20'>
+    <div className='container mt-20'>
+      <div className='text-center '>
         <h2 className='text-3xl b-4 shrink-0 font-bold'>
           <span className=' text-coopBlue'> How</span> Does It Work ?
         </h2>
