@@ -1,12 +1,11 @@
-/** @format */
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import { StatsProps } from "@/types/general";
 import Image from "next/image";
+import { CardNoLinkData } from "@/types/strapi-types";
 
-const Stats: React.FC<StatsProps> = ({ items }) => {
+export default function Stats({ items }:{ items: CardNoLinkData[] }){
   const [inView, setInView] = useState(false);
   const statsRef = useRef(null);
 
@@ -47,7 +46,7 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
                   alt=''
                   width={60}
                   height={0}
-                  src={item?.img}
+                  src={`http://10.1.151.64:1337${item.img}`}
                 className="pb-6"
                 />
                 {/* <div className="w-60 h-60">{item.img}</div> */}
@@ -56,7 +55,7 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
                 {inView ? (
                   <CountUp
                     start={0}
-                    end={items.length}
+                    end={parseInt(item.description)}
                     duration={2.5}
                     delay={0.5}
                   />
@@ -65,7 +64,7 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
                 )}
               </dt>
               <dd className='text-2xl font-extrabold text-gray-700 dark:text-gray-300 '>
-                {item.label}
+                {item.title}
               </dd>
             </div>
           ))}
@@ -75,4 +74,4 @@ const Stats: React.FC<StatsProps> = ({ items }) => {
   );
 };
 
-export default Stats;
+ 
