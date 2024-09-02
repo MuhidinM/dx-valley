@@ -26,9 +26,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-  useEffect(() => {
-    console.log("first: ", innovationItems)
-  }, [innovationItems])
+  // useEffect(() => {
+  //   console.log("first: ", innovationItems)
+  // }, [innovationItems])
   return (
     // <div>Page</div>
     <div className="space-y-8 mb-8 justify-center">

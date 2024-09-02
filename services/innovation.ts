@@ -34,6 +34,6 @@ export const InnovationItemFetch = async ()=>{
             address: data.attributes.connect.address,
         },
     }
-    console.log("innovation-items: ", innovationItems)
+    // console.log("innovation-items: ", innovationItems)
     return innovationItems 
 }

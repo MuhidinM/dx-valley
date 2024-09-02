@@ -22,9 +22,9 @@ const Page = () => {
 
     fetchOrgItems();
   }, []);
-  useEffect(() => {
-    console.log("org items: ", orgItems);
-  });
+  // useEffect(() => {
+  //   console.log("org items: ", orgItems);
+  // });
   return (
     <div>
       <PageTitle />
