@@ -28,14 +28,15 @@ const Socials = () => {
               }
               className="cursor-pointer"
             />
-            <Youtube
+
+            <Twitter
+              onClick={() => window.open("https://twitter.com/coopbankoromia")}
+              className="cursor-pointer"
+            />
+               <Youtube
               onClick={() =>
                 window.open("https://www.youtube.com/@CoopbankoromiaEthio")
               }
-              className="cursor-pointer"
-            />
-            <Twitter
-              onClick={() => window.open("https://twitter.com/coopbankoromia")}
               className="cursor-pointer"
             />
             <Linkedin
