@@ -14,8 +14,8 @@ export default function Component({ overview }: { overview: string }) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="prose dp-4 space-y-3">
-        <p className="prose text-md leading-relaxed text-gray-600">
+      <CardContent className="">
+        <p className="px-5 text-md leading-relaxed text-gray-600">
           <ReactMarkdown children={overview} remarkPlugins={[remarkGfm]} />
         </p>
         <div className="mt-4 flex justify-between items-center text-sm">
