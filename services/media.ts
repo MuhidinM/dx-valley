@@ -16,7 +16,7 @@ export const MediaItemFetch = async ()=>{
                 href: card?.link?.href
             },
             img: card.img.data?.attributes.url || ""
->>>>>>>>> Temporary merge branch 2
+
         })) || {}
     }
     return mediaItems
