@@ -33,6 +33,6 @@ export const IncubationItemFetch = async ()=>{
             img: elmnt.img.data?.attributes?.url || ""
         })) || [],
     }
-    console.log("incubation-items: ", incubationItems)
+    // console.log("incubation-items: ", incubationItems)
     return incubationItems 
 }

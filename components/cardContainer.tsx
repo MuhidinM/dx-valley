@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import {
   Card,
@@ -13,75 +11,42 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar } from "lucide-react";
 
 import Image from "next/image";
-import { Dx1_Team, SVG1 } from "@/constants";
+import { UpdateData } from "@/types/strapi-types";
 
-const CardContainer: React.FC = () => {
-  const cards = [
-    {
-      image: <SVG1 />,
-      title: "Our Incubation Center",
-      description:
-        "Nurturing entrepreneurs with tailored training and investor access.",
-      buttonText: "Explore Incubation Center",
-      href: "/incubationcenter",
-      article: {
-        title: "DxValley 2.0 and CRM Inaguraion",
-        date: "2024-03-15",
-        link: "#",
-      },
-    },
-    {
-      image: <Dx1_Team />,
-      title: "Our Innovation Hub",
-      description:
-        "Driving industry advancements with cutting-edge products and partnerships.",
-      buttonText: "Explore Innovation Hub",
-      href: "/innovationhub",
-      article: [
-        {
-          id: 1,
-          title: "Diaspora Banking Inaguration",
-          date: "2024-03-10",
-          link: "#",
-        },
-        {
-          id: 2,
-          title: "SouqPass Securies Loan from MatserCard",
-          date: "2024-05-15",
-          link: "#",
-        },
-      ],
-    },
-  ];
 
+export default function({update}:{update: UpdateData[]}){
+  
   return (
     <section className="">
       <div className="grid gap-2 md:grid-cols-2">
-        {cards.map((card, index) => (
+        {update.map((card, index) => (
           <Card key={index} className="flex flex-col">
             <CardHeader>
               <div className="mb-4">
-                {/* <Image
-                  src={card.image}
+                <Image
+                  src={`http://10.1.151.64:1337${card.img}`}
                   alt={card.title}
-                  width={100}
+                  width={400}
                   height={100}
                   className='rounded-lg'
-                /> */}
-                {card.image}
+                />
               </div>
-              <CardTitle className="text-2xl font-bold">{card.title}</CardTitle>
+              <CardTitle className="text-2xl font-bold">Our {card.title}</CardTitle>
               <CardDescription className="text-lg">
                 {card.description}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
-              {Array.isArray(card.article) ? (
-                card.article.map((article, index) => (
+              {
+                card.events.map((article, index) => (
                   <div key={index} className="bg-muted p-4 rounded-lg mb-2">
                     <span className="text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2">
                       <Calendar className="ml-2 h-4 w-4" />
-                      {article.date}
+                      {new Date(article.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
                     </span>
                     <a
                       href={article.link}
@@ -91,28 +56,15 @@ const CardContainer: React.FC = () => {
                     </a>
                   </div>
                 ))
-              ) : (
-                <div className="bg-muted p-4 rounded-lg">
-                  <span className="text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2">
-                    <Calendar className="ml-2 h-4 w-4" />
-                    {card.article.date}
-                  </span>
-                  <a
-                    href={card.article.link}
-                    className="text-sm text-primary hover:underline block italic"
-                  >
-                    <span className="font-semibold">{card.article.title}</span>
-                  </a>
-                </div>
-              )}
+              }
             </CardContent>
             <CardFooter>
               <Button asChild className="w-full">
                 <a
-                  href={card.href}
+                  href={card.link}
                   className="inline-flex items-center justify-center"
                 >
-                  {card.buttonText}
+                  Explore {card.title}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -123,5 +75,3 @@ const CardContainer: React.FC = () => {
     </section>
   );
 };
-
-export default CardContainer;

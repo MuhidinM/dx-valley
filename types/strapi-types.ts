@@ -264,3 +264,67 @@ export interface InnovationResponse{
     }
   };
 }
+
+// interfaces for home-page 
+export interface Videos{
+  title: string,
+  youtubeId: string,
+  thumbnail_link: string
+}
+export interface News {
+  title: string,
+  date: Date,
+  news_link: string,
+  description: string,
+  img_link: string
+}
+interface Events{
+  title: string,
+  link: string,
+  date: Date
+}
+export interface Update {
+  title: string,
+  description: string,
+  link: string,
+  img: ImageData,
+  events: Events[]
+}
+export interface UpdateData {
+  title: string,
+  description: string,
+  link: string,
+  img: string,
+  events: Events[]
+}
+export interface Vision{
+  title: string,
+  description: string
+}
+export interface HomePageData{
+  motto_title: string,
+  slider: CardData[],
+  stats: CardNoLinkData[],
+  delivered: CardData[],
+  update: UpdateData[],
+  vision: Vision,
+  videos: Videos[],
+  news: News[],
+  connect: Address,
+}
+export interface HomePageResponse{
+  data: {
+    id: number,
+    attributes: {
+      motto_title: string,
+      slider: Card[],
+      stats: CardNoLink[],
+      delivered: Card[],
+      update: Update[],
+      vision: Vision,
+      videos: Videos[],
+      news: News[],
+      connect: Address,
+    }
+  };
+}

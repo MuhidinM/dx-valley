@@ -36,7 +36,7 @@ export default function ContestsPage() {
         Events.map((event) => <Countdown key={event.id} event={event} />)
       ) : (
         <div className="col-span-full text-center py-10">
-          <p className="text-lg font-semibold">No events available.</p>
+          <p className="text-lg font-semibold">No Events Available.</p>
         </div>
       )}
     </div>
