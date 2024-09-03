@@ -45,7 +45,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
 
   return (
     <div className='bg-gray-50 text-gray-900'>
-      <div className='mx-auto max-w-screen-sm text-center mt-12'>
+      <div className='mx-auto max-w-screen-sm text-center mt-24'>
         <h2 className=' text-4xl tracking-tight mb-2 font-extrabold leading-tight underline-offset-auto dark:text-white'>
           <span className='text-coopBlue'> Focus</span> Areas
         </h2>

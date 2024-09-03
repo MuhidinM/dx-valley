@@ -22,6 +22,8 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
+
+  
   return (
     <div>
       <PageTitle />
@@ -62,7 +64,7 @@ const Page = () => {
       })}
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <CTA
-        title="Want to Work with Us?"
+        title="Want to Work With Us?"
         buttonText="Apply For Call"
         href={"#collab-form"}
       />

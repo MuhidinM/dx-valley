@@ -17,26 +17,26 @@ const objectiveItems: ObjectiveItem[] = [
     title: "Knowledge Transfer",
     content:
       "Facilitate expertise and industry insights to build strong foundations.",
-    icon: <BrainCircuitIcon className="w-6 h-6" />,
+    icon: <BrainCircuitIcon className='w-6 text-coopOrange  h-6' />,
     color: "text-blue-600",
   },
   {
     title: "Skill Development",
     content:
       "Enhance practical skills through targeted workshops and training.",
-    icon: <RocketIcon className="w-6 h-6" />,
+    icon: <RocketIcon className='w-6  text-coopOrange  h-6' />,
     color: "text-purple-600",
   },
   {
     title: "Mentorship",
     content: "Provide personalized guidance to navigate business challenges.",
-    icon: <UsersIcon className="w-6 h-6" />,
+    icon: <UsersIcon className='w-6  text-coopOrange  h-6' />,
     color: "text-orange-600",
   },
   {
     title: "Growth Acceleration",
     content: "Equip with strategies and tools to accelerate business growth.",
-    icon: <TrendingUpIcon className="w-6 h-6" />,
+    icon: <TrendingUpIcon className='w-6  text-coopOrange  h-6' />,
     color: "text-green-600",
   },
 ];
@@ -59,7 +59,7 @@ export default function Component() {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-2">
                 {item.title}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-500 text-center">
+              <p className="text-md text-gray-600 dark:text-gray-500 text-center">
                 {item.content}
               </p>
             </div>

@@ -331,7 +331,7 @@ const TechExpoRegistrationForm = () => {
             <CardFooter className="pt-6">
               <Button
                 onClick={handleSubmit}
-                className="bg-[#00adef] hover:bg-[#E38524] text-white font-bold mr-4"
+                className="bg-coopBlue hover:bg-[#E38524] text-white font-bold mr-4"
               >
                 Confirm and Submit
               </Button>

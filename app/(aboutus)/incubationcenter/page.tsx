@@ -34,34 +34,42 @@ const Page = () => {
   // }, [incubationItems])
 
   return (
-    <div className="space-y-8 mb-8 justify-center">
+    <div className='space-y-8 mb-8 justify-center'>
       <SectionRight
-        svg={<Image src={`http://10.1.151.64:1337${incubationItems?.intro?.img ?? ""}`} alt="Image Left Not Found" width={500} height={800}/>}
+        svg={
+          <Image
+            src={`http://10.1.151.64:1337${incubationItems?.intro?.img ?? ""}`}
+            alt='Image Left Not Found'
+            width={500}
+            height={800}
+          />
+        }
         title={incubationItems?.intro.title || ""}
         description={incubationItems?.intro.description}
-
         buttonText={"hidden"}
         href={"/innovationhub"}
       />
       <CTA
-        buttonText="Apply for Call"
-        title="Have a Start-Up Idea?"
-        href="/callforproposal"
+        buttonText='Apply for Call'
+        title='Have a Start-Up Idea?'
+        href='/callforproposal'
       />
-      <Feature focus={incubationItems?.incubation_process || []}/>
+      <Feature focus={incubationItems?.incubation_process || []} />
       <FocusAreas items={incubationItems?.focus || []} />
-      <Offer features={incubationItems?.offers || []}/>
+      <Offer features={incubationItems?.offers || []} />
 
-      <div className="mx-auto max-w-screen-sm text-center">
+      {/* training areas map */}
+
+      {/* <div className="mx-auto max-w-screen-sm text-center">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
           <span className=" text-coopBlue"> Training</span> Areas
         </h2>
         <div className="flex justify-center mt-2  mb-12">
           <div className="w-20 h-1 bg-coopOrange"></div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="grid grid-cols-3 gap-4">
+      {/* <div className="grid grid-cols-3 gap-4">
         {
           incubationItems?.training.map((elmnt, indx) => {
             return <Card
@@ -74,7 +82,7 @@ const Page = () => {
           />
           })
         }
-      </div>
+      </div> */}
 
       {/* <div className='flex items-center justify-center'>
         <Button className='bg-coopBlue hover:bg-coopBlueHover'>

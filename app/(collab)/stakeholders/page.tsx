@@ -62,7 +62,7 @@ const Page = () => {
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <CTA
         title="
-      Want to Work with Us?"
+      Want to Work With Us?"
         buttonText="Apply For Call"
         href={"#collab-form"}
       />
