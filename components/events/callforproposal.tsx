@@ -67,7 +67,7 @@ export default function Callforproposal() {
                 </CardTitle>
                 <div className='h-full align-middle'>
                   <p className='text-lg flex text-left text-red-500 m-0 leading-none'>
-                    {timeLeft[event.id] || "Calculating..."}
+                    {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
