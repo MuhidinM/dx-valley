@@ -8,7 +8,7 @@ export default function Component({ overview }: { overview: string }) {
   return (
     <Card className="prose w-full max-w-7xl mx-auto items-center justify-center my-4 overflow-hidden border-t-4 border-t-[#00adef] shadow-md">
       <CardHeader className="bg-gradient-to-r from-[#00adef]/5 to-[#E38524]/5 pb-4">
-        <CardTitle className="flex items-center gap-2 text-2  xl font-semibold text-gray-800">
+        <CardTitle className="flex items-center gap-2 text-2xl font-semibold text-gray-800">
           <BarChartIcon className="h-5 w-5 text-[#00adef]" />
           Collaboration Overview
         </CardTitle>
