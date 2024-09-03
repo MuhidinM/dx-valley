@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Countdown from "./countdown";
 import { useRouter } from "next/navigation";
+import { Router} from "next/router"
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -82,7 +83,7 @@ export default function Callforproposal() {
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();
-                    router.push(`${formRoute}?eventId=${eventId}`);
+                    Router.push(`${formRoute}?eventId=${eventId}`);
                   }}>
                   Apply
                 </Button>
