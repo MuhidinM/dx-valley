@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { Address, InnovationData } from "@/types/strapi-types";
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [innovationItems, setInnovationItems] = useState<InnovationData | null>(null);
@@ -26,6 +27,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
+   if (!innovationItems) {
+     return <SkeletonLoader />;
+   }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])
