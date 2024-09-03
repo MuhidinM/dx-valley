@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import { Menu } from "@/components/menu";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -9,8 +9,14 @@ import { useRouter } from "next/navigation";
 import useScroll from "./useScroll"; //Custom Hook for scroll
 
 const Navbar = () => {
-  const router = useRouter(); // Hook to use router
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
+  const router = useRouter();
   const scroll = useScroll();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header>
       <nav
@@ -37,18 +43,20 @@ const Navbar = () => {
               Call for Proposal
             </Button>
             <button
-              data-collapse-toggle="mobile-menu-2"
+              onClick={toggleMenu}
               type="button"
               className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="mobile-menu-2"
-              aria-expanded="false"
+              aria-expanded={isMenuOpen}
             >
               <span className="sr-only">Open main menu</span>
               <MenuIcon />
             </button>
           </div>
           <div
-            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+            className={`${
+              isMenuOpen ? "block" : "hidden"
+            } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
             id="mobile-menu-2"
           >
             <Menu />
