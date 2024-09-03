@@ -84,6 +84,9 @@ const Countdown: React.FC<ContestCardProps> = ({
       case "tech expo":
         formRoute = "/register/techexpo";
         break;
+      case "call for proposal":
+        formRoute = "/incubationform";
+        break;
       default:
         formRoute = "/register/general";
     }
@@ -97,31 +100,37 @@ const Countdown: React.FC<ContestCardProps> = ({
   };
 
   return (
-    <Card className='shadow-lg border-spacing-2 rounded-lg'>
-      <CardHeader>
-        <CardTitle>{event.name}</CardTitle>
-        <CardDescription>
-          <p>Target Date: {new Date(event?.targetDate).toLocaleDateString()}</p>
-        </CardDescription>
-        <p>{event?.description}</p>
-      </CardHeader>
-      <CardContent>
-        <div className='border p-4 rounded shadow'>
-          <p className='mt-4 text-lg text-red-500'>Countdown: {timeLeft}</p>
-        </div>
-      </CardContent>
-      <CardFooter>
-        {!eventHasPassed || !renderUI ? (
-          <Button
-            className='w-full bg-coopBlue hover:bg-amber-500  '
-            onClick={handleRegisterClick}>
-            Register to participate
-          </Button>
-        ) : (
-          <Button disabled> Register </Button>
-        )}
-      </CardFooter>
-    </Card>
+    <div>
+      {renderUI ? (
+        <Card className='shadow-lg border-spacing-2 rounded-lg'>
+          <CardHeader>
+            <CardTitle>{event.name}</CardTitle>
+            <CardDescription>
+              <p>
+                Target Date: {new Date(event?.targetDate).toLocaleDateString()}
+              </p>
+            </CardDescription>
+            <p>{event?.description}</p>
+          </CardHeader>
+          <CardContent>
+            <div className='border p-4 rounded shadow'>
+              <p className='mt-4 text-lg text-red-500'>Countdown: {timeLeft}</p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            {!eventHasPassed && renderUI ? (
+              <Button
+                className='w-full bg-coopBlue hover:bg-amber-500  '
+                onClick={handleRegisterClick}>
+                Register to participate
+              </Button>
+            ) : (
+              <Button disabled> Register to participate</Button>
+            )}
+          </CardFooter>
+        </Card>
+      ) : null}
+    </div>
   );
 };
 
