@@ -27,6 +27,10 @@ const Page = () => {
       fetchShowCaseItems();
     }, []);
 
+    useEffect(() => {
+      console.log("showcases - log: ", showcaseItems);
+    })
+
   return (
     <div className="flex items-center justify-center">
       <div className="text-center my-8">

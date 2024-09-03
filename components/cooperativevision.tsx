@@ -5,7 +5,7 @@ import { Users, Quote, Sparkles, Handshake } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const CooperativeVision = ({vision, motto_title}:{vision:Vision, motto_title:string}) => {
+const   CooperativeVision = ({vision, motto_title}:{vision:Vision, motto_title:string}) => {
   return (
     <section className="mt-4">
       <div className="relative bg-white dark:bg-gray-950 rounded-xl shadow-xl p-6 sm:p-8 overflow-hidden">

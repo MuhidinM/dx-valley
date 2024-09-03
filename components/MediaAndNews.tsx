@@ -137,7 +137,7 @@ export default function MediaAndNews({news, video}:{news:News[], video: Videos[]
 
   return (
     <div className='relative right-0 w-full sm:w-96 shadow-lg  space-y-4'>
-      <Card className='border-none shadow-none'>
+      {/* <Card className='border-none shadow-none'>
         <CardHeader className='pb-2'>
           <CardTitle className='text-lg   '>Popular News</CardTitle>
         </CardHeader>
@@ -176,9 +176,9 @@ export default function MediaAndNews({news, video}:{news:News[], video: Videos[]
             <ArrowRightIcon className='ml-1 h-3 w-3' />
           </Link>
         </CardContent>
-      </Card>
+      </Card> */}
 
-      <Card className='border-none shadow-none'>
+      {/* <Card className='border-none shadow-none'>
         <CardHeader className='pb-2'>
           <CardTitle className='text-lg     '>Upcoming Events</CardTitle>
         </CardHeader>
@@ -206,8 +206,8 @@ export default function MediaAndNews({news, video}:{news:News[], video: Videos[]
             <ArrowRightIcon className='ml-1 h-3 w-3' />
           </Link>
         </CardContent>
-      </Card>
-      <Card>
+      </Card> */}
+      {/* <Card>
         <CardHeader>
           <CardTitle className='text-lg flex items-center   '>
             <Play className='w-5 h-5 mr-2' />
@@ -262,7 +262,7 @@ export default function MediaAndNews({news, video}:{news:News[], video: Videos[]
             </Button>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 }

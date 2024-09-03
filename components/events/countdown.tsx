@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { Event } from "@/types/types";
@@ -66,9 +68,9 @@ const Countdown: React.FC<ContestCardProps> = ({
     };
   }, []); // Empty dependency array ensures this effect only runs once
 
-  if (eventHasPassed || !renderUI) {
-    return null;
-  }
+  // if (eventHasPassed || !renderUI) {
+  //   return <div> Event Has Expired</div>;
+  // }
 
   const handleRegisterClick = () => {
     // const router = useRouter();
@@ -81,6 +83,9 @@ const Countdown: React.FC<ContestCardProps> = ({
         break;
       case "tech expo":
         formRoute = "/register/techexpo";
+        break;
+      case "call for proposal":
+        formRoute = "/incubationform";
         break;
       default:
         formRoute = "/register/general";
@@ -95,28 +100,37 @@ const Countdown: React.FC<ContestCardProps> = ({
   };
 
   return (
-    <Card className="contest-card">
-      <CardHeader>
-        <CardTitle>{event.name}</CardTitle>
-        <CardDescription>
-          <p>Target Date: {new Date(event.targetDate).toLocaleDateString()}</p>
-        </CardDescription>
-        <p>{event.description}</p>
-      </CardHeader>
-      <CardContent>
-        <div className="border p-4 rounded shadow">
-          <p className="mt-4 text-lg text-red-500">Countdown: {timeLeft}</p>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          className="w-full bg-coopBlue hover:bg-amber-500"
-          onClick={handleRegisterClick}
-        >
-          Register to participate
-        </Button>
-      </CardFooter>
-    </Card>
+    <div>
+      {renderUI ? (
+        <Card className='shadow-lg border-spacing-2 rounded-lg'>
+          <CardHeader>
+            <CardTitle>{event.name}</CardTitle>
+            <CardDescription>
+              <p>
+                Target Date: {new Date(event?.targetDate).toLocaleDateString()}
+              </p>
+            </CardDescription>
+            <p>{event?.description}</p>
+          </CardHeader>
+          <CardContent>
+            <div className='border p-4 rounded shadow'>
+              <p className='mt-4 text-lg text-red-500'>Countdown: {timeLeft}</p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            {!eventHasPassed && renderUI ? (
+              <Button
+                className='w-full bg-coopBlue hover:bg-amber-500  '
+                onClick={handleRegisterClick}>
+                Register to participate
+              </Button>
+            ) : (
+              <Button disabled> Register to participate</Button>
+            )}
+          </CardFooter>
+        </Card>
+      ) : null}
+    </div>
   );
 };
 

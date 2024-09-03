@@ -13,7 +13,7 @@ import {
 
 import { cn } from "@/lib/utils";
 // import { menuItems } from "@/constants";
-import { menuItemFetch } from "@/services/menu";
+import { MenuItemFetch } from "@/services/menu";
 // import { MenuItem } from "@/types/strapi-types";
 
 interface Links {
@@ -40,7 +40,7 @@ export function Menu() {
 
   useEffect(() => {
     const fetchMenuItems = async () => {
-      const data = await menuItemFetch();
+      const data = await MenuItemFetch();
       setMenuItems(data);
     };
 
