@@ -6,9 +6,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const {
-      fullName,
-      email,
-      phoneNumber,
+      expo,
       companyName,
       jobTitle,
       participantType,
@@ -21,11 +19,18 @@ export async function POST(req: Request): Promise<NextResponse> {
       eventId,
     } = await req.json();
 
+    // Create ContactInfo
+    const expoContactInfo = await prisma.contactInfo.create({
+      data: {
+        email: expo.contactInfo.email,
+        phoneNumberOne: expo.contactInfo.phoneNumberOne,
+        phoneNumberTwo: "", // Assuming this field is optional
+      },
+    });
+
     const newParticipant = await prisma.expoParticipant.create({
       data: {
-        fullName,
-        email,
-        phoneNumber,
+        // fullName:expo.contactInfo.name,
         companyName,
         jobTitle,
         participantType,
