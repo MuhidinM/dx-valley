@@ -66,13 +66,13 @@ const Page = () => {
           />
         );
       })}
-      <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <CTA
         title='
       Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
       />
+      <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
         <CollabForm type='stakeholder' />
       </div>
