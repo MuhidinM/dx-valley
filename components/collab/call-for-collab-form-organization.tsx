@@ -615,7 +615,7 @@ export default function OrganizationRegistrationForm() {
                 <ChevronRight className='w-4 h-4 ml-2' />
               </Button>
             ) : (
-              <Button onClick={handleSubmit}>
+              <Button className="bg-coopBlue hover:bg-coopBlueHover" onClick={handleSubmit}>
                 Submit
                 <Check className='w-4 h-4 ml-2' />
               </Button>

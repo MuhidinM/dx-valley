@@ -93,7 +93,7 @@ export default function Callforproposal() {
         ))
       ) : (
         <div className='col-span-full text-center py-10'>
-          <p className='text-lg font-semibold'>No events available.</p>
+          <p className='text-lg font-semibold'>No Call Available.</p>
         </div>
       )}
     </div>
