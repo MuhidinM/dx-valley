@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Countdown from "./countdown";
 import { useRouter } from "next/navigation";
+import { Router} from "next/router"
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -49,7 +50,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:mt-10'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:mt-10 mb-20 mx-3'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => (
           <div key={event.id}>
@@ -65,15 +66,15 @@ export default function Callforproposal() {
                 <CardTitle className=''>
                   Call for Proposal
                 </CardTitle>
-                <div className=' '>
+                <div className='h-full align-middle'>
                   <p className='text-lg flex text-left text-red-500 m-0 leading-none'>
-                    {timeLeft[event.id] || "Calculating..."}
+                    {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
 
               <CardContent>
-                <p className='mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400'>
+                <p className='mb-6 font-light text-gray-500 md:text-lg h-80 justify-around items-center dark:text-gray-400'>
                   {event.description}
                 </p>
 
@@ -82,7 +83,7 @@ export default function Callforproposal() {
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();
-                    router.push(`${formRoute}?eventId=${eventId}`);
+                    Router.push(`${formRoute}?eventId=${eventId}`);
                   }}>
                   Apply
                 </Button>

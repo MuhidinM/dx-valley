@@ -66,7 +66,7 @@ export default function AdminEvent() {
   };
 
   return (
-    <Card className="admin-event w-[500px]">
+    <Card className=" w-[500px]">
       <CardHeader>
         <CardTitle>Event</CardTitle>
         <CardDescription>Description</CardDescription>

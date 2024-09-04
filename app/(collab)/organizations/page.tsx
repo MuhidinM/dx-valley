@@ -11,6 +11,7 @@ import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -25,6 +26,10 @@ const Page = () => {
   // useEffect(() => {
   //   console.log("org items: ", orgItems);
   // });
+
+   if (!orgItems) {
+     return <SkeletonLoader />;
+   }
   return (
     <div>
       <PageTitle />
@@ -65,7 +70,7 @@ const Page = () => {
         );
       })}
       <CTA
-        title='Want to Work with Us?'
+        title='Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
       />

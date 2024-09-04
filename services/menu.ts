@@ -1,7 +1,7 @@
 import { MenuItemApiResponse } from "@/types/strapi-types";
 import axios from "axios";
 
-export const menuItemFetch = async ()=>{
+export const MenuItemFetch = async ()=>{
     const res = await axios.get<MenuItemApiResponse>('http://10.1.151.64:1337/api/menu-items?populate[0]=highlight.img&populate[1]=highlight.links');
 
     const data = res.data;
