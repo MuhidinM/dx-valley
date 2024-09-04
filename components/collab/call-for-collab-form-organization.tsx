@@ -1,6 +1,28 @@
-'use client';
+/** @format */
 
-import { useState } from 'react';
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+
+const steps = [
+  { id: "organization", title: "Organization Info" },
+  { id: "contact-info", title: "Contact" },
+  { id: "confirm", title: "Confirm" },
+];
 
 const industryOptions = ["Agriculture", "AI", "Fintech"];
 const focusAreaOptions = ["Agriculture", "AI", "Fintech"];

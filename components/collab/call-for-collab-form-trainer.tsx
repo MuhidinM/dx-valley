@@ -86,6 +86,30 @@ export default function TrainerRegistrationForm() {
                 placeholder="Enter your first name"
               />
             </div>
+<<<<<<< HEAD
+=======
+          </CardTitle>
+           </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
+              {/* Title Section */}
+              <div className="flex flex-col space-y-1.5 mb-4">
+                <Label>Title</Label>
+                <div className="flex flex-wrap gap-2">
+                  {titleOptions.map((option) => (
+                    <div key={option} className="flex items-center gap-2">
+                      <Checkbox
+                        id={option}
+                        checked={title === option}
+                        onChange={() => setTitle(option)}
+                      />
+                      <Label htmlFor={option}>{option}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+>>>>>>> a91c0993c317904633b4203c8f9fac306dec810e
 
             <div>
               <label htmlFor="last-name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Last Name</label>

@@ -65,12 +65,12 @@ const Page = () => {
           />
         ); 
       })}
-      <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <CTA
         title="Want to Work With Us?"
         buttonText="Apply For Call"
         href={"#collab-form"}
       />
+      <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
         <CollabForm type="media" />
       </div>

@@ -40,11 +40,50 @@ export default function OrganizationRegistrationForm() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="flex items-center justify-center dark:bg-background bg-background p-6">
       <div className="w-full max-w-2xl px-6 mx-4 dark:bg-gray-800 p-6 rounded-lg shadow-xl">
         <div className="text-center font-bold text-2xl mb-6">
           Media Registration Form
         </div>
+=======
+    <div
+      className="admin-event mx-8 flex w-3/4 justify-center p-6 "
+      id="collab-form"
+    >
+      <Card className="w-auto items-center p-10">
+        <CardHeader>
+          <CardTitle className="flex-col justify-center items-center mb-10">
+            <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
+            Media Registration Form
+            </span>
+            <div className="flex justify-center">
+              <div className="w-20 h-1 bg-coopOrange"></div>
+            </div>
+            {/* <div className="flex w-full justify-between shadow-lg dark:bg-red-500 h-16 items-center p-6">
+              <div>Put some info here</div>
+              <div>Vedio introduction</div>
+            </div> */}
+            
+            
+          </CardTitle>
+          {/* <CardDescription className="flex mb-10">Write for Us!</CardDescription> */}
+        </CardHeader>
+        <CardContent>
+          {/* <form onSubmit={(e) => e.preventDefault()}> */}
+          <form onSubmit={handleSubmit}>
+            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="name">Media Name</Label>
+                <Input
+                  type="text"
+                  value={Fullname}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full"
+                />
+              </div>
+>>>>>>> a91c0993c317904633b4203c8f9fac306dec810e
 
         <div className="space-y-6">
           {/* Organization Info */}
