@@ -159,7 +159,7 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
         <CardHeader>
           <CardTitle className="flex-col justify-center items-center mb-10">
             <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Media registration form
+            Media Registration Form
             </span>
             <div className="flex justify-center">
               <div className="w-20 h-1 bg-coopOrange"></div>
