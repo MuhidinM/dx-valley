@@ -32,21 +32,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="lg:max-w-screen-lg xl:max-w-screen-xl mx-auto bg-slate-50 dark:bg-gray-900">
-            <Socials />
-            <Navbar />
-            {children}
-          </div>
-          <div className=" bg-coopBlue">
-            <Footer />
-          </div>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
