@@ -16,7 +16,7 @@ import { getImageUrl } from "@/lib/utils";
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
-import SkeletonLoader from "@/components/SkeletonLoader";
+import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [incubationItems, setIncubationItems] = useState<IncubationData | null>(null);
@@ -35,7 +35,7 @@ const Page = () => {
   // }, [incubationItems])
 
    if (!incubationItems) {
-     return <SkeletonLoader />;
+     return <SkeletonLoaderAboutPage />;
    }
 
   return (

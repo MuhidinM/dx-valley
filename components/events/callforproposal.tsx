@@ -79,7 +79,7 @@ export default function Callforproposal() {
                 </p>
 
                 <Button
-                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500'
+                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();
