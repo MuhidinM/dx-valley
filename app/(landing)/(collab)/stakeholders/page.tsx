@@ -1,39 +1,43 @@
+/** @format */
+
 "use client";
 
-import CollabForm from "@/components/collab/call-for-collab-form-media";
+import CollabForm from "@/components/collab/call-for-collab-form-IP";
 import CTA from "@/components/cta";
 import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
-import { MediaItemFetch } from "@/services/media";
+import { StakeHolderItemFetch } from "@/services/stakeholders";
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const Page = () => {
-  const [mediaItems, setmediaItems] = useState<OrgData>();
+  const [stakeHolderItems, setStakeHolderItems] = useState<OrgData>();
 
   useEffect(() => {
-    const fetchmediaItems = async () => {
-      const data = await MediaItemFetch();
-      setmediaItems(data);
-    }; 
+    const fetchStakeHolderItems = async () => {
+      const data = await StakeHolderItemFetch();
+      setStakeHolderItems(data);
+    };
 
-    fetchmediaItems();
+    fetchStakeHolderItems();
   }, []);
 
-
-  
+  if (!stakeHolderItems) {
+    return <SkeletonLoader />;
+  }
   return (
     <div>
       <PageTitle />
-      {mediaItems?.cards.map((cards, indx) => {
+      {stakeHolderItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -49,7 +53,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -60,16 +64,17 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        ); 
+        );
       })}
-      <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <CTA
-        title="Want to Work With Us?"
-        buttonText="Apply For Call"
+        title='
+      Want to Work With Us?'
+        buttonText='Apply For Call'
         href={"#collab-form"}
       />
-      <div id="collab-form">
-        <CollabForm type="media" />
+      <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
+      <div id='collab-form'>
+        <CollabForm type='stakeholder' />
       </div>
     </div>
   );

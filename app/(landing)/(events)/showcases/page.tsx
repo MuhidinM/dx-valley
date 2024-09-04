@@ -15,6 +15,7 @@ import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
 import { getImageUrl } from "@/lib/utils";
+import SkeletonLoader from "@/components/SkeletonLoader";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
 
@@ -30,7 +31,9 @@ const Page = () => {
     useEffect(() => {
       console.log("showcases - log: ", showcaseItems);
     })
-
+ if (!showcaseItems) {
+   return <SkeletonLoader />;
+ }
   return (
     <div className="flex items-center justify-center">
       <div className="text-center my-8">

@@ -1,9 +1,9 @@
+/** @format */
 "use client"
-
+import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
 import Stats from "@/components/landing/stats";
-import React, { useEffect, useState } from "react";
 import { ProductsBeam } from "@/components/products-beam";
 import CooperativeVision from "@/components/cooperativevision";
 import CTAComponent from "@/components/CTAComponent";
@@ -16,6 +16,8 @@ import { HomepageItemFetch } from "@/services/homepage";
 import News from "@/components/News";
 import EventsSider from "@/components/eventsSider";
 import Videos from "@/components/video";
+import SkeletonLoader from "@/components/SkeletonLoader";
+
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
 
@@ -28,17 +30,14 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  // if (!homepageItems) return null; // or return <div>Loading...</div>
-
-  // useEffect(() => {
-  //   console.log("first: ", homepageItems)
-  // }, [])
+  if (!homepageItems) {
+    return <SkeletonLoader />;
+  }
 
   return (
     <div>
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5 '>
-        <div className='lg:col-span-2   flex flex-col justify-between'>
-          {" "}
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
+        <div className='lg:col-span-2 flex flex-col justify-between'>
           {homepageItems?.slider && (
             <SlidingHero hero={homepageItems?.slider} />
           )}
@@ -52,7 +51,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6 '>
+      <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
         <div className='lg:col-span-2'>
           <CTA
             buttonText='Apply For Call'
@@ -76,7 +75,6 @@ const Page = () => {
           <Videos video={homepageItems?.videos || []} />
         </div>
       </div>
-
 
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5'>
         <div className='lg:col-span-2'>

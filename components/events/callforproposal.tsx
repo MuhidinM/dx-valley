@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Countdown from "./countdown";
 import { useRouter } from "next/navigation";
+// import { Router} from "next/router"
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -49,7 +50,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:mt-10 mb-20 mx-3'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 md:mt-10 mb-20 mx-3'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => (
           <div key={event.id}>
@@ -62,18 +63,18 @@ export default function Callforproposal() {
             />
             <Card>
               <CardHeader className=' flex flex-row justify-between p-4  rounded-lg m-4 sm:m-4'>
-                <CardTitle className=''>
+                <CardTitle className='text-3xl lg:text-3xl sm:text-lg'>
                   Call for Proposal
                 </CardTitle>
                 <div className='h-full align-middle'>
-                  <p className='text-lg flex text-left text-red-500 m-0 leading-none'>
+                  <p className='text-2xl flex text-left text-red-500 m-0 leading-none'>
                     {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
 
-              <CardContent>
-                <p className='mb-6 font-light text-gray-500 md:text-lg h-80 justify-around items-center dark:text-gray-400'>
+              <CardContent className="ailgn-center justify-around items-center">
+                <p className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'>
                   {event.description}
                 </p>
 
@@ -90,11 +91,11 @@ export default function Callforproposal() {
             </Card>
           </div>
         ))
-      ) : (
-        <div className='col-span-full text-center py-10'>
-          <p className='text-lg font-semibold'>No events available.</p>
-        </div>
-      )}
+      ) : !events.length ||  <div className='col-span-full text-center py-10'>
+          <p className='text-lg font-semibold'>No Call Available.</p>
+     
+          </div>}
+      
     </div>
   );
 }

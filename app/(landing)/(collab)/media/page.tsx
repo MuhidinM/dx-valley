@@ -1,41 +1,42 @@
 "use client";
 
-import CollabForm from "@/components/collab/call-for-collab-form-organization";
+import CollabForm from "@/components/collab/call-for-collab-form-media";
 import CTA from "@/components/cta";
 import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
-import { Organizaion } from "@/constants";
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
-import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
-
+import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
+
 const Page = () => {
-  const [orgItems, setOrgItems] = useState<OrgData>();
+  const [mediaItems, setmediaItems] = useState<OrgData>();
 
   useEffect(() => {
-    const fetchOrgItems = async () => {
-      const data = await OrgItemFetch();
-      setOrgItems(data);
+    const fetchmediaItems = async () => {
+      const data = await MediaItemFetch();
+      setmediaItems(data);
     }; 
 
-    fetchOrgItems();
+    fetchmediaItems();
   }, []);
-  // useEffect(() => {
-  //   console.log("org items: ", orgItems);
-  // });
+
+ if (!mediaItems) {
+   return <SkeletonLoader />;
+ }
+  
   return (
     <div>
       <PageTitle />
-
-      {orgItems?.cards.map((cards, indx) => {
+      {mediaItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -51,7 +52,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -62,20 +63,16 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        );
+        ); 
       })}
       <CTA
-        title='Want to Work With Us?'
-        buttonText='Apply For Call'
+        title="Want to Work With Us?"
+        buttonText="Apply For Call"
         href={"#collab-form"}
       />
-
-      <ProfessionalOverview overview={orgItems?.overview || ""} />
-
-      {/* <CollabObjectives /> */}
-      <div id='collab-form'>
-        {/* <CollabForm type='organization' /> */}
-        <CollabForm/>
+      <ProfessionalOverview overview={mediaItems?.overview || ""} />
+      <div id="collab-form">
+        <CollabForm type="media" />
       </div>
     </div>
   );
