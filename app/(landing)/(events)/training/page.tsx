@@ -10,7 +10,7 @@ import { TrainingItemFetch } from "@/services/training";
 import React, { useEffect, useState } from "react";
 import { CardData } from "@/types/strapi-types";
 import Image from "next/image";
-import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
+import { SkeletonLoaderTrainingPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [trainingItems, setTrainingItems] = useState<CardData[]>([]);
@@ -25,7 +25,7 @@ const Page = () => {
   }, []);
 
   if (!trainingItems.length) {
-    return <SkeletonLoaderAboutPage />;
+    return <SkeletonLoaderTrainingPage   />;
   }
   // useEffect(() => {console.log("final ", trainingItems)}, [trainingItems])
   return (
