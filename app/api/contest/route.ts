@@ -29,7 +29,6 @@ export async function POST(req: Request): Promise<NextResponse> {
       project,
       eventId,
     } = data;
-    
 
     if (!teamLeader || !teamName || !project || !eventId) {
       throw new Error("Missing required fields");
@@ -40,7 +39,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       data: {
         email: teamLeader.contactInfo.email,
         phoneNumberOne: teamLeader.contactInfo.phoneNumberOne,
-        phoneNumberTwo: "", // Assuming this field is optional
+        phoneNumberTwo: "",
       },
     });
     const leaderpersonalInfo = await prisma.personalInfo.create({
@@ -65,9 +64,9 @@ export async function POST(req: Request): Promise<NextResponse> {
         numberOfMembers,
         eventId: parseInt(eventId, 10),
         contactInfo: {
-          connect: { id: leaderContactInfo.id }, // Directly connect the leader's contact info
+          connect: { id: leaderContactInfo.id },
         },
-        leadrepersonalInfoId: leaderpersonalInfo.id, // Directly assign the leader's personal info ID
+        leadrepersonalInfoId: leaderpersonalInfo.id,
         projectId: contestProject.id,
       },
       include: {
@@ -95,9 +94,9 @@ export async function POST(req: Request): Promise<NextResponse> {
         data: {
           teamId: newTeam.id,
           contactInfo: {
-            connect: { id: memberContactInfo.id }, // Directly connect the member's contact info
+            connect: { id: memberContactInfo.id },
           },
-          teammemberpersonalInfo: memberPersonalInfo.id, // Directly assign the member's personal info ID
+          teammemberpersonalInfo: memberPersonalInfo.id,
         },
         include: {
           contactInfo: true,

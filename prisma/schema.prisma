@@ -45,7 +45,7 @@ model project{
     id          Int      @id @default(autoincrement())
     projectTitle      String
     projectDescription String
-    techStack         String
+    techStack         String?
     projectUrl        String?
     websiteUrl      String?
     createdAt   DateTime @default(now())
@@ -103,9 +103,7 @@ model expoParticipant {
   companyName             String?
   jobTitle                String?
   participantType         String
-  presentationTitle       String?
-  presentationAbstract    String?
-  haveateam               boolean?
+  haveateam               Boolean?
 
   eventId               Int      // Foreign key to event
   event                 event    @relation("EventExpos",fields: [eventId], references: [id])
@@ -113,7 +111,7 @@ model expoParticipant {
   contactInfo      ContactInfo[]   // One-to-Many: Multiple ContactInfo
 
     // Relation to the expo team members
-  members           TeamMember[]
+  members           expoMembers[]
 
    //Relation to project
   projectId       Int @unique
@@ -122,10 +120,15 @@ model expoParticipant {
   // relation with personalInfo
     personalInfoId       Int @unique
     personalInfo         PersonalInfo         @relation(fields: [personalInfoId], references: [id])
-    
-  //relation to setupRequirements
-    setupRequirements  setupRequirements?
 
+  //relation to setupRequirements
+    setupId       Int @unique
+    setupRequirements  setupRequirements    @relation(fields: [setupId], references: [id])
+
+    // relation with presentation
+    presentationId       Int @unique
+    presentation         presentation         @relation(fields: [presentationId], references: [id])
+    
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 }
@@ -136,7 +139,7 @@ model expoMembers{
   id           Int           @id @default(autoincrement())
   contactInfo      ContactInfo[]   // One-to-Many: Multiple ContactInfo
   
-  // Foreign key to the contestParticipant
+  // Foreign key to the expoParticipant
   teamId       Int
   Team         expoParticipant          @relation(fields: [teamId], references: [id])
 
@@ -152,6 +155,20 @@ model setupRequirements{
   id           Int           @id @default(autoincrement())
   description  String
 
+  expoParticipant  expoParticipant?
+
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model presentation{
+  id           Int           @id @default(autoincrement())
+  presentationTitle  String
+  presentationAbstract String
+
+  // Foreign key to the expoParticipant
+  expoParticipant expoParticipant?
+
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 }
@@ -165,8 +182,6 @@ model setupRequirements{
 //  One to Many: One OrganizationInfo can have multiple DocumentInfo records
 //  Many to One: Each DocumentInfo record can reference either PersonalInfo or OrganizationInfo
 //  One to one : One PersonalInfo can only have One OrganizationInfo 
-
-
 
 model ContactInfo {
   id               Int             @id @default(autoincrement())
@@ -190,6 +205,9 @@ model ContactInfo {
   
   TeamMemberId Int?
   TeamMember       TeamMember? @relation(fields: [TeamMemberId], references: [id])
+
+  expoTeamMemberId Int?
+  expoTeamMember       expoMembers? @relation(fields: [expoTeamMemberId], references: [id])
  
   TechexpoId Int?
   Techexpo expoParticipant?   @relation(fields: [TechexpoId], references: [id])
@@ -251,6 +269,9 @@ model PersonalInfo {
 
   //relation with team members
   teamMembers         TeamMember?          
+
+  //relation with expo team members
+  expoteamMembers         expoMembers?    
 
   //relation with contestParticipant
   contestParticipant contestParticipant?
