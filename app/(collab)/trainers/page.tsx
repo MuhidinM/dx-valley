@@ -67,12 +67,12 @@ const Page = () => {
           />
         );
       })}
-      <ProfessionalOverview overview={trainersItems?.overview || ""} />
       <CTA
         title="Want to be a Trainer?"
         buttonText="Apply"
         href={"#collab-form"}
       />
+      <ProfessionalOverview overview={trainersItems?.overview || ""} />
       {/* <Objectives items={objectives} /> */}
       <CollabObjectives />
       {/* <InputForm /> */}

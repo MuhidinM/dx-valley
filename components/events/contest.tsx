@@ -33,6 +33,10 @@ export default function ContestsPage() {
     (event) => event.category !== "call for proposal"
   );
 
+   if (!events) {
+     return <div>No Events Found</div>;
+   }
+
   return (
     // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10'>
@@ -53,9 +57,7 @@ export default function ContestsPage() {
             </div> */}
           </div>
         ))) || (
-        <div className='col-span-full text-center py-10 h-screen'>
-          <p className='text-lg font-semibold'>No Events Available.</p>
-        </div>
+       (!events) && <div>No Events Available</div> 
       )}
     </div>
   );

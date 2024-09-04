@@ -184,10 +184,7 @@ const CollabForm = () => {
               <div className="w-20 h-1 bg-coopOrange"></div>
             </div>
           </CardTitle>
-          <CardDescription className="flex mb-10">
-            Write for Us!
-          </CardDescription>
-        </CardHeader>
+           </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
