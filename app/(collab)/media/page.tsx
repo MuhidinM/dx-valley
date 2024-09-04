@@ -9,6 +9,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [mediaItems, setmediaItems] = useState<OrgData>();
@@ -22,6 +23,10 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
+ if (!mediaItems) {
+   return <SkeletonLoader />;
+ }
+  
   return (
     <div>
       <PageTitle />
@@ -62,7 +67,7 @@ const Page = () => {
       })}
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <CTA
-        title="Want to Work with Us?"
+        title="Want to Work With Us?"
         buttonText="Apply For Call"
         href={"#collab-form"}
       />

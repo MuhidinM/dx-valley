@@ -11,6 +11,7 @@ import CollabObjectives from "@/components/CollabObjectives";
 import { OrgData } from "@/types/strapi-types";
 import { TrainerItemFetch } from "@/services/trainers";
 import Image from "next/image";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [trainersItems, setTrainersItems] = useState<OrgData>();
@@ -23,6 +24,11 @@ const Page = () => {
 
     fetchTrainersItems();
   }, []);
+
+ if (!trainersItems) {
+   return <SkeletonLoader />;
+ }
+
   return (
     <div>
       <PageTitle />

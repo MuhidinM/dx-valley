@@ -188,7 +188,7 @@ export default function ApplyForIncubation() {
   if (submitSuccess) {
     return (
 
-        <div className=' bg-gray-50 py-28 px-4 sm:px-6 lg:px-8 '>
+        <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
           <div >
             {showConfetti && <Confetti colors={["#00adef"]} />}
             <SubmissionSuccess
@@ -202,7 +202,7 @@ export default function ApplyForIncubation() {
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 min-h-screen'>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
       <Card className='max-w-2xl mx-auto'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl font-bold'>
