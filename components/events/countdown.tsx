@@ -53,7 +53,7 @@ const Countdown: React.FC<ContestCardProps> = ({
         onTimeLeftCalculated(calculatedTimeLeft);
       }
     } else {
-      setTimeLeft("Event has passed");
+      setTimeLeft("Event Has Expired");
       setEventHasPassed(true);
       if (intervalRef.current) clearInterval(intervalRef.current);
     }
@@ -69,7 +69,7 @@ const Countdown: React.FC<ContestCardProps> = ({
   }, []); // Empty dependency array ensures this effect only runs once
 
   // if (eventHasPassed || !renderUI) {
-  //   return <div> Event Has Expired</div>;
+  //   return null ;
   // }
 
   const handleRegisterClick = () => {
@@ -114,7 +114,7 @@ const Countdown: React.FC<ContestCardProps> = ({
           </CardHeader>
           <CardContent>
             <div className='border p-4 rounded shadow'>
-              <p className='mt-4 text-lg text-red-500'>Countdown: {timeLeft}</p>
+              <p className='mt-4 text-lg text-red-500'>{timeLeft}</p>
             </div>
           </CardContent>
           <CardFooter>
