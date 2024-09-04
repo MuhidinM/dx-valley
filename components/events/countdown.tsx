@@ -29,6 +29,7 @@ const Countdown: React.FC<ContestCardProps> = ({
 
   const [timeLeft, setTimeLeft] = useState("");
   const [eventHasPassed, setEventHasPassed] = useState(false);
+  const [initialized, setInitialized] = useState(false); // State to track initialization
   const intervalRef = useRef<number | null>(null);
 
   const calculateTimeLeft = () => {
@@ -44,19 +45,19 @@ const Countdown: React.FC<ContestCardProps> = ({
 
       const calculatedTimeLeft = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-      // Only update state if the time left has changed
-      setTimeLeft((prevTimeLeft) =>
-        prevTimeLeft !== calculatedTimeLeft ? calculatedTimeLeft : prevTimeLeft
-      );
+      setTimeLeft(calculatedTimeLeft);
+      setEventHasPassed(false);
 
       if (onTimeLeftCalculated) {
         onTimeLeftCalculated(calculatedTimeLeft);
       }
     } else {
-      setTimeLeft("Event has passed");
+      setTimeLeft("Event Has Expired");
       setEventHasPassed(true);
       if (intervalRef.current) clearInterval(intervalRef.current);
     }
+
+    setInitialized(true); // Mark as initialized after the first calculation
   };
 
   useEffect(() => {
@@ -68,12 +69,7 @@ const Countdown: React.FC<ContestCardProps> = ({
     };
   }, []); // Empty dependency array ensures this effect only runs once
 
-  // if (eventHasPassed || !renderUI) {
-  //   return <div> Event Has Expired</div>;
-  // }
-
   const handleRegisterClick = () => {
-    // const router = useRouter();
     const eventId = event.id.toString();
     let formRoute = "/register";
 
@@ -92,44 +88,47 @@ const Countdown: React.FC<ContestCardProps> = ({
     }
     const fullRoute = `${formRoute}?eventId=${eventId}`;
     router.push(fullRoute);
-    // router.push(formRoute);
-    // router.push({
-    //   pathname: formRoute,
-    //   query: { eventId },
-    // });
   };
 
+  if (!initialized || eventHasPassed) {
+    // Render nothing until initialized or if the event has passed
+    return null;
+  }
+
   return (
-    <div>
-      {renderUI ? (
-        <Card className='shadow-lg border-spacing-2 rounded-lg'>
-          <CardHeader>
-            <CardTitle>{event.name}</CardTitle>
-            <CardDescription>
-              <p>
-                Target Date: {new Date(event?.targetDate).toLocaleDateString()}
-              </p>
-            </CardDescription>
-            <p>{event?.description}</p>
-          </CardHeader>
-          <CardContent>
-            <div className='border p-4 rounded shadow'>
-              <p className='mt-4 text-lg text-red-500'>Countdown: {timeLeft}</p>
-            </div>
-          </CardContent>
-          <CardFooter>
-            {!eventHasPassed && renderUI ? (
-              <Button
-                className='w-full bg-coopBlue hover:bg-amber-500  '
-                onClick={handleRegisterClick}>
-                Register to participate
-              </Button>
-            ) : (
-              <Button disabled> Register to participate</Button>
-            )}
-          </CardFooter>
-        </Card>
-      ) : null}
+    <div className='event-container'>
+   {   renderUI &&
+      <Card className='shadow-xl border-spacing-2 rounded-lg'>
+        <CardHeader>
+          <CardTitle>{event.name}</CardTitle>
+          <CardDescription>
+            <p>
+              Target Date: {new Date(event?.targetDate).toLocaleDateString()}
+            </p>
+          </CardDescription>
+          <p>{event?.description}</p>
+        </CardHeader>
+        <CardContent>
+          <div className='border p-4 rounded shadow'>
+            <p className='mt-4 text-lg text-red-500'>{timeLeft}</p>
+          </div>
+        </CardContent>
+        <CardFooter>
+          {!eventHasPassed && renderUI ? (
+            <Button
+              className='w-1/2 bg-coopBlue hover:bg-coopBlueHover '
+              onClick={handleRegisterClick}>
+              Register
+            </Button>
+          ) : (
+            <Button disabled className='w-1/2'>
+              {" "}
+              Register
+            </Button>
+          )}
+        </CardFooter>
+      </Card>
+      }
     </div>
   );
 };
