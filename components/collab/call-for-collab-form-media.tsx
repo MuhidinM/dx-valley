@@ -171,7 +171,7 @@ const CollabForm = ({ type }: RegistrationFormProps) => {
             
             
           </CardTitle>
-          <CardDescription className="flex mb-10">Write for Us!</CardDescription>
+          {/* <CardDescription className="flex mb-10">Write for Us!</CardDescription> */}
         </CardHeader>
         <CardContent>
           {/* <form onSubmit={(e) => e.preventDefault()}> */}
