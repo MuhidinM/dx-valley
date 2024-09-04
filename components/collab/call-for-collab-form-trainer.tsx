@@ -1,326 +1,258 @@
-/** @format */
+'use client';
 
-// /** @format */
+import { useState } from 'react';
 
-// "use client";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// import { Button } from "@/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
-
-// const FormSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
-
-// export function InputForm() {
-//   const form = useForm<z.infer<typeof FormSchema>>({
-//     resolver: zodResolver(FormSchema),
-//     defaultValues: {
-//       username: "",
-//     },
-//   });
-
-//   function onSubmit(data: z.infer<typeof FormSchema>) {
-//     toast({
-//       title: "You submitted the following values:",
-//       description: (
-//         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-//           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-//         </pre>
-//       ),
-//     });
-//   }
-
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
-//         <FormField
-//           control={form.control}
-//           name='username'
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder='shadcn' {...field} />
-//               </FormControl>
-//               <FormDescription>
-//                 This is your public display name.
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type='submit'>Submit</Button>
-//       </form>
-//     </Form>
-//   );
-// }
-"use client";
-
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-
-const expertiseOptions = [
-  "Tech Sales",
-  "Leadership",
-  "Marketing",
-  "Development",
-  "Data Analysis",
+const steps = [
+  { id: 'trainer-info', title: 'Trainer Info' },
+  { id: 'contact-info', title: 'Contact' },
+  { id: 'confirm', title: 'Confirm' },
 ];
 
-const professionOptions = [
-  "Trainer",
-  "Consultant",
-  "Manager",
-  "Developer",
-  "Analyst",
-];
+const expertiseAreas = ["AI", "Machine Learning", "Web Development", "Data Science"];
+const certifications = ["Certified Data Scientist", "Certified AI Engineer", "Certified Web Developer"];
 
-const scheduleOptions = [
-  {
-    value: "2hr/week",
-    description: "Available for a commitment of 2 hours per week.",
-  },
-  {
-    value: "On Call",
-    description: "Available to respond as needed on an on-call basis.",
-  },
-  { value: "Other", description: "Custom schedule arrangement." },
-];
+type FormData = {
+  firstName: string;
+  lastName: string;
+  expertise: string[];
+  certifications: string[];
+  email: string;
+  phone1: string;
+  phone2: string;
+  city: string;
+  state: string;
+  country: string;
+  linkedin: string;
+};
 
-const titleOptions = ["Dr", "Prof", "Mr", "Mrs", "Other"];
+export default function TrainerRegistrationForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    expertise: [],
+    certifications: [],
+    email: "",
+    phone1: "",
+    phone2: "",
+    city: "",
+    state: "",
+    country: "",
+    linkedin: "",
+  });
 
-const CollabForm = () => {
-  const [title, setTitle] = useState<string>("");
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneno, setPhoneno] = useState("");
-  const [expertise, setExpertise] = useState("");
-  const [profession, setProfession] = useState("");
-  const [schedule, setSchedule] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    const response = await fetch("/api/collaboration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        fullname,
-        email,
-        phoneno,
-        expertise,
-        profession,
-        schedule,
-        description,
-      }),
+  const handleCheckboxChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => {
+      const updatedValues = (prev[name] as string[]).includes(value)
+        ? (prev[name] as string[]).filter((item) => item !== value)
+        : [...(prev[name] as string[]), value];
+      return { ...prev, [name]: updatedValues };
     });
+  };
 
-    if (response.ok) {
-      alert("Submitted successfully!");
-      setTitle("");
-      setFullname("");
-      setEmail("");
-      setPhoneno("");
-      setExpertise("");
-      setProfession("");
-      setSchedule("");
-      setDescription("");
-    } else {
-      alert("Failed to submit");
-    }
+  const handleChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleSubmit = () => {
+    console.log("Submitting form data", formData);
   };
 
   return (
-    <div
-      className="admin-event mx-8 flex w-3/4 justify-center p-6"
-      id="collab-form"
-    >
-      <Card className="w-auto items-center p-10">
-        <CardHeader>
-          <CardTitle className="flex-col justify-center items-center mb-10">
-            <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Trainer Registration Form
-            </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+    <div className="flex items-center justify-center dark:bg-background bg-background p-6">
+      <div className="w-full max-w-2xl px-6 mx-4 dark:bg-gray-800 p-6 rounded-lg shadow-xl">
+        <div className="text-center font-bold text-2xl mb-6">
+          {steps[currentStep].title}
+        </div>
+
+        {/* Trainer Info */}
+        {currentStep === 0 && (
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="first-name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">First Name</label>
+              <input
+                id="first-name"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.firstName}
+                onChange={(e) => handleChange("firstName", e.target.value)}
+                placeholder="Enter your first name"
+              />
             </div>
-          </CardTitle>
-          <CardDescription className="flex mb-10">
-            Write for Us!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
-              {/* Title Section */}
-              <div className="flex flex-col space-y-1.5 mb-4">
-                <Label>Title</Label>
-                <div className="flex flex-wrap gap-2">
-                  {titleOptions.map((option) => (
-                    <div key={option} className="flex items-center gap-2">
-                      <Checkbox
-                        id={option}
-                        checked={title === option}
-                        onChange={() => setTitle(option)}
-                      />
-                      <Label htmlFor={option}>{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="fullname">Full Name</Label>
-                <Input
-                  type="text"
-                  id="fullname"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-                  required
-                  className="w-full"
+            <div>
+              <label htmlFor="last-name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Last Name</label>
+              <input
+                id="last-name"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.lastName}
+                onChange={(e) => handleChange("lastName", e.target.value)}
+                placeholder="Enter your last name"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Expertise Areas</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                {expertiseAreas.map((option) => (
+                  <label key={option} className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-500"
+                      checked={formData.expertise.includes(option)}
+                      onChange={() => handleCheckboxChange("expertise", option)}
+                    />
+                    <span className="ml-2">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Certifications</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                {certifications.map((option) => (
+                  <label key={option} className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-blue-500"
+                      checked={formData.certifications.includes(option)}
+                      onChange={() => handleCheckboxChange("certifications", option)}
+                    />
+                    <span className="ml-2">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Email</label>
+              <input
+                id="email"
+                type="email"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone1" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Phone</label>
+              <input
+                id="phone1"
+                type="tel"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.phone1}
+                onChange={(e) => handleChange("phone1", e.target.value)}
+                placeholder="Enter your primary phone number"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Contact Info */}
+        {currentStep === 1 && (
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="country" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Country</label>
+              <input
+                id="country"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.country}
+                onChange={(e) => handleChange("country", e.target.value)}
+                placeholder="Enter your country"
+              />
+            </div>
+
+            <div className="flex space-x-4">
+              <div className="flex-1">
+                <label htmlFor="state" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">State</label>
+                <input
+                  id="state"
+                  className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                  value={formData.state}
+                  onChange={(e) => handleChange("state", e.target.value)}
+                  placeholder="Enter your state"
                 />
               </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneno">Phone Number</Label>
-                <Input
-                  type="text"
-                  id="phoneno"
-                  value={phoneno}
-                  onChange={(e) => setPhoneno(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="expertise">Expertise</Label>
-                <Select value={expertise} onValueChange={setExpertise}>
-                  <SelectTrigger id="expertise">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {expertiseOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="profession">Profession</Label>
-                <Select value={profession} onValueChange={setProfession}>
-                  <SelectTrigger id="profession">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {professionOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="schedule">Schedule</Label>
-                <Select value={schedule} onValueChange={setSchedule}>
-                  <SelectTrigger id="schedule">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {scheduleOptions.map((option, index) => (
-                      <SelectItem
-                        key={index}
-                        value={option.value}
-                        title={option.description}
-                      >
-                        {option.value}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="description">Motivation</Label>
-                <Textarea
-                  placeholder="Why do you want to work with us?"
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                  className="w-full"
+              <div className="flex-1">
+                <label htmlFor="city" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">City</label>
+                <input
+                  id="city"
+                  className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                  value={formData.city}
+                  onChange={(e) => handleChange("city", e.target.value)}
+                  placeholder="Enter your city"
                 />
               </div>
             </div>
-            <div className="md:items-center md:justify-center">
-              <Button
-                type="submit"
-                className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4"
-              >
-                Submit
-              </Button>
+
+            <div>
+              <label htmlFor="linkedin" className="block text-sm font-semibold text-gray-700 dark:text-gray-300">LinkedIn Profile</label>
+              <input
+                id="linkedin"
+                className="w-full p-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 text-sm"
+                value={formData.linkedin}
+                onChange={(e) => handleChange("linkedin", e.target.value)}
+                placeholder="Enter your LinkedIn profile URL"
+              />
             </div>
-          </form>
-        </CardContent>
-      </Card>
+          </div>
+        )}
+
+        {/* Confirm Info */}
+        {currentStep === 2 && (
+          <div className="space-y-4">
+            <h2 className="text-lg font-bold text-center">Confirm Your Information</h2>
+            <div className="space-y-2">
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>First Name: </span>{formData.firstName}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Last Name: </span>{formData.lastName}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Expertise: </span>{formData.expertise.join(', ')}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Certifications: </span>{formData.certifications.join(', ')}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Email: </span>{formData.email}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Phone 1: </span>{formData.phone1}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Phone 2: </span>{formData.phone2}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>City: </span>{formData.city}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>State: </span>{formData.state}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>Country: </span>{formData.country}</p>
+              <p><span className='font-semibold text-gray-700 dark:text-gray-300'>LinkedIn: </span>{formData.linkedin}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-between mt-6">
+          <button
+            className="bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-300"
+            onClick={handlePrevious}
+            disabled={currentStep === 0}
+          >
+            Previous
+          </button>
+          {currentStep < steps.length - 1 ? (
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
+              onClick={handleNext}
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
-};
-
-export default CollabForm;
+}

@@ -94,7 +94,7 @@ model ContactInfo {
   id               Int             @id @default(autoincrement())
   email            String          @unique
   phoneNumberOne   String
-  phoneNumberTwo   String
+  phoneNumberTwo   String?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   
@@ -113,7 +113,7 @@ model AddressInfo {
   city              String
   state             String
   country           String
-  addressType       String          // e.g., "Residential", "Business"
+  addressType       String?          // e.g., "Residential", "Business"
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   
@@ -130,8 +130,8 @@ model OrganizationInfo {
   id               Int             @id @default(autoincrement())
   name             String
   industry         String          // Industry of the organization
-  focusArea        String          // e.g., "AI", "FinTech", "AgroTech"
-  interestArea     String          // e.g., "Invest", "Support"
+  focusArea        String[]          // e.g., "AI", "FinTech", "AgroTech"
+  interestArea     String[]          // e.g., "Invest", "Support"
   tradeLicense     String?
   organizationType String          // e.g., "NGO", "Private", "Government"
   createdAt        DateTime        @default(now())
@@ -164,9 +164,9 @@ model PersonalInfo {
 }
 model DocumentInfo {
   id               Int              @id @default(autoincrement())
-  documentType     String           // e.g., "Trade License", "Patent"
-  documentNumber   String
-  issuedDate       DateTime
+  documentType     String?           // e.g., "Trade License", "Patent"
+  documentNumber   String?
+  issuedDate       DateTime?
   expirationDate   DateTime?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt

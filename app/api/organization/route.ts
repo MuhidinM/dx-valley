@@ -19,7 +19,6 @@ export async function POST(req: Request): Promise<NextResponse> {
             documentInfo,
           } = await req.json();
 
-
       
       // Create OrganizationInfo with related records
       const organizationInfo = await prisma.organizationInfo.create({
