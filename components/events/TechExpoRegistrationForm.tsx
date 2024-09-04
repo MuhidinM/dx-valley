@@ -116,6 +116,7 @@ const TechExpoRegistrationForm: React.FC = () => {
               phoneNumberOne: formData.phoneNumber,
             },
           },
+          haveATeam: formData.haveATeam,
           teamMembers: formData.haveATeam
             ? formData.teamMembers.map((member) => ({
                 personalInfo: {
@@ -173,7 +174,8 @@ const TechExpoRegistrationForm: React.FC = () => {
         });
         setCurrentStep(0);
       } else {
-        alert("Failed to register");
+        const errorMessage = await response.json();
+        alert("Failed to register:  " + errorMessage.error);
       }
     } catch (error) {
       console.error("Error registering:", error);

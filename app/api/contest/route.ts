@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { error } from "console";
 
 const prisma = new PrismaClient();
 
@@ -33,13 +34,31 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (!teamLeader || !teamName || !project || !eventId) {
       throw new Error("Missing required fields");
     }
+    // Check for duplicate ContactInfo for the team leader
+    const existingContactInfo = await prisma.contactInfo.findFirst({
+      where: {
+        OR: [
+          { email: teamLeader.contactInfo.email },
+          { phoneNumberOne: teamLeader.contactInfo.phoneNumberOne },
+        ],
+      },
+    });
+
+    if (existingContactInfo) {
+      return NextResponse.json(
+        {
+          // error: `Team member with email ${teamLeader.contactInfo.email} already exists`,
+          error: "Team member contact info already exists",
+        },
+        { status: 409 }
+      );
+    }
 
     // Create ContactInfo for the team leader
     const leaderContactInfo = await prisma.contactInfo.create({
       data: {
         email: teamLeader.contactInfo.email,
         phoneNumberOne: teamLeader.contactInfo.phoneNumberOne,
-        phoneNumberTwo: "",
       },
     });
     const leaderpersonalInfo = await prisma.personalInfo.create({
@@ -77,6 +96,24 @@ export async function POST(req: Request): Promise<NextResponse> {
     });
 
     const memberPromises = teamMembers.map(async (member: TeamMember) => {
+      const existingMemberContactInfo = await prisma.contactInfo.findFirst({
+        where: {
+          OR: [
+            { email: member.contactInfo.email },
+            { phoneNumberOne: member.contactInfo.phoneNumberOne },
+          ],
+        },
+      });
+
+      if (existingMemberContactInfo) {
+        return NextResponse.json(
+          {
+            error: `Team member with email ${member.contactInfo.email} already exists`,
+          },
+          { status: 409 }
+        );
+      }
+
       const memberContactInfo = await prisma.contactInfo.create({
         data: {
           email: member.contactInfo.email,
