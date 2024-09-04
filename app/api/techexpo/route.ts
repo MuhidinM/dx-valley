@@ -100,7 +100,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         },
       });
 
-      return prisma.teamMember.create({
+      return prisma.expoMembers.create({
         data: {
           teamId: newexpoParticipant.id,
           contactInfo: {
