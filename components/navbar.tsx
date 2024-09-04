@@ -22,7 +22,7 @@ const Navbar = () => {
       <nav
         className={
           scroll
-            ? "h-15 w-full pt-3 top-0 left-0 right-0 fixed  transition ease-in-out duration-500 bg-white bg-clip-padding  bg-opacity-100 z-20  dark:bg-gray-900"
+            ? "h-15 w-full py-3 top-0 left-0 right-0 fixed  transition ease-in-out duration-500 bg-white bg-clip-padding  bg-opacity-100 z-20  dark:bg-gray-900"
             : "border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-900"
         }
       >
