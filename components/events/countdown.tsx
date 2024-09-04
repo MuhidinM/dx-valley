@@ -71,14 +71,14 @@ const Countdown: React.FC<ContestCardProps> = ({
 
   const handleRegisterClick = () => {
     const eventId = event.id.toString();
-    let formRoute = "/register";
+    let formRoute = "/";
 
     switch (event.category) {
       case "contest":
-        formRoute = "/register/hackathon";
+        formRoute = "admin/register/hackathon";
         break;
       case "tech expo":
-        formRoute = "/register/techexpo";
+        formRoute = "admin/register/techexpo";
         break;
       case "call for proposal":
         formRoute = "/incubationform";
