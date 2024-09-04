@@ -26,7 +26,12 @@ export async function POST(req: Request): Promise<NextResponse> {
       presentation,
       teamMembers,
       project,
+      haveATeam,
     } = await req.json();
+
+    let exposetupId = null;
+    let expopresentationId = null;
+    let expoprojectId = null;
 
     // Create ContactInfo
     const expoContactInfo = await prisma.contactInfo.create({
@@ -43,25 +48,32 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
 
-    const exposetup = await prisma.setupRequirements.create({
-      data: {
-        description: setup.setupRequirements,
-      },
-    });
+    if (participantType === "Speaker") {
+      const expopresentation = await prisma.presentation.create({
+        data: {
+          presentationTitle: presentation.presentationTitle,
+          presentationAbstract: presentation.presentationAbstract,
+        },
+      });
+      expopresentationId = expopresentation.id;
+    }
 
-    const expopresentation = await prisma.presentation.create({
-      data: {
-        presentationTitle: presentation.presentationTitle,
-        presentationAbstract: presentation.presentationTitle,
-      },
-    });
-    const expoProject = await prisma.project.create({
-      data: {
-        projectTitle: project.productName,
-        projectDescription: project.productDescription,
-        websiteUrl: project.websiteUrl,
-      },
-    });
+    if (participantType === "Exhibitor") {
+      const expoProject = await prisma.project.create({
+        data: {
+          projectTitle: project.productName,
+          projectDescription: project.productDescription,
+          websiteUrl: project.websiteUrl,
+        },
+      });
+      const exposetup = await prisma.setupRequirements.create({
+        data: {
+          description: setup.setupRequirements,
+        },
+      });
+      expoprojectId = expoProject.id;
+      exposetupId = exposetup.id;
+    }
 
     const newexpoParticipant = await prisma.expoParticipant.create({
       data: {
@@ -73,9 +85,10 @@ export async function POST(req: Request): Promise<NextResponse> {
           connect: { id: expoContactInfo.id },
         },
         personalInfoId: expopersonalInfo.id,
-        setupId: exposetup.id,
-        presentationId: expopresentation.id,
-        projectId: expoProject.id,
+        setupId: exposetupId,
+        presentationId: expopresentationId,
+        projectId: expoprojectId,
+        haveateam: haveATeam,
       },
       include: {
         contactInfo: true,

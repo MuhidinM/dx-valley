@@ -116,6 +116,7 @@ const TechExpoRegistrationForm: React.FC = () => {
               phoneNumberOne: formData.phoneNumber,
             },
           },
+          haveATeam: formData.haveATeam,
           teamMembers: formData.haveATeam
             ? formData.teamMembers.map((member) => ({
                 personalInfo: {
