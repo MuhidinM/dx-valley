@@ -365,7 +365,13 @@ export default function OrganizationRegistrationForm() {
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            Tell us about your organization
+            {/* Tell us about your organization */}
+            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Organization Registration Form
+            </span>
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -615,7 +621,9 @@ export default function OrganizationRegistrationForm() {
                 <ChevronRight className='w-4 h-4 ml-2' />
               </Button>
             ) : (
-              <Button className="bg-coopBlue hover:bg-coopBlueHover" onClick={handleSubmit}>
+              <Button
+                className='bg-coopBlue hover:bg-coopBlueHover'
+                onClick={handleSubmit}>
                 Submit
                 <Check className='w-4 h-4 ml-2' />
               </Button>
