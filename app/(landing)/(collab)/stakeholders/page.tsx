@@ -11,7 +11,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { StakeHolderItemFetch } from "@/services/stakeholders";
 import Image from "next/image";
-import SkeletonLoader from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [stakeHolderItems, setStakeHolderItems] = useState<OrgData>();
@@ -26,7 +26,7 @@ const Page = () => {
   }, []);
 
   if (!stakeHolderItems) {
-    return <SkeletonLoader />;
+    return <SkeletonLoaderCollabForm />;
   }
   return (
     <div>
