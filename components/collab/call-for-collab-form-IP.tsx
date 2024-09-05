@@ -1,268 +1,352 @@
-/** @format */
 
-// /** @format */
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner"; // Import the toast function
+import { Toaster } from 'sonner'; // Ensure this is imported
 
-// "use client";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// import { Button } from "@/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
-
-// const FormSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
-
-// export function InputForm() {
-//   const form = useForm<z.infer<typeof FormSchema>>({
-//     resolver: zodResolver(FormSchema),
-//     defaultValues: {
-//       username: "",
-//     },
-//   });
-
-//   function onSubmit(data: z.infer<typeof FormSchema>) {
-//     toast({
-//       title: "You submitted the following values:",
-//       description: (
-//         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-//           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-//         </pre>
-//       ),
-//     });
-//   }
-
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
-//         <FormField
-//           control={form.control}
-//           name='username'
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder='shadcn' {...field} />
-//               </FormControl>
-//               <FormDescription>
-//                 This is your public display name.
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type='submit'>Submit</Button>
-//       </form>
-//     </Form>
-//   );
-// }
-"use client";
-
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-type CollaborationType = "trainer" | "organization" | "media" | "stakeholder";
-const categoryOptions: Record<CollaborationType, string[]> = {
-  trainer: [
-    "Digital Farming Consultants",
-    "IoT in Agriculture Trainers",
-    "Tech-Driven Leadership Coaches",
-    "Data-Driven Decision-Making Coaches",
-  ],
-  organization: ["Non-Profit", "Corporate", "Educational", "tech"],
-  media: ["Television", "podcast", "Webinars"],
-  stakeholder: ["Investor", "Partner", "Advisor", "Customer"],
+const steps = [
+  { id: 'organization', title: 'Organization Info' },
+  { id: 'confirm', title: 'Confirm' },
+];
+
+const industryOptions = ['Agriculture', 'AI', 'Fintech'];
+const focusAreaOptions = ['Agriculture', 'AI', 'Fintech'];
+const interestOptions = ['Invest', 'Buy startup', 'Support vision', 'Sponsor'];
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  motivation: string;
+  focusArea: string[];
+  interestedArea: string[];
+  city: string;
+  state: string;
+  country: string;
+  email: string;
+  phoneNumberOne: string;
 };
 
-const focus_area = ["Fintech","Agrotech","AI "]
-const interest_area = ["Support startup","Invest","Buy startup","Other"]
-interface RegistrationFormProps {
-  type: CollaborationType;
-}
+const MultiSelectDropdown = ({
+  options,
+  selectedOptions,
+  onOptionChange,
+  placeholder,
+}: {
+  options: string[];
+  selectedOptions: string[];
+  onOptionChange: (option: string) => void;
+  placeholder: string;
+}) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant='outline' className='w-full justify-between'>
+          {selectedOptions.length > 0 ? selectedOptions.join(', ') : placeholder}
+          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {options.map((option) => (
+          <DropdownMenuCheckboxItem
+            key={option}
+            checked={selectedOptions.includes(option)}
+            onCheckedChange={(checked) => {
+              if (checked) onOptionChange(option);
+            }}>
+            {option}
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
-const CollabForm = ({ type }: RegistrationFormProps) => {
-  const [Fullname, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [Phonenumber, setPhoneNo] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+export default function IndependentRegistrationForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    motivation: '',
+    focusArea: [],
+    interestedArea: [],
+    city: '',
+    state: '',
+    country: '',
+    email: '',
+    phoneNumberOne: '',
+  });
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-
-    const response = await fetch("/api/collaboration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Fullname,
-        email,
-        Phonenumber,
-        description,
-        category,
-        type,
-      }),
+  const handleCheckboxChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => {
+      const updatedValues = (prev[name] as string[]).includes(value)
+        ? (prev[name] as string[]).filter((item) => item !== value)
+        : [...(prev[name] as string[]), value];
+      return { ...prev, [name]: updatedValues };
     });
+  };
 
-    if (response.ok) {
-      alert("submitted successfully!");
-      setName("");
-      setEmail("");
-      setPhoneNo("");
-      setDescription("");
-      setCategory("");
-    } else {
-      alert("Failed to submit");
+  const handleChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('/api/independentpartner', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
+      } else {
+        console.error('Error:', result);
+        toast.error("Registration failed", {
+          description: result?.message || "An error occurred during registration.",
+        });
+      }
+    } catch (error) {
+      console.error('Request error:', error);
+      toast.error("Registration failed", {
+        description: "An error occurred. Please try again later.",
+      });
     }
   };
 
   return (
-    <div
-      className="admin-event mx-8 flex w-3/4 justify-center p-6 "
-      id="collab-form"
-    >
-      <Card className="w-auto items-center p-10">
+    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+       <Toaster position="top-right" richColors />
+      <Card className='w-full max-w-2xl'>
         <CardHeader>
-          <CardTitle className="flex-col justify-center items-center mb-10">
-            <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Partner Registration Form
+          <CardTitle className='text-2xl font-bold text-center'>
+            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Individual Registration Form
             </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
-            {/* <div className="flex w-full justify-between shadow-lg dark:bg-red-500 h-16 items-center p-6">
-              <div>Put some info here</div>
-              <div>Vedio introduction</div>
-            </div> */}
-            
-            
           </CardTitle>
-        
         </CardHeader>
         <CardContent>
-          {/* <form onSubmit={(e) => e.preventDefault()}> */}
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  type="text"
-                  value={Fullname}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneNo">Phone Number</Label>
-                <Input
-                  type="text"
-                  value={Phonenumber}
-                  onChange={(e) => setPhoneNo(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="category">Interest In</Label>
-                <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id="category">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {interest_area.map((category, index) => (
-                      <SelectItem key={index} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}>
+              {currentStep === 0 && (
+                <div className='space-y-4'>
+                  {/* Form fields */}
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='firstName'>First Name</Label>
+                      <Input
+                        id='firstName'
+                        value={formData.firstName}
+                        onChange={(e) => handleChange('firstName', e.target.value)}
+                        placeholder='Enter your first name'
+                      />
+                    </div>
+                    <div className='flex-1'>
+                      <Label htmlFor='lastName'>Second Name</Label>
+                      <Input
+                        id='lastName'
+                        value={formData.lastName}
+                        onChange={(e) => handleChange('lastName', e.target.value)}
+                        placeholder='Enter your second name'
+                      />
+                    </div>
+                  </div>
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="category">Focus Area </Label>
-                <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id="category">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {focus_area.map((category, index) => (
-                      <SelectItem key={index} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="description">Motivation</Label>
-                <Textarea
-                  placeholder="Why do you want to work with us?"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='email'>Email</Label>
+                      <Input
+                        id='email'
+                        type='email'
+                        value={formData.email}
+                        onChange={(e) => handleChange('email', e.target.value)}
+                        placeholder='Enter your email'
+                      />
+                    </div>
+                    <div className='flex-1'>
+                      <Label htmlFor='phoneNumberOne'>Phone</Label>
+                      <Input
+                        id='phoneNumberOne'
+                        type='tel'
+                        value={formData.phoneNumberOne}
+                        onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
+                        placeholder='Enter your primary phone number'
+                      />
+                    </div>
+                  </div>
 
-            </div>
-            <div className="md:items-center md:justify-center">
-              <Button
-                type="submit"
-                className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4"
-              >
-                Submit
+                  <div>
+                    <Label htmlFor='country'>Country</Label>
+                    <Input
+                      id='country'
+                      value={formData.country}
+                      onChange={(e) => handleChange('country', e.target.value)}
+                      placeholder='Enter your country'
+                    />
+                  </div>
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <Label htmlFor='state'>State</Label>
+                      <Input
+                        id='state'
+                        value={formData.state}
+                        onChange={(e) => handleChange('state', e.target.value)}
+                        placeholder='Enter your state'
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor='city'>City</Label>
+                      <Input
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) => handleChange('city', e.target.value)}
+                        placeholder='Enter your city'
+                      />
+                    </div>
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label className='mb-2 block'>Focus Area</Label>
+                      <MultiSelectDropdown
+                        options={focusAreaOptions}
+                        selectedOptions={formData.focusArea}
+                        onOptionChange={(option) => handleCheckboxChange('focusArea', option)}
+                        placeholder='Select focus area'
+                      />
+                    </div>
+
+                    <div className='flex-1'>
+                      <Label className='mb-2 block'>Interest Area</Label>
+                      <MultiSelectDropdown
+                        options={interestOptions}
+                        selectedOptions={formData.interestedArea}
+                        onOptionChange={(option) => handleCheckboxChange('interestedArea', option)}
+                        placeholder='Select interest area'
+                      />
+                    </div>
+                  </div>
+
+                  <div className=''>
+                    <Label className='mb-2 block'>Motivation</Label>
+                    <Textarea
+                      id='motivation'
+                      value={formData.motivation}
+                      onChange={(e) => handleChange('motivation', e.target.value)}
+                      placeholder='What motivates you to work with us'
+                    />
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 1 && (
+                <div className='space-y-2'>
+                  <h2 className='text-xl font-semibold text-center'>Confirm Details</h2>
+                  {/* Confirmation details */}
+                  <p className='text-sm text-center'>
+                    Please confirm that all your details are correct.
+                  </p>
+
+                  <div className='text-sm'>
+                    <p className='p-3'>
+                      <strong>First Name:</strong> {formData.firstName}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Second Name:</strong> {formData.lastName}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Email:</strong> {formData.email}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Phone Number:</strong> {formData.phoneNumberOne}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Country:</strong> {formData.country}
+                    </p>
+                    <p className='p-3'>
+                      <strong>State:</strong> {formData.state}
+                    </p>
+                    <p className='p-3'>
+                      <strong>City:</strong> {formData.city}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Focus Areas:</strong> {formData.focusArea.join(', ')}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Interest Areas:</strong> {formData.interestedArea.join(', ')}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Motivation:</strong> {formData.motivation}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          <div className='flex justify-between mt-8'>
+            {currentStep > 0 && (
+              <Button variant='outline' onClick={handlePrevious}>
+                <ChevronLeft className='mr-2 h-4 w-4' />
+                Previous
               </Button>
-            </div>
-          </form>
+            )}
+            {currentStep < steps.length - 1 && (
+              <Button onClick={handleNext}>
+                Next
+                <ChevronRight className='ml-2 h-4 w-4' />
+              </Button>
+            )}
+            {currentStep === steps.length - 1 && (
+              <Button onClick={handleSubmit} className='w-24'>
+                Submit
+                <Check className='ml-2 h-4 w-4' />
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-};
-
-export default CollabForm;
+}
