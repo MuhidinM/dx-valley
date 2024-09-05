@@ -322,7 +322,7 @@ model TrainerInfo {
   id         Int      @id @default(autoincrement())
   title      String
   profession String
-  expertice  String
+  expertise  String
   schedule   String
   motivation String
   createdAt  DateTime @default(now())
