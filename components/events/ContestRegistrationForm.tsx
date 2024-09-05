@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
@@ -118,7 +120,10 @@ export default function ContestRegistrationForm() {
       });
 
       if (response.ok) {
-        alert("Contest registration successful!");
+        alert("Registration successful!");
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
         // Clear the form
         setFormData({
           LeaderFirstName: "",
@@ -138,9 +143,12 @@ export default function ContestRegistrationForm() {
         });
         setCurrentStep(0);
       } else {
-        const errorData = await response.json();
-        console.error("Failed to register contest:", errorData);
-        alert("Failed to register contest: " + errorData);
+        const errorMessage = await response.json();
+        console.error("Error:", errorMessage);
+        toast.error("Registration failed", {
+          description:
+            errorMessage?.error || "An error occurred during registration.",
+        });
       }
     } catch (error) {
       console.error("Error registering contest:", error);
