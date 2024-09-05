@@ -32,6 +32,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 
 export default function AdminEvent() {
   const [name, setName] = useState("");
@@ -55,13 +57,22 @@ export default function AdminEvent() {
     });
 
     if (response.ok) {
-      alert("Contest created successfully!");
+      alert("Registration successful!");
+      toast.success("Registration successful!", {
+        description: "Event has been submitted successfully.",
+      });
       setName("");
       setDescription("");
       setTargetDate(undefined);
       setCategory("");
     } else {
-      alert("Failed to create contest");
+      const errorMessage = await response.json();
+      console.error("Error:", errorMessage);
+      toast.error("Registration failed", {
+        description:
+          errorMessage?.error.message ||
+          "An error occurred during registration.",
+      });
     }
   };
 
