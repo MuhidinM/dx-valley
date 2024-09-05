@@ -18,6 +18,30 @@ export async function POST(req: Request): Promise<NextResponse> {
       interestArea = [], // Provide default empty array if undefined
     } = await req.json();
 
+    // Check if the email is already registered
+    const existingEmail = await prisma.contactInfo.findUnique({
+      where: { email },
+    });
+
+    if (existingEmail) {
+      return NextResponse.json(
+        { message: 'Email is already registered' },
+        { status: 400 }
+      );
+    }
+    // Check if the email is already registered
+    const existingPhone = await prisma.contactInfo.findUnique({
+      where: { email },
+    });
+
+    if (existingPhone) {
+      return NextResponse.json(
+        { message: 'Phone is already registered' },
+        { status: 400 }
+      );
+    }
+    
+
     // Create the PersonalInfo
     const personalInfo = await prisma.personalInfo.create({
       data: {
@@ -41,7 +65,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         city,
         state,
         country,
-        addressType: "residental",
+        addressType: addressType || "residential", // Handle if addressType is not provided
         personalInfo: { connect: { id: personalInfo.id } },
       },
     });
@@ -67,5 +91,3 @@ export async function POST(req: Request): Promise<NextResponse> {
     );
   }
 }
-
-
