@@ -6,7 +6,6 @@ export const ShowCaseItemFetch = async ()=>{
     const res = await axios.get<ShowCaseResponse>('http://10.1.151.64:1337/api/incubateds?populate=incubated.link,incubated.img_1,incubated.img_2,incubated.founders,incubated.investors');
 
     const data = res.data.data;
-    // console.log("first: ", data[0].attributes.incubated)
     const showCaseItems = data[0].attributes.incubated.map(item => ({ 
         projectName: item.projectName,
         small_description: item.small_description,

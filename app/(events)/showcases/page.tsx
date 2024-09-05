@@ -14,7 +14,6 @@ import Image from "next/image";
 import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
-import { getImageUrl } from "@/lib/utils";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
 
@@ -27,6 +26,12 @@ const Page = () => {
       fetchShowCaseItems();
     }, []);
 
+    useEffect(() => {
+      console.log("showcases-log: ", showcaseItems)
+    })
+    if (!showcaseItems) {
+      return null;
+    }
   return (
     <div className="flex items-center justify-center">
       <div className="text-center my-8">
