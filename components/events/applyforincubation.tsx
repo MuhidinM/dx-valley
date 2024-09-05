@@ -13,6 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import Confetti from 'react-confetti'
 import SubmissionSuccess from '../submissionSuccess'
+import { ChangeEvent, FormEvent, MouseEvent } from "react";
 
 const steps = [
   { id: 'startup', title: 'Startup Info' },
@@ -25,10 +26,35 @@ const startupNameSuggestions = [
   "ZenithSpark", "PixelPioneer", "EcoSphere", "CyberForge", "BioSync"
 ]
 
-export default function ApplyForIncubation() {
-  const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({
+type FileType = "video" | "document";
+
+interface FormData {
+  startupName: string;
+  stage: string;
+  founderNames: string[];
+  email: string;
+  phone: string;
+  idea: string;
+  video: File | null;
+  documents: File[];
+}
+
+interface Errors {
+  startupName?: string;
+  stage?: string;
+  founderNames?: string;
+  email?: string;
+  phone?: string;
+  idea?: string;
+  video?: string;
+  documents?: string;
+}
+
+
+
+const ApplyForIncubation = () => {
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [formData, setFormData] = useState<FormData>({
     startupName: "",
     stage: "",
     founderNames: [""],
@@ -38,15 +64,19 @@ export default function ApplyForIncubation() {
     video: null,
     documents: [],
   });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const videoInputRef = useRef(null);
-  const documentInputRef = useRef(null);
+  const [errors, setErrors] = useState<Errors>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+  const videoInputRef = useRef<HTMLInputElement | null>(null);
+  const documentInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleChange = (name, value, index = null) => {
+  const handleChange = (
+    name: keyof FormData,
+    value: string,
+    index: number | null = null
+  ) => {
     if (index !== null) {
       const newFounderNames = [...formData.founderNames];
       newFounderNames[index] = value;
@@ -69,7 +99,7 @@ export default function ApplyForIncubation() {
     }));
   };
 
-  const handleRemoveFounder = (index) => {
+  const handleRemoveFounder = (index: number) => {
     const newFounderNames = formData.founderNames.filter((_, i) => i !== index);
     setFormData((prevState) => ({
       ...prevState,
@@ -77,8 +107,11 @@ export default function ApplyForIncubation() {
     }));
   };
 
-  const handleFileChange = (event, type) => {
-    const files = Array.from(event.target.files);
+  const handleFileChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    type: FileType
+  ) => {
+    const files = Array.from(event.target.files || []);
     if (type === "video") {
       if (files[0] && files[0].size > 100 * 1024 * 1024) {
         setErrors((prev) => ({
@@ -110,15 +143,15 @@ export default function ApplyForIncubation() {
     }
   };
 
-  const handleRemoveDocument = (index) => {
+  const handleRemoveDocument = (index: number) => {
     setFormData((prev) => ({
       ...prev,
       documents: prev.documents.filter((_, i) => i !== index),
     }));
   };
 
-  const validateStep = (step) => {
-    let stepErrors = {};
+  const validateStep = (step: number): Errors => {
+    let stepErrors: Errors = {};
     switch (step) {
       case 0:
         if (!formData.startupName.trim())
@@ -155,7 +188,7 @@ export default function ApplyForIncubation() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const stepErrors = validateStep(currentStep);
     if (Object.keys(stepErrors).length > 0) {
@@ -187,22 +220,21 @@ export default function ApplyForIncubation() {
 
   if (submitSuccess) {
     return (
-
-        <div className=' bg-gray-50 py-28 px-4 sm:px-6 lg:px-8 '>
-          <div >
-            {showConfetti && <Confetti colors={["#00adef"]} />}
-            <SubmissionSuccess
-              title={" Submission Successful!"}
-              icon= {<CheckCircle2 className='w-8 h-8 text-coopOrange'/>}
-              desc={" Good luck! Stay tuned for our email."}
-            />
+      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
+        <div>
+          {showConfetti && <Confetti colors={["#00adef"]} />}
+          <SubmissionSuccess
+            title={" Submission Successful!"}
+            icon={<CheckCircle2 className='w-8 h-8 text-coopOrange' />}
+            desc={" Good luck! Stay tuned for our email."}
+          />
         </div>
       </div>
     );
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 min-h-screen'>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
       <Card className='max-w-2xl mx-auto'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl font-bold'>
@@ -406,7 +438,7 @@ export default function ApplyForIncubation() {
                   <Button
                     type='button'
                     variant='outline'
-                    onClick={() => documentInputRef.current.click()}>
+                    onClick={() => documentInputRef.current?.click()}>
                     <Plus className='h-4 w-4 mr-2' /> Add Document
                   </Button>
                   {errors.documents && (
@@ -440,7 +472,7 @@ export default function ApplyForIncubation() {
           {currentStep < steps.length - 1 ? (
             <Button onClick={handleNext}>Next</Button>
           ) : (
-            <Button onClick={handleSubmit} disabled={isSubmitting}>
+            <Button onClick={handleSubmit } disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Submit Application"}
             </Button>
           )}
@@ -473,4 +505,6 @@ export default function ApplyForIncubation() {
       </Dialog>
     </div>
   );
-}
+};
+
+export default ApplyForIncubation;

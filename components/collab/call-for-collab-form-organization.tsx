@@ -1,87 +1,11 @@
 /** @format */
 
-// /** @format */
-
-// "use client";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// import { Button } from "@/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
-
-// const FormSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
-
-// export function InputForm() {
-//   const form = useForm<z.infer<typeof FormSchema>>({
-//     resolver: zodResolver(FormSchema),
-//     defaultValues: {
-//       username: "",
-//     },
-//   });
-
-//   function onSubmit(data: z.infer<typeof FormSchema>) {
-//     toast({
-//       title: "You submitted the following values:",
-//       description: (
-//         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-//           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-//         </pre>
-//       ),
-//     });
-//   }
-
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
-//         <FormField
-//           control={form.control}
-//           name='username'
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder='shadcn' {...field} />
-//               </FormControl>
-//               <FormDescription>
-//                 This is your public display name.
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type='submit'>Submit</Button>
-//       </form>
-//     </Form>
-//   );
-// }
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -89,263 +13,353 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 
-const focusAreaOptions = ["Agritech", "Fintech", "Other"];
-const interestAreaOptions = ["Support", "Invest", "Sponsor", "Other"];
+const steps = [
+  { id: "organization", title: "Organization Info" },
+  { id: "contact-info", title: "Contact" },
+  { id: "confirm", title: "Confirm" },
+];
 
-const CollabForm = () => {
-  const [countryOptions, setCountryOptions] = useState<
-    { name: string; code: string }[]
-  >([]);
-  const [country, setCountry] = useState<string>("");
-  const [cityOptions, setCityOptions] = useState<string[]>([]);
-  const [city, setCity] = useState<string>("");
+const industryOptions = ["Agriculture", "AI", "Fintech"];
+const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
+const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
+const organizationTypeOptions = ["Private", "NGO", "Gov't"];
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [description, setDescription] = useState("");
-  const [tinNumber, setTinNumber] = useState("");
-  const [phoneNo1, setPhoneNo1] = useState("");
-  const [phoneNo2, setPhoneNo2] = useState("");
-  const [focusArea, setFocusArea] = useState<string[]>([]);
-  const [interestArea, setInterestArea] = useState<string>("");
-  const [otherInterestArea, setOtherInterestArea] = useState<string>("");
+type FormData = {
+  organizationName: string;
+  industry: string;
+  focusArea: string[];
+  interestedIn: string[];
+  tradeLicense: string;
+  organizationType: string;
+  city: string;
+  state: string;
+  country: string;
+  email: string;
+  phone1: string;
+  phone2: string;
+  tradeLicenseUpload: File | null;
+};
 
-  const toggleFocusArea = (area: string) => {
-    setFocusArea((prev) =>
-      prev.includes(area)
-        ? prev.filter((item) => item !== area)
-        : [...prev, area]
-    );
-  };
+export default function OrganizationRegistrationForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>({
+    organizationName: "",
+    industry: "",
+    focusArea: [],
+    interestedIn: [],
+    tradeLicense: "",
+    organizationType: "",
+    city: "",
+    state: "",
+    country: "",
+    email: "",
+    phone1: "",
+    phone2: "",
+    tradeLicenseUpload: null,
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const response = await fetch("/api/collaboration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName,
-        email,
-        description,
-        tinNumber,
-        phoneNo1,
-        phoneNo2,
-        focusArea,
-        interestArea,
-        otherInterestArea,
-      }),
+  const handleCheckboxChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => {
+      const updatedValues = (prev[name] as string[]).includes(value)
+        ? (prev[name] as string[]).filter((item) => item !== value)
+        : [...(prev[name] as string[]), value];
+      return { ...prev, [name]: updatedValues };
     });
-
-    if (response.ok) {
-      alert("Submitted successfully!");
-      setFullName("");
-      setEmail("");
-
-      setDescription("");
-      setTinNumber("");
-      setPhoneNo1("");
-      setPhoneNo2("");
-      setFocusArea([]);
-      setInterestArea("");
-      setOtherInterestArea("");
-    } else {
-      alert("Failed to submit");
-    }
   };
 
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => {
-        const countries = data.map(
-          (country: { name: { common: string }; cca2: string }) => ({
-            name: country.name.common,
-            code: country.cca2,
-          })
-        );
-        setCountryOptions(countries);
-      })
-      .catch((error) => console.error("Error fetching countries:", error));
-  }, []);
+  const handleChange = (name: keyof FormData, value: string | File | null) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  useEffect(() => {
-    if (country) {
-      fetch("https://countriesnow.space/api/v0.1/countries/cities", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ country }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCityOptions(data.data || []);
-        })
-        .catch((error) => console.error("Error fetching cities:", error));
-    }
-  }, [country]);
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleSubmit = () => {
+    console.log("Submitting form data", formData);
+    // Here you would typically send the data to your backend
+  };
 
   return (
-    <div
-      className="admin-event mx-8 flex w-3/4 justify-center p-6"
-      id="collab-form"
-    >
-      <Card className="w-auto items-center p-10">
+    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+      <Card className='w-full max-w-2xl'>
         <CardHeader>
-          <CardTitle className="flex-col justify-center items-center mb-10">
-            <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Collaboration Form
+          <CardTitle className='text-2xl font-bold text-center'>
+            {/* Tell us about your organization */}
+            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Organization Registration Form
             </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
-          <CardDescription className="flex mb-10">Write to Us!</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  type="text"
-                  id="fullName"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="tinNumber">TIN Number</Label>
-                <Input
-                  type="text"
-                  id="tinNumber"
-                  value={tinNumber}
-                  onChange={(e) => setTinNumber(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneNo1">Phone Number 1</Label>
-                <Input
-                  type="text"
-                  id="phoneNo1"
-                  value={phoneNo1}
-                  onChange={(e) => setPhoneNo1(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneNo2">Phone Number 2 (Optional)</Label>
-                <Input
-                  type="text"
-                  id="phoneNo2"
-                  value={phoneNo2}
-                  onChange={(e) => setPhoneNo2(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="country">Country</Label>
-                <Select value={country} onValueChange={setCountry}>
-                  <SelectTrigger id="country">
-                    <SelectValue placeholder="Select Country" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {countryOptions.map((option) => (
-                      <SelectItem key={option.code} value={option.name}>
-                        {option.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="city">City</Label>
-                <Select value={city} onValueChange={setCity}>
-                  <SelectTrigger id="city">
-                    <SelectValue placeholder="Select City" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {cityOptions.map((cityName, index) => (
-                      <SelectItem key={index} value={cityName}>
-                        {cityName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label>Focus Area</Label>
-                <div className="flex flex-wrap gap-2">
-                  {focusAreaOptions.map((option) => (
-                    <div key={option} className="flex items-center gap-2">
-                      <Checkbox
-                        id={option}
-                        checked={focusArea.includes(option)}
-                        onChange={() => toggleFocusArea(option)}
-                      />
-                      <Label htmlFor={option}>{option}</Label>
-                    </div>
-                  ))}
+          <div className='mb-8'>
+            <div className='flex justify-between items-center'>
+              {steps.map((step, index) => (
+                <div key={step.id} className='flex flex-col items-center'>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
+                    {index < currentStep ? (
+                      <Check className='w-4 h-4' />
+                    ) : (
+                      index + 1
+                    )}
+                  </div>
+                  <span className='text-xs mt-1'>{step.title}</span>
                 </div>
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="interestArea">Interest Area</Label>
-                <Select value={interestArea} onValueChange={setInterestArea}>
-                  <SelectTrigger id="interestArea">
-                    <SelectValue placeholder="Select Interest Area" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {interestAreaOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {interestArea === "Other" && (
-                <div className="flex flex-col space-y-1.5 md:col-span-2">
-                  <Label htmlFor="otherInterestArea">Other Interest Area</Label>
-                  <Textarea
-                    id="otherInterestArea"
-                    value={otherInterestArea}
-                    onChange={(e) => setOtherInterestArea(e.target.value)}
-                    className="w-full"
-                  />
+              ))}
+            </div>
+            <div className='h-2 bg-secondary mt-2 rounded-full'>
+              <div
+                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}></div>
+            </div>
+          </div>
+
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}>
+              {currentStep === 0 && (
+                <div className='space-y-4'>
+                  <div>
+                    <Label htmlFor='organization-name'>Organization Name</Label>
+                    <Input
+                      id='organization-name'
+                      value={formData.organizationName}
+                      onChange={(e) =>
+                        handleChange("organizationName", e.target.value)
+                      }
+                      placeholder='Enter your organization name'
+                    />
+                  </div>
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <Label htmlFor='industry'>Industry</Label>
+                      <Select
+                        onValueChange={(value) =>
+                          handleChange("industry", value)
+                        }>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select industry' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {industryOptions.map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor='organization-type'>
+                        Organization Type
+                      </Label>
+                      <Select
+                        onValueChange={(value) =>
+                          handleChange("organizationType", value)
+                        }>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select organization type' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {organizationTypeOptions.map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor='trade-license'>Trade License</Label>
+                    <Input
+                      id='trade-license'
+                      value={formData.tradeLicense}
+                      onChange={(e) =>
+                        handleChange("tradeLicense", e.target.value)
+                      }
+                      placeholder='Enter your trade license number'
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input
+                      id='email'
+                      type='email'
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      placeholder='Enter your email'
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor='phone1'>Phone</Label>
+                    <Input
+                      id='phone1'
+                      type='tel'
+                      value={formData.phone1}
+                      onChange={(e) => handleChange("phone1", e.target.value)}
+                      placeholder='Enter your primary phone number'
+                    />
+                  </div>
                 </div>
               )}
-            </div>
-            <Button type="submit" className="w-full bg-coopOrange">
-              Submit
+
+              {currentStep === 1 && (
+                <div className='space-y-4'>
+                  <div>
+                    <Label htmlFor='country'>Country</Label>
+                    <Input
+                      id='country'
+                      value={formData.country}
+                      onChange={(e) => handleChange("country", e.target.value)}
+                      placeholder='Enter your country'
+                    />
+                  </div>
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <Label htmlFor='state'>State</Label>
+                      <Input
+                        id='state'
+                        value={formData.state}
+                        onChange={(e) => handleChange("state", e.target.value)}
+                        placeholder='Enter your state'
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor='city'>City</Label>
+                      <Input
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
+                        placeholder='Enter your city'
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className='mb-2 block'>Focus Area</Label>
+                    <div className='grid grid-cols-2 gap-2'>
+                      {focusAreaOptions.map((option) => (
+                        <div
+                          key={option}
+                          className='flex items-center space-x-2'>
+                          <Checkbox
+                            id={`focus-${option}`}
+                            checked={formData.focusArea.includes(option)}
+                            onCheckedChange={(checked) => {
+                              if (checked) {
+                                handleCheckboxChange("focusArea", option);
+                              } else {
+                                handleCheckboxChange("focusArea", option);
+                              }
+                            }}
+                          />
+                          <Label htmlFor={`focus-${option}`}>{option}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className='mb-2 block'>Interest Area</Label>
+                    <div className='grid grid-cols-2 gap-2'>
+                      {interestOptions.map((option) => (
+                        <div
+                          key={option}
+                          className='flex items-center space-x-2'>
+                          <Checkbox
+                            id={`interest-${option}`}
+                            checked={formData.interestedIn.includes(option)}
+                            onCheckedChange={(checked) => {
+                              if (checked) {
+                                handleCheckboxChange("interestedIn", option);
+                              } else {
+                                handleCheckboxChange("interestedIn", option);
+                              }
+                            }}
+                          />
+                          <Label htmlFor={`interest-${option}`}>{option}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 2 && (
+                <div className='space-y-2'>
+                  <h2 className='text-xl font-semibold mb-4'>
+                    Confirm Your Information
+                  </h2>
+                  {Object.entries(formData).map(([key, value]) => (
+                    <p key={key} className='flex justify-between'>
+                      <span className='font-medium'>
+                        {key.charAt(0).toUpperCase() + key.slice(1)}:
+                      </span>
+                      <span>
+                        {Array.isArray(value)
+                          ? value.join(", ")
+                          : value?.toString() || "N/A"}
+                      </span>
+                    </p>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          <div className='flex justify-between mt-8'>
+            <Button
+              variant='outline'
+              onClick={handlePrevious}
+              disabled={currentStep === 0}>
+              <ChevronLeft className='w-4 h-4 mr-2' />
+              Previous
             </Button>
-          </form>
+            {currentStep < steps.length - 1 ? (
+              <Button onClick={handleNext}>
+                Next
+                <ChevronRight className='w-4 h-4 ml-2' />
+              </Button>
+            ) : (
+              <Button
+                className='bg-coopBlue hover:bg-coopBlueHover'
+                onClick={handleSubmit}>
+                Submit
+                <Check className='w-4 h-4 ml-2' />
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-};
-
-export default CollabForm;
+}

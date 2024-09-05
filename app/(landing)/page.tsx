@@ -1,9 +1,9 @@
+/** @format */
 "use client"
-
+import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
 import Stats from "@/components/landing/stats";
-import React, { useEffect, useState } from "react";
 import { ProductsBeam } from "@/components/products-beam";
 import CooperativeVision from "@/components/cooperativevision";
 import CTAComponent from "@/components/CTAComponent";
@@ -13,6 +13,11 @@ import Motto from "@/components/motto";
 import MediaAndNews from "@/components/MediaAndNews";
 import { Address, HomePageData, Vision } from "@/types/strapi-types";
 import { HomepageItemFetch } from "@/services/homepage";
+import News from "@/components/News";
+import EventsSider from "@/components/eventsSider";
+import Videos from "@/components/video";
+import {SkeletonLoader} from "@/components/SkeletonLoader";
+
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
 
@@ -25,30 +30,53 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("first: ", homepageItems)
-  // }, [homepageItems])
+  if (!homepageItems) {
+    return <SkeletonLoader />;
+  }
 
   return (
     <div>
-      
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 '>
-        <div className='lg:col-span-2 lg:mt-28'>
-          <SlidingHero hero={homepageItems?.slider || []}  />
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
+        <div className='lg:col-span-2 flex flex-col justify-between'>
+          {homepageItems?.slider && (
+            <SlidingHero hero={homepageItems?.slider} />
+          )}
+        </div>
+        <div className='lg:col-span-1 flex flex-col'>
+          <div className='mt-auto'>
+            <Motto />
+          </div>
+          <div className='mt-auto'>
+            <News news={homepageItems?.news || []} />
+          </div>
+        </div>
+      </div>
+      <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
+        <div className='lg:col-span-2'>
           <CTA
             buttonText='Apply For Call'
             title='Have a Start-Up Idea?'
             href={"/callforproposal"}
           />
-          <CooperativeVision vision={homepageItems?.vision as Vision} motto_title={homepageItems?.motto_title || ""} />
         </div>
         <div className='lg:col-span-1'>
-          <Motto />
-          <MediaAndNews news={homepageItems?.news || []} video={homepageItems?.videos || []} />
+          <EventsSider />
         </div>
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-16'>
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-3'>
+        <div className='lg:col-span-2'>
+          <CooperativeVision
+            vision={homepageItems?.vision as Vision}
+            motto_title={homepageItems?.motto_title || " "}
+          />
+        </div>
+        <div className='lg:col-span-1'>
+          <Videos video={homepageItems?.videos || []} />
+        </div>
+      </div>
+
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5'>
         <div className='lg:col-span-2'>
           <CardContainer update={homepageItems?.update || []} />
         </div>
@@ -56,7 +84,7 @@ const Page = () => {
           <CTAComponent />
         </div>
       </div>
-      <div className="mt-12 mb-12">
+      <div className=''>
         <Stats items={homepageItems?.stats || []} />
       </div>
 
@@ -65,8 +93,8 @@ const Page = () => {
         Breakthroughs We&apos;ve Delivered
       </h1>
       <br></br>
-      <ProductsBeam products={homepageItems?.delivered || []}/>
-      <ContactUs address={homepageItems?.connect as Address}/>
+      <ProductsBeam products={homepageItems?.delivered || []} />
+      <ContactUs address={homepageItems?.connect as Address} />
     </div>
   );
 };

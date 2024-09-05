@@ -11,18 +11,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get("eventId");
 
   const [currentStep, setCurrentStep] = useState(0);
+
   const [formData, setFormData] = useState({
-    teamLeaderName: "",
+    LeaderFirstName: "",
+    LeaderLastName: "",
     email: "",
     phoneNumber: "",
     teamName: "",
     numberOfMembers: 1,
-    teamMembers: [{ name: "", email: "" }],
+    teamMembers: [{ firstName: "", lastName: "", email: "", phoneNumber: "" }],
     projectTitle: "",
     projectDescription: "",
     techStack: "",
@@ -56,7 +59,11 @@ export default function ContestRegistrationForm() {
     setFormData({
       ...formData,
       numberOfMembers,
-      teamMembers: Array(numberOfMembers).fill({ name: "", email: "" }),
+      teamMembers: Array(numberOfMembers).fill({
+        name: "",
+        email: "",
+        phoneNumber: "",
+      }),
     });
   };
 
@@ -76,26 +83,64 @@ export default function ContestRegistrationForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          teamLeader: {
+            personalInfo: {
+              firstName: formData.LeaderFirstName,
+              lastName: formData.LeaderLastName,
+            },
+            contactInfo: {
+              email: formData.email,
+              phoneNumberOne: formData.phoneNumber,
+            },
+          },
+          teamName: formData.teamName,
+          numberOfMembers: formData.numberOfMembers,
+          teamMembers: formData.teamMembers.map((member) => ({
+            personalInfo: {
+              firstName: member.firstName,
+              lastName: member.firstName,
+            },
+
+            contactInfo: {
+              email: member.email,
+              phoneNumberOne: member.phoneNumber,
+            },
+          })),
+          project: {
+            projectTitle: formData.projectTitle,
+            projectDescription: formData.projectDescription,
+            techStack: formData.techStack,
+            projectUrl: formData.projectUrl,
+          },
+          eventId: formData.eventId,
+        }),
       });
 
       if (response.ok) {
         alert("Contest registration successful!");
+        // Clear the form
         setFormData({
-          teamLeaderName: "",
+          LeaderFirstName: "",
+          LeaderLastName: "",
           email: "",
           phoneNumber: "",
           teamName: "",
           numberOfMembers: 1,
-          teamMembers: [{ name: "", email: "" }],
+          teamMembers: [
+            { firstName: "", lastName: "", email: "", phoneNumber: "" },
+          ],
           projectTitle: "",
           projectDescription: "",
           techStack: "",
           projectUrl: "",
           eventId: "",
         });
+        setCurrentStep(0);
       } else {
-        alert("Failed to register contest");
+        const errorData = await response.json();
+        console.error("Failed to register contest:", errorData);
+        alert("Failed to register contest: " + errorData);
       }
     } catch (error) {
       console.error("Error registering contest:", error);
@@ -104,14 +149,11 @@ export default function ContestRegistrationForm() {
   };
 
   return (
-    <div className="mt-8 mb-8 flex items-center justify-center">
+    <div className="w-94 mt-8 mb-8 flex items-center justify-center">
       <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-lg">
-        {/* <div className="text-center flex justify-between p-2 m-3  rounded"> */}
         <div className="mb-8 text-center text-2xl font-bold">
           Register Contest Info
         </div>
-        {/* <div>Help?</div> */}
-        {/* </div> */}
         <div className="mb-4 text-center">
           {steps.map((step, index) => (
             <span
@@ -127,14 +169,25 @@ export default function ContestRegistrationForm() {
 
         {currentStep === 0 && (
           <div className="mb-4">
-            <Label htmlFor="teamLeaderName" className="block mb-4 mt-4">
-              Team Leader Name
+            <Label htmlFor="LeaderFirstName" className="block mb-4 mt-4">
+              Team Leader First Name
             </Label>
             <Input
-              id="teamLeaderName"
-              name="teamLeaderName"
+              id="LeaderFirstName"
+              name="LeaderFirstName"
               className="w-full p-2 rounded"
-              value={formData.teamLeaderName}
+              value={formData.LeaderFirstName}
+              onChange={handleChange}
+              placeholder="Enter the team leader's name"
+            />
+            <Label htmlFor="LeaderLastName" className="block mb-4 mt-4">
+              Team Leader Last Name
+            </Label>
+            <Input
+              id="LeaderLastName"
+              name="LeaderLastName"
+              className="w-full p-2 rounded"
+              value={formData.LeaderLastName}
               onChange={handleChange}
               placeholder="Enter the team leader's name"
             />
@@ -144,7 +197,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="email"
               name="email"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter the email"
@@ -155,7 +208,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="phoneNumber"
               name="phoneNumber"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="Enter the phone number"
@@ -166,7 +219,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="teamName"
               name="teamName"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.teamName}
               onChange={handleChange}
               placeholder="Enter the team name"
@@ -178,19 +231,19 @@ export default function ContestRegistrationForm() {
               id="numberOfMembers"
               type="number"
               name="numberOfMembers"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.numberOfMembers}
               onChange={handleNumberOfMembersChange}
               min={1}
               placeholder="Enter the number of team members"
             />
-            {formData.teamMembers.map((member, index) => (
+            {/* {formData.teamMembers.map((member, index) => (
               <div key={index} className="mt-4 mb-4 flex space-x-4">
-                <div className="w-1/2">
+                <div className="w-1/3">
                   <Label className="block mb-2">Member Name</Label>
                   <Input
                     type="text"
-                    className="w-full p-2  rounded"
+                    className="w-full p-2 rounded"
                     value={member.name}
                     onChange={(e) =>
                       handleTeamMemberChange(index, "name", e.target.value)
@@ -198,17 +251,101 @@ export default function ContestRegistrationForm() {
                     placeholder="Enter team member's name"
                   />
                 </div>
-                <div className="w-1/2">
+                <div className="w-1/3">
                   <Label className="block mb-2">Member Email</Label>
                   <Input
                     type="email"
-                    className="w-full p-2  rounded"
+                    className="w-full p-2 rounded"
                     value={member.email}
                     onChange={(e) =>
                       handleTeamMemberChange(index, "email", e.target.value)
                     }
                     placeholder="Enter team member's email"
                   />
+                </div>
+                <div className="w-1/3">
+                  <Label className="block mb-2">Member Phone Number</Label>
+                  <Input
+                    type="text"
+                    className="w-full p-2 rounded"
+                    value={member.phoneNumber || ""}
+                    onChange={(e) =>
+                      handleTeamMemberChange(
+                        index,
+                        "phoneNumber",
+                        e.target.value
+                      )
+                    }
+                    placeholder="Enter team member's phone number"
+                  />
+                </div>
+              </div>
+            ))} */}
+            {formData.teamMembers.map((member, index) => (
+              <div key={index} className="mt-4 mb-4">
+                <div className="flex space-x-4">
+                  <div className="w-1/2">
+                    <Label className="block mb-2">First Name</Label>
+                    <Input
+                      type="text"
+                      className="w-full p-2 rounded"
+                      value={member.firstName}
+                      onChange={(e) =>
+                        handleTeamMemberChange(
+                          index,
+                          "firstName",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter team member's first name"
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <Label className="block mb-2">Last Name</Label>
+                    <Input
+                      type="text"
+                      className="w-full p-2 rounded"
+                      value={member.lastName}
+                      onChange={(e) =>
+                        handleTeamMemberChange(
+                          index,
+                          "lastName",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter team member's last name"
+                    />
+                  </div>
+                </div>
+                <div className="flex space-x-4 mt-4">
+                  <div className="w-1/2">
+                    <Label className="block mb-2">Member Email</Label>
+                    <Input
+                      type="email"
+                      className="w-full p-2 rounded"
+                      value={member.email}
+                      onChange={(e) =>
+                        handleTeamMemberChange(index, "email", e.target.value)
+                      }
+                      placeholder="Enter team member's email"
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <Label className="block mb-2">Member Phone Number</Label>
+                    <Input
+                      type="text"
+                      className="w-full p-2 rounded"
+                      value={member.phoneNumber || ""}
+                      onChange={(e) =>
+                        handleTeamMemberChange(
+                          index,
+                          "phoneNumber",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter team member's phone number"
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -223,7 +360,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="projectTitle"
               name="projectTitle"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.projectTitle}
               onChange={handleChange}
               placeholder="Enter the project title"
@@ -234,7 +371,7 @@ export default function ContestRegistrationForm() {
             <Textarea
               id="projectDescription"
               name="projectDescription"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.projectDescription}
               onChange={handleChange}
               placeholder="Enter the project description"
@@ -246,7 +383,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="techStack"
               name="techStack"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.techStack}
               onChange={handleChange}
               placeholder="Enter the tech stack"
@@ -257,7 +394,7 @@ export default function ContestRegistrationForm() {
             <Input
               id="projectUrl"
               name="projectUrl"
-              className="w-full p-2  rounded"
+              className="w-full p-2 rounded"
               value={formData.projectUrl}
               onChange={handleChange}
               placeholder="Enter the project URL"
@@ -271,7 +408,10 @@ export default function ContestRegistrationForm() {
               Confirm Your Information
             </h3>
             <p>
-              <strong>Team Leader Name:</strong> {formData.teamLeaderName}
+              <strong>Team Leader Name:</strong> {formData.LeaderFirstName}
+            </p>
+            <p>
+              <strong>Team Leader Name:</strong> {formData.LeaderLastName}
             </p>
             <p>
               <strong>Email:</strong> {formData.email}
@@ -286,8 +426,16 @@ export default function ContestRegistrationForm() {
               <strong>Number of Members:</strong> {formData.numberOfMembers}
             </p>
             <p>
-              <strong>Team Members:</strong> {formData.teamMembers.join(", ")}
+              <strong>Team Members:</strong>
             </p>
+            <ul className="list-disc list-inside">
+              {formData.teamMembers.map((member, index) => (
+                <li key={index}>
+                  {member.firstName} - {member.lastName} - {member.email} -{" "}
+                  {member.phoneNumber}
+                </li>
+              ))}
+            </ul>
             <p>
               <strong>Project Title:</strong> {formData.projectTitle}
             </p>
@@ -296,7 +444,7 @@ export default function ContestRegistrationForm() {
               {formData.projectDescription}
             </p>
             <p>
-              <strong>Technology Stack:</strong> {formData.techStack}
+              <strong>Tech Stack:</strong> {formData.techStack}
             </p>
             <p>
               <strong>Project URL:</strong> {formData.projectUrl}
@@ -304,30 +452,23 @@ export default function ContestRegistrationForm() {
           </div>
         )}
 
-        <div className="flex justify-between mt-6">
-          <Button
-            type="button"
-            className="py-2 px-4 bg-gray-800 text-white hover:bg-[#E38524] rounded"
-            onClick={handlePrevious}
-            disabled={currentStep === 0}
-          >
-            Previous
-          </Button>
-          {currentStep === steps.length - 1 ? (
+        <div className="flex justify-between">
+          {currentStep > 0 && (
             <Button
-              type="button"
-              className="py-2 px-4 bg-[#00adef] text-white hover:bg-[#E38524] rounded"
-              onClick={handleSubmit}
+              onClick={handlePrevious}
+              className="bg-[#00ADEF] text-white"
             >
-              Submit
+              Previous
             </Button>
-          ) : (
-            <Button
-              type="button"
-              className="py-2 px-4 bg-blue-500 text-white hover:bg-[#E38524] rounded"
-              onClick={handleNext}
-            >
+          )}
+          {currentStep < steps.length - 1 && (
+            <Button onClick={handleNext} className="bg-[#00ADEF] text-white">
               Next
+            </Button>
+          )}
+          {currentStep === steps.length - 1 && (
+            <Button onClick={handleSubmit} className="bg-[#00ADEF] text-white">
+              Submit
             </Button>
           )}
         </div>

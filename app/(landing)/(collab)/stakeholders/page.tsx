@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import CollabForm from "@/components/collab/call-for-collab-form-IP";
@@ -9,6 +11,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { StakeHolderItemFetch } from "@/services/stakeholders";
 import Image from "next/image";
+import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [stakeHolderItems, setStakeHolderItems] = useState<OrgData>();
@@ -20,7 +23,11 @@ const Page = () => {
     };
 
     fetchStakeHolderItems();
-  }, []); 
+  }, []);
+
+  if (!stakeHolderItems) {
+    return <SkeletonLoaderCollabForm />;
+  }
   return (
     <div>
       <PageTitle />
@@ -30,7 +37,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -46,7 +53,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -59,15 +66,15 @@ const Page = () => {
           />
         );
       })}
-      <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <CTA
-        title="
-      Want to Work with Us?"
-        buttonText="Apply For Call"
+        title='
+      Want to Work With Us?'
+        buttonText='Apply For Call'
         href={"#collab-form"}
       />
-      <div id="collab-form">
-        <CollabForm type="stakeholder" />
+      <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
+      <div id='collab-form'>
+        <CollabForm type='stakeholder' />
       </div>
     </div>
   );

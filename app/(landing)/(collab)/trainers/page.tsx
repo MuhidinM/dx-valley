@@ -1,31 +1,38 @@
 "use client";
 
-import CollabForm from "@/components/collab/call-for-collab-form-media";
+import CollabForm from "@/components/collab/call-for-collab-form-trainer";
 import CTA from "@/components/cta";
 import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
-import { useEffect, useState } from "react";
+import { Trainer } from "@/constants";
+import React, { useEffect, useState } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
+import CollabObjectives from "@/components/CollabObjectives";
 import { OrgData } from "@/types/strapi-types";
-import { MediaItemFetch } from "@/services/media";
+import { TrainerItemFetch } from "@/services/trainers";
 import Image from "next/image";
+import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
 
 const Page = () => {
-  const [mediaItems, setmediaItems] = useState<OrgData>();
+  const [trainersItems, setTrainersItems] = useState<OrgData>();
 
   useEffect(() => {
-    const fetchmediaItems = async () => {
-      const data = await MediaItemFetch();
-      setmediaItems(data);
-    }; 
+    const fetchTrainersItems = async () => {
+      const data = await TrainerItemFetch();
+      setTrainersItems(data);
+    };
 
-    fetchmediaItems();
+    fetchTrainersItems();
   }, []);
+
+ if (!trainersItems) {
+   return <SkeletonLoaderCollabForm />;
+ }
 
   return (
     <div>
       <PageTitle />
-      {mediaItems?.cards.map((cards, indx) => {
+      {trainersItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
@@ -58,16 +65,19 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        ); 
+        );
       })}
-      <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <CTA
-        title="Want to Work with Us?"
-        buttonText="Apply For Call"
+        title="Want to be a Trainer?"
+        buttonText="Apply"
         href={"#collab-form"}
       />
+      <ProfessionalOverview overview={trainersItems?.overview || ""} />
+      {/* <Objectives items={objectives} /> */}
+      <CollabObjectives />
+      {/* <InputForm /> */}
       <div id="collab-form">
-        <CollabForm type="media" />
+        <CollabForm/>
       </div>
     </div>
   );
