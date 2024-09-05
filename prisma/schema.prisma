@@ -112,24 +112,26 @@ model expoParticipant {
   // Relation to the expo team members
   members expoMembers[]
 
-  //Relation to project
-  projectId Int     @unique
-  project   project @relation(fields: [projectId], references: [id])
+   //Relation to project
+  projectId       Int? @unique
+  project        project?         @relation(fields: [projectId], references: [id])       
+ 
 
   // relation with personalInfo
   personalInfoId Int          @unique
   personalInfo   PersonalInfo @relation(fields: [personalInfoId], references: [id])
 
   //relation to setupRequirements
-  setupId           Int               @unique
-  setupRequirements setupRequirements @relation(fields: [setupId], references: [id])
 
-  // relation with presentation
-  presentationId Int          @unique
-  presentation   presentation @relation(fields: [presentationId], references: [id])
+    setupId       Int? @unique
+    setupRequirements  setupRequirements?    @relation(fields: [setupId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    // relation with presentation
+    presentationId       Int? @unique
+    presentation         presentation?         @relation(fields: [presentationId], references: [id])
+    
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
 }
 
 //expo team members

@@ -11,7 +11,7 @@ import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 
 import Image from "next/image";
-import SkeletonLoader from "@/components/SkeletonLoader";
+import {SkeletonLoaderCollabForm} from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -28,7 +28,7 @@ const Page = () => {
   // });
 
    if (!orgItems) {
-     return <SkeletonLoader />;
+     return <SkeletonLoaderCollabForm />;
    }
   return (
     <div>

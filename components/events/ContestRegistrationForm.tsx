@@ -136,10 +136,11 @@ export default function ContestRegistrationForm() {
           projectUrl: "",
           eventId: "",
         });
+        setCurrentStep(0);
       } else {
         const errorData = await response.json();
         console.error("Failed to register contest:", errorData);
-        alert("Failed to register contest");
+        alert("Failed to register contest: " + errorData);
       }
     } catch (error) {
       console.error("Error registering contest:", error);

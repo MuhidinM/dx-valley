@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -33,9 +35,9 @@ export default function ContestsPage() {
     (event) => event.category !== "call for proposal"
   );
 
-   if (!events) {
-     return <div>No Events Found</div>;
-   }
+  if (!events) {
+    return <div>No Events Found</div>;
+  }
 
   return (
     // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,7 +46,7 @@ export default function ContestsPage() {
 
       {(Events.length > 0 &&
         Events.map((event) => (
-          <div 
+          <div
           // className='shadow-lg border-spacing-2 rounded-lg'
           >
             {" "}
@@ -56,9 +58,12 @@ export default function ContestsPage() {
                    <Button />
             </div> */}
           </div>
-        ))) || (
-       (!events) && <div>No Events Available</div> 
-      )}
+        ))) ||
+        (!events.length || (
+          <div className='col-span-full text-center py-10'>
+            <p className='text-lg font-semibold'>No Event Available.</p>
+          </div>
+        ))}
     </div>
   );
 }
