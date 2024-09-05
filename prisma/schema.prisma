@@ -305,7 +305,7 @@ model DocumentInfo {
 
 model MediaInfo {
   id           Int      @id @default(autoincrement())
-  name         String
+  mediaName    String
   description  String
   platform     String //radio, youtube,TV
   contentGenre String // e.g., "report", "podcast", "others"
