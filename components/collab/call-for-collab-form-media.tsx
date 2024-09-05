@@ -72,7 +72,7 @@ const MultiSelectDropdown = ({
   );
 };
 
-export default function IndependentRegistrationForm() {
+export default function MediaRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     mediaName: '',

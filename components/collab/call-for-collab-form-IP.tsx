@@ -307,9 +307,9 @@ export default function IndependentRegistrationForm() {
 
                     {/* <h2 className='text-xl font-semibold text-center'>Confirm Details</h2>
                 
-                  <p className='text-sm text-center'>
-                    Please confirm that all your details are correct.
-                  </p> */}
+                    <p className='text-sm text-center'>
+                      Please confirm that all your details are correct.
+                    </p> */}
 
                     <div className='text-sm'>
                       <p className='p-3'>
