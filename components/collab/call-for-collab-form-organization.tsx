@@ -1,66 +1,95 @@
-/** @format */
-
-"use client";
-
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const steps = [
-  { id: "organization", title: "Organization Info" },
-  { id: "contact-info", title: "Contact" },
-  { id: "confirm", title: "Confirm" },
+  { id: 'organization', title: 'Organization Info' },
+  { id: 'contact-info', title: 'Contact' },
+  { id: 'confirm', title: 'Confirm' },
 ];
 
-const industryOptions = ["Agriculture", "AI", "Fintech"];
-const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
-const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
-const organizationTypeOptions = ["Private", "NGO", "Gov't"];
+const industryOptions = ['Agriculture', 'AI', 'Fintech'];
+const focusAreaOptions = ['Agriculture', 'AI', 'Fintech'];
+const interestOptions = ['Invest', 'Buy startup', 'Support vision', 'Sponsor'];
+const organizationTypeOptions = ['Private', 'NGO', "Gov't"];
 
 type FormData = {
   organizationName: string;
   industry: string;
   focusArea: string[];
   interestedIn: string[];
-  tradeLicense: string;
   organizationType: string;
   city: string;
   state: string;
   country: string;
   email: string;
-  phone1: string;
-  phone2: string;
+  phoneNumberOne: string;
   tradeLicenseUpload: File | null;
+  addressType:string
+};
+
+const MultiSelectDropdown = ({
+  options,
+  selectedOptions,
+  onOptionChange,
+  placeholder,
+}: {
+  options: string[];
+  selectedOptions: string[];
+  onOptionChange: (option: string) => void;
+  placeholder: string;
+}) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant='outline' className='w-full justify-between'>
+          {selectedOptions.length > 0
+            ? selectedOptions.join(', ')
+            : placeholder}
+          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {options.map((option) => (
+          <DropdownMenuCheckboxItem
+            key={option}
+            checked={selectedOptions.includes(option)}
+            onCheckedChange={() => onOptionChange(option)}>
+            {option}
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 };
 
 export default function OrganizationRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    organizationName: "",
-    industry: "",
+    organizationName: '',
+    industry: '',
     focusArea: [],
     interestedIn: [],
-    tradeLicense: "",
-    organizationType: "",
-    city: "",
-    state: "",
-    country: "",
-    email: "",
-    phone1: "",
-    phone2: "",
+    organizationType: '',
+    city: '',
+    state: '',
+    country: '',
+    email: '',
+    phoneNumberOne: '',
     tradeLicenseUpload: null,
+    addressType:'residental'
   });
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
@@ -84,17 +113,48 @@ export default function OrganizationRegistrationForm() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleSubmit = () => {
-    console.log("Submitting form data", formData);
-    // Here you would typically send the data to your backend
+  const handleSubmit = async () => {
+    const submissionData = new FormData();
+  
+    submissionData.append('organizationName', formData.organizationName);
+    submissionData.append('industry', formData.industry);
+    submissionData.append('focusArea', JSON.stringify(formData.focusArea));
+    submissionData.append('interestedIn', JSON.stringify(formData.interestedIn));
+    submissionData.append('organizationType', formData.organizationType);
+    submissionData.append('city', formData.city);
+    submissionData.append('state', formData.state);
+    submissionData.append('country', formData.country);
+    submissionData.append('email', formData.email);
+    submissionData.append('phoneNumberOne', formData.phoneNumberOne);
+  
+    if (formData.tradeLicenseUpload) {
+      submissionData.append('tradeLicenseUpload', formData.tradeLicenseUpload);
+    }
+  
+    try {
+      const response = await fetch('/api/organization', {
+        method: 'POST',
+        body: submissionData,
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+      } else {
+        alert('Submission failed: ' + result.message);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+  
+  
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            {/* Tell us about your organization */}
             <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
@@ -109,11 +169,10 @@ export default function OrganizationRegistrationForm() {
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      index <= currentStep
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground"
-                    }`}>
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentStep
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-secondary-foreground'
+                      }`}>
                     {index < currentStep ? (
                       <Check className='w-4 h-4' />
                     ) : (
@@ -143,14 +202,98 @@ export default function OrganizationRegistrationForm() {
               {currentStep === 0 && (
                 <div className='space-y-4'>
                   <div>
-                    <Label htmlFor='organization-name'>Organization Name</Label>
+                    <Label htmlFor='organization-name'>
+                      Organization Name
+                    </Label>
                     <Input
                       id='organization-name'
                       value={formData.organizationName}
                       onChange={(e) =>
-                        handleChange("organizationName", e.target.value)
+                        handleChange('organizationName', e.target.value)
                       }
                       placeholder='Enter your organization name'
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input
+                      id='email'
+                      type='email'
+                      value={formData.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      placeholder='Enter your email'
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor='phoneNumberOne'>Phone</Label>
+                    <Input
+                      id='phoneNumberOne'
+                      type='tel'
+                      value={formData.phoneNumberOne}
+                      onChange={(e) =>
+                        handleChange('phoneNumberOne', e.target.value)
+                      }
+                      placeholder='Enter your primary phone number'
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor='country'>Country</Label>
+                    <Input
+                      id='country'
+                      value={formData.country}
+                      onChange={(e) => handleChange('country', e.target.value)}
+                      placeholder='Enter your country'
+                    />
+                  </div>
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <Label htmlFor='state'>State</Label>
+                      <Input
+                        id='state'
+                        value={formData.state}
+                        onChange={(e) => handleChange('state', e.target.value)}
+                        placeholder='Enter your state'
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor='city'>City</Label>
+                      <Input
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) => handleChange('city', e.target.value)}
+                        placeholder='Enter your city'
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 1 && (
+                <div className='space-y-4'>
+                  <div>
+                    <Label className='mb-2 block'>Focus Area</Label>
+                    <MultiSelectDropdown
+                      options={focusAreaOptions}
+                      selectedOptions={formData.focusArea}
+                      onOptionChange={(option) =>
+                        handleCheckboxChange('focusArea', option)
+                      }
+                      placeholder='Select focus area'
+                    />
+                  </div>
+
+                  <div>
+                    <Label className='mb-2 block'>Interest Area</Label>
+                    <MultiSelectDropdown
+                      options={interestOptions}
+                      selectedOptions={formData.interestedIn}
+                      onOptionChange={(option) =>
+                        handleCheckboxChange('interestedIn', option)
+                      }
+                      placeholder='Select interest area'
                     />
                   </div>
 
@@ -159,7 +302,7 @@ export default function OrganizationRegistrationForm() {
                       <Label htmlFor='industry'>Industry</Label>
                       <Select
                         onValueChange={(value) =>
-                          handleChange("industry", value)
+                          handleChange('industry', value)
                         }>
                         <SelectTrigger>
                           <SelectValue placeholder='Select industry' />
@@ -179,7 +322,7 @@ export default function OrganizationRegistrationForm() {
                       </Label>
                       <Select
                         onValueChange={(value) =>
-                          handleChange("organizationType", value)
+                          handleChange('organizationType', value)
                         }>
                         <SelectTrigger>
                           <SelectValue placeholder='Select organization type' />
@@ -196,121 +339,26 @@ export default function OrganizationRegistrationForm() {
                   </div>
 
                   <div>
-                    <Label htmlFor='trade-license'>Trade License</Label>
+                    <Label htmlFor="tradeLicenseUpload">Trade License</Label>
                     <Input
-                      id='trade-license'
-                      value={formData.tradeLicense}
-                      onChange={(e) =>
-                        handleChange("tradeLicense", e.target.value)
+                    type="file"
+                    id="tradeLicenseUpload"
+                    accept=".pdf"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        const file = e.target.files[0];
+                        if (file.type === 'application/pdf') {
+                          handleChange('tradeLicenseUpload', file);
+                        } else {
+                          alert('Please upload a PDF file.');
+                        }
                       }
-                      placeholder='Enter your trade license number'
-                    />
+                    }}
+                  />
+
                   </div>
 
-                  <div>
-                    <Label htmlFor='email'>Email</Label>
-                    <Input
-                      id='email'
-                      type='email'
-                      value={formData.email}
-                      onChange={(e) => handleChange("email", e.target.value)}
-                      placeholder='Enter your email'
-                    />
-                  </div>
 
-                  <div>
-                    <Label htmlFor='phone1'>Phone</Label>
-                    <Input
-                      id='phone1'
-                      type='tel'
-                      value={formData.phone1}
-                      onChange={(e) => handleChange("phone1", e.target.value)}
-                      placeholder='Enter your primary phone number'
-                    />
-                  </div>
-                </div>
-              )}
-
-              {currentStep === 1 && (
-                <div className='space-y-4'>
-                  <div>
-                    <Label htmlFor='country'>Country</Label>
-                    <Input
-                      id='country'
-                      value={formData.country}
-                      onChange={(e) => handleChange("country", e.target.value)}
-                      placeholder='Enter your country'
-                    />
-                  </div>
-
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <div>
-                      <Label htmlFor='state'>State</Label>
-                      <Input
-                        id='state'
-                        value={formData.state}
-                        onChange={(e) => handleChange("state", e.target.value)}
-                        placeholder='Enter your state'
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor='city'>City</Label>
-                      <Input
-                        id='city'
-                        value={formData.city}
-                        onChange={(e) => handleChange("city", e.target.value)}
-                        placeholder='Enter your city'
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className='mb-2 block'>Focus Area</Label>
-                    <div className='grid grid-cols-2 gap-2'>
-                      {focusAreaOptions.map((option) => (
-                        <div
-                          key={option}
-                          className='flex items-center space-x-2'>
-                          <Checkbox
-                            id={`focus-${option}`}
-                            checked={formData.focusArea.includes(option)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                handleCheckboxChange("focusArea", option);
-                              } else {
-                                handleCheckboxChange("focusArea", option);
-                              }
-                            }}
-                          />
-                          <Label htmlFor={`focus-${option}`}>{option}</Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className='mb-2 block'>Interest Area</Label>
-                    <div className='grid grid-cols-2 gap-2'>
-                      {interestOptions.map((option) => (
-                        <div
-                          key={option}
-                          className='flex items-center space-x-2'>
-                          <Checkbox
-                            id={`interest-${option}`}
-                            checked={formData.interestedIn.includes(option)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                handleCheckboxChange("interestedIn", option);
-                              } else {
-                                handleCheckboxChange("interestedIn", option);
-                              }
-                            }}
-                          />
-                          <Label htmlFor={`interest-${option}`}>{option}</Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               )}
 
@@ -326,8 +374,8 @@ export default function OrganizationRegistrationForm() {
                       </span>
                       <span>
                         {Array.isArray(value)
-                          ? value.join(", ")
-                          : value?.toString() || "N/A"}
+                          ? value.join(', ')
+                          : value?.toString() || 'N/A'}
                       </span>
                     </p>
                   ))}

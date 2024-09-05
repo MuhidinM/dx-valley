@@ -74,7 +74,7 @@ const Page = () => {
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
-        <CollabForm type='stakeholder' />
+        <CollabForm/>
       </div>
     </div>
   );
