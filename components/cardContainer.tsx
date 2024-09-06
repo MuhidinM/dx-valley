@@ -26,10 +26,10 @@ export default function({update}:{update: UpdateData[]}){
                 <Image
                   src={`http://10.1.151.64:1337${card.img}`}
                   alt={card.title}
-                  width={400}
+                  width={100}
                   height={100}
-                  className='rounded-lg'
-                />
+                  className='rounded-lg w-full h-56'
+                />  
               </div>
               <CardTitle className="text-2xl font-bold">Our {card.title}</CardTitle>
               <CardDescription className="text-lg">
