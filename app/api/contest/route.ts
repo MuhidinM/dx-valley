@@ -20,7 +20,14 @@ export async function POST(req: Request): Promise<NextResponse> {
   try {
     // Parse the JSON body
     const data = await req.json();
-    console.log("Received data:", data);
+    console.log(
+      "Received data:",
+      data,
+      "teamMembers:",
+      data?.teamMembers[0]?.personalInfo,
+      "teamMembers:",
+      data?.teamMembers[0]?.contactInfo
+    );
 
     const {
       teamLeader,
@@ -95,15 +102,15 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
 
-    const memberPromises = teamMembers.map(async (member: TeamMember) => {
-      const existingMemberContactInfo = await prisma.contactInfo.findFirst({
-        where: {
-          OR: [
-            { email: member.contactInfo.email },
-            { phoneNumberOne: member.contactInfo.phoneNumberOne },
-          ],
-        },
-      });
+      const memberPromises = teamMembers.map(async (member: TeamMember) => {
+        const existingMemberContactInfo = await prisma.contactInfo.findFirst({
+          where: {
+            OR: [
+              { email: member.contactInfo?.email },
+              { phoneNumberOne: member.contactInfo?.phoneNumberOne },
+            ],
+          },
+        });
 
       if (existingMemberContactInfo) {
         return NextResponse.json(
@@ -122,8 +129,8 @@ export async function POST(req: Request): Promise<NextResponse> {
       });
       const memberPersonalInfo = await prisma.personalInfo.create({
         data: {
-          firstName: member.personalInfo.firstName,
-          lastName: member.personalInfo.lastName,
+          firstName: member.personalInfo?.firstName,
+          lastName: member.personalInfo?.lastName,
         },
       });
 
