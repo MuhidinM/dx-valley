@@ -14,7 +14,7 @@ export default function CTAComponent() {
             We are at the forefront of digital innovation, dedicated to empowering communities and transforming lives.
             </em>
           </p>
-          <p className="text-base font-semibold sm:text-lg text-gray-800  font-['Arial']">
+          <p className="text-base font-semibold sm:text-lg text-gray-800 dark:text-gray-300 font-['Arial']">
               Walk the empowering digital path with us, One Step at a Time.
             </p>
         
