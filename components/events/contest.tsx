@@ -41,29 +41,16 @@ export default function ContestsPage() {
 
   return (
     // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10'>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10">
       {/* rest of the code remains the same */}
 
       {(Events.length > 0 &&
-        Events.map((event) => (
-          <div
-          // className='shadow-lg border-spacing-2 rounded-lg'
-          >
-            {" "}
-            <Countdown key={event?.id} event={event} />
-            {/* <h2>{event?.name}</h2>
-            <div> {event?.targetDate} </div>
-            <p> {event?.description}</p>
-            <div className='flex flex-row align-bottom mt-72px'>
-                   <Button />
-            </div> */}
+        Events.map((event) => <Countdown key={event?.id} event={event} />)) ||
+        !events.length || (
+          <div className="col-span-full text-center py-10">
+            <p className="text-lg font-semibold">No Event Available.</p>
           </div>
-        ))) ||
-        (!events.length || (
-          <div className='col-span-full text-center py-10'>
-            <p className='text-lg font-semibold'>No Event Available.</p>
-          </div>
-        ))}
+        )}
     </div>
   );
 }
