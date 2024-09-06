@@ -33,15 +33,18 @@ export default function ContestsPage() {
   }, []);
   const Events = events.filter(
     (event) => event.category !== "call for proposal"
+
   );
+console.log(Events.length, "is the event length");
 
   if (!events) {
+
     return <div>No Events Found</div>;
   }
 
   return (
     // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10'>
+    <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 gap-6 '>
       {/* rest of the code remains the same */}
 
       {(Events.length > 0 &&
