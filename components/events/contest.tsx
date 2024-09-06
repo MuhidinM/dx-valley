@@ -43,22 +43,16 @@ console.log(Events.length, "is the event length");
   }
 
   return (
-    // <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 gap-6 '>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10">
       {/* rest of the code remains the same */}
 
       {(Events.length > 0 &&
-        Events.map((event) => (
-       
-     <Countdown key={event?.id} event={event} />
-         
-        
-        ))) ||
-        (!events.length || (
-          <div className='col-span-full text-center py-10'>
-            <p className='text-lg font-semibold'>No Event Available.</p>
+        Events.map((event) => <Countdown key={event?.id} event={event} />)) ||
+        !events.length || (
+          <div className="col-span-full text-center py-10">
+            <p className="text-lg font-semibold">No Event Available.</p>
           </div>
-        ))}
+        )}
     </div>
   );
 }

@@ -33,7 +33,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "sonner";
-import { Toaster } from "sonner";
 
 export default function AdminEvent() {
   const [name, setName] = useState("");
