@@ -232,7 +232,7 @@ model AddressInfo {
 
 model OrganizationInfo {
   id               Int      @id @default(autoincrement())
-  name             String
+  organizationName             String
   industry         String // Industry of the organization
   focusArea        String // e.g., "AI", "FinTech", "AgroTech"
   interestArea     String // e.g., "Invest", "Support"
