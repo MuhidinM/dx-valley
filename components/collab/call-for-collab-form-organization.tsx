@@ -1,32 +1,32 @@
+/** @format */
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { toast } from 'sonner';
-import { Toaster } from 'sonner'; 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Textarea } from '../ui/textarea';
-
+} from "@/components/ui/dropdown-menu";
+import { Textarea } from "../ui/textarea";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
 
 const steps = [
-  { id: 'organization', title: 'Organization Info' },
-  { id: 'contact', title: 'Organization Info' },
-  { id: 'confirm', title: 'Confirm' },
+  { id: "organization", title: "Organization Info" },
+  { id: "contact", title: "Organization Info" },
+  { id: "confirm", title: "Confirm" },
 ];
 
-const industryOptions = ['Agriculture', 'AI', 'Fintech'];
-const focusAreaOptions = ['Agriculture', 'AI', 'Fintech'];
-const interestOptions = ['Invest', 'Buy startup', 'Support vision', 'Sponsor'];
-const organizationTypeOptions = ['Private', 'NGO', "Gov't"];
+const industryOptions = ["Agriculture", "AI", "Fintech"];
+const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
+const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
+const organizationTypeOptions = ["Private", "NGO", "Gov't"];
 
 type FormData = {
   organizationName: string;
@@ -40,7 +40,7 @@ type FormData = {
   email: string;
   phoneNumberOne: string;
   addressType: string;
-  tradeLicence:string;
+  tradeLicence: string;
 };
 
 const MultiSelectDropdown = ({
@@ -58,7 +58,9 @@ const MultiSelectDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline' className='w-full justify-between'>
-          {selectedOptions.length > 0 ? selectedOptions.join(', ') : placeholder}
+          {selectedOptions.length > 0
+            ? selectedOptions.join(", ")
+            : placeholder}
           <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </DropdownMenuTrigger>
@@ -81,18 +83,18 @@ const MultiSelectDropdown = ({
 export default function OrganizationRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    organizationName: '',
-    industry: '',
+    organizationName: "",
+    industry: "",
     focusArea: [],
     interestedArea: [],
-    organizationType: '',
-    city: '',
-    state: '',
-    country: '',
-    email: '',
-    phoneNumberOne: '',
-    addressType: '',
-    tradeLicence:''
+    organizationType: "",
+    city: "",
+    state: "",
+    country: "",
+    email: "",
+    phoneNumberOne: "",
+    addressType: "",
+    tradeLicence: "",
   });
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
@@ -122,32 +124,29 @@ export default function OrganizationRegistrationForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/organization', {
-        method: 'POST',
+      const response = await fetch("/api/organization", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
-        toast.success('Organization registered successfully!');
+        toast.success("Organization registered successfully!");
       } else {
         const errorData = await response.json();
-        toast.error('Failed to register organization.');
+        toast.error("Failed to register organization.");
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again later.');
+      toast.error("An error occurred. Please try again later.");
     }
   };
-  
-  
-
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
-      <Toaster position="top-right" richColors />
+      <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl min-w-[700px] '>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
@@ -165,10 +164,11 @@ export default function OrganizationRegistrationForm() {
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentStep
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-secondary-foreground'
-                      }`}>
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
                     {index < currentStep ? (
                       <Check className='w-4 h-4' />
                     ) : (
@@ -188,7 +188,7 @@ export default function OrganizationRegistrationForm() {
             </div>
           </div>
 
-          <AnimatePresence mode='wait' >
+          <AnimatePresence mode='wait'>
             <motion.div
               key={currentStep}
               initial={{ opacity: 0, x: 20 }}
@@ -200,35 +200,39 @@ export default function OrganizationRegistrationForm() {
                   {/* Form fields */}
                   <div className='flex gap-4'>
                     <div className='flex-1'>
-                      <Label htmlFor='organizationName'>Organization Name</Label>
+                      <Label htmlFor='organizationName'>
+                        Organization Name
+                      </Label>
                       <Input
                         id='organizationName'
                         value={formData.organizationName}
-                        onChange={(e) => handleChange('organizationName', e.target.value)}
+                        onChange={(e) =>
+                          handleChange("organizationName", e.target.value)
+                        }
                         placeholder='Enter Organization name'
                       />
                     </div>
-
                   </div>
 
-
-                  <div >
+                  <div>
                     <Label htmlFor='email'>Email</Label>
                     <Input
                       id='email'
                       type='email'
                       value={formData.email}
-                      onChange={(e) => handleChange('email', e.target.value)}
+                      onChange={(e) => handleChange("email", e.target.value)}
                       placeholder='Enter your email'
                     />
                   </div>
-                  <div >
+                  <div>
                     <Label htmlFor='phoneNumberOne'>Phone</Label>
                     <Input
                       id='phoneNumberOne'
                       type='tel'
                       value={formData.phoneNumberOne}
-                      onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
+                      onChange={(e) =>
+                        handleChange("phoneNumberOne", e.target.value)
+                      }
                       placeholder='Enter your primary phone number'
                     />
                   </div>
@@ -238,7 +242,7 @@ export default function OrganizationRegistrationForm() {
                     <Input
                       id='country'
                       value={formData.country}
-                      onChange={(e) => handleChange('country', e.target.value)}
+                      onChange={(e) => handleChange("country", e.target.value)}
                       placeholder='Enter your country'
                     />
                   </div>
@@ -249,7 +253,7 @@ export default function OrganizationRegistrationForm() {
                       <Input
                         id='state'
                         value={formData.state}
-                        onChange={(e) => handleChange('state', e.target.value)}
+                        onChange={(e) => handleChange("state", e.target.value)}
                         placeholder='Enter your state'
                       />
                     </div>
@@ -258,7 +262,7 @@ export default function OrganizationRegistrationForm() {
                       <Input
                         id='city'
                         value={formData.city}
-                        onChange={(e) => handleChange('city', e.target.value)}
+                        onChange={(e) => handleChange("city", e.target.value)}
                         placeholder='Enter your city'
                       />
                     </div>
@@ -268,7 +272,6 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 1 && (
                 <div>
-
                   <div className='flex flex-col gap-4'>
                     <div className='flex gap-4'>
                       <div className='flex-1'>
@@ -276,7 +279,9 @@ export default function OrganizationRegistrationForm() {
                         <MultiSelectDropdown
                           options={focusAreaOptions}
                           selectedOptions={formData.focusArea}
-                          onOptionChange={(option) => handleCheckboxChange('focusArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("focusArea", option)
+                          }
                           placeholder='Select focusArea'
                         />
                       </div>
@@ -286,26 +291,36 @@ export default function OrganizationRegistrationForm() {
                         <MultiSelectDropdown
                           options={interestOptions}
                           selectedOptions={formData.interestedArea}
-                          onOptionChange={(option) => handleCheckboxChange('interestedArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("interestedArea", option)
+                          }
                           placeholder='Select Interest area'
                         />
                       </div>
                     </div>
                     <div className='flex gap-4'>
                       <div className='flex-1'>
-                        <Label htmlFor='organizationType'>Organization Type</Label>
+                        <Label htmlFor='organizationType'>
+                          Organization Type
+                        </Label>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant='outline' className='w-full text-left'>
-                              {formData.organizationType || 'Select '}
+                            <Button
+                              variant='outline'
+                              className='w-full text-left'>
+                              {formData.organizationType || "Select "}
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
                             {organizationTypeOptions.map((option) => (
                               <DropdownMenuCheckboxItem
                                 key={option}
-                                onCheckedChange={() => handleDropdownChange('organizationType', option)}
-                              >
+                                onCheckedChange={() =>
+                                  handleDropdownChange(
+                                    "organizationType",
+                                    option
+                                  )
+                                }>
                                 {option}
                               </DropdownMenuCheckboxItem>
                             ))}
@@ -317,39 +332,41 @@ export default function OrganizationRegistrationForm() {
                         <Label htmlFor='organizationType'>Industry</Label>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant='outline' className='w-full text-left'>
-                              {formData.industry || 'Select '}
+                            <Button
+                              variant='outline'
+                              className='w-full text-left'>
+                              {formData.industry || "Select "}
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
                             {industryOptions.map((option) => (
                               <DropdownMenuCheckboxItem
                                 key={option}
-                                onCheckedChange={() => handleDropdownChange('industry', option)}
-                              >
+                                onCheckedChange={() =>
+                                  handleDropdownChange("industry", option)
+                                }>
                                 {option}
                               </DropdownMenuCheckboxItem>
                             ))}
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
-                    
                     </div>
                     <div>
                       <Label htmlFor='tradeLicence'>Trade licence</Label>
                       <Input
-                      id='tradeLicence'
-                      value={formData.tradeLicence}
-                      onChange={(e) => handleChange('tradeLicence', e.target.value)}
-                      placeholder='Enter your trade license'
-                    />
+                        id='tradeLicence'
+                        value={formData.tradeLicence}
+                        onChange={(e) =>
+                          handleChange("tradeLicence", e.target.value)
+                        }
+                        placeholder='Enter your trade license'
+                      />
                     </div>
 
                     <div>
                       <Label htmlFor='organizationType'>Motivation</Label>
-                      <Textarea
-                      placeholder='can we know why you choose us?'
-                      />
+                      <Textarea placeholder='can we know why you choose us?' />
                     </div>
                   </div>
                 </div>
@@ -357,7 +374,9 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 2 && (
                 <div className='space-y-2'>
-                  <h2 className='text-xl font-semibold text-center'>Confirm Details</h2>
+                  <h2 className='text-xl font-semibold text-center'>
+                    Confirm Details
+                  </h2>
                   {/* Confirmation details */}
                   <p className='text-sm text-center'>
                     Please confirm that all your details are correct.
@@ -384,12 +403,13 @@ export default function OrganizationRegistrationForm() {
                       <strong>City:</strong> {formData.city}
                     </p>
                     <p className='p-3'>
-                      <strong>Focus Areas:</strong> {formData.focusArea.join(', ')}
+                      <strong>Focus Areas:</strong>{" "}
+                      {formData.focusArea.join(", ")}
                     </p>
                     <p className='p-3'>
-                      <strong>Interest Areas:</strong> {formData.interestedArea.join(', ')}
+                      <strong>Interest Areas:</strong>{" "}
+                      {formData.interestedArea.join(", ")}
                     </p>
-
                   </div>
                 </div>
               )}
