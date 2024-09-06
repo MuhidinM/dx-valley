@@ -46,18 +46,10 @@ export default function ContestsPage() {
 
       {(Events.length > 0 &&
         Events.map((event) => (
-          <div
-          // className='shadow-lg border-spacing-2 rounded-lg'
-          >
-            {" "}
-            <Countdown key={event?.id} event={event} />
-            {/* <h2>{event?.name}</h2>
-            <div> {event?.targetDate} </div>
-            <p> {event?.description}</p>
-            <div className='flex flex-row align-bottom mt-72px'>
-                   <Button />
-            </div> */}
-          </div>
+       
+     <Countdown key={event?.id} event={event} />
+         
+        
         ))) ||
         (!events.length || (
           <div className='col-span-full text-center py-10'>
