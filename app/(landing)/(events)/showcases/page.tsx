@@ -15,7 +15,7 @@ import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
 import { getImageUrl } from "@/lib/utils";
-import SkeletonLoader from "@/components/SkeletonLoader";
+// import SkeletonLoader from "@/components/SkeletonLoader";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
 
@@ -32,7 +32,7 @@ const Page = () => {
       console.log("showcases - log: ", showcaseItems);
     })
  if (!showcaseItems) {
-   return <SkeletonLoader />;
+  //  return <SkeletonLoader />;
  }
   return (
     <div className="flex items-center justify-center">
@@ -50,8 +50,8 @@ const Page = () => {
           {
             showcaseItems.map((projects, idx) => {
               return (
-                <Card className='w-full'>
-                  <CardHeader key={idx}>
+                <Card className='w-full h-[600px] flex flex-col justify-between'>
+                  <CardHeader key={idx} className=" h-[240px]">
                     <CardTitle>{projects.projectName}</CardTitle>
                     <CardDescription>
                       <span className='text-orange-500 font-bold'>
@@ -60,7 +60,7 @@ const Page = () => {
                       {projects.small_description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="">
                     <div className='relative w-full h-64'>
                       {" "}
                       {/* Set a fixed height for the image container */}
@@ -90,10 +90,12 @@ const Page = () => {
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className='flex justify-between'>
-                    <div></div>
-                    <Popup details={projects} />
+                  <CardFooter className='w-full justify-between '>
+                    <div className="ml-auto">
+                      <Popup details={projects} />
+                    </div>
                   </CardFooter>
+
                 </Card>
               );
 
