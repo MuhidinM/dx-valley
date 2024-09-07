@@ -1,24 +1,57 @@
+/** @format */
+
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 const steps = [
   { id: "team-info", title: "Team Information" },
   { id: "project-details", title: "Project Details" },
   { id: "confirm", title: "Confirm Info" },
 ];
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+
+interface TeamMember {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
+interface FormData {
+  LeaderFirstName: string;
+  LeaderLastName: string;
+  email: string;
+  phoneNumber: string;
+  teamName: string;
+  numberOfMembers: number;
+  teamMembers: TeamMember[];
+  projectTitle: string;
+  projectDescription: string;
+  techStack: string;
+  projectUrl: string;
+  eventId: number;
+}
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
-  const eventId = searchParams.get("eventId");
+  // const eventId = searchParams.get("eventId");
+  const eventId = 1;
 
   const [currentStep, setCurrentStep] = useState(0);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     LeaderFirstName: "",
     LeaderLastName: "",
     email: "",
@@ -30,8 +63,18 @@ export default function ContestRegistrationForm() {
     projectDescription: "",
     techStack: "",
     projectUrl: "",
-    eventId: eventId || "",
+    eventId: eventId,
+   
   });
+
+  useEffect(() => {
+    if (alert && alert.type === "success") {
+      const timer = setTimeout(() => {
+        setIsSubmitted(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,7 +87,7 @@ export default function ContestRegistrationForm() {
 
   const handleTeamMemberChange = (
     index: number,
-    field: string,
+    field: keyof TeamMember,
     value: string
   ) => {
     const updatedMembers = [...formData.teamMembers];
@@ -55,15 +98,20 @@ export default function ContestRegistrationForm() {
   const handleNumberOfMembersChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const numberOfMembers = parseInt(e.target.value, 10);
+    const numberOfMembers = Math.max(
+      1,
+      Math.min(10, parseInt(e.target.value, 10) || 1)
+    );
     setFormData({
       ...formData,
       numberOfMembers,
-      teamMembers: Array(numberOfMembers).fill({
-        name: "",
-        email: "",
-        phoneNumber: "",
-      }),
+      teamMembers: Array(numberOfMembers)
+        .fill(null)
+        .map((_, index) =>
+          index < formData.teamMembers.length
+            ? formData.teamMembers[index]
+            : { firstName: "", lastName: "", email: "", phoneNumber: "" }
+        ),
     });
   };
 
@@ -99,9 +147,8 @@ export default function ContestRegistrationForm() {
           teamMembers: formData.teamMembers.map((member) => ({
             personalInfo: {
               firstName: member.firstName,
-              lastName: member.firstName,
+              lastName: member.lastName,
             },
-
             contactInfo: {
               email: member.email,
               phoneNumberOne: member.phoneNumber,
@@ -118,360 +165,346 @@ export default function ContestRegistrationForm() {
       });
 
       if (response.ok) {
-        alert("Contest registration successful!");
-        // Clear the form
-        setFormData({
-          LeaderFirstName: "",
-          LeaderLastName: "",
-          email: "",
-          phoneNumber: "",
-          teamName: "",
-          numberOfMembers: 1,
-          teamMembers: [
-            { firstName: "", lastName: "", email: "", phoneNumber: "" },
-          ],
-          projectTitle: "",
-          projectDescription: "",
-          techStack: "",
-          projectUrl: "",
-          eventId: "",
+        setAlert({
+          type: "success",
+          message:
+            "Registration successful! Your details have been submitted successfully.",
         });
-        setCurrentStep(0);
       } else {
         const errorData = await response.json();
-        console.error("Failed to register contest:", errorData);
-        alert("Failed to register contest: " + errorData);
+        setAlert({
+          type: "error",
+          message: errorData.error || "An error occurred during registration.",
+        });
       }
     } catch (error) {
       console.error("Error registering contest:", error);
-      alert("An error occurred. Please try again.");
+      setAlert({
+        type: "error",
+        message: "An error occurred. Please try again.",
+      });
     }
   };
 
+  if (isSubmitted) {
+    return (
+      <div className='flex items-center justify-center min-h-screen bg-gray-100'>
+        <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
+          <CheckCircle2 className='w-16 h-16 text-green-500 mx-auto mb-4' />
+          <h2 className='text-2xl font-bold text-center mb-4'>
+            Registration Successful!
+          </h2>
+          <p className='text-center text-gray-600'>
+            Thank you for registering. Your details have been submitted
+            successfully.
+          </p>
+          <Button
+            className='w-full mt-6'
+            onClick={() => (window.location.href = "/")}>
+            Return to Home
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-94 mt-8 mb-8 flex items-center justify-center">
-      <div className="w-full max-w-xl bg-white p-6 rounded-lg shadow-lg">
-        <div className="mb-8 text-center text-2xl font-bold">
+    <div className='w-94 mt-8 mb-8 flex items-center justify-center'>
+      <div className='w-full max-w-xl bg-white p-6 rounded-lg shadow-lg'>
+        <div className='mb-8 text-center text-2xl font-bold'>
           Register Contest Info
         </div>
-        <div className="mb-4 text-center">
+        <div className='mb-8 flex justify-between items-center'>
           {steps.map((step, index) => (
-            <span
-              key={step.id}
-              className={`mx-2 ${
-                index <= currentStep ? "text-[#00ADEF]" : "text-gray-500"
-              }`}
-            >
-              {step.title}
-            </span>
+            <div key={step.id} className='flex flex-col items-center'>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  index <= currentStep
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-gray-200 text-gray-500"
+                }`}>
+                {index + 1}
+              </div>
+              <span
+                className={`mt-2 text-sm ${
+                  index <= currentStep
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}>
+                {step.title}
+              </span>
+              {index < steps.length - 1 && (
+                <div
+                  className={`h-1 w-24 mt-4 ${
+                    index < currentStep ? "bg-primary" : "bg-gray-200"
+                  }`}
+                />
+              )}
+            </div>
           ))}
         </div>
 
-        {currentStep === 0 && (
-          <div className="mb-4">
-            <Label htmlFor="LeaderFirstName" className="block mb-4 mt-4">
-              Team Leader First Name
-            </Label>
-            <Input
-              id="LeaderFirstName"
-              name="LeaderFirstName"
-              className="w-full p-2 rounded"
-              value={formData.LeaderFirstName}
-              onChange={handleChange}
-              placeholder="Enter the team leader's name"
-            />
-            <Label htmlFor="LeaderLastName" className="block mb-4 mt-4">
-              Team Leader Last Name
-            </Label>
-            <Input
-              id="LeaderLastName"
-              name="LeaderLastName"
-              className="w-full p-2 rounded"
-              value={formData.LeaderLastName}
-              onChange={handleChange}
-              placeholder="Enter the team leader's name"
-            />
-            <Label htmlFor="email" className="block mb-4 mt-4">
-              Email
-            </Label>
-            <Input
-              id="email"
-              name="email"
-              className="w-full p-2 rounded"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter the email"
-            />
-            <Label htmlFor="phoneNumber" className="block mb-4 mt-4">
-              Phone Number
-            </Label>
-            <Input
-              id="phoneNumber"
-              name="phoneNumber"
-              className="w-full p-2 rounded"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              placeholder="Enter the phone number"
-            />
-            <Label htmlFor="teamName" className="block mb-4 mt-4">
-              Team Name
-            </Label>
-            <Input
-              id="teamName"
-              name="teamName"
-              className="w-full p-2 rounded"
-              value={formData.teamName}
-              onChange={handleChange}
-              placeholder="Enter the team name"
-            />
-            <Label htmlFor="numberOfMembers" className="block mb-4 mt-4">
-              Number of Members
-            </Label>
-            <Input
-              id="numberOfMembers"
-              type="number"
-              name="numberOfMembers"
-              className="w-full p-2 rounded"
-              value={formData.numberOfMembers}
-              onChange={handleNumberOfMembersChange}
-              min={1}
-              placeholder="Enter the number of team members"
-            />
-            {/* {formData.teamMembers.map((member, index) => (
-              <div key={index} className="mt-4 mb-4 flex space-x-4">
-                <div className="w-1/3">
-                  <Label className="block mb-2">Member Name</Label>
-                  <Input
-                    type="text"
-                    className="w-full p-2 rounded"
-                    value={member.name}
-                    onChange={(e) =>
-                      handleTeamMemberChange(index, "name", e.target.value)
-                    }
-                    placeholder="Enter team member's name"
-                  />
-                </div>
-                <div className="w-1/3">
-                  <Label className="block mb-2">Member Email</Label>
-                  <Input
-                    type="email"
-                    className="w-full p-2 rounded"
-                    value={member.email}
-                    onChange={(e) =>
-                      handleTeamMemberChange(index, "email", e.target.value)
-                    }
-                    placeholder="Enter team member's email"
-                  />
-                </div>
-                <div className="w-1/3">
-                  <Label className="block mb-2">Member Phone Number</Label>
-                  <Input
-                    type="text"
-                    className="w-full p-2 rounded"
-                    value={member.phoneNumber || ""}
-                    onChange={(e) =>
-                      handleTeamMemberChange(
-                        index,
-                        "phoneNumber",
-                        e.target.value
-                      )
-                    }
-                    placeholder="Enter team member's phone number"
-                  />
-                </div>
-              </div>
-            ))} */}
-            {formData.teamMembers.map((member, index) => (
-              <div key={index} className="mt-4 mb-4">
-                <div className="flex space-x-4">
-                  <div className="w-1/2">
-                    <Label className="block mb-2">First Name</Label>
-                    <Input
-                      type="text"
-                      className="w-full p-2 rounded"
-                      value={member.firstName}
-                      onChange={(e) =>
-                        handleTeamMemberChange(
-                          index,
-                          "firstName",
-                          e.target.value
-                        )
-                      }
-                      placeholder="Enter team member's first name"
-                    />
-                  </div>
-                  <div className="w-1/2">
-                    <Label className="block mb-2">Last Name</Label>
-                    <Input
-                      type="text"
-                      className="w-full p-2 rounded"
-                      value={member.lastName}
-                      onChange={(e) =>
-                        handleTeamMemberChange(
-                          index,
-                          "lastName",
-                          e.target.value
-                        )
-                      }
-                      placeholder="Enter team member's last name"
-                    />
-                  </div>
-                </div>
-                <div className="flex space-x-4 mt-4">
-                  <div className="w-1/2">
-                    <Label className="block mb-2">Member Email</Label>
-                    <Input
-                      type="email"
-                      className="w-full p-2 rounded"
-                      value={member.email}
-                      onChange={(e) =>
-                        handleTeamMemberChange(index, "email", e.target.value)
-                      }
-                      placeholder="Enter team member's email"
-                    />
-                  </div>
-                  <div className="w-1/2">
-                    <Label className="block mb-2">Member Phone Number</Label>
-                    <Input
-                      type="text"
-                      className="w-full p-2 rounded"
-                      value={member.phoneNumber || ""}
-                      onChange={(e) =>
-                        handleTeamMemberChange(
-                          index,
-                          "phoneNumber",
-                          e.target.value
-                        )
-                      }
-                      placeholder="Enter team member's phone number"
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        {alert && (
+          <Alert
+            variant={alert.type === "success" ? "default" : "destructive"}
+            className='mb-4'>
+            {alert.type === "success" ? (
+              <CheckCircle2 className='h-4 w-4' />
+            ) : (
+              <AlertCircle className='h-4 w-4' />
+            )}
+            <AlertTitle>
+              {alert.type === "success" ? "Success" : "Error"}
+            </AlertTitle>
+            <AlertDescription>{alert.message}</AlertDescription>
+          </Alert>
         )}
 
-        {currentStep === 1 && (
-          <div className="mb-4">
-            <Label htmlFor="projectTitle" className="block mb-2">
-              Project Title
-            </Label>
-            <Input
-              id="projectTitle"
-              name="projectTitle"
-              className="w-full p-2 rounded"
-              value={formData.projectTitle}
-              onChange={handleChange}
-              placeholder="Enter the project title"
-            />
-            <Label htmlFor="projectDescription" className="block mb-2">
-              Project Description
-            </Label>
-            <Textarea
-              id="projectDescription"
-              name="projectDescription"
-              className="w-full p-2 rounded"
-              value={formData.projectDescription}
-              onChange={handleChange}
-              placeholder="Enter the project description"
-              rows={4}
-            />
-            <Label htmlFor="techStack" className="block mb-2">
-              Tech Stack
-            </Label>
-            <Input
-              id="techStack"
-              name="techStack"
-              className="w-full p-2 rounded"
-              value={formData.techStack}
-              onChange={handleChange}
-              placeholder="Enter the tech stack"
-            />
-            <Label htmlFor="projectUrl" className="block mb-2">
-              Project URL
-            </Label>
-            <Input
-              id="projectUrl"
-              name="projectUrl"
-              className="w-full p-2 rounded"
-              value={formData.projectUrl}
-              onChange={handleChange}
-              placeholder="Enter the project URL"
-            />
-          </div>
-        )}
-
-        {currentStep === 2 && (
-          <div className="mb-4">
-            <h3 className="text-xl font-semibold mb-4">
-              Confirm Your Information
-            </h3>
-            <p>
-              <strong>Team Leader Name:</strong> {formData.LeaderFirstName}
-            </p>
-            <p>
-              <strong>Team Leader Name:</strong> {formData.LeaderLastName}
-            </p>
-            <p>
-              <strong>Email:</strong> {formData.email}
-            </p>
-            <p>
-              <strong>Phone Number:</strong> {formData.phoneNumber}
-            </p>
-            <p>
-              <strong>Team Name:</strong> {formData.teamName}
-            </p>
-            <p>
-              <strong>Number of Members:</strong> {formData.numberOfMembers}
-            </p>
-            <p>
-              <strong>Team Members:</strong>
-            </p>
-            <ul className="list-disc list-inside">
+        <form onSubmit={handleSubmit}>
+          {currentStep === 0 && (
+            <div className='mb-4 space-y-4'>
+              <div>
+                <Label htmlFor='LeaderFirstName'>Team Leader First Name</Label>
+                <Input
+                  id='LeaderFirstName'
+                  name='LeaderFirstName'
+                  value={formData.LeaderFirstName}
+                  onChange={handleChange}
+                  placeholder="Enter the team leader's first name"
+                />
+              </div>
+              <div>
+                <Label htmlFor='LeaderLastName'>Team Leader Last Name</Label>
+                <Input
+                  id='LeaderLastName'
+                  name='LeaderLastName'
+                  value={formData.LeaderLastName}
+                  onChange={handleChange}
+                  placeholder="Enter the team leader's last name"
+                />
+              </div>
+              <div>
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  name='email'
+                  type='email'
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder='Enter the email'
+                />
+              </div>
+              <div>
+                <Label htmlFor='phoneNumber'>Phone Number</Label>
+                <Input
+                  id='phoneNumber'
+                  name='phoneNumber'
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder='Enter the phone number'
+                />
+              </div>
+              <div>
+                <Label htmlFor='teamName'>Team Name</Label>
+                <Input
+                  id='teamName'
+                  name='teamName'
+                  value={formData.teamName}
+                  onChange={handleChange}
+                  placeholder='Enter the team name'
+                />
+              </div>
+              <div>
+                <Label htmlFor='numberOfMembers'>Number of Members</Label>
+                <Input
+                  id='numberOfMembers'
+                  type='number'
+                  name='numberOfMembers'
+                  value={formData.numberOfMembers}
+                  onChange={handleNumberOfMembersChange}
+                  min={1}
+                  max={10}
+                  placeholder='Enter the number of team members'
+                />
+              </div>
               {formData.teamMembers.map((member, index) => (
-                <li key={index}>
-                  {member.firstName} - {member.lastName} - {member.email} -{" "}
-                  {member.phoneNumber}
-                </li>
+                <div key={index} className='space-y-4'>
+                  <h4 className='font-semibold'>Team Member {index + 1}</h4>
+                  <div className='grid grid-cols-2 gap-4'>
+                    <div>
+                      <Label>First Name</Label>
+                      <Input
+                        type='text'
+                        value={member.firstName}
+                        onChange={(e) =>
+                          handleTeamMemberChange(
+                            index,
+                            "firstName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter team member's first name"
+                      />
+                    </div>
+                    <div>
+                      <Label>Last Name</Label>
+                      <Input
+                        type='text'
+                        value={member.lastName}
+                        onChange={(e) =>
+                          handleTeamMemberChange(
+                            index,
+                            "lastName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter team member's last name"
+                      />
+                    </div>
+                  </div>
+                  <div className='grid grid-cols-2 gap-4'>
+                    <div>
+                      <Label>Member Email</Label>
+                      <Input
+                        type='email'
+                        value={member.email}
+                        onChange={(e) =>
+                          handleTeamMemberChange(index, "email", e.target.value)
+                        }
+                        placeholder="Enter team member's email"
+                      />
+                    </div>
+                    <div>
+                      <Label>Member Phone Number</Label>
+                      <Input
+                        type='text'
+                        value={member.phoneNumber}
+                        onChange={(e) =>
+                          handleTeamMemberChange(
+                            index,
+                            "phoneNumber",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter team member's phone number"
+                      />
+                    </div>
+                  </div>
+                </div>
               ))}
-            </ul>
-            <p>
-              <strong>Project Title:</strong> {formData.projectTitle}
-            </p>
-            <p>
-              <strong>Project Description:</strong>{" "}
-              {formData.projectDescription}
-            </p>
-            <p>
-              <strong>Tech Stack:</strong> {formData.techStack}
-            </p>
-            <p>
-              <strong>Project URL:</strong> {formData.projectUrl}
-            </p>
-          </div>
-        )}
+            </div>
+          )}
 
-        <div className="flex justify-between">
-          {currentStep > 0 && (
-            <Button
-              onClick={handlePrevious}
-              className="bg-[#00ADEF] text-white"
-            >
-              Previous
-            </Button>
+          {currentStep === 1 && (
+            <div className='mb-4 space-y-4'>
+              <div>
+                <Label htmlFor='projectTitle'>Project Title</Label>
+                <Input
+                  id='projectTitle'
+                  name='projectTitle'
+                  value={formData.projectTitle}
+                  onChange={handleChange}
+                  placeholder='Enter the project title'
+                />
+              </div>
+              <div>
+                <Label htmlFor='projectDescription'>Project Description</Label>
+                <Textarea
+                  id='projectDescription'
+                  name='projectDescription'
+                  value={formData.projectDescription}
+                  onChange={handleChange}
+                  placeholder='Enter the project description'
+                  rows={4}
+                />
+              </div>
+              <div>
+                <Label htmlFor='techStack'>Tech Stack</Label>
+                <Input
+                  id='techStack'
+                  name='techStack'
+                  value={formData.techStack}
+                  onChange={handleChange}
+                  placeholder='Enter the tech stack'
+                />
+              </div>
+              <div>
+                <Label htmlFor='projectUrl'>Project URL</Label>
+                <Input
+                  id='projectUrl'
+                  name='projectUrl'
+                  value={formData.projectUrl}
+                  onChange={handleChange}
+                  placeholder='Enter the project URL'
+                />
+              </div>
+            </div>
           )}
-          {currentStep < steps.length - 1 && (
-            <Button onClick={handleNext} className="bg-[#00ADEF] text-white">
-              Next
-            </Button>
+
+          {currentStep === 2 && (
+            <div className='mb-4 space-y-2'>
+              <h3 className='text-xl font-semibold mb-4'>
+                Confirm Your Information
+              </h3>
+              <p>
+                <strong>Team Leader Name:</strong> {formData.LeaderFirstName}{" "}
+                {formData.LeaderLastName}
+              </p>
+              <p>
+                <strong>Email:</strong> {formData.email}
+              </p>
+              <p>
+                <strong>Phone Number:</strong> {formData.phoneNumber}
+              </p>
+              <p>
+                <strong>Team Name:</strong> {formData.teamName}
+              </p>
+              <p>
+                <strong>Number of Members:</strong> {formData.numberOfMembers}
+              </p>
+              <p>
+                <strong>Team Members:</strong>
+              </p>
+              <ul className='list-disc list-inside'>
+                {formData.teamMembers.map((member, index) => (
+                  <li key={index}>
+                    {member.firstName} {member.lastName} - {member.email} -{" "}
+                    {member.phoneNumber}
+                  </li>
+                ))}
+              </ul>
+              <p>
+                <strong>Project Title:</strong> {formData.projectTitle}
+              </p>
+              <p>
+                <strong>Project Description:</strong>{" "}
+                {formData.projectDescription}
+              </p>
+              <p>
+                <strong>Tech Stack:</strong> {formData.techStack}
+              </p>
+              <p>
+                <strong>Project URL:</strong> {formData.projectUrl}
+              </p>
+            </div>
           )}
-          {currentStep === steps.length - 1 && (
-            <Button onClick={handleSubmit} className="bg-[#00ADEF] text-white">
-              Submit
-            </Button>
-          )}
-        </div>
+
+          <div className='flex justify-between'>
+            {currentStep > 0 && (
+              <Button type='button' onClick={handlePrevious} variant='outline'>
+                Previous
+              </Button>
+            )}
+            {currentStep < steps.length - 1 && (
+              <Button type='button' onClick={handleNext}>
+                Next
+              </Button>
+            )}
+            {currentStep === steps.length - 1 && (
+              <Button type='submit'>Submit</Button>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
