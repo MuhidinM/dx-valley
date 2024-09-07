@@ -30,9 +30,9 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  if (!homepageItems) {
-    return <SkeletonLoader />;
-  }
+  // if (!homepageItems) {
+  //   return <SkeletonLoader />;
+  // }
 
   return (
     <div>

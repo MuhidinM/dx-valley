@@ -117,7 +117,7 @@ export default function Videos({
                 <img
                   src={video.thumbnail}
                   alt={video.title}
-                  className={`w-full h-[45px] object-cover ${
+                  className={`w-full h-[45px] object-cover  dark:bg-gray-400 ${
                     index === currentVideoIndex ? "border-2 border-primary" : ""
                   }`}
                 />
