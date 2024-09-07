@@ -43,7 +43,7 @@ const HowWeWorkSection = ({works}:{works:CardNoLinkData[]}) => {
                   </div>
 
                   <div className='prose mt-5 mb-3 w-full text-left'>
-                    <div id='description_11 '>
+                    <div id='description_11 dark:text-gray-400'>
                       <ReactMarkdown
                         children={item.description}
                         remarkPlugins={[remarkGfm]}
