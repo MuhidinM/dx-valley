@@ -79,7 +79,7 @@ export default function Motto() {
             preserveAspectRatio="none"
           >
             <motion.path
-              d="M0,50 Q150,0 300,50"
+              d="M0,50 Q150,85 300,50"
               fill="none"
               stroke={colors.secondary}
               strokeWidth="4"

@@ -60,7 +60,8 @@ export function ProductsBeam({products}:{products:CardData[]}) {
           <Circle
             ref={div1Ref}
             onClick={() => setActiveTag(3)}
-            name={""}>
+            name={""}
+           >
             <Image
               src={`http://10.1.151.64:1337${products[3]?.img ?? ""}`}
               alt=''
@@ -150,8 +151,8 @@ export function ProductsBeam({products}:{products:CardData[]}) {
             {products[activeTag]?.title ?? ""}
           </h2>
           
-          <div className='prose mb-4'>
-            <ReactMarkdown children={products[activeTag]?.description ?? ""} remarkPlugins={[remarkGfm]} />
+          <div className='prose mb-4 '>
+            <ReactMarkdown children={products[activeTag]?.description ?? ""} remarkPlugins={[remarkGfm]}className={"prose dark:prose-invert"}/>
           </div>
         </div>
         <div className='flex gap-8'>
