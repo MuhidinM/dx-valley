@@ -282,9 +282,10 @@ model PersonalInfo {
 
 model DocumentInfo {
   id             Int       @id @default(autoincrement())
-  documentType   String // e.g., "Trade License", "Patent"
-  documentNumber String
-  issuedDate     DateTime
+  name   String 
+  documentNumber String?
+  path String
+  issuedDate     DateTime?
   expirationDate DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
