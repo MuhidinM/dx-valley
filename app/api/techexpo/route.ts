@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
+
 interface TeamMember {
   name: string;
   personalInfo: {
@@ -26,9 +27,28 @@ export async function POST(req: Request): Promise<NextResponse> {
       presentation,
       teamMembers,
       project,
+      haveATeam,
     } = await req.json();
 
-    // Create ContactInfo
+    // Check for duplicate ContactInfo for the main participant
+    const existingContactInfo = await prisma.contactInfo.findFirst({
+      where: {
+        OR: [
+          { email: expo.contactInfo.email },
+          { phoneNumberOne: expo.contactInfo.phoneNumberOne },
+        ],
+      },
+    });
+
+    if (existingContactInfo) {
+      return NextResponse.json(
+        {
+          error: `Team member with email ${expo.contactInfo.email} already exists`,
+        },
+        { status: 409 }
+      );
+    }
+
     const expoContactInfo = await prisma.contactInfo.create({
       data: {
         email: expo.contactInfo.email,
@@ -43,25 +63,36 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
 
-    const exposetup = await prisma.setupRequirements.create({
-      data: {
-        description: setup.setupRequirements,
-      },
-    });
+    let expopresentationId = null;
+    let exposetupId = null;
+    let expoprojectId = null;
 
-    const expopresentation = await prisma.presentation.create({
-      data: {
-        presentationTitle: presentation.presentationTitle,
-        presentationAbstract: presentation.presentationTitle,
-      },
-    });
-    const expoProject = await prisma.project.create({
-      data: {
-        projectTitle: project.productName,
-        projectDescription: project.productDescription,
-        websiteUrl: project.websiteUrl,
-      },
-    });
+    if (participantType === "Speaker") {
+      const expopresentation = await prisma.presentation.create({
+        data: {
+          presentationTitle: presentation.presentationTitle,
+          presentationAbstract: presentation.presentationAbstract,
+        },
+      });
+      expopresentationId = expopresentation.id;
+    }
+
+    if (participantType === "Exhibitor") {
+      const expoProject = await prisma.project.create({
+        data: {
+          projectTitle: project.productName,
+          projectDescription: project.productDescription,
+          websiteUrl: project.websiteUrl,
+        },
+      });
+      const exposetup = await prisma.setupRequirements.create({
+        data: {
+          description: setup.setupRequirements,
+        },
+      });
+      expoprojectId = expoProject.id;
+      exposetupId = exposetup.id;
+    }
 
     const newexpoParticipant = await prisma.expoParticipant.create({
       data: {
@@ -73,9 +104,10 @@ export async function POST(req: Request): Promise<NextResponse> {
           connect: { id: expoContactInfo.id },
         },
         personalInfoId: expopersonalInfo.id,
-        setupId: exposetup.id,
-        presentationId: expopresentation.id,
-        projectId: expoProject.id,
+        setupId: exposetupId,
+        presentationId: expopresentationId,
+        projectId: expoprojectId,
+        haveateam: haveATeam,
       },
       include: {
         contactInfo: true,
@@ -86,7 +118,26 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
 
+    // Check for duplicate team members
     const memberPromises = teamMembers.map(async (member: TeamMember) => {
+      const existingMemberContactInfo = await prisma.contactInfo.findFirst({
+        where: {
+          OR: [
+            { email: member.contactInfo.email },
+            { phoneNumberOne: member.contactInfo.phoneNumberOne },
+          ],
+        },
+      });
+
+      if (existingMemberContactInfo) {
+        return NextResponse.json(
+          {
+            error: `Team member with email ${member.contactInfo.email} already exists`,
+          },
+          { status: 409 }
+        );
+      }
+
       const memberContactInfo = await prisma.contactInfo.create({
         data: {
           email: member.contactInfo.email,
@@ -124,7 +175,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   } catch (error) {
     console.error("Error registering participant:", error);
     return NextResponse.json(
-      { error: "Failed to register participant" },
+      { error, message: "Failed to register participant" },
       { status: 500 }
     );
   }

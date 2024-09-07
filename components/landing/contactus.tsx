@@ -44,7 +44,7 @@ const ContactUs = ({address}:{address:Address}) => {
               Connect with Us
             </h1>
             <div className='mt-6 space-y-8 md:mt-8'>
-              <div className="prose">
+              <div className="prose dark:text-gray-400">
                 <ReactMarkdown children={address?.description?.toString()} remarkPlugins={[remarkGfm]} />
               </div>
               <p className='flex items-start -mx-2'>

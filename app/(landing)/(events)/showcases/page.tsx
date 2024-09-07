@@ -15,7 +15,7 @@ import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
 import { getImageUrl } from "@/lib/utils";
-import SkeletonLoader from "@/components/SkeletonLoader";
+// import SkeletonLoader from "@/components/SkeletonLoader";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
 
@@ -32,7 +32,7 @@ const Page = () => {
       console.log("showcases - log: ", showcaseItems);
     })
  if (!showcaseItems) {
-   return <SkeletonLoader />;
+  //  return <SkeletonLoader />;
  }
   return (
     <div className="flex items-center justify-center">
@@ -49,41 +49,56 @@ const Page = () => {
         <div className="grid grid-cols-3 gap-4">
           {
             showcaseItems.map((projects, idx) => {
-              return <Card className="w-full">
-                  <CardHeader key={idx}>
+              return (
+                <Card className='w-full h-[600px] flex flex-col justify-between'>
+                  <CardHeader key={idx} className=" h-[240px]">
                     <CardTitle>{projects.projectName}</CardTitle>
                     <CardDescription>
-                    <span className="text-orange-500 font-bold">{projects.projectName}</span> {projects.small_description}
+                      <span className='text-orange-500 font-bold'>
+                        {projects.projectName}
+                      </span>{" "}
+                      {projects.small_description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <Image src={`http://10.1.151.64:1337${projects.img_1}`} width={800} height={800} alt="incubation" />
-                    <div className="flex justify-between my-2">
-                      <div className="">
-                        <h3 className="font-bold">Founders</h3> 
-                        <ul className="text-gray-500">
-
-                          {projects.founders.map((founder, inx) => {
-                            return <li key={inx}>{founder.name}</li>
-                          })}
-
+                  <CardContent className="">
+                    <div className='relative w-full h-64'>
+                      {" "}
+                      {/* Set a fixed height for the image container */}
+                      <Image
+                        src={`http://10.1.151.64:1337${projects.img_1}`}
+                        layout='fill' /* Make the image fill the container */
+                        objectFit='cover' /* Ensure the image covers the entire container */
+                        alt='incubation'
+                      />
+                    </div>
+                    <div className='flex justify-between my-2'>
+                      <div>
+                        <h3 className='font-bold'>Founders</h3>
+                        <ul className='text-gray-500'>
+                          {projects.founders.map((founder, inx) => (
+                            <li key={inx}>{founder.name}</li>
+                          ))}
                         </ul>
                       </div>
-                      <div className="">
-                        <h3 className="font-bold">Co-Investors</h3>
-                        <ul className="text-gray-500">
-                          {projects.investors.map((investor, inx) => {
-                            return <li key={inx}>{investor.name}</li>
-                          })}
+                      <div>
+                        <h3 className='font-bold'>Co-Investors</h3>
+                        <ul className='text-gray-500'>
+                          {projects.investors.map((investor, inx) => (
+                            <li key={inx}>{investor.name}</li>
+                          ))}
                         </ul>
                       </div>
                     </div>
                   </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <div className=""></div>
-                    <Popup details={projects}/>
+                  <CardFooter className='w-full justify-between '>
+                    <div className="ml-auto">
+                      <Popup details={projects} />
+                    </div>
                   </CardFooter>
+
                 </Card>
+              );
+
             })
           }
         </div>

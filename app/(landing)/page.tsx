@@ -16,7 +16,7 @@ import { HomepageItemFetch } from "@/services/homepage";
 import News from "@/components/News";
 import EventsSider from "@/components/eventsSider";
 import Videos from "@/components/video";
-import SkeletonLoader from "@/components/SkeletonLoader";
+import {SkeletonLoader} from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);

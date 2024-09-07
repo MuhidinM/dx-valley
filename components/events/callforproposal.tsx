@@ -50,7 +50,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 md:mt-10 mb-20 mx-3'>
+    <div className='container w-2/3 my-16'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => (
           <div key={event.id}>
@@ -64,10 +64,10 @@ export default function Callforproposal() {
             <Card>
               <CardHeader className=' flex flex-row justify-between p-4  rounded-lg m-4 sm:m-4'>
                 <CardTitle className='text-3xl lg:text-3xl sm:text-lg'>
-                  Call for Proposal
+                  Call for Start Up Proposal
                 </CardTitle>
                 <div className='h-full align-middle'>
-                  <p className='text-2xl flex text-left text-red-500 m-0 leading-none'>
+                  <p className='text-2xl flex text-left text-red-500 font-mono leading-none'>
                     {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
@@ -79,7 +79,7 @@ export default function Callforproposal() {
                 </p>
 
                 <Button
-                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500'
+                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();

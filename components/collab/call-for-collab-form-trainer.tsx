@@ -1,98 +1,19 @@
-/** @format */
-
-// /** @format */
-
-// "use client";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// import { Button } from "@/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
-// import { toast } from "@/components/ui/use-toast";
-
-// const FormSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// });
-
-// export function InputForm() {
-//   const form = useForm<z.infer<typeof FormSchema>>({
-//     resolver: zodResolver(FormSchema),
-//     defaultValues: {
-//       username: "",
-//     },
-//   });
-
-//   function onSubmit(data: z.infer<typeof FormSchema>) {
-//     toast({
-//       title: "You submitted the following values:",
-//       description: (
-//         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-//           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-//         </pre>
-//       ),
-//     });
-//   }
-
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
-//         <FormField
-//           control={form.control}
-//           name='username'
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder='shadcn' {...field} />
-//               </FormControl>
-//               <FormDescription>
-//                 This is your public display name.
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type='submit'>Submit</Button>
-//       </form>
-//     </Form>
-//   );
-// }
-"use client";
-
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner'; // Import the toast function
+import { Toaster } from 'sonner'; // Ensure this is imported
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const expertiseOptions = [
   "Tech Sales",
@@ -111,213 +32,339 @@ const professionOptions = [
 ];
 
 const scheduleOptions = [
-  {
-    value: "2hr/week",
-    description: "Available for a commitment of 2 hours per week.",
-  },
-  {
-    value: "On Call",
-    description: "Available to respond as needed on an on-call basis.",
-  },
+  { value: "2hr/week", description: "Available for a commitment of 2 hours per week." },
+  { value: "On Call", description: "Available to respond as needed on an on-call basis." },
   { value: "Other", description: "Custom schedule arrangement." },
 ];
 
-const titleOptions = ["Dr", "Prof", "Mr", "Mrs", "Other"];
+const steps = [
+  { id: 'organization', title: 'Organization Info' },
+  { id: 'confirm', title: 'Confirm' },
+];
 
-const CollabForm = () => {
-  const [title, setTitle] = useState<string>("");
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneno, setPhoneno] = useState("");
-  const [expertise, setExpertise] = useState("");
-  const [profession, setProfession] = useState("");
-  const [schedule, setSchedule] = useState("");
-  const [description, setDescription] = useState("");
+const titleOptions = ["Mr", "Ms", "Dr", "Prof"];
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+type FormData = {
+  title: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumberOne: string;
+  expertise: string;
+  profession: string;
+  schedule: string;
+  motivation: string;
+  city: string;
+  state: string;
+  country: string;
+};
 
-    const response = await fetch("/api/collaboration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        fullname,
-        email,
-        phoneno,
-        expertise,
-        profession,
-        schedule,
-        description,
-      }),
-    });
+export default function TrainerRegistrationForm() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>({
+    title: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumberOne: '',
+    expertise: '',
+    profession: '',
+    schedule: '',
+    motivation: '',
+    country: '',
+    city: '',
+    state: '',
+  });
 
-    if (response.ok) {
-      alert("Submitted successfully!");
-      setTitle("");
-      setFullname("");
-      setEmail("");
-      setPhoneno("");
-      setExpertise("");
-      setProfession("");
-      setSchedule("");
-      setDescription("");
-    } else {
-      alert("Failed to submit");
+  const handleChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDropdownChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleSubmit = async () => {
+    if (!formData.firstName || !formData.email || !formData.phoneNumberOne) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/trainer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
+      } else {
+        toast.error("Registration failed", {
+          description: result?.message || "An error occurred during registration.",
+        });
+      }
+    } catch (error) {
+      console.error('Request error:', error);
+      toast.error("Registration failed", {
+        description: "An error occurred. Please try again later.",
+      });
     }
   };
 
   return (
-    <div
-      className="admin-event mx-8 flex w-3/4 justify-center p-6"
-      id="collab-form"
-    >
-      <Card className="w-auto items-center p-10">
+    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+      <Toaster position="top-right" richColors />
+      <Card className='w-full max-w-2xl'>
         <CardHeader>
-          <CardTitle className="flex-col justify-center items-center mb-10">
-            <span className="flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Trainer Registration Form
-            </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+          <CardTitle className='text-2xl font-bold text-center'>
+            Trainer Registration Form
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
-           </CardHeader>
+        </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 md:grid-cols-2 mb-4">
-              {/* Title Section */}
-              <div className="flex flex-col space-y-1.5 mb-4">
-                <Label>Title</Label>
-                <div className="flex flex-wrap gap-2">
-                  {titleOptions.map((option) => (
-                    <div key={option} className="flex items-center gap-2">
-                      <Checkbox
-                        id={option}
-                        checked={title === option}
-                        onChange={() => setTitle(option)}
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}>
+              {currentStep === 0 && (
+                <div className='space-y-4'>
+                  <div className='flex gap-4'>
+                  <div className='flex-1'>
+                        <Label htmlFor='firstName'>First Name</Label>
+                        <Input
+                          id='firstName'
+                          value={formData.firstName}
+                          onChange={(e) => handleChange('firstName', e.target.value)}
+                          placeholder='Enter first name'
+                        />
+                      </div>
+                    <div className='flex-1'>
+                      <Label htmlFor='lastName'>Last Name</Label>
+                      <Input
+                        id='lastName'
+                        value={formData.lastName}
+                        onChange={(e) => handleChange('lastName', e.target.value)}
+                        placeholder='Enter last name'
                       />
-                      <Label htmlFor={option}>{option}</Label>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='email'>Email</Label>
+                      <Input
+                        id='email'
+                        type='email'
+                        value={formData.email}
+                        onChange={(e) => handleChange('email', e.target.value)}
+                        placeholder='Enter your email'
+                      />
+                    </div>
+                    <div className='flex-1'>
+                      <Label htmlFor='phoneNumberOne'>Phone</Label>
+                      <Input
+                        id='phoneNumberOne'
+                        type='tel'
+                        value={formData.phoneNumberOne}
+                        onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
+                        placeholder='Enter your primary phone number'
+                      />
+                    </div>
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='profession'>Profession</Label>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant='outline' className='w-full text-left'>
+                            {formData.profession || 'Select Profession'}
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          {professionOptions.map((option) => (
+                            <DropdownMenuCheckboxItem
+                              key={option}
+                              onCheckedChange={() => handleDropdownChange('profession', option)}
+                            >
+                              {option}
+                            </DropdownMenuCheckboxItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+
+                    <div className='flex-1'>
+                      <Label htmlFor='schedule'>Schedule</Label>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant='outline' className='w-full text-left'>
+                            {formData.schedule || 'Select Schedule'}
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          {scheduleOptions.map(({ value, description }) => (
+                            <DropdownMenuCheckboxItem
+                              key={value}
+                              onCheckedChange={() => handleDropdownChange('schedule', value)}
+                            >
+                              {description}
+                            </DropdownMenuCheckboxItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </div>
+
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='expertise'>Expertise</Label>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant='outline' className='w-full text-left'>
+                            {formData.expertise || 'Select Expertise'}
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          {expertiseOptions.map((option) => (
+                            <DropdownMenuCheckboxItem
+                              key={option}
+                              onCheckedChange={() => handleDropdownChange('expertise', option)}
+                            >
+                              {option}
+                            </DropdownMenuCheckboxItem>
+                          ))}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+
+                    <div className='flex-1'>
+                      <Label htmlFor='country'>Country</Label>
+                      <Input
+                        id='country'
+                        value={formData.country}
+                        onChange={(e) => handleChange('country', e.target.value)}
+                        placeholder='Enter your country'
+                      />
+                    </div>
+                  </div>
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <Label htmlFor='state'>State</Label>
+                      <Input
+                        id='state'
+                        value={formData.state}
+                        onChange={(e) => handleChange('state', e.target.value)}
+                        placeholder='Enter your state'
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor='city'>City</Label>
+                      <Input
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) => handleChange('city', e.target.value)}
+                        placeholder='Enter your city'
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor='motivation'>Description</Label>
+                    <Textarea
+                      id='motivation'
+                      value={formData.motivation}
+                      onChange={(e) => handleChange('motivation', e.target.value)}
+                      placeholder='Enter a short bio or description about your organization'
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="fullname">Full Name</Label>
-                <Input
-                  type="text"
-                  id="fullname"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
+              {currentStep === 1 && (
+                <div className='space-y-2'>
+                  {/* Confirm Details */}
+                  <div className='text-sm'>
+                    <p className='p-3'>
+                      <strong>Title:</strong> {formData.title}
+                    </p>
+                    <p className='p-3'>
+                      <strong>First Name:</strong> {formData.firstName}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Last Name:</strong> {formData.lastName}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Email:</strong> {formData.email}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Phone Number:</strong> {formData.phoneNumberOne}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Country:</strong> {formData.country}
+                    </p>
+                    <p className='p-3'>
+                      <strong>State:</strong> {formData.state}
+                    </p>
+                    <p className='p-3'>
+                      <strong>City:</strong> {formData.city}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Expertise:</strong> {formData.expertise}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Profession:</strong> {formData.profession}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Schedule:</strong> {formData.schedule}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Description:</strong> {formData.motivation}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phoneno">Phone Number</Label>
-                <Input
-                  type="text"
-                  id="phoneno"
-                  value={phoneno}
-                  onChange={(e) => setPhoneno(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="expertise">Expertise</Label>
-                <Select value={expertise} onValueChange={setExpertise}>
-                  <SelectTrigger id="expertise">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {expertiseOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="profession">Profession</Label>
-                <Select value={profession} onValueChange={setProfession}>
-                  <SelectTrigger id="profession">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {professionOptions.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="schedule">Schedule</Label>
-                <Select value={schedule} onValueChange={setSchedule}>
-                  <SelectTrigger id="schedule">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    {scheduleOptions.map((option, index) => (
-                      <SelectItem
-                        key={index}
-                        value={option.value}
-                        title={option.description}
-                      >
-                        {option.value}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="flex flex-col space-y-1.5 md:col-span-2">
-                <Label htmlFor="description">Motivation</Label>
-                <Textarea
-                  placeholder="Why do you want to work with us?"
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                  className="w-full"
-                />
-              </div>
-            </div>
-            <div className="md:items-center md:justify-center">
-              <Button
-                type="submit"
-                className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500 mt-4"
-              >
-                Submit
+          <div className='flex justify-between mt-8'>
+            {currentStep > 0 && (
+              <Button variant='outline' onClick={handlePrevious}>
+                <ChevronLeft className='mr-2' /> Previous
               </Button>
-            </div>
-          </form>
+            )}
+            {currentStep < steps.length - 1 ? (
+              <Button onClick={handleNext}>
+                Next <ChevronRight className='ml-2' />
+              </Button>
+            ) : (
+              <Button onClick={handleSubmit}>
+                Submit <Check className='ml-2' />
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
     </div>
   );
-};
-
-export default CollabForm;
+}

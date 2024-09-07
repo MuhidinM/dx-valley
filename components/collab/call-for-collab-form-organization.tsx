@@ -1,26 +1,25 @@
 /** @format */
 
-"use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Textarea } from "../ui/textarea";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
 
 const steps = [
   { id: "organization", title: "Organization Info" },
-  { id: "contact-info", title: "Contact" },
+  { id: "contact", title: "Organization Info" },
   { id: "confirm", title: "Confirm" },
 ];
 
@@ -33,16 +32,52 @@ type FormData = {
   organizationName: string;
   industry: string;
   focusArea: string[];
-  interestedIn: string[];
-  tradeLicense: string;
+  interestedArea: string[];
   organizationType: string;
   city: string;
   state: string;
   country: string;
   email: string;
-  phone1: string;
-  phone2: string;
-  tradeLicenseUpload: File | null;
+  phoneNumberOne: string;
+  addressType: string;
+  tradeLicence: string;
+};
+
+const MultiSelectDropdown = ({
+  options,
+  selectedOptions,
+  onOptionChange,
+  placeholder,
+}: {
+  options: string[];
+  selectedOptions: string[];
+  onOptionChange: (option: string) => void;
+  placeholder: string;
+}) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant='outline' className='w-full justify-between'>
+          {selectedOptions.length > 0
+            ? selectedOptions.join(", ")
+            : placeholder}
+          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {options.map((option) => (
+          <DropdownMenuCheckboxItem
+            key={option}
+            checked={selectedOptions.includes(option)}
+            onCheckedChange={(checked) => {
+              if (checked) onOptionChange(option);
+            }}>
+            {option}
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 };
 
 export default function OrganizationRegistrationForm() {
@@ -51,16 +86,15 @@ export default function OrganizationRegistrationForm() {
     organizationName: "",
     industry: "",
     focusArea: [],
-    interestedIn: [],
-    tradeLicense: "",
+    interestedArea: [],
     organizationType: "",
     city: "",
     state: "",
     country: "",
     email: "",
-    phone1: "",
-    phone2: "",
-    tradeLicenseUpload: null,
+    phoneNumberOne: "",
+    addressType: "",
+    tradeLicence: "",
   });
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
@@ -72,7 +106,11 @@ export default function OrganizationRegistrationForm() {
     });
   };
 
-  const handleChange = (name: keyof FormData, value: string | File | null) => {
+  const handleChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDropdownChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -84,17 +122,34 @@ export default function OrganizationRegistrationForm() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleSubmit = () => {
-    console.log("Submitting form data", formData);
-    // Here you would typically send the data to your backend
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/organization", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success("Organization registered successfully!");
+      } else {
+        const errorData = await response.json();
+        toast.error("Failed to register organization.");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again later.");
+    }
   };
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
-      <Card className='w-full max-w-2xl'>
+      <Toaster position='top-right' richColors />
+      <Card className='w-full max-w-2xl min-w-[700px] '>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            {/* Tell us about your organization */}
             <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
@@ -104,7 +159,7 @@ export default function OrganizationRegistrationForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='mb-8'>
+          <div className='mb-8 '>
             <div className='flex justify-between items-center'>
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
@@ -142,69 +197,21 @@ export default function OrganizationRegistrationForm() {
               transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
                 <div className='space-y-4'>
-                  <div>
-                    <Label htmlFor='organization-name'>Organization Name</Label>
-                    <Input
-                      id='organization-name'
-                      value={formData.organizationName}
-                      onChange={(e) =>
-                        handleChange("organizationName", e.target.value)
-                      }
-                      placeholder='Enter your organization name'
-                    />
-                  </div>
-
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <div>
-                      <Label htmlFor='industry'>Industry</Label>
-                      <Select
-                        onValueChange={(value) =>
-                          handleChange("industry", value)
-                        }>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Select industry' />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {industryOptions.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor='organization-type'>
-                        Organization Type
+                  {/* Form fields */}
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='organizationName'>
+                        Organization Name
                       </Label>
-                      <Select
-                        onValueChange={(value) =>
-                          handleChange("organizationType", value)
-                        }>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Select organization type' />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {organizationTypeOptions.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Input
+                        id='organizationName'
+                        value={formData.organizationName}
+                        onChange={(e) =>
+                          handleChange("organizationName", e.target.value)
+                        }
+                        placeholder='Enter Organization name'
+                      />
                     </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor='trade-license'>Trade License</Label>
-                    <Input
-                      id='trade-license'
-                      value={formData.tradeLicense}
-                      onChange={(e) =>
-                        handleChange("tradeLicense", e.target.value)
-                      }
-                      placeholder='Enter your trade license number'
-                    />
                   </div>
 
                   <div>
@@ -217,22 +224,19 @@ export default function OrganizationRegistrationForm() {
                       placeholder='Enter your email'
                     />
                   </div>
-
                   <div>
-                    <Label htmlFor='phone1'>Phone</Label>
+                    <Label htmlFor='phoneNumberOne'>Phone</Label>
                     <Input
-                      id='phone1'
+                      id='phoneNumberOne'
                       type='tel'
-                      value={formData.phone1}
-                      onChange={(e) => handleChange("phone1", e.target.value)}
+                      value={formData.phoneNumberOne}
+                      onChange={(e) =>
+                        handleChange("phoneNumberOne", e.target.value)
+                      }
                       placeholder='Enter your primary phone number'
                     />
                   </div>
-                </div>
-              )}
 
-              {currentStep === 1 && (
-                <div className='space-y-4'>
                   <div>
                     <Label htmlFor='country'>Country</Label>
                     <Input
@@ -263,52 +267,106 @@ export default function OrganizationRegistrationForm() {
                       />
                     </div>
                   </div>
+                </div>
+              )}
 
-                  <div>
-                    <Label className='mb-2 block'>Focus Area</Label>
-                    <div className='grid grid-cols-2 gap-2'>
-                      {focusAreaOptions.map((option) => (
-                        <div
-                          key={option}
-                          className='flex items-center space-x-2'>
-                          <Checkbox
-                            id={`focus-${option}`}
-                            checked={formData.focusArea.includes(option)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                handleCheckboxChange("focusArea", option);
-                              } else {
-                                handleCheckboxChange("focusArea", option);
-                              }
-                            }}
-                          />
-                          <Label htmlFor={`focus-${option}`}>{option}</Label>
-                        </div>
-                      ))}
+              {currentStep === 1 && (
+                <div>
+                  <div className='flex flex-col gap-4'>
+                    <div className='flex gap-4'>
+                      <div className='flex-1'>
+                        <Label className='mb-2 block'>Focus Area</Label>
+                        <MultiSelectDropdown
+                          options={focusAreaOptions}
+                          selectedOptions={formData.focusArea}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("focusArea", option)
+                          }
+                          placeholder='Select focusArea'
+                        />
+                      </div>
+
+                      <div className='flex-1'>
+                        <Label className='mb-2 block'>Interest Area</Label>
+                        <MultiSelectDropdown
+                          options={interestOptions}
+                          selectedOptions={formData.interestedArea}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("interestedArea", option)
+                          }
+                          placeholder='Select Interest area'
+                        />
+                      </div>
                     </div>
-                  </div>
+                    <div className='flex gap-4'>
+                      <div className='flex-1'>
+                        <Label htmlFor='organizationType'>
+                          Organization Type
+                        </Label>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant='outline'
+                              className='w-full text-left'>
+                              {formData.organizationType || "Select "}
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            {organizationTypeOptions.map((option) => (
+                              <DropdownMenuCheckboxItem
+                                key={option}
+                                onCheckedChange={() =>
+                                  handleDropdownChange(
+                                    "organizationType",
+                                    option
+                                  )
+                                }>
+                                {option}
+                              </DropdownMenuCheckboxItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
 
-                  <div>
-                    <Label className='mb-2 block'>Interest Area</Label>
-                    <div className='grid grid-cols-2 gap-2'>
-                      {interestOptions.map((option) => (
-                        <div
-                          key={option}
-                          className='flex items-center space-x-2'>
-                          <Checkbox
-                            id={`interest-${option}`}
-                            checked={formData.interestedIn.includes(option)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                handleCheckboxChange("interestedIn", option);
-                              } else {
-                                handleCheckboxChange("interestedIn", option);
-                              }
-                            }}
-                          />
-                          <Label htmlFor={`interest-${option}`}>{option}</Label>
-                        </div>
-                      ))}
+                      <div className='flex-1'>
+                        <Label htmlFor='organizationType'>Industry</Label>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant='outline'
+                              className='w-full text-left'>
+                              {formData.industry || "Select "}
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            {industryOptions.map((option) => (
+                              <DropdownMenuCheckboxItem
+                                key={option}
+                                onCheckedChange={() =>
+                                  handleDropdownChange("industry", option)
+                                }>
+                                {option}
+                              </DropdownMenuCheckboxItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </div>
+                    <div>
+                      <Label htmlFor='tradeLicence'>Trade licence</Label>
+                      <Input
+                        id='tradeLicence'
+                        value={formData.tradeLicence}
+                        onChange={(e) =>
+                          handleChange("tradeLicence", e.target.value)
+                        }
+                        placeholder='Enter your trade license'
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor='organizationType'>Motivation</Label>
+                      <Textarea placeholder='can we know why you choose us?' />
                     </div>
                   </div>
                 </div>
@@ -316,45 +374,65 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 2 && (
                 <div className='space-y-2'>
-                  <h2 className='text-xl font-semibold mb-4'>
-                    Confirm Your Information
+                  <h2 className='text-xl font-semibold text-center'>
+                    Confirm Details
                   </h2>
-                  {Object.entries(formData).map(([key, value]) => (
-                    <p key={key} className='flex justify-between'>
-                      <span className='font-medium'>
-                        {key.charAt(0).toUpperCase() + key.slice(1)}:
-                      </span>
-                      <span>
-                        {Array.isArray(value)
-                          ? value.join(", ")
-                          : value?.toString() || "N/A"}
-                      </span>
+                  {/* Confirmation details */}
+                  <p className='text-sm text-center'>
+                    Please confirm that all your details are correct.
+                  </p>
+
+                  <div className='text-sm'>
+                    <p className='p-3'>
+                      <strong>Media Name:</strong> {formData.organizationName}
                     </p>
-                  ))}
+
+                    <p className='p-3'>
+                      <strong>Email:</strong> {formData.email}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Phone Number:</strong> {formData.phoneNumberOne}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Country:</strong> {formData.country}
+                    </p>
+                    <p className='p-3'>
+                      <strong>State:</strong> {formData.state}
+                    </p>
+                    <p className='p-3'>
+                      <strong>City:</strong> {formData.city}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Focus Areas:</strong>{" "}
+                      {formData.focusArea.join(", ")}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Interest Areas:</strong>{" "}
+                      {formData.interestedArea.join(", ")}
+                    </p>
+                  </div>
                 </div>
               )}
             </motion.div>
           </AnimatePresence>
 
           <div className='flex justify-between mt-8'>
-            <Button
-              variant='outline'
-              onClick={handlePrevious}
-              disabled={currentStep === 0}>
-              <ChevronLeft className='w-4 h-4 mr-2' />
-              Previous
-            </Button>
-            {currentStep < steps.length - 1 ? (
+            {currentStep > 0 && (
+              <Button variant='outline' onClick={handlePrevious}>
+                <ChevronLeft className='mr-2 h-4 w-4' />
+                Previous
+              </Button>
+            )}
+            {currentStep < steps.length - 1 && (
               <Button onClick={handleNext}>
                 Next
-                <ChevronRight className='w-4 h-4 ml-2' />
+                <ChevronRight className='ml-2 h-4 w-4' />
               </Button>
-            ) : (
-              <Button
-                className='bg-coopBlue hover:bg-coopBlueHover'
-                onClick={handleSubmit}>
+            )}
+            {currentStep === steps.length - 1 && (
+              <Button onClick={handleSubmit} className='w-24'>
                 Submit
-                <Check className='w-4 h-4 ml-2' />
+                <Check className='ml-2 h-4 w-4' />
               </Button>
             )}
           </div>

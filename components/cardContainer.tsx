@@ -26,10 +26,10 @@ export default function({update}:{update: UpdateData[]}){
                 <Image
                   src={`http://10.1.151.64:1337${card.img}`}
                   alt={card.title}
-                  width={400}
+                  width={100}
                   height={100}
-                  className='rounded-lg'
-                />
+                  className='rounded-lg w-full h-56'
+                />  
               </div>
               <CardTitle className="text-2xl font-bold">Our {card.title}</CardTitle>
               <CardDescription className="text-lg">
@@ -59,10 +59,10 @@ export default function({update}:{update: UpdateData[]}){
               }
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full">
+              <Button asChild className="w-full dark:bg-gray-800">
                 <a
                   href={card.link}
-                  className="inline-flex items-center justify-center"
+                  className="inline-flex items-center justify-center dark:text-gray-300"
                 >
                   Explore {card.title}
                   <ArrowRight className="ml-2 h-4 w-4" />

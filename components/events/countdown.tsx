@@ -71,14 +71,14 @@ const Countdown: React.FC<ContestCardProps> = ({
 
   const handleRegisterClick = () => {
     const eventId = event.id.toString();
-    let formRoute = "/register";
+    let formRoute = "/";
 
     switch (event.category) {
       case "contest":
-        formRoute = "/register/hackathon";
+        formRoute = "admin/register/hackathon";
         break;
       case "tech expo":
-        formRoute = "/register/techexpo";
+        formRoute = "admin/register/techexpo";
         break;
       case "call for proposal":
         formRoute = "/incubationform";
@@ -96,39 +96,39 @@ const Countdown: React.FC<ContestCardProps> = ({
   }
 
   return (
-    <div className='event-container'>
-   {   renderUI &&
-      <Card className='shadow-xl border-spacing-2 rounded-lg'>
-        <CardHeader>
-          <CardTitle>{event.name}</CardTitle>
-          <CardDescription>
-            <p>
-              Target Date: {new Date(event?.targetDate).toLocaleDateString()}
-            </p>
-          </CardDescription>
-          <p>{event?.description}</p>
-        </CardHeader>
-        <CardContent>
-          <div className='border p-4 rounded shadow'>
-            <p className='mt-4 text-lg text-red-500'>{timeLeft}</p>
-          </div>
-        </CardContent>
-        <CardFooter>
-          {!eventHasPassed && renderUI ? (
-            <Button
-              className='w-1/2 bg-coopBlue hover:bg-coopBlueHover '
-              onClick={handleRegisterClick}>
-              Register
-            </Button>
-          ) : (
-            <Button disabled className='w-1/2'>
-              {" "}
-              Register
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
-      }
+    <div className="event-container">
+      {renderUI && (
+        <Card className="shadow-xl border-spacing-2 rounded-lg">
+          <CardHeader>
+            <CardTitle>{event.name}</CardTitle>
+            <CardDescription>
+              <p>
+                Target Date: {new Date(event?.targetDate).toLocaleDateString()}
+              </p>
+            </CardDescription>
+            <p>{event?.description}</p>
+          </CardHeader>
+          <CardContent>
+            <div className="border p-4 rounded shadow">
+              <p className="mt-4 text-lg text-red-500">{timeLeft}</p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            {!eventHasPassed && renderUI ? (
+              <Button
+                className="w-full bg-coopBlue hover:bg-coopBlueHover "
+                onClick={handleRegisterClick}
+              >
+                Register
+              </Button>
+            ) : (
+              <Button disabled className="w-full">
+                Register
+              </Button>
+            )}
+          </CardFooter>
+        </Card>
+      )}
     </div>
   );
 };
