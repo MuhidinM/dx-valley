@@ -77,16 +77,7 @@ import { News, Videos } from "@/types/strapi-types";
 //   },
 // ];
 
-
-
-export default function News({
-  news,
-}: {
-  news: News[];
-}) {
-  
-
-
+export default function News({ news }: { news: News[] }) {
   return (
     <div className='relative right-0 w-full sm:w-96  space-y-4 mb-1'>
       <Card className='border-none shadow-none'>
@@ -97,11 +88,11 @@ export default function News({
           {news.map((item, index) => (
             <div key={index} className={index === 0 ? "mb-4" : "mb-2"}>
               <Link href={item.news_link} className='group' target='_blank'>
-                <div className='flex items-start space-x-2 '>
+                <div className='flex items-start space-x-2'>
                   <img
                     src={item.img_link}
                     alt={item.title}
-                    className={`object-contain rounded-sm ${
+                    className={`object-contain rounded-sm  dark:bg-gray-400 ${
                       index === 0 ? "w-12 h-12" : "w-10 h-10"
                     }`}
                   />

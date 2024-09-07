@@ -50,35 +50,36 @@ export function Menu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        {menuItems && menuItems.map((item, index) => (
-          <NavigationMenuItem key={index}>
-            <NavigationMenuTrigger>{item.trigger}</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-4">
-                  <NavigationMenuLink asChild>
-                    <a
-                      href={item.highlight.href}
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    >
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        {item.highlight.title}
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        {item.highlight.description}
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                {item.links.map((link, i) => (
-                  <ListItem key={i} href={link.href} title={link.title}>
-                    {link.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        ))}
+        {menuItems &&
+          menuItems.map((item, index) => (
+            <NavigationMenuItem key={index}>
+              <NavigationMenuTrigger>{item.trigger}</NavigationMenuTrigger>
+              
+              <NavigationMenuContent>
+                <ul className='grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
+                  <li className='row-span-4'>
+                    <NavigationMenuLink asChild>
+                      <a
+                        href={item.highlight.href}
+                        className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'>
+                        <div className='mb-2 mt-4 text-lg font-medium'>
+                          {item.highlight.title}
+                        </div>
+                        <p className='text-sm leading-tight text-muted-foreground'>
+                          {item.highlight.description}
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  {item.links.map((link, i) => (
+                    <ListItem key={i} href={link.href} title={link.title}>
+                      {link.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          ))}
       </NavigationMenuList>
     </NavigationMenu>
   );
