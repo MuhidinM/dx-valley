@@ -179,7 +179,8 @@ export default function InternshipForm() {
         <CardHeader>
           <CardTitle>Internship Application</CardTitle>
           <CardDescription>
-            Apply for an internship at our innovation company
+            Apply for an internship and be empowered by the mentorship and
+            support of the dynamic DX Valley family.
           </CardDescription>
         </CardHeader>
         <CardContent>
