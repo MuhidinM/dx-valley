@@ -174,92 +174,97 @@ export default function InternshipForm() {
   }
 
   return (
-   <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
-    
-    <Card className='w-full max-w-4xl mx-auto'>
-      <CardHeader>
-        <CardTitle>Internship Application</CardTitle>
-        <CardDescription>
-          Apply for an internship at our innovation company
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ProgressIndicator currentStep={step} />
-        <form onSubmit={handleSubmit} className='space-y-8'>
-          {step === 1 && (
-            <div className='space-y-4'>
-              <h3 className='text-xl font-semibold'>1. Personal Information</h3>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
+      <Card className='w-full max-w-4xl mx-auto'>
+        <CardHeader>
+          <CardTitle>Internship Application</CardTitle>
+          <CardDescription>
+            Apply for an internship at our innovation company
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ProgressIndicator currentStep={step} />
+          <form onSubmit={handleSubmit} className='space-y-8'>
+            {step === 1 && (
+              <div className='space-y-4'>
+                <h3 className='text-xl font-semibold'>
+                  1. Personal Information
+                </h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='fullName'>Full Name</Label>
+                    <Input
+                      id='fullName'
+                      name='fullName'
+                      placeholder='Enter your full name'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input
+                      id='email'
+                      name='email'
+                      type='email'
+                      placeholder='Enter your email'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='phone'>Phone Number</Label>
+                    <Input
+                      id='phone'
+                      name='phone'
+                      type='tel'
+                      placeholder='Enter your phone number'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='city'>City</Label>
+                    <Input
+                      id='city'
+                      name='city'
+                      placeholder='Enter your city'
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='gender'>Gender</Label>
+                    <Select name='gender'>
+                      <SelectTrigger id='gender'>
+                        <SelectValue placeholder='Select your gender' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='male'>Male</SelectItem>
+                        <SelectItem value='female'>Female</SelectItem>
+                        <SelectItem value='non-binary'>Non-binary</SelectItem>
+                        <SelectItem value='other'>Other</SelectItem>
+                        <SelectItem value='prefer-not-to-say'>
+                          Prefer not to say
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='fullName'>Full Name</Label>
-                  <Input
-                    id='fullName'
-                    name='fullName'
-                    placeholder='Enter your full name'
-                    required
+                  <Label htmlFor='aboutYourself'>Tell us about yourself</Label>
+                  <Textarea
+                    id='aboutYourself'
+                    name='aboutYourself'
+                    placeholder='Share a brief introduction about yourself, your background, and your career aspirations'
+                    rows={4}
                   />
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='email'>Email</Label>
-                  <Input
-                    id='email'
-                    name='email'
-                    type='email'
-                    placeholder='Enter your email'
-                    required
-                  />
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='phone'>Phone Number</Label>
-                  <Input
-                    id='phone'
-                    name='phone'
-                    type='tel'
-                    placeholder='Enter your phone number'
-                    required
-                  />
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='city'>City</Label>
-                  <Input id='city' name='city' placeholder='Enter your city' />
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='gender'>Gender</Label>
-                  <Select name='gender'>
-                    <SelectTrigger id='gender'>
-                      <SelectValue placeholder='Select your gender' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='male'>Male</SelectItem>
-                      <SelectItem value='female'>Female</SelectItem>
-                      <SelectItem value='non-binary'>Non-binary</SelectItem>
-                      <SelectItem value='other'>Other</SelectItem>
-                      <SelectItem value='prefer-not-to-say'>
-                        Prefer not to say
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
               </div>
-              <div className='space-y-2'>
-                <Label htmlFor='aboutYourself'>Tell us about yourself</Label>
-                <Textarea
-                  id='aboutYourself'
-                  name='aboutYourself'
-                  placeholder='Share a brief introduction about yourself, your background, and your career aspirations'
-                  rows={4}
-                />
-              </div>
-            </div>
-          )}
+            )}
 
-          {step === 2 && (
-            <div className='space-y-4'>
-              <h3 className='text-xl font-semibold'>2. Education</h3>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                <div className='space-y-2'>
+            {step === 2 && (
+              <div className='space-y-4'>
+                <h3 className='text-xl font-semibold'>2. Education</h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  {/* <div className='space-y-2'>
                   <Label htmlFor='educationLevel'>Education Level</Label>
-                  {/* <RadioGroup
+                  <RadioGroup
                     defaultValue='undergrad'
                     id='educationLevel'
                     name='educationLevel'>
@@ -271,259 +276,278 @@ export default function InternshipForm() {
                       <RadioGroupItem value='grad' id='grad' />
                       <Label htmlFor='grad'>Graduate</Label>
                     </div>
-                  </RadioGroup> */}
+                  </RadioGroup>
+                </div> */}
+                  <div className='space-y-2'>
+                    <Label htmlFor='university'>University</Label>
+                    <Input
+                      id='university'
+                      name='university'
+                      placeholder='Enter your university'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='department'>Department</Label>
+                    {/* <Select name='department'>
+                      <SelectTrigger id='department'>
+                        <SelectValue placeholder='Select department' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='software'>
+                          Software Development
+                        </SelectItem>
+                        <SelectItem value='data'>Data Science</SelectItem>
+                        <SelectItem value='design'>UX/UI Design</SelectItem>
+                        <SelectItem value='marketing'>
+                          Digital Marketing
+                        </SelectItem>
+                        <SelectItem value='business'>
+                          Business Development
+                        </SelectItem>
+                      </SelectContent>
+                    </Select> */}
+                    <Input
+                      id='department'
+                      name='department'
+                      placeholder='Enter your Department'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='major'>Major/Field of Study</Label>
+                    <Input
+                      id='major'
+                      name='major'
+                      placeholder='Enter your major'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='year'>Year of Study</Label>
+                    <Select name='year'>
+                      <SelectTrigger id='year'>
+                        <SelectValue placeholder='Select your year of study' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='1'>First Year</SelectItem>
+                        <SelectItem value='2'>Second Year</SelectItem>
+                        <SelectItem value='3'>Third Year</SelectItem>
+                        <SelectItem value='4'>Fourth Year</SelectItem>
+                        <SelectItem value='5'>Fifth Year or above</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='graduationDate'>
+                      Expected Graduation Date
+                    </Label>
+                    <Input
+                      id='graduationDate'
+                      name='graduationDate'
+                      type='month'
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className='space-y-4'>
+                <h3 className='text-xl font-semibold'>3. Internship Details</h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='internshipStart'>
+                      Internship Start Date
+                    </Label>
+                    <Input
+                      id='internshipStart'
+                      name='internshipStart'
+                      type='date'
+                      required
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='internshipEnd'>Internship End Date</Label>
+                    <Input
+                      id='internshipEnd'
+                      name='internshipEnd'
+                      type='date'
+                      required
+                    />
+                  </div>
                 </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='university'>University</Label>
-                  <Input
-                    id='university'
-                    name='university'
-                    placeholder='Enter your university'
-                    required
-                  />
+                  <Label>Tech Stack</Label>
+                  <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
+                    {techStackOptions.map((tech) => (
+                      <div key={tech} className='flex items-center space-x-2'>
+                        <Checkbox
+                          id={`tech-${tech}`}
+                          name='techStack'
+                          value={tech}
+                        />
+                        <Label htmlFor={`tech-${tech}`}>{tech}</Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='major'>Major/Field of Study</Label>
-                  <Input
-                    id='major'
-                    name='major'
-                    placeholder='Enter your major'
-                    required
-                  />
+                  <Label>Areas of Interest</Label>
+                  <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
+                    {interestAreaOptions.map((interest) => (
+                      <div
+                        key={interest}
+                        className='flex items-center space-x-2'>
+                        <Checkbox
+                          id={`interest-${interest}`}
+                          name='interestAreas'
+                          value={interest}
+                        />
+                        <Label htmlFor={`interest-${interest}`}>
+                          {interest}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='year'>Year of Study</Label>
-                  <Select name='year'>
-                    <SelectTrigger id='year'>
-                      <SelectValue placeholder='Select your year of study' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='1'>First Year</SelectItem>
-                      <SelectItem value='2'>Second Year</SelectItem>
-                      <SelectItem value='3'>Third Year</SelectItem>
-                      <SelectItem value='4'>Fourth Year</SelectItem>
-                      <SelectItem value='5'>Fifth Year or above</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='graduationDate'>
-                    Expected Graduation Date
+                  <Label htmlFor='otherInterests'>
+                    Other Areas of Interest
                   </Label>
                   <Input
-                    id='graduationDate'
-                    name='graduationDate'
-                    type='month'
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className='space-y-4'>
-              <h3 className='text-xl font-semibold'>3. Internship Details</h3>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                <div className='space-y-2'>
-                  <Label htmlFor='department'>Department</Label>
-                  <Select name='department'>
-                    <SelectTrigger id='department'>
-                      <SelectValue placeholder='Select department' />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='software'>
-                        Software Development
-                      </SelectItem>
-                      <SelectItem value='data'>Data Science</SelectItem>
-                      <SelectItem value='design'>UX/UI Design</SelectItem>
-                      <SelectItem value='marketing'>
-                        Digital Marketing
-                      </SelectItem>
-                      <SelectItem value='business'>
-                        Business Development
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='internshipStart'>Internship Start Date</Label>
-                  <Input
-                    id='internshipStart'
-                    name='internshipStart'
-                    type='date'
-                    required
+                    id='otherInterests'
+                    name='otherInterests'
+                    placeholder='Enter any other areas of interest not listed above'
                   />
                 </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='internshipEnd'>Internship End Date</Label>
-                  <Input
-                    id='internshipEnd'
-                    name='internshipEnd'
-                    type='date'
-                    required
+                  <Label htmlFor='project-idea'>Project Idea</Label>
+                  <Textarea
+                    id='project-idea'
+                    name='project-idea'
+                    placeholder="Describe a project idea you'd like to work on during your internship"
+                    rows={4}
                   />
                 </div>
               </div>
-              <div className='space-y-2'>
-                <Label>Tech Stack</Label>
-                <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
-                  {techStackOptions.map((tech) => (
-                    <div key={tech} className='flex items-center space-x-2'>
-                      <Checkbox
-                        id={`tech-${tech}`}
-                        name='techStack'
-                        value={tech}
-                      />
-                      <Label htmlFor={`tech-${tech}`}>{tech}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className='space-y-2'>
-                <Label>Areas of Interest</Label>
-                <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
-                  {interestAreaOptions.map((interest) => (
-                    <div key={interest} className='flex items-center space-x-2'>
-                      <Checkbox
-                        id={`interest-${interest}`}
-                        name='interestAreas'
-                        value={interest}
-                      />
-                      <Label htmlFor={`interest-${interest}`}>{interest}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className='space-y-2'>
-                <Label htmlFor='otherInterests'>Other Areas of Interest</Label>
-                <Input
-                  id='otherInterests'
-                  name='otherInterests'
-                  placeholder='Enter any other areas of interest not listed above'
-                />
-              </div>
-              <div className='space-y-2'>
-                <Label htmlFor='project-idea'>Project Idea</Label>
-                <Textarea
-                  id='project-idea'
-                  name='project-idea'
-                  placeholder="Describe a project idea you'd like to work on during your internship"
-                  rows={4}
-                />
-              </div>
-            </div>
-          )}
-
-          {step === 4 && (
-            <div className='space-y-4'>
-              <h3 className='text-xl font-semibold'>
-                4. Additional Information
-              </h3>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                <div className='space-y-2'>
-                  <Label htmlFor='portfolio'>Portfolio URL</Label>
-                  <Input
-                    id='portfolio'
-                    name='portfolio'
-                    type='url'
-                    placeholder='https://your-portfolio.com'
-                  />
-                </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='linkedin'>LinkedIn Profile URL</Label>
-                  <Input
-                    id='linkedin'
-                    name='linkedin'
-                    type='url'
-                    placeholder='https://www.linkedin.com/in/your-profile'
-                  />
-                </div>
-              </div>
-              <div className='space-y-2'>
-                <Label htmlFor='documents'>Upload Documents</Label>
-                <Input
-                  id='documents'
-                  name='documents'
-                  type='file'
-                  multiple
-                  onChange={handleFileChange}
-                  className='file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90'
-                />
-                {documents.length > 0 && (
-                  <ul className='mt-2 space-y-2'>
-                    {documents.map((doc, index) => (
-                      <li
-                        key={index}
-                        className='flex items-center justify-between p-2 bg-muted rounded-md'>
-                        <span className='text-sm text-muted-foreground truncate'>
-                          {doc.name}
-                        </span>
-                        <Button
-                          type='button'
-                          variant='ghost'
-                          size='icon'
-                          onClick={() => removeFile(index)}
-                          className='h-8 w-8'>
-                          <X className='h-4 w-4' />
-                          <span className='sr-only'>Remove file</span>
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          )}
-
-          <div className='flex justify-between'>
-            {step > 1 && (
-              <Button type='button' onClick={prevStep} variant='outline'>
-                Previous
-              </Button>
             )}
-            {step < 4 ? (
-              <Button type='button' onClick={nextStep} className='ml-auto'>
-                Next
-              </Button>
-            ) : (
-              <Button type='button' onClick={handleSubmit} className='ml-auto'>
-                {isSubmitting ? "Submitting..." : "Submit Application"}
-              </Button>
+
+            {step === 4 && (
+              <div className='space-y-4'>
+                <h3 className='text-xl font-semibold'>
+                  4. Additional Information
+                </h3>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='portfolio'>Portfolio URL</Label>
+                    <Input
+                      id='portfolio'
+                      name='portfolio'
+                      type='url'
+                      placeholder='https://your-portfolio.com'
+                    />
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='linkedin'>LinkedIn Profile URL</Label>
+                    <Input
+                      id='linkedin'
+                      name='linkedin'
+                      type='url'
+                      placeholder='https://www.linkedin.com/in/your-profile'
+                    />
+                  </div>
+                </div>
+                <div className='space-y-2'>
+                  <Label htmlFor='documents'>Upload Documents</Label>
+                  <Input
+                    id='documents'
+                    name='documents'
+                    type='file'
+                    multiple
+                    onChange={handleFileChange}
+                    className='file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90'
+                  />
+                  {documents.length > 0 && (
+                    <ul className='mt-2 space-y-2'>
+                      {documents.map((doc, index) => (
+                        <li
+                          key={index}
+                          className='flex items-center justify-between p-2 bg-muted rounded-md'>
+                          <span className='text-sm text-muted-foreground truncate'>
+                            {doc.name}
+                          </span>
+                          <Button
+                            type='button'
+                            variant='ghost'
+                            size='icon'
+                            onClick={() => removeFile(index)}
+                            className='h-8 w-8'>
+                            <X className='h-4 w-4' />
+                            <span className='sr-only'>Remove file</span>
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             )}
-          </div>
-        </form>
 
-        <Dialog open={isSubmitting} onOpenChange={setIsSubmitting}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Confirm Submission</DialogTitle>
-              <DialogDescription>
-                Are you sure you want to submit your application? Please review
-                all information before confirming.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <Button variant='outline' onClick={() => setIsSubmitting(false)}>
-                Cancel
-              </Button>
+            <div className='flex justify-between'>
+              {step > 1 && (
+                <Button type='button' onClick={prevStep} variant='outline'>
+                  Previous
+                </Button>
+              )}
+              {step < 4 ? (
+                <Button type='button' onClick={nextStep} className='ml-auto'>
+                  Next
+                </Button>
+              ) : (
+                <Button
+                  type='button'
+                  onClick={handleSubmit}
+                  className='ml-auto'>
+                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                </Button>
+              )}
+            </div>
+          </form>
 
-              <Button
-                onClick={() => {
-                  //   document.querySelector("form")?.requestSubmit();
-                  //   setIsSubmitting(false); // Reset isSubmitting state to false
-                  setIsSubmitted(true);
-                }}>
-                {!isSubmitting ? (
-                  <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                ) : null}
-                {!isSubmitting ? "Submitting..." : "Confirm Submission"}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </CardContent>
-    </Card>
-   </div>
+          <Dialog open={isSubmitting} onOpenChange={setIsSubmitting}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Confirm Submission</DialogTitle>
+                <DialogDescription>
+                  Are you sure you want to submit your application? Please
+                  review all information before confirming.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button
+                  variant='outline'
+                  onClick={() => setIsSubmitting(false)}>
+                  Cancel
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    //   document.querySelector("form")?.requestSubmit();
+                    //   setIsSubmitting(false); // Reset isSubmitting state to false
+                    setIsSubmitted(true);
+                  }}>
+                  {!isSubmitting ? (
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                  ) : null}
+                  {!isSubmitting ? "Submitting..." : "Confirm Submission"}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
