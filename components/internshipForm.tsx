@@ -510,7 +510,7 @@ export default function InternshipForm() {
                 <Button
                   type='button'
                   onClick={handleSubmit}
-                  className='ml-auto bg:coopBlue'>
+                  className='ml-auto bg-coopBlue'>
                   {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>
               )}
