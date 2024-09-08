@@ -21,7 +21,7 @@ const Footer = () => {
     });
     if (response.ok) {
       alert("Subscribed successfully!");
-      setEmail("");
+      setEmail(""); 
     } else {
       alert("Failed to subscribe!");
     }
@@ -67,6 +67,7 @@ const Footer = () => {
                             type='email'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
+                            className="text-black dark:text-white"
                           />
                         </div>
                         <div className='sm:ml-3'>

@@ -150,12 +150,14 @@ export function ProductsBeam({products}:{products:CardData[]}) {
           </div>
         </div>
         <div className='flex gap-8'>
-          <Link href={products[activeTag]?.link.href ?? "#"} target='_blank'>
-            <Button>
-              {" "}
-              Visit Site <ArrowRight />{" "}
-            </Button>
-          </Link>
+          {products[activeTag]?.link?.href && (
+            <Link href={products[activeTag].link.href} target='_blank'>
+              <Button>
+                Visit Site <ArrowRight />
+              </Button>
+            </Link>
+          )}
+
           {/* <Button variant='outline'>Read More</Button> */}
         </div>
       </div>
