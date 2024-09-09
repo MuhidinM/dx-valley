@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import CollabForm from "@/components/collab/call-for-collab-form-organization";
@@ -9,9 +11,8 @@ import React, { useState, useEffect } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
-
 import Image from "next/image";
-import {SkeletonLoaderCollabForm} from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -19,7 +20,7 @@ const Page = () => {
     const fetchOrgItems = async () => {
       const data = await OrgItemFetch();
       setOrgItems(data);
-    }; 
+    };
 
     fetchOrgItems();
   }, []);
@@ -27,9 +28,9 @@ const Page = () => {
   //   console.log("org items: ", orgItems);
   // });
 
-   if (!orgItems) {
-     return <SkeletonLoaderCollabForm />;
-   }
+  if (!orgItems) {
+    return <SkeletonLoaderCollabForm />;
+  }
   return (
     <div>
       <PageTitle />
@@ -80,7 +81,7 @@ const Page = () => {
       {/* <CollabObjectives /> */}
       <div id='collab-form'>
         {/* <CollabForm type='organization' /> */}
-        <CollabForm/>
+        <CollabForm />
       </div>
     </div>
   );

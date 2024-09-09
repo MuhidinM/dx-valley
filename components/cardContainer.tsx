@@ -59,10 +59,10 @@ export default function({update}:{update: UpdateData[]}){
               }
             </CardContent>
             <CardFooter>
-              <Button asChild className="w-full">
+              <Button asChild className="w-full dark:bg-gray-800">
                 <a
                   href={card.link}
-                  className="inline-flex items-center justify-center"
+                  className="inline-flex items-center justify-center dark:text-gray-300"
                 >
                   Explore {card.title}
                   <ArrowRight className="ml-2 h-4 w-4" />

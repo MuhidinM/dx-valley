@@ -50,7 +50,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div className='container w-2/3 my-16'>
+    <div className='container w-2/3 my-16 h-1/2'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => (
           <div key={event.id}>
@@ -91,8 +91,8 @@ export default function Callforproposal() {
             </Card>
           </div>
         ))
-      ) : !events.length ||  <div className='col-span-full text-center py-10'>
-          <p className='text-lg font-semibold'>No Call Available.</p>
+      ) :  <div className='col-span-full text-center py-10 min-h-full'>
+          <p className='text-lg font-semibold h-fit'>No Call Available.</p>
      
           </div>}
       

@@ -51,16 +51,16 @@ export function ProductsBeam({products}:{products:CardData[]}) {
   const div7Ref = useRef<HTMLDivElement>(null);
 
   return (
-
     <div
       className='relative rounded-lg border bg-background p-10 grid lg:grid-cols-2 gap-4 sm:grid-cols-1'
       ref={containerRef}>
-       <div className='flex  flex-col max-w-lg justify-between '>
+      <div className='flex  flex-col max-w-lg justify-between '>
         <div className='flex flex-row items-center justify-between'>
           <Circle
             ref={div1Ref}
             onClick={() => setActiveTag(3)}
-            name={""}>
+            name={""}
+            className='dark:bg-gray-200'>
             <Image
               src={`http://10.1.151.64:1337${products[3]?.img ?? ""}`}
               alt=''
@@ -68,29 +68,25 @@ export function ProductsBeam({products}:{products:CardData[]}) {
               height={100}
             />
           </Circle>
-          <Circle
-            ref={div5Ref}
-            onClick={() => setActiveTag(1)}
-            name={""}>
+          <Circle ref={div5Ref} onClick={() => setActiveTag(1)} name={""}>
             <Image
               src={`http://10.1.151.64:1337${products[1]?.img ?? ""}`}
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
 
         <div className='flex flex-row items-center justify-between'>
-          <Circle
-            ref={div2Ref}
-            onClick={() => setActiveTag(2)}
-            name={""}>
+          <Circle ref={div2Ref} onClick={() => setActiveTag(2)} name={""}>
             <Image
               src={`http://10.1.151.64:1337${products[2]?.img ?? ""}`}
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
           <Circle
@@ -103,65 +99,66 @@ export function ProductsBeam({products}:{products:CardData[]}) {
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
-          <Circle
-            ref={div6Ref}
-            onClick={() => setActiveTag(4)}
-            name={""}>
+          <Circle ref={div6Ref} onClick={() => setActiveTag(4)} name={""}>
             <Image
               src={`http://10.1.151.64:1337${products[4]?.img ?? ""}`}
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
 
         <div className='flex flex-row items-center justify-between'>
-          <Circle
-            ref={div3Ref}
-            onClick={() => setActiveTag(5)}
-            name={""}>
+          <Circle ref={div3Ref} onClick={() => setActiveTag(5)} name={""}>
             <Image
               src={`http://10.1.151.64:1337${products[5]?.img ?? ""}`}
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
-          <Circle
-            ref={div7Ref}
-            onClick={() => setActiveTag(6)}
-            name={""}>
+          <Circle ref={div7Ref} onClick={() => setActiveTag(6)} name={""}>
             <Image
               src={`http://10.1.151.64:1337${products[6]?.img ?? ""}`}
               alt=''
               width={100}
               height={100}
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
-      </div> 
+      </div>
 
       <div className='border-l-2 px-6 flex flex-col justify-between mt-10 md:mt-0'>
         <div>
           <h2 className='text-2xl font-bold mb-4'>
             {products[activeTag]?.title ?? ""}
           </h2>
-          
-          <div className='prose mb-4'>
-            <ReactMarkdown children={products[activeTag]?.description ?? ""} remarkPlugins={[remarkGfm]} />
+
+          <div className='prose mb-4 '>
+            <ReactMarkdown
+              children={products[activeTag]?.description ?? ""}
+              remarkPlugins={[remarkGfm]}
+              className={"prose dark:prose-invert"}
+            />
           </div>
         </div>
         <div className='flex gap-8'>
-          <Link href={products[activeTag]?.link.href ?? "#"} target="_blank">
-            <Button>
-              {" "}
-              Visit Site <ArrowRight />{" "}
-            </Button>
-          </Link>
-          <Button variant='outline'>Read More</Button>
+          {products[activeTag]?.link?.href && (
+            <Link href={products[activeTag].link.href} target='_blank'>
+              <Button>
+                Visit Site <ArrowRight />
+              </Button>
+            </Link>
+          )}
+
+          {/* <Button variant='outline'>Read More</Button> */}
         </div>
       </div>
 
