@@ -262,143 +262,153 @@ export default function ContestRegistrationForm() {
 
         <form onSubmit={handleSubmit}>
           {currentStep === 0 && (
-            <div className='mb-4 space-y-4'>
-              <div>
-                <Label htmlFor='LeaderFirstName'>Team Leader First Name</Label>
-                <Input
-                  id='LeaderFirstName'
-                  name='LeaderFirstName'
-                  value={formData.LeaderFirstName}
-                  onChange={handleChange}
-                  placeholder="Enter the team leader's first name"
-                />
-              </div>
-              <div>
-                <Label htmlFor='LeaderLastName'>Team Leader Last Name</Label>
-                <Input
-                  id='LeaderLastName'
-                  name='LeaderLastName'
-                  value={formData.LeaderLastName}
-                  onChange={handleChange}
-                  placeholder="Enter the team leader's last name"
-                />
-              </div>
-              <div>
-                <Label htmlFor='email'>Email</Label>
-                <Input
-                  id='email'
-                  name='email'
-                  type='email'
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder='Enter the email'
-                />
-              </div>
-              <div>
-                <Label htmlFor='phoneNumber'>Phone Number</Label>
-                <Input
-                  id='phoneNumber'
-                  name='phoneNumber'
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  placeholder='Enter the phone number'
-                />
-              </div>
-              <div>
-                <Label htmlFor='teamName'>Team Name</Label>
-                <Input
-                  id='teamName'
-                  name='teamName'
-                  value={formData.teamName}
-                  onChange={handleChange}
-                  placeholder='Enter the team name'
-                />
-              </div>
-              <div>
-                <Label htmlFor='numberOfMembers'>Number of Members</Label>
-                <Input
-                  id='numberOfMembers'
-                  type='number'
-                  name='numberOfMembers'
-                  value={formData.numberOfMembers}
-                  onChange={handleNumberOfMembersChange}
-                  min={1}
-                  max={10}
-                  placeholder='Enter the number of team members'
-                />
-              </div>
-              {formData.teamMembers.map((member, index) => (
-                <div key={index} className='space-y-4'>
-                  <h4 className='font-semibold'>Team Member {index + 1}</h4>
-                  <div className='grid grid-cols-2 gap-4'>
-                    <div>
-                      <Label>First Name</Label>
-                      <Input
-                        type='text'
-                        value={member.firstName}
-                        onChange={(e) =>
-                          handleTeamMemberChange(
-                            index,
-                            "firstName",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Enter team member's first name"
-                      />
-                    </div>
-                    <div>
-                      <Label>Last Name</Label>
-                      <Input
-                        type='text'
-                        value={member.lastName}
-                        onChange={(e) =>
-                          handleTeamMemberChange(
-                            index,
-                            "lastName",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Enter team member's last name"
-                      />
-                    </div>
-                  </div>
-                  <div className='grid grid-cols-2 gap-4'>
-                    <div>
-                      <Label>Member Email</Label>
-                      <Input
-                        type='email'
-                        value={member.email}
-                        onChange={(e) =>
-                          handleTeamMemberChange(index, "email", e.target.value)
-                        }
-                        placeholder="Enter team member's email"
-                      />
-                    </div>
-                    <div>
-                      <Label>Member Phone Number</Label>
-                      <Input
-                        type='text'
-                        value={member.phoneNumber}
-                        onChange={(e) =>
-                          handleTeamMemberChange(
-                            index,
-                            "phoneNumber",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Enter team member's phone number"
-                      />
-                    </div>
-                  </div>
+            <div className='space-y-4'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div>
+                  <Label htmlFor='LeaderFirstName'>
+                    Team Leader First Name
+                  </Label>
+                  <Input
+                    id='LeaderFirstName'
+                    name='LeaderFirstName'
+                    value={formData.LeaderFirstName}
+                    onChange={handleChange}
+                    placeholder="Enter the team leader's first name"
+                  />
                 </div>
-              ))}
+                <div>
+                  <Label htmlFor='LeaderLastName'>Team Leader Last Name</Label>
+                  <Input
+                    id='LeaderLastName'
+                    name='LeaderLastName'
+                    value={formData.LeaderLastName}
+                    onChange={handleChange}
+                    placeholder="Enter the team leader's last name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='email'>Email</Label>
+                  <Input
+                    id='email'
+                    name='email'
+                    type='email'
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder='Enter the email'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='phoneNumber'>Phone Number</Label>
+                  <Input
+                    id='phoneNumber'
+                    name='phoneNumber'
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    placeholder='Enter the phone number'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='teamName'>Team Name</Label>
+                  <Input
+                    id='teamName'
+                    name='teamName'
+                    value={formData.teamName}
+                    onChange={handleChange}
+                    placeholder='Enter the team name'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='numberOfMembers'>Number of Members</Label>
+                  <Input
+                    id='numberOfMembers'
+                    type='number'
+                    name='numberOfMembers'
+                    value={formData.numberOfMembers}
+                    onChange={handleNumberOfMembersChange}
+                    min={1}
+                    max={10}
+                    placeholder='Enter the number of team members'
+                  />
+                </div>
+                {formData.teamMembers.map((member, index) => (
+                  <div key={index} className='space-y-1'>
+                    <h4 className='font-semibold'>Team Member {index + 1}</h4>
+                    <div className='grid grid-cols-2 lg:grid-cols-1 gap-4'>
+                      <div>
+                        <Label>First Name</Label>
+                        <Input
+                          type='text'
+                          value={member.firstName}
+                          onChange={(e) =>
+                            handleTeamMemberChange(
+                              index,
+                              "firstName",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Enter team member's first name"
+                        />
+                      </div>
+                      <div>
+                        <Label>Last Name</Label>
+                        <Input
+                          type='text'
+                          value={member.lastName}
+                          onChange={(e) =>
+                            handleTeamMemberChange(
+                              index,
+                              "lastName",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Enter team member's last name"
+                        />
+                      </div>
+                    </div>
+                    <div className='grid grid-cols-2 gap-4'>
+                      <div>
+                        <Label>Member Email</Label>
+                        <Input
+                          type='email'
+                          value={member.email}
+                          onChange={(e) =>
+                            handleTeamMemberChange(
+                              index,
+                              "email",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Enter team member's email"
+                        />
+                      </div>
+                      <div>
+                        <Label>Member Phone Number</Label>
+                        <Input
+                          type='text'
+                          value={member.phoneNumber}
+                          onChange={(e) =>
+                            handleTeamMemberChange(
+                              index,
+                              "phoneNumber",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Enter team member's phone number"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
           {currentStep === 1 && (
-            <div className='mb-4 space-y-4'>
-              <div>
-                <Label htmlFor='projectTitle'>Project Title</Label>
+        
+
+            <div className='space-y-4'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div>  <Label htmlFor='projectTitle'>Project Title</Label>
                 <Input
                   id='projectTitle'
                   name='projectTitle'
@@ -439,6 +449,7 @@ export default function ContestRegistrationForm() {
                 />
               </div>
             </div>
+          </div>
           )}
 
           {currentStep === 2 && (

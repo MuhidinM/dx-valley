@@ -7,7 +7,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
-const LAUNCH_DATE = new Date("2024-09-14T00:00:00");
+const LAUNCH_DATE = new Date("2024-09-08T23:40:00");
 
 interface TimeLeft {
   days: number;
@@ -15,6 +15,7 @@ interface TimeLeft {
   minutes: number;
   seconds: number;
 }
+
 
 export default function ComingSoonModal() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -24,7 +25,7 @@ export default function ComingSoonModal() {
     const timer = setInterval(() => {
       setTimeLeft(getTimeLeft());
     }, 1000);
-
+console.log("timer", getTimeLeft());
     return () => clearInterval(timer);
   }, []);
 
@@ -37,11 +38,24 @@ export default function ComingSoonModal() {
       seconds: Math.floor((difference / 1000) % 60),
     };
   }
+ function timeFinsihed(): TimeLeft {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    };
+ }
 
+ if(timeFinsihed == getTimeLeft){
+
+  return null
+ }
   return (
-    <Dialog open={isOpen}
-    //  onOpenChange={setIsOpen}
-     >
+    <Dialog
+      open={isOpen}
+      //   onOpenChange={setIsOpen}
+    >
       <DialogContent className='sm:max-w-[800px] bg-white text-gray-800 overflow-hidden'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +75,8 @@ export default function ComingSoonModal() {
           </motion.h3>
 
           <p className='mb-6 text-[#00adef] text-xl'>
-            Stay tuned! We're launching on September 14, 2024
+            Stay tuned! 
+            {/* We're launching on September 14, 2024 */}
           </p>
 
           <div className='flex justify-center space-x-4 mb-8'>
