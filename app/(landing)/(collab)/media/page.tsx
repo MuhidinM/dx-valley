@@ -9,7 +9,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [mediaItems, setmediaItems] = useState<OrgData>();
@@ -24,7 +24,7 @@ const Page = () => {
   }, []);
 
  if (!mediaItems) {
-   return <SkeletonLoaderCollabForm />;
+   return <SkeletonPageColloab />;
  }
   
   return (
