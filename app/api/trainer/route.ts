@@ -21,11 +21,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     } = await req.json();
 
     // Validate required fields
-    if (
-      !firstName ||
-      !email ||
-      !phoneNumberOne
-    ) {
+    if (!firstName || !email || !phoneNumberOne) {
       return NextResponse.json(
         { message: "All required fields must be provided." },
         { status: 400 }
@@ -106,5 +102,25 @@ export async function POST(req: Request): Promise<NextResponse> {
       { message: "Error registering trainer", error },
       { status: 500 }
     );
+  }
+}
+
+export async function GET(): Promise<NextResponse> {
+  try {
+    const Trainers = await prisma.trainerInfo.findMany();
+    return NextResponse.json({ Trainers }, { status: 200 });
+  } catch (error: any) {
+    console.error(
+      "Error retrieving Trainers:",
+      error.message,
+      error.stack,
+      error.code
+    );
+    return NextResponse.json(
+      { message: "An error occurred while retrieving Trainers" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
   }
 }

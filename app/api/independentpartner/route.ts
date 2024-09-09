@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { NextResponse } from 'next/server';
+import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -25,7 +25,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     if (existingEmail) {
       return NextResponse.json(
-        { message: 'Email is already registered' },
+        { message: "Email is already registered" },
         { status: 400 }
       );
     }
@@ -36,11 +36,10 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     if (existingPhone) {
       return NextResponse.json(
-        { message: 'Phone is already registered' },
+        { message: "Phone is already registered" },
         { status: 400 }
       );
     }
-    
 
     // Create the PersonalInfo
     const personalInfo = await prisma.personalInfo.create({
@@ -73,21 +72,41 @@ export async function POST(req: Request): Promise<NextResponse> {
     // Finally, create the IndependentPartnerInfo
     const independentPartner = await prisma.independentPartnerInfo.create({
       data: {
-        focusArea: focusArea.join(', '), // Ensure it's an array before calling join
-        interestArea: interestArea.join(', '), // Ensure it's an array before calling join
+        focusArea: focusArea.join(", "), // Ensure it's an array before calling join
+        interestArea: interestArea.join(", "), // Ensure it's an array before calling join
         personalInfo: { connect: { id: personalInfo.id } },
       },
     });
 
     return NextResponse.json(
-      { message: 'Partner registered successfully' },
+      { message: "Partner registered successfully" },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error saving data:', error);
+    console.error("Error saving data:", error);
     return NextResponse.json(
-      { message: 'Error registering partner', error },
+      { message: "Error registering partner", error },
       { status: 500 }
     );
+  }
+}
+
+export async function GET(): Promise<NextResponse> {
+  try {
+    const independentPartner = await prisma.independentPartnerInfo.findMany();
+    return NextResponse.json({ independentPartner }, { status: 200 });
+  } catch (error: any) {
+    console.error(
+      "Error retrieving independentPartner:",
+      error.message,
+      error.stack,
+      error.code
+    );
+    return NextResponse.json(
+      { message: "An error occurred while retrieving independentPartner" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
   }
 }

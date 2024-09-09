@@ -28,3 +28,23 @@ export async function POST(req: Request): Promise<NextResponse> {
     await prisma.$disconnect();
   }
 }
+
+export async function GET(): Promise<NextResponse> {
+  try {
+    const subscribers = await prisma.subscriber.findMany();
+    return NextResponse.json({ subscribers }, { status: 200 });
+  } catch (error: any) {
+    console.error(
+      "Error retrieving subscribers:",
+      error.message,
+      error.stack,
+      error.code
+    );
+    return NextResponse.json(
+      { message: "An error occurred while retrieving subscribers" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
