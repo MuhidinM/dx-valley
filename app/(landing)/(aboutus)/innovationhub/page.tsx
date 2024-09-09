@@ -14,6 +14,7 @@ import { InnovationItemFetch } from "@/services/innovation";
 import { Address, InnovationData } from "@/types/strapi-types";
 import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
+import classNames from "classnames";
 
 
 const Page = () => {
@@ -59,17 +60,25 @@ const Page = () => {
       <HowWeWorkSection works={innovationItems?.howeworks || []} />
       <SlidingCompanies companies={innovationItems?.companies || []} />
 
-      <Header />
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-3 gap-4 p-10'>
         {innovationItems?.gallery.map((item, indx) => {
           return (
             <Card
               key={indx}
-              svg={""}
+              svg={
+                <Image
+                  src={"/image/companies/payroll.png"}
+                  alt='Image Left Not Found'
+                  width={400}
+                  height={400}                
+                
+                />
+              }
               title={item.title}
               buttonText={"Visit Site"}
               description={item.description}
               href={" "}
+              
             />
           );
         })}

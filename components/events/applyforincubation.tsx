@@ -431,8 +431,10 @@ const ApplyForIncubation = () => {
                 className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
+
                 }}
               ></div>
+
             </div>
           </div>
           <form onSubmit={handleSubmit}>
