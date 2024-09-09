@@ -5,72 +5,27 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { News } from "@/types/strapi-types";
 
-// Define a type for the news article data
-interface NewsArticle {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  date: string;
-}
+// Example usage of the `News` interface
 
-// Mock data for news articles
-const newsArticles: NewsArticle[] = [
-  {
-    id: 1,
-    title: "New AI Breakthrough in Natural Language Processing",
-    description:
-      "Researchers have developed a new AI model that can understand and generate human-like text with unprecedented accuracy, potentially revolutionizing how we interact with machines.",
-    image: "/placeholder.svg?height=200&width=300",
-    date: "2023-06-15",
-  },
-  {
-    id: 2,
-    title: "SpaceX Successfully Launches 60 More Starlink Satellites",
-    description:
-      "SpaceX has successfully launched another batch of 60 Starlink satellites, bringing the total number of satellites in orbit to over 1,500 as part of its plan to provide global internet coverage.",
-    image: "/placeholder.svg?height=200&width=300",
-    date: "2023-06-14",
-  },
-  {
-    id: 3,
-    title: "Global Efforts to Combat Climate Change Intensify",
-    description:
-      "World leaders have agreed to more ambitious targets to reduce carbon emissions following a landmark summit, signaling a renewed commitment to addressing the climate crisis.",
-    image: "/placeholder.svg?height=200&width=300",
-    date: "2023-06-13",
-  },
-  {
-    id: 4,
-    title: "Breakthrough in Quantum Computing Achieved",
-    description:
-      "Scientists have made a significant breakthrough in quantum computing, demonstrating a new method that could lead to more stable and powerful quantum computers in the near future.",
-    image: "/placeholder.svg?height=200&width=300",
-    date: "2023-06-12",
-  },
-  {
-    id: 5,
-    title: "New Cancer Treatment Shows Promising Results in Clinical Trials",
-    description:
-      "A novel immunotherapy treatment for advanced-stage cancer has shown remarkable results in early clinical trials, offering hope for patients with previously untreatable forms of the disease.",
-    image: "/placeholder.svg?height=200&width=300",
-    date: "2023-06-11",
-  },
-];
 
-export default function NewsPage() {
-  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(
-    null
-  );
+export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) {
+  const [selectedArticle, setSelectedArticle] = useState<News | null>(null);
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false); // Track hover state
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  const handleArticleClick = (article: NewsArticle) => {
+  // if (!newsArticles || newsArticles.length === 0) {
+  //   return <p>No news articles available.</p>;
+  // }
+
+  const handleArticleClick = (article: News) => {
     setSelectedArticle(article);
     setSliderIndex(0);
   };
+
+  console.log("newArticles", newsArticles);
 
   const handleCloseArticle = () => {
     setSelectedArticle(null);
@@ -142,12 +97,12 @@ export default function NewsPage() {
             <CardHeader>
               <CardTitle>{selectedArticle.title}</CardTitle>
               <p className='text-sm text-muted-foreground'>
-                {selectedArticle.date}
+                {new Date(selectedArticle.date).toLocaleDateString()}
               </p>
             </CardHeader>
             <CardContent>
               <img
-                src={selectedArticle.image}
+                src={selectedArticle.img_link}
                 alt={selectedArticle.title}
                 className='w-full h-64 object-cover rounded-md mb-4'
               />
@@ -163,13 +118,13 @@ export default function NewsPage() {
               style={{ transform: `translateX(-${sliderIndex * 33.33}%)` }}>
               {newsArticles.concat(newsArticles).map((article, index) => (
                 <div
-                  key={`${article.id}-${index}`}
+                  key={`${article.title}-${index}`}
                   className='w-1/3 flex-shrink-0 px-2 cursor-pointer'
                   onClick={() => handleArticleClick(article)}>
                   <Card className='h-full hover:shadow-lg transition-shadow duration-300'>
                     <CardContent className='p-4'>
                       <img
-                        src={article.image}
+                        src={article.img_link}
                         alt={article.title}
                         className='w-full h-24 object-cover rounded-md mb-2'
                       />
@@ -177,7 +132,7 @@ export default function NewsPage() {
                         {article.title}
                       </h3>
                       <p className='text-xs text-muted-foreground mt-1'>
-                        {article.date}
+                        {new Date(article.date).toLocaleDateString()}
                       </p>
                     </CardContent>
                   </Card>
@@ -203,16 +158,18 @@ export default function NewsPage() {
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {newsArticles.map((article) => (
             <Card
-              key={article.id}
+              key={article.title}
               className='cursor-pointer hover:shadow-lg transition-shadow duration-300'
               onClick={() => handleArticleClick(article)}>
               <CardHeader>
                 <CardTitle className='text-lg'>{article.title}</CardTitle>
-                <p className='text-sm text-muted-foreground'>{article.date}</p>
+                <p className='text-sm text-muted-foreground'>
+                  {new Date(article.date).toLocaleDateString()}
+                </p>
               </CardHeader>
               <CardContent>
                 <img
-                  src={article.image}
+                  src={article.img_link}
                   alt={article.title}
                   className='w-full h-48 object-cover rounded-md'
                 />

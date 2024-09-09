@@ -18,6 +18,7 @@ import EventsSider from "@/components/eventsSider";
 import Videos from "@/components/video";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
+import AllNewsPage from "@/components/viewAllNews";
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -54,6 +55,7 @@ const Page = () => {
             </div>
             <div className='mt-auto'>
               <News news={homepageItems?.news || []} />
+          
             </div>
           </div>
         </div>
