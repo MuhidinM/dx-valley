@@ -432,7 +432,9 @@ const ApplyForIncubation = () => {
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
                 }}
-              ></div>
+              >
+                  
+                </div>
             </div>
           </div>
           <form onSubmit={handleSubmit}>
