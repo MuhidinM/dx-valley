@@ -1,37 +1,71 @@
-'use client'
+"use client";
 
-import { useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { CheckCircle2, Plus, X, Loader2 } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import Confetti from 'react-confetti'
-import SubmissionSuccess from '../submissionSuccess'
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { CheckCircle2, Plus, X, Loader2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Confetti from "react-confetti";
+import SubmissionSuccess from "../submissionSuccess";
 import { ChangeEvent, FormEvent, MouseEvent } from "react";
+import { string } from "zod";
 
 const steps = [
-  { id: 'startup', title: 'Startup Info' },
-  { id: 'founder', title: 'Founder Info' },
-  { id: 'idea', title: 'Your Idea' },
-]
+  { id: "startup", title: "Startup Info" },
+  { id: "founder", title: "Founder Info" },
+  { id: "idea", title: "Your Idea" },
+];
 
 const startupNameSuggestions = [
-  "TechNova", "InnoVenture", "FuturePulse", "QuantumLeap", "NexusWave",
-  "ZenithSpark", "PixelPioneer", "EcoSphere", "CyberForge", "BioSync"
-]
+  "TechNova",
+  "InnoVenture",
+  "FuturePulse",
+  "QuantumLeap",
+  "NexusWave",
+  "ZenithSpark",
+  "PixelPioneer",
+  "EcoSphere",
+  "CyberForge",
+  "BioSync",
+];
 
 type FileType = "video" | "document";
 
+interface Founder {
+  firstName: string;
+  lastName: string;
+}
 interface FormData {
   startupName: string;
   stage: string;
-  founderNames: string[];
+  founderNames: Founder[];
   email: string;
   phone: string;
   idea: string;
@@ -39,10 +73,15 @@ interface FormData {
   documents: File[];
 }
 
+interface FounderErrors {
+  firstName?: string;
+  lastName?: string;
+}
+
 interface Errors {
   startupName?: string;
   stage?: string;
-  founderNames?: string;
+  founderNames?: FounderErrors[];
   email?: string;
   phone?: string;
   idea?: string;
@@ -50,14 +89,12 @@ interface Errors {
   documents?: string;
 }
 
-
-
 const ApplyForIncubation = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
     startupName: "",
     stage: "",
-    founderNames: [""],
+    founderNames: [{ firstName: "", lastName: "" }],
     email: "",
     phone: "",
     idea: "",
@@ -72,19 +109,52 @@ const ApplyForIncubation = () => {
   const videoInputRef = useRef<HTMLInputElement | null>(null);
   const documentInputRef = useRef<HTMLInputElement | null>(null);
 
+  // const handleChange = (
+  //   name: keyof FormData,
+  //   value: string,
+  //   index: number | null = null
+  // ) => {
+  //   if (index !== null) {
+  //     const newFounderNames = [...formData.founderNames];
+  //     newFounderNames[index] = value;
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       founderNames: newFounderNames,
+  //     }));
+  //   } else {
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       [name]: value,
+  //     }));
+  //   }
+  // };
+
+  // const handleAddFounder = () => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     founderNames: [...prevState.founderNames, ""],
+  //   }));
+  // };
+
   const handleChange = (
-    name: keyof FormData,
+    name: keyof FormData, // Keep 'name' as a key of FormData
     value: string,
-    index: number | null = null
+    index: number | null = null, // Index for handling founderNames
+    subField: keyof Founder | null = null // Subfield for firstName/lastName within founderNames
   ) => {
-    if (index !== null) {
+    if (name === "founderNames" && index !== null && subField !== null) {
+      // Handle change for founder firstName or lastName
       const newFounderNames = [...formData.founderNames];
-      newFounderNames[index] = value;
+      newFounderNames[index] = {
+        ...newFounderNames[index],
+        [subField]: value,
+      };
       setFormData((prevState) => ({
         ...prevState,
         founderNames: newFounderNames,
       }));
     } else {
+      // Handle change for other fields in FormData
       setFormData((prevState) => ({
         ...prevState,
         [name]: value,
@@ -93,18 +163,25 @@ const ApplyForIncubation = () => {
   };
 
   const handleAddFounder = () => {
-    setFormData((prevState) => ({
-      ...prevState,
-      founderNames: [...prevState.founderNames, ""],
-    }));
+    setFormData({
+      ...formData,
+      founderNames: [...formData.founderNames, { firstName: "", lastName: "" }],
+    });
   };
 
+  // const handleRemoveFounder = (index: number) => {
+  //   const newFounderNames = formData.founderNames.filter((_, i) => i !== index);
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     founderNames: newFounderNames,
+  //   }));
+  // };
   const handleRemoveFounder = (index: number) => {
-    const newFounderNames = formData.founderNames.filter((_, i) => i !== index);
-    setFormData((prevState) => ({
-      ...prevState,
-      founderNames: newFounderNames,
-    }));
+    const updatedFounders = formData.founderNames.filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      founderNames: updatedFounders,
+    });
   };
 
   const handleFileChange = (
@@ -150,27 +227,78 @@ const ApplyForIncubation = () => {
     }));
   };
 
+  // const validateStep = (step: number): Errors => {
+  //   let stepErrors: Errors = {};
+  //   switch (step) {
+  //     case 0:
+  //       if (!formData.startupName.trim())
+  //         stepErrors.startupName = "Startup name is required";
+  //       if (!formData.stage) stepErrors.stage = "Current stage is required";
+  //       break;
+  //     case 1:
+  //       if (formData.founderNames.some((name) => !name.trim()))
+  //         stepErrors.founderNames = "All founder names are required";
+  //       if (!formData.email.trim()) stepErrors.email = "Email is required";
+  //       else if (!/\S+@\S+\.\S+/.test(formData.email))
+  //         stepErrors.email = "Email is invalid";
+  //       if (!formData.phone.trim())
+  //         stepErrors.phone = "Phone number is required";
+  //       break;
+  //     case 2:
+  //       if (!formData.idea.trim()) stepErrors.idea = "Startup idea is required";
+  //       break;
+  //   }
+  //   return stepErrors;
+  // };
   const validateStep = (step: number): Errors => {
     let stepErrors: Errors = {};
+
     switch (step) {
       case 0:
-        if (!formData.startupName.trim())
+        if (!formData.startupName.trim()) {
           stepErrors.startupName = "Startup name is required";
-        if (!formData.stage) stepErrors.stage = "Current stage is required";
+        }
+        if (!formData.stage) {
+          stepErrors.stage = "Current stage is required";
+        }
         break;
+
       case 1:
-        if (formData.founderNames.some((name) => !name.trim()))
-          stepErrors.founderNames = "All founder names are required";
-        if (!formData.email.trim()) stepErrors.email = "Email is required";
-        else if (!/\S+@\S+\.\S+/.test(formData.email))
+        const founderErrors: FounderErrors[] = formData.founderNames.map(
+          (founder) => {
+            let errors: FounderErrors = {};
+            if (!founder.firstName.trim()) {
+              errors.firstName = "First name is required";
+            }
+            if (!founder.lastName.trim()) {
+              errors.lastName = "Last name is required";
+            }
+            return errors;
+          }
+        );
+
+        if (founderErrors.some((err) => Object.keys(err).length > 0)) {
+          stepErrors.founderNames = founderErrors;
+        }
+
+        if (!formData.email.trim()) {
+          stepErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
           stepErrors.email = "Email is invalid";
-        if (!formData.phone.trim())
+        }
+
+        if (!formData.phone.trim()) {
           stepErrors.phone = "Phone number is required";
+        }
         break;
+
       case 2:
-        if (!formData.idea.trim()) stepErrors.idea = "Startup idea is required";
+        if (!formData.idea.trim()) {
+          stepErrors.idea = "Startup idea is required";
+        }
         break;
     }
+
     return stepErrors;
   };
 
@@ -188,14 +316,50 @@ const ApplyForIncubation = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const stepErrors = validateStep(currentStep);
+  //   if (Object.keys(stepErrors).length > 0) {
+  //     setErrors(stepErrors);
+  //     return;
+  //   }
+  //   setShowConfirmDialog(true);
+  // };
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const stepErrors = validateStep(currentStep);
-    if (Object.keys(stepErrors).length > 0) {
-      setErrors(stepErrors);
-      return;
+
+    const formValues = new FormData();
+    formValues.append("startupName", formData.startupName);
+    formValues.append("stage", formData.stage);
+    formValues.append("email", formData.email);
+    formValues.append("phone", formData.phone);
+
+    formData.founderNames.forEach((member, index) => {
+      formValues.append(`founderNames[${index}][firstName]`, member.firstName);
+      formValues.append(`founderNames[${index}][lastName]`, member.lastName);
+    });
+
+    formValues.append("idea", formData.idea);
+
+    if (formData.video) {
+      formValues.append("video", formData.video);
     }
-    setShowConfirmDialog(true);
+
+    formData.documents.forEach((doc, index) => {
+      formValues.append(`documents[${index}]`, doc);
+    });
+
+    try {
+      const response = await fetch("/api/callforproposal", {
+        method: "POST",
+        body: formValues, // No need to set Content-Type, the browser does it automatically
+      });
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
   };
 
   const confirmSubmit = async () => {
@@ -220,12 +384,12 @@ const ApplyForIncubation = () => {
 
   if (submitSuccess) {
     return (
-      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
+      <div className=" bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 ">
         <div>
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-            icon={<CheckCircle2 className='w-8 h-8 text-coopOrange' />}
+            icon={<CheckCircle2 className="w-8 h-8 text-coopOrange" />}
             desc={" Good luck! Stay tuned for our email."}
           />
         </div>
@@ -234,10 +398,10 @@ const ApplyForIncubation = () => {
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
-      <Card className='max-w-2xl mx-auto'>
-        <CardHeader className='space-y-1'>
-          <CardTitle className='text-2xl font-bold'>
+    <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2">
+      <Card className="max-w-2xl mx-auto">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold">
             Apply for Startup Incubation
           </CardTitle>
           <CardDescription>
@@ -245,234 +409,299 @@ const ApplyForIncubation = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='mb-8'>
-            <div className='flex justify-between'>
+          <div className="mb-8">
+            <div className="flex justify-between">
               {steps.map((step, index) => (
-                <div key={step.id} className='flex flex-col items-center'>
+                <div key={step.id} className="flex flex-col items-center">
                   <div
                     className={`rounded-full h-8 w-8 flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-[#00adef] text-white"
                         : "bg-gray-200 text-gray-600"
-                    }`}>
+                    }`}
+                  >
                     {index + 1}
                   </div>
-                  <div className='text-xs mt-2'>{step.title}</div>
+                  <div className="text-xs mt-2">{step.title}</div>
                 </div>
               ))}
             </div>
-            <div className='mt-4 h-2 bg-gray-200 rounded-full'>
+            <div className="mt-4 h-2 bg-gray-200 rounded-full">
               <div
-                className='h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out'
+                className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}></div>
+                }}
+              ></div>
             </div>
           </div>
           <form onSubmit={handleSubmit}>
             {currentStep === 0 && (
-              <div className='space-y-4'>
-                <div className='space-y-2'>
-                  <Label htmlFor='startupName'>Startup Name</Label>
-                  <div className='flex space-x-2'>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="startupName">Startup Name</Label>
+                  <div className="flex space-x-2">
                     <Input
-                      id='startupName'
-                      placeholder='Enter your startup name'
+                      id="startupName"
+                      placeholder="Enter your startup name"
                       value={formData.startupName}
                       onChange={(e) =>
                         handleChange("startupName", e.target.value)
                       }
                     />
-                    <Button type='button' onClick={generateStartupName}>
+                    <Button type="button" onClick={generateStartupName}>
                       Generate
                     </Button>
                   </div>
                   {errors.startupName && (
-                    <p className='text-sm text-red-500'>{errors.startupName}</p>
+                    <p className="text-sm text-red-500">{errors.startupName}</p>
                   )}
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='stage'>Current Stage</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="stage">Current Stage</Label>
                   <Select
                     onValueChange={(value) => handleChange("stage", value)}
-                    value={formData.stage}>
+                    value={formData.stage}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder='Select your current stage' />
+                      <SelectValue placeholder="Select your current stage" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value='idea'>Idea</SelectItem>
-                      <SelectItem value='prototype'>Prototype</SelectItem>
-                      <SelectItem value='mvp'>MVP</SelectItem>
-                      <SelectItem value='early-revenue'>
+                      <SelectItem value="idea">Idea</SelectItem>
+                      <SelectItem value="prototype">Prototype</SelectItem>
+                      <SelectItem value="mvp">MVP</SelectItem>
+                      <SelectItem value="early-revenue">
                         Early Revenue
                       </SelectItem>
                     </SelectContent>
                   </Select>
                   {errors.stage && (
-                    <p className='text-sm text-red-500'>{errors.stage}</p>
+                    <p className="text-sm text-red-500">{errors.stage}</p>
                   )}
                 </div>
               </div>
             )}
             {currentStep === 1 && (
-              <div className='space-y-4'>
-                {formData.founderNames.map((name, index) => (
-                  <div key={index} className='space-y-2'>
+              <div className="space-y-4">
+                {formData.founderNames.map((founder, index) => (
+                  <div key={index} className="space-y-2">
                     <Label htmlFor={`founderName-${index}`}>
                       Founder's Name
                     </Label>
-                    <div className='flex space-x-2'>
-                      <Input
-                        id={`founderName-${index}`}
-                        placeholder="Enter founder's name"
-                        value={name}
+                    <div className="flex space-x-2">
+                      {/* <Input
+                        id={`founderFirstName-${index}`}
+                        placeholder="Enter first name"
+                        value={founder.firstName}
                         onChange={(e) =>
-                          handleChange("founderNames", e.target.value, index)
+                          handleChange("firstName", e.target.value, index)
                         }
                       />
+                      <Input
+                        id={`founderLastName-${index}`}
+                        placeholder="Enter last name"
+                        value={founder.lastName}
+                        onChange={(e) =>
+                          handleChange("lastName", e.target.value, index)
+                        }
+                      /> */}
+                      <Input
+                        id={`founderFirstName-${index}`}
+                        placeholder="Enter first name"
+                        value={founder.firstName}
+                        onChange={
+                          (e) =>
+                            handleChange(
+                              "founderNames",
+                              e.target.value,
+                              index,
+                              "firstName"
+                            ) // Pass "founderNames" as the name and "firstName" as subField
+                        }
+                      />
+                      <Input
+                        id={`founderLastName-${index}`}
+                        placeholder="Enter last name"
+                        value={founder.lastName}
+                        onChange={
+                          (e) =>
+                            handleChange(
+                              "founderNames",
+                              e.target.value,
+                              index,
+                              "lastName"
+                            ) // Pass "founderNames" as the name and "lastName" as subField
+                        }
+                      />
+
                       {index > 0 && (
                         <Button
-                          type='button'
-                          variant='outline'
-                          onClick={() => handleRemoveFounder(index)}>
-                          <X className='h-4 w-4' />
+                          type="button"
+                          variant="outline"
+                          onClick={() => handleRemoveFounder(index)}
+                        >
+                          <X className="h-4 w-4" />
                         </Button>
                       )}
                     </div>
                   </div>
                 ))}
+
                 <Button
-                  type='button'
-                  variant='outline'
-                  onClick={handleAddFounder}>
-                  <Plus className='h-4 w-4 mr-2' /> Add Founder
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddFounder}
+                >
+                  <Plus className="h-4 w-4 mr-2" /> Add Founder
                 </Button>
-                {errors.founderNames && (
-                  <p className='text-sm text-red-500'>{errors.founderNames}</p>
-                )}
-                <div className='space-y-2'>
-                  <Label htmlFor='email'>Email</Label>
+
+                {/* {errors.founderNames && (
+                  <p className="text-sm text-red-500">{errors.founderNames}</p>
+                )} */}
+                {Array.isArray(errors.founderNames) &&
+                  errors.founderNames.length > 0 && (
+                    <div>
+                      {errors.founderNames.map((error, index) => (
+                        <p key={index} className="text-sm text-red-500">
+                          {error.firstName &&
+                            `Founder ${index + 1} first name: ${
+                              error.firstName
+                            }`}
+                          {error.lastName &&
+                            `Founder ${index + 1} last name: ${error.lastName}`}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
                   <Input
-                    id='email'
-                    type='email'
-                    placeholder='Enter your email'
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                   />
                   {errors?.email && (
-                    <p className='text-sm text-red-500'>{errors.email}</p>
+                    <p className="text-sm text-red-500">{errors.email}</p>
                   )}
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='phone'>Phone Number</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
                   <Input
-                    id='phone'
-                    type='tel'
-                    placeholder='Enter your phone number'
+                    id="phone"
+                    type="tel"
+                    placeholder="Enter your phone number"
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                   />
                   {errors.phone && (
-                    <p className='text-sm text-red-500'>{errors.phone}</p>
+                    <p className="text-sm text-red-500">{errors.phone}</p>
                   )}
                 </div>
               </div>
             )}
             {currentStep === 2 && (
-              <div className='space-y-4'>
-                <div className='space-y-2'>
-                  <Label htmlFor='video'>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="video">
                     Video Pitch (Optional, Max 100MB)
                   </Label>
-                  <div className='flex items-center space-x-2'>
+                  <div className="flex items-center space-x-2">
                     <Input
-                      id='video'
-                      type='file'
-                      accept='video/*'
+                      id="video"
+                      type="file"
+                      accept="video/*"
                       onChange={(e) => handleFileChange(e, "video")}
                       ref={videoInputRef}
                     />
                     {formData.video && (
                       <Button
-                        type='button'
-                        variant='outline'
-                        onClick={handleRemoveVideo}>
-                        <X className='h-4 w-4' />
+                        type="button"
+                        variant="outline"
+                        onClick={handleRemoveVideo}
+                      >
+                        <X className="h-4 w-4" />
                       </Button>
                     )}
                   </div>
                   {formData.video && (
-                    <p className='text-sm text-gray-500'>
+                    <p className="text-sm text-gray-500">
                       {formData.video.name}
                     </p>
                   )}
                   {errors.video && (
-                    <p className='text-sm text-red-500'>{errors.video}</p>
+                    <p className="text-sm text-red-500">{errors.video}</p>
                   )}
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='documents'>
+                <div className="space-y-2">
+                  <Label htmlFor="documents">
                     Documents (Optional, Max 10MB each)
                   </Label>
                   <Input
-                    id='documents'
-                    type='file'
+                    id="documents"
+                    type="file"
                     multiple
-                    accept='.pdf,.doc,.docx,.txt'
+                    accept=".pdf,.doc,.docx,.txt"
                     onChange={(e) => handleFileChange(e, "document")}
                     ref={documentInputRef}
                   />
                   {formData.documents.map((doc, index) => (
                     <div
                       key={index}
-                      className='flex items-center justify-between'>
+                      className="flex items-center justify-between"
+                    >
                       <span>{doc.name}</span>
                       <Button
-                        type='button'
-                        variant='ghost'
-                        onClick={() => handleRemoveDocument(index)}>
-                        <X className='h-4 w-4' />
+                        type="button"
+                        variant="ghost"
+                        onClick={() => handleRemoveDocument(index)}
+                      >
+                        <X className="h-4 w-4" />
                       </Button>
                     </div>
                   ))}
                   <Button
-                    type='button'
-                    variant='outline'
-                    onClick={() => documentInputRef.current?.click()}>
-                    <Plus className='h-4 w-4 mr-2' /> Add Document
+                    type="button"
+                    variant="outline"
+                    onClick={() => documentInputRef.current?.click()}
+                  >
+                    <Plus className="h-4 w-4 mr-2" /> Add Document
                   </Button>
                   {errors.documents && (
-                    <p className='text-sm text-red-500'>{errors.documents}</p>
+                    <p className="text-sm text-red-500">{errors.documents}</p>
                   )}
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='idea'>Startup Idea</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="idea">Startup Idea</Label>
                   <Textarea
-                    id='idea'
-                    placeholder='Describe your startup idea'
+                    id="idea"
+                    placeholder="Describe your startup idea"
                     value={formData.idea}
                     onChange={(e) => handleChange("idea", e.target.value)}
                     rows={5}
                   />
                   {errors.idea && (
-                    <p className='text-sm text-red-500'>{errors.idea}</p>
+                    <p className="text-sm text-red-500">{errors.idea}</p>
                   )}
                 </div>
               </div>
             )}
           </form>
         </CardContent>
-        <CardFooter className='flex justify-between'>
+        <CardFooter className="flex justify-between">
           <Button
-            variant='outline'
+            variant="outline"
             onClick={handlePrevious}
-            disabled={currentStep === 0}>
+            disabled={currentStep === 0}
+          >
             Previous
           </Button>
           {currentStep < steps.length - 1 ? (
             <Button onClick={handleNext}>Next</Button>
           ) : (
-            <Button onClick={handleSubmit } disabled={isSubmitting}>
+            <Button onClick={handleSubmit} disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Submit Application"}
             </Button>
           )}
@@ -490,13 +719,14 @@ const ApplyForIncubation = () => {
           </DialogHeader>
           <DialogFooter>
             <Button
-              variant='outline'
-              onClick={() => setShowConfirmDialog(false)}>
+              variant="outline"
+              onClick={() => setShowConfirmDialog(false)}
+            >
               Cancel
             </Button>
             <Button onClick={confirmSubmit} disabled={isSubmitting}>
               {isSubmitting ? (
-                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
               {isSubmitting ? "Submitting..." : "Confirm Submission"}
             </Button>
