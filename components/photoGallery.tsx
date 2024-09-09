@@ -92,7 +92,7 @@ type GalleryGridProps = {
 
 function GalleryGrid({ items }: GalleryGridProps) {
   return (
-    // <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    // <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
     //   {items.map((item: GalleryItem) => (
     //     <Card key={item.id} className='overflow-hidden'>
     //       <Link href={item.link} target='_blank' rel='noopener noreferrer'>
@@ -111,14 +111,14 @@ function GalleryGrid({ items }: GalleryGridProps) {
     //             </div>
     //           </div>
     //         </CardContent>
-    //         <CardFooter className='p-4'>
-    //           <h3 className='text-lg font-semibold'>{item.title}</h3>
+    //         <CardFooter className='p-3 pl-5'>
+    //           <h3 className='text-md font-semibold'>{item.title}</h3>
     //         </CardFooter>
     //       </Link>
     //     </Card>
     //   ))}
     // </div>
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
       {items.map((item) => (
         <Card key={item.id} className='overflow-hidden group'>
           <CardContent className='p-0 relative'>
@@ -127,7 +127,7 @@ function GalleryGrid({ items }: GalleryGridProps) {
                 src={item.image}
                 alt={item.title}
                 fill
-                className='object-cover transition-opacity group-hover:opacity-30'
+                className='object-cover transition-opacity group-hover:opacity-20'
               />
             </AspectRatio>
             <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>

@@ -15,39 +15,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Videos } from "@/types/strapi-types";
 
-// const videos = [
-//   {
-//     id: 1,
-//     title: "የDx Valley እንቅስቃሴያችን በEBS ሲቃኝ",
-//     thumbnail:
-//       "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
-//     youtubeId: "84-4C8X1vio?si=KORabFCho88NFHwo",
-//   },
-//   {
-//     id: 2,
-//     title: "Our CRM and DxValley 2.0 Inaguration",
-//     thumbnail:
-//       "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
-//     youtubeId: "fEgG3F5Ce-c?si=zEy5Sr6QRVdlnfd_",
-//   },
-//   {
-//     id: 3,
-//     title: "Presentation by Mr. Aman Semir",
-//     thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
-//     youtubeId: "0OIhoVDCoX0?si=wQ5p2-h1-lMRzn7d",
-//   },
-//   // {
-//   //   id: 4,
-//   //   title: "Another Video",
-//   //   thumbnail: "https://shega.co/wp-content/uploads/2020/09/Shega-logo-22-e1601232255639.png",
-//   //   youtubeId: "J---aiyznGQ",
-//   // },
-// ];
-
 
 export default function Videos({
-  video
-}: {
+  video}: {
   video: Videos[];
 }) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -86,7 +56,7 @@ export default function Videos({
 
   return (
     <div className=' right-0 w-full sm:w-90 space-y-2'>
-      <Card>
+      <Card className='border-none shadow-none'>
         <CardHeader>
           <CardTitle className='text-lg flex items-center   '>
             <Play className='w-5 h-5 mr-2' />
