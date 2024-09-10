@@ -13,6 +13,12 @@ import { News} from "@/types/strapi-types";
 
 
 export default function News({ news }: { news: News[] }) {
+
+  const sortedNews = [...news].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  const latestNews = sortedNews.slice(0, 3);
+
   return (
     <div className='relative right-0 w-full sm:w-96  space-y-4 mb-1'>
       <Card className='border-none shadow-none'>
@@ -20,7 +26,7 @@ export default function News({ news }: { news: News[] }) {
           <CardTitle className='text-lg font-semibold'>Popular News</CardTitle>
         </CardHeader>
         <CardContent className='space-y-4 pt-0'>
-          {news.map((item, index) => (
+          {latestNews.map((item, index) => (
             <div key={index} className={index === 0 ? "mb-4" : "mb-2"}>
               <Link href={item.news_link} className='group' target='_blank'>
                 <div className='flex items-start space-x-2'>

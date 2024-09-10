@@ -1,11 +1,12 @@
 /** @format */
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { News } from "@/types/strapi-types";
+import { ScrollArea } from "./ui/scroll-area";
 
 // Example usage of the `News` interface
 
@@ -17,15 +18,32 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
   // if (!newsArticles || newsArticles.length === 0) {
-  //   return <p>No news articles available.</p>;
+  //   return (
+  //     <div>
+  //       <p>No news articles available.</p>
+  //     </div>
+  //   );
   // }
+
+
+  // const sortedNewsArticles = newsArticles.sort((a, b) => {
+  //   return new Date(a.date).getTime() - new Date(b.date).getTime();})
+
+
+ const sortedNewsArticles = useMemo(() => {
+   return newsArticles.sort((a, b) => {
+     return new Date(a.date).getTime() - new Date(b.date).getTime();
+   });
+ }, [newsArticles]); //use memo code 
+
+
 
   const handleArticleClick = (article: News) => {
     setSelectedArticle(article);
     setSliderIndex(0);
   };
 
-  console.log("newArticles", newsArticles);
+  console.log("newArticles", sortedNewsArticles);
 
   const handleCloseArticle = () => {
     setSelectedArticle(null);
@@ -33,13 +51,13 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
 
   const handlePrevSlide = () => {
     setSliderIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : newsArticles.length - 1
+      prevIndex > 0 ? prevIndex - 1 : sortedNewsArticles.length - 1
     );
   };
 
   const handleNextSlide = () => {
     setSliderIndex((prevIndex) =>
-      prevIndex < newsArticles.length - 1 ? prevIndex + 1 : 0
+      prevIndex < sortedNewsArticles.length - 1 ? prevIndex + 1 : 0
     );
   };
 
@@ -116,28 +134,30 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
             <div
               className='flex transition-transform duration-500 ease-in-out'
               style={{ transform: `translateX(-${sliderIndex * 33.33}%)` }}>
-              {newsArticles.concat(newsArticles).map((article, index) => (
-                <div
-                  key={`${article.title}-${index}`}
-                  className='w-1/3 flex-shrink-0 px-2 cursor-pointer'
-                  onClick={() => handleArticleClick(article)}>
-                  <Card className='h-full hover:shadow-lg transition-shadow duration-300'>
-                    <CardContent className='p-4'>
-                      <img
-                        src={article.img_link}
-                        alt={article.title}
-                        className='w-full h-24 object-cover rounded-md mb-2'
-                      />
-                      <h3 className='text-sm font-semibold line-clamp-2'>
-                        {article.title}
-                      </h3>
-                      <p className='text-xs text-muted-foreground mt-1'>
-                        {new Date(article.date).toLocaleDateString()}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
+              {sortedNewsArticles
+                .concat(sortedNewsArticles)
+                .map((article, index) => (
+                  <div
+                    key={`${article.title}-${index}`}
+                    className='w-1/3 flex-shrink-0 px-2 cursor-pointer'
+                    onClick={() => handleArticleClick(article)}>
+                    <Card className='h-full hover:shadow-lg transition-shadow duration-300'>
+                      <CardContent className='p-4'>
+                        <img
+                          src={article.img_link}
+                          alt={article.title}
+                          className='w-full h-24 object-cover rounded-md mb-2'
+                        />
+                        <h3 className='text-sm font-semibold line-clamp-2'>
+                          {article.title}
+                        </h3>
+                        <p className='text-xs text-muted-foreground mt-1'>
+                          {new Date(article.date).toLocaleDateString()}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
             </div>
             <button
               onClick={handlePrevSlide}
@@ -152,30 +172,61 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
               <ChevronRight className='h-6 w-6' />
             </button>
           </div>
+          {/* <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+            {sortedNewsArticles.map((article) => (
+              <Card
+                key={article.title}
+                className='cursor-pointer hover:shadow-lg transition-shadow duration-300'
+                onClick={() => handleArticleClick(article)}>
+                <CardHeader>
+                  <CardTitle className='text-lg'>{article.title}</CardTitle>
+                  <p className='text-sm text-muted-foreground'>
+                    {new Date(article.date).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <img
+                    src={article.img_link}
+                    alt={article.title}
+                    className='w-full h-48 object-cover rounded-md'
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </div> */}
         </>
       ) : (
         /* News list */
-        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {newsArticles.map((article) => (
-            <Card
-              key={article.title}
-              className='cursor-pointer hover:shadow-lg transition-shadow duration-300'
-              onClick={() => handleArticleClick(article)}>
-              <CardHeader>
-                <CardTitle className='text-lg'>{article.title}</CardTitle>
-                <p className='text-sm text-muted-foreground'>
-                  {new Date(article.date).toLocaleDateString()}
-                </p>
-              </CardHeader>
-              <CardContent>
-                <img
-                  src={article.img_link}
-                  alt={article.title}
-                  className='w-full h-48 object-cover rounded-md'
-                />
-              </CardContent>
-            </Card>
-          ))}
+
+        <div className='mb-8'>
+          {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
+          <ScrollArea >
+            {sortedNewsArticles.map((article, index) => (
+              <Card
+                key={index}
+                className={`mb-4 cursor-pointer ${
+                  selectedArticle?.title === article.title
+                    ? "border-primary"
+                    : ""
+                }`}
+                onClick={() => handleArticleClick(article)}>
+                <CardHeader>
+                  <CardTitle className='text-lg'>{article.title}</CardTitle>
+                  <p className='text-sm text-muted-foreground'>
+                    {" "}
+                    {new Date(article.date).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <img
+                    src={article.img_link}
+                    alt={article.title}
+                    className='w-full h-32 object-cover rounded-md'
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </ScrollArea>
         </div>
       )}
     </div>
