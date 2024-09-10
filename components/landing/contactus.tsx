@@ -28,6 +28,9 @@ const ContactUs = ({address}:{address:Address}) => {
 
      if (response.ok) {
        toast.success("Submitted Successfully, Thank You for Writing to Us!");
+       setName("");
+       setEmail("");
+       setMessage("");
      } else {
        toast.error("Failed to submit");
      }

@@ -90,7 +90,7 @@ export default function EventsSider() {
             </Link>
           </CardContent>
         ) : (
-          <div className='text-lg font-semibold m-10'>No Events Available</div>
+          <div className='text-lg font-semibold m-10'>No Event Available</div>
         )}
       </Card>
     </div>

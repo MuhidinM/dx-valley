@@ -93,21 +93,31 @@ const TechExpoRegistrationForm: React.FC = () => {
         }),
       });
 
-      // if (response.ok) {
-      //   setIsSubmitted(true);
-      //   toast.success("Registration successful!", {
-      //     description:
-      //       "Your details have been submitted successfully.".toString(),
-      //   });
-      // } else {
-      //   const errorMessage = await response.json();
-      //   console.error("Error:", errorMessage);
-      // toast.error("Registration failed", {
-      //   description:
-      //     errorMessage?.error?.message ||
-      //     "An error occurred during registration.",
-      // });
-      // }
+      if (response.ok) {
+        setIsSubmitted(true);
+        toast.success("Registration successful!", {
+          description:
+            "Your details have been submitted successfully.".toString(),
+        });
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneNumber: "",
+          companyName: "",
+          jobTitle: "",
+          participantType: "",
+          eventId: eventId,
+        });
+      } else {
+        const errorMessage = await response.json();
+        console.error("Error:", errorMessage);
+      toast.error("Registration failed", {
+        description:
+          errorMessage?.error?.message ||
+          "An error occurred during registration.",
+      });
+      }
     } catch (error) {
       console.error("Error registering:", error);
       toast.error("An error occurred", {

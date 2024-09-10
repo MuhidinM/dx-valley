@@ -42,7 +42,7 @@ interface FormData {
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
-  const eventId = searchParams.get("eventId");
+ const eventId = searchParams.get("eventId") || "";
   // const eventId = 1;
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -192,6 +192,20 @@ export default function ContestRegistrationForm() {
         setIsSubmitted(true);
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
+        });
+        setFormData({
+          LeaderFirstName: "",
+          LeaderLastName: "",
+          email: "",
+          phoneNumber: "",
+          teamName: "",
+          numberOfMembers: 1,
+          teamMembers: [{ firstName: "", lastName: "", email: "", phoneNumber: "" }],
+          projectTitle: "",
+          projectDescription: "",
+          techStack: "",
+          projectUrl: "",
+          eventId: eventId,
         });
       } else {
         const errorMessage = await response.json();

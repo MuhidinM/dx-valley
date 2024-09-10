@@ -3,16 +3,20 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+// import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
 import { toast, Toaster } from "sonner";
+import { description } from "@/app/admin/dashboard/page";
+import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+const handleSubmit = async (e: { preventDefault: () => void }) => {
+  e.preventDefault();
+
+  try {
     const response = await fetch("/api/subscriber", {
       method: "POST",
       headers: {
@@ -20,22 +24,45 @@ const Footer = () => {
       },
       body: JSON.stringify({ email }),
     });
-    //   if (response.ok) {
-    //     alert("Subscribed successfully!");
-    //     setEmail("");
-    //   } else {
-    //     alert("Failed to subscribe!");
-    //       setEmail("");
-    //   }
-    // };
 
     if (response.ok) {
-      toast.success("Subscribed successfully!");
-      setEmail("");
+      const data = await response.json();
+      if (!data.subscribed) {
+        toast.error(data.message2 || "Already subscribed!");
+        setEmail("");
+      } else {
+        toast.success(data.message3 || "Subscribed successfully!");
+        setEmail("");
+      }
     } else {
-      toast.error("Failed to subscribe!");
+      const data = await response.json();
+      if (data.message === "User already subscribed") {
+        toast.error("You are already subscribed!");
+      } else {
+        toast.error("Failed to subscribe!", {
+          description: "Please try again later.",
+        });
+      }
     }
-  };
+  } catch (error) {
+    console.error("Subscription error:", error);
+    toast.error("An unexpected error occurred", {
+      description: "Please try again later.",
+    });
+  }
+};
+
+
+  //   if (response.ok) {
+  //     toast.success("Subscribed successfully!");
+  //     setEmail("");
+  //   } else {
+  //     toast.error("Failed to subscribe!", {
+        
+  //      description:""});
+  //     }
+  //   }
+  // };
   const [FooterItems, setFooterItems] = useState<FooterData>();
 
   useEffect(() => {
@@ -73,12 +100,16 @@ const Footer = () => {
                           <Label htmlFor='email' className='text-white'>
                             Get the latest News and More.
                           </Label>
-                          <Input
+                          {/* <Input
                             type='email'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
-                          />
+                          /> */}
+                          <Input  type='email'
+                            placeholder='Email'
+                            onChange={(e) => setEmail(e.target.value)}
+                            className='text-black dark:text-white'/>
                         </div>
                         <div className='sm:ml-3'>
                           <Button className='bg-coopOrange hover:bg-black'>
