@@ -233,10 +233,10 @@ export default function ContestRegistrationForm() {
                 }`}>
                 {step.title}
               </span>
-              {index < steps.length - 1 && (
+              {index < steps.length && (
                 <div
                   className={`h-1 w-24 mt-4 ${
-                    index < currentStep ? "bg-primary" : "bg-gray-200"
+                    index <= currentStep ? "bg-primary" : "bg-gray-200"
                   }`}
                 />
               )}
@@ -263,7 +263,7 @@ export default function ContestRegistrationForm() {
         <form onSubmit={handleSubmit}>
           {currentStep === 0 && (
             <div className='space-y-4'>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
                 <div>
                   <Label htmlFor='LeaderFirstName'>
                     Team Leader First Name
@@ -334,7 +334,7 @@ export default function ContestRegistrationForm() {
               {formData.teamMembers.map((member, index) => (
                 <div key={index} className='space-y-2'>
                   <h4 className='font-semibold'>Team Member {index + 1}</h4>
-                  <div className='grid grid-cols-2 lg:grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1 lg:grid-cols-1 md:grid-cols-1 gap-4'>
                     <div>
                       <Label>First Name</Label>
                       <Input
@@ -366,7 +366,7 @@ export default function ContestRegistrationForm() {
                       />
                     </div>
                   </div>
-                  <div className='grid grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1 gap-4'>
                     <div>
                       <Label>Member Email</Label>
                       <Input
