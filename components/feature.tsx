@@ -3,19 +3,50 @@
 "use client";
 import { cn, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { IncubationData, CardNoLinkData } from "@/types/strapi-types";
 
-
-export function Feature({ focus }: { focus: CardNoLinkData[]}) {
+export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   const [featureOpen, setFeatureOpen] = useState<number>(0);
   const [timer, setTimer] = useState<number>(0);
+  const [hasPlayed, setHasPlayed] = useState<boolean>(false); // New state to track animation play status
+  const featureRef = useRef<HTMLDivElement>(null);
+
+  // Callback function to handle intersection changes
+  const handleIntersection = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => {
+      if (entry.isIntersecting) {
+        if (!hasPlayed) {
+          setHasPlayed(true); // Set to true when animation starts
+          const interval = setInterval(() => {
+            setTimer((prev) => prev + 10);
+          }, 10);
+          return () => clearInterval(interval); // Clean up interval when component is out of view
+        }
+      } else {
+        setTimer(0); // Reset timer if the component is out of view
+        setHasPlayed(false); // Reset hasPlayed flag when out of view
+      }
+    },
+    [hasPlayed]
+  );
+
+  // Create IntersectionObserver instance
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => prev + 10);
-    }, 10);
-    return () => clearInterval(interval);
-  }, []);
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1, // Trigger when at least 10% of the component is visible
+    });
+
+    if (featureRef.current) {
+      observer.observe(featureRef.current);
+    }
+
+    return () => {
+      if (featureRef.current) {
+        observer.unobserve(featureRef.current);
+      }
+    };
+  }, [handleIntersection]);
 
   useEffect(() => {
     if (timer > 10000) {
@@ -25,12 +56,12 @@ export function Feature({ focus }: { focus: CardNoLinkData[]}) {
   }, [timer]);
 
   return (
-    <div className='container mt-20'>
+    <div ref={featureRef} className='container mt-20'>
       <div className='text-center '>
         <h2 className='text-3xl b-4 shrink-0 font-bold'>
           <span className=' text-coopBlue'> How</span> Does It Work ?
         </h2>
-        <div className='flex justify-center mt-2  mb-12'>
+        <div className='flex justify-center mt-2 mb-12'>
           <div className='w-20 h-1 bg-coopOrange'></div>
         </div>
       </div>

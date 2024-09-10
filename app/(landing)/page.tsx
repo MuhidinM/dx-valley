@@ -18,6 +18,7 @@ import EventsSider from "@/components/eventsSider";
 import Videos from "@/components/video";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
+import AllNewsPage from "@/components/viewAllNews";
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -31,14 +32,16 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  // if (!homepageItems) {
-  //   return <SkeletonLoader />;
-  // }
+  if (!homepageItems) {
+    return <SkeletonLoader />;
+  }
 
   return (
     <div>
       {" "}
-      <ComingSoonModal />
+      {/* <div >
+        {<ComingSoonModal />}
+      </div> */}
       <div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
           <div className='lg:col-span-2 flex flex-col justify-between'>
@@ -52,6 +55,7 @@ const Page = () => {
             </div>
             <div className='mt-auto'>
               <News news={homepageItems?.news || []} />
+          
             </div>
           </div>
         </div>

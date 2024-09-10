@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleUser, Home, Menu, Package, ShieldCheck } from "lucide-react";
+import { CircleUser, Home, Menu, Package, ShieldCheck,BookUser } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -70,7 +70,10 @@ const Sidebar = () => (
       <div className="flex-1">
         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
           <SidebarNavItem href="#" label="Dashboard" icon={Home} active />
-          <SidebarNavItem href="#" label="Test" icon={Package} />
+          <SidebarNavItem href="/admin/dashboard/event" label="Event" icon={Package} />
+          <SidebarNavItem href="/admin/dashboard/contactus" label="Contact Submissions" icon={BookUser} />
+
+          
         </nav>
       </div>
     </div>
@@ -88,7 +91,7 @@ const MobileSidebar = () => (
     <SheetContent side="left" className="flex flex-col">
       <nav className="grid gap-2 text-lg font-medium">
         <SidebarNavItem href="#" label="Dashboard" icon={Home} active />
-        <SidebarNavItem href="#" label="Test" icon={Package} />
+        <SidebarNavItem href="#" label="Test" icon={BookUser} />
       </nav>
     </SheetContent>
   </Sheet>

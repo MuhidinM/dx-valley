@@ -12,7 +12,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -29,7 +29,7 @@ const Page = () => {
   // });
 
   if (!orgItems) {
-    return <SkeletonLoaderCollabForm />;
+    return <SkeletonPageColloab />;
   }
   return (
     <div>
