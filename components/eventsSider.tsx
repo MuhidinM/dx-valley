@@ -2,44 +2,14 @@
 
 "use client";
 
-import {
-  CalendarIcon,
-  ArrowRightIcon,
-} from "lucide-react";
+import { CalendarIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Event } from "@/types/types";
-// interface Event {
-//   id: number;
-//   title: string;
-//   date: Date | string;
-//   link: string;
-//   category: string;
-// } 
-
-// const events: Event[] = [
-//   {
-//     id: 1,
-//     title: "AI Ethics Workshop",
-//     date: "2023-08-22",
-//     link: "/contests",
-//     category: "contest",
-//   },
-//   {
-//     id: 2,
-//     title: "Startup Pitch Competition",
-//     date: "2023-08-22",
-//     link: "/contests",
-//     category: "contest",
-//   },
-// ];
-
-  
 
 export default function EventsSider() {
-
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
@@ -62,12 +32,27 @@ export default function EventsSider() {
 
     fetchEvents();
   }, []);
-  const Events = events.filter(
+
+  const sortedEvents = [...events].sort(
+    (a, b) =>
+      new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
+  );
+
+  const upcomingEvents = sortedEvents.filter((event) => {
+    const eventDate = new Date(event.targetDate);
+    const today = new Date();
+    return eventDate >= today;
+  });
+
+  const latestEvents = upcomingEvents.slice(0, 3);
+
+  const filteredEvents = latestEvents.filter(
     (event) => event.category !== "call for proposal"
   );
-  console.log(Events.length, "is the event length");
 
-  if (!events) {
+  console.log(filteredEvents.length, "is the event length");
+
+  if (!filteredEvents) {
     return <div>No Events Found</div>;
   }
   return (
@@ -76,9 +61,9 @@ export default function EventsSider() {
         <CardHeader className='pb-2'>
           <CardTitle className='text-lg '>Upcoming Events</CardTitle>
         </CardHeader>
-        {events.length ? (
+        {filteredEvents.length ? (
           <CardContent className='space-y-2 pt-0'>
-            {events.map((event) => (
+            {filteredEvents.map((event) => (
               <div key={event.id} className='text-sm'>
                 <h3 className='font-medium'>{event.name}</h3>
                 <div className='flex justify-between items-center text-sm'>
@@ -89,7 +74,8 @@ export default function EventsSider() {
                     {new Date(event?.targetDate).toLocaleDateString()}
                   </p>
                   <Link
-                    href={event.link}
+                    // href={event.link}
+                    href='/contests'
                     className='text-primary text-sm font-semibold hover:underline  text-md'>
                     Register
                   </Link>

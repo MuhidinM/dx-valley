@@ -12,7 +12,7 @@ import Link from "next/link";
 import { News} from "@/types/strapi-types";
 
 
-export default function News({ news }: { news: News[] }) {
+export default function NewsList({ news }: { news: News[] }) {
 
   const sortedNews = [...news].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()

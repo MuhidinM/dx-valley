@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
+import { toast, Toaster } from "sonner";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -19,14 +20,22 @@ const Footer = () => {
       },
       body: JSON.stringify({ email }),
     });
+    //   if (response.ok) {
+    //     alert("Subscribed successfully!");
+    //     setEmail("");
+    //   } else {
+    //     alert("Failed to subscribe!");
+    //       setEmail("");
+    //   }
+    // };
+
     if (response.ok) {
-      alert("Subscribed successfully!");
-      setEmail(""); 
+      toast.success("Subscribed successfully!");
+      setEmail("");
     } else {
-      alert("Failed to subscribe!");
+      toast.error("Failed to subscribe!");
     }
   };
-
   const [FooterItems, setFooterItems] = useState<FooterData>();
 
   useEffect(() => {
@@ -40,6 +49,7 @@ const Footer = () => {
 
   return (
     <footer className='bg-coopBlue text-white font-sans'>
+      <Toaster position='top-right' richColors />
       <div className='mx-auto max-w-screen-xl px-4'>
         <div className='border-b border-gray-100 py-6 md:py-8 lg:py-12'>
           <div className='lg:flex lg:gap-8 lg:items-start'>
@@ -67,12 +77,12 @@ const Footer = () => {
                             type='email'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
-                            className="text-black dark:text-white"
+                            className='text-black dark:text-white'
                           />
                         </div>
                         <div className='sm:ml-3'>
                           <Button className='bg-coopOrange hover:bg-black'>
-                            <span className="text-white "> SUBSCRIBE</span>
+                            <span className='text-white '> SUBSCRIBE</span>
                           </Button>
                         </div>
                       </div>

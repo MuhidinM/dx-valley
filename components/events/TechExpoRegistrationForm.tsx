@@ -16,6 +16,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 interface FormData {
   firstName: string;
@@ -92,19 +93,21 @@ const TechExpoRegistrationForm: React.FC = () => {
         }),
       });
 
-      if (response.ok) {
-        setIsSubmitted(true);
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
-        });
-      } else {
-        const errorMessage = await response.json();
-        console.error("Error:", errorMessage);
-        toast.error("Registration failed", {
-          description:
-            errorMessage?.error || "An error occurred during registration.",
-        });
-      }
+      // if (response.ok) {
+      //   setIsSubmitted(true);
+      //   toast.success("Registration successful!", {
+      //     description:
+      //       "Your details have been submitted successfully.".toString(),
+      //   });
+      // } else {
+      //   const errorMessage = await response.json();
+      //   console.error("Error:", errorMessage);
+      // toast.error("Registration failed", {
+      //   description:
+      //     errorMessage?.error?.message ||
+      //     "An error occurred during registration.",
+      // });
+      // }
     } catch (error) {
       console.error("Error registering:", error);
       toast.error("An error occurred", {
@@ -140,11 +143,9 @@ const TechExpoRegistrationForm: React.FC = () => {
             <p className='text-center mb-4'>
               Thank you for registering for the Tech Expo!
             </p>
-            <Button
-              className='w-full'
-              onClick={() => (window.location.href = "/")}>
-              Back to Home
-            </Button>
+            <Link href='/'>
+              <Button className='mt-8'>Go Back to Home</Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

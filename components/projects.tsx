@@ -4,8 +4,8 @@ const Page = () => {
     return (
         <div>
             
-            <Card img={undefined} title={""} description={""} />
-
+            {/* <Card img={" "} title={""} description={""} /> */}
+            projects
         </div>
     )
 }

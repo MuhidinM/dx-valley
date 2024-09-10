@@ -10,15 +10,13 @@ import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
 import CardContainer from "@/components/cardContainer";
 import Motto from "@/components/motto";
-import MediaAndNews from "@/components/MediaAndNews";
 import { Address, HomePageData, Vision } from "@/types/strapi-types";
 import { HomepageItemFetch } from "@/services/homepage";
-import News from "@/components/News";
 import EventsSider from "@/components/eventsSider";
-import Videos from "@/components/video";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
-import AllNewsPage from "@/components/viewAllNews";
+import VideosList from "@/components/video";
+import NewsList from "@/components/News";
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -32,9 +30,9 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  if (!homepageItems) {
-    return <SkeletonLoader />;
-  }
+  // if (!homepageItems) {
+  //   return <SkeletonLoader />;
+  // }
 
   return (
     <div>
@@ -54,8 +52,7 @@ const Page = () => {
               <Motto />
             </div>
             <div className='mt-auto'>
-              <News news={homepageItems?.news || []} />
-          
+              <NewsList news={homepageItems?.news || []} />
             </div>
           </div>
         </div>
@@ -80,7 +77,7 @@ const Page = () => {
             />
           </div>
           <div className='lg:col-span-1'>
-            <Videos video={homepageItems?.videos || []} />
+            <VideosList video={homepageItems?.videos || []} />
           </div>
         </div>
 

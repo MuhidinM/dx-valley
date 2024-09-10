@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const { email } = await req.json();
+    console.log("email subscribed to is", email);
     const newSubscriber = await prisma.subscriber.create({
       data: {
         email,

@@ -33,26 +33,23 @@ export default function ContestsPage() {
   }, []);
   const Events = events.filter(
     (event) => event.category !== "call for proposal"
-
   );
-console.log(Events.length, "is the event length");
+  console.log(Events.length, "is the event length");
 
   if (!events) {
-
     return <div>No Events Found</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10">
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  h-fit mb-10'>
       {/* rest of the code remains the same */}
 
-      {(Events.length > 0 &&
-        Events.map((event) => <Countdown key={event?.id} event={event} />)) ||
-         (
-          <div className="col-span-full text-center py-10">
-            <p className="text-lg font-semibold">No Event Available.</p>
-          </div>
-        )}
+      {(!events && // here was   Events.length > 0 &&
+        Events.map((event) => <Countdown key={event?.id} event={event} />)) || (
+        <div className='col-span-full text-center py-10'>
+          <p className='text-lg font-semibold'>No Event Available.</p>
+        </div>
+      )}
     </div>
   );
 }
