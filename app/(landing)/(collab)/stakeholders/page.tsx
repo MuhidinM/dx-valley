@@ -71,10 +71,11 @@ const Page = () => {
       Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Partner to make your impact count"}
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
-        <CollabForm/>
+        <CollabForm />
       </div>
     </div>
   );

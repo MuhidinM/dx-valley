@@ -65,7 +65,12 @@ const Page = () => {
           />
         );
       })}
-      <CTA title={"Want To Give a Training?"} buttonText={"Apply"} href='' />
+      <CTA
+        title={"Want To Give a Training?"}
+        buttonText={"Apply"}
+        href=''
+        buttonDesc={"Let's inspire excellence together"}
+      />
     </div>
   );
 };

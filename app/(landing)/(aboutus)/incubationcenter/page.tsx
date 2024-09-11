@@ -64,6 +64,7 @@ const Page = () => {
         buttonText='Apply for Call'
         title='Have a Start-Up Idea?'
         href='/callforproposal'
+        buttonDesc={"Let’s Walk Together Your Innovation Journey"}
       />
 
       {/* Observe the feature component */}

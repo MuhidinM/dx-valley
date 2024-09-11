@@ -74,6 +74,7 @@ const Page = () => {
         title='Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Let's empower change together"}
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />

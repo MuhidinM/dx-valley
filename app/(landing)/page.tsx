@@ -36,7 +36,7 @@ const Page = () => {
 
   return (
     <div>
-           {/* <div >
+      {/* <div >
           {<ComingSoonModal />}
         </div> */}
       <div>
@@ -61,6 +61,7 @@ const Page = () => {
               buttonText='Apply For Call'
               title='Have a Start-Up Idea?'
               href={"/callforproposal"}
+              buttonDesc='Let’s Walk Together Your Innovation Journey'
             />
           </div>
           <div className='lg:col-span-1'>
