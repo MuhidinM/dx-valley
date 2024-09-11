@@ -13,9 +13,16 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
     <section className='dark:bg-gray-900'>
       <div className='py-2 px-4 mx-auto max-w-screen-xl sm:py-5 lg:px-6'>
         <div className='mx-auto max-w-screen-sm text-center'>
-          <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
+          {/* <h2 className='mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white'>
             What We Offer
-          </h2>
+          </h2> */}
+          <div className='text-center'>
+            <h2 className='text-4xl font-bold'>What We 
+              <span className='text-coopBlue'> Offer</span> </h2>
+            <div className='flex justify-center mt-2  mb-16'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
+            </div>
+          </div>
         </div>
         <div className='grid gap-4 grid-cols-4'>
           {features.map((item, index) => (

@@ -42,7 +42,7 @@ const Navbar = () => {
           <div className='flex items-center lg:order-2 space-x-2'>
             <ModeToggle />
             <Button
-              className='bg-coopBlue hover:bg-coopBlueHover'
+              className='bg-coopBlue hover:bg-coopBlueHover text-lg font-semibold'
               onClick={() => {
                 router.push("/callforproposal");
               }}>

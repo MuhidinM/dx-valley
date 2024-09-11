@@ -24,9 +24,9 @@ const Page = () => {
     fetchTrainngItems();
   }, []);
 
-  if (!trainingItems.length) {
-    return <SkeletonLoaderTrainingPage   />;
-  }
+  // if (!trainingItems.length) {
+  //   return <SkeletonLoaderTrainingPage   />;
+  // }
   // useEffect(() => {console.log("final ", trainingItems)}, [trainingItems])
   return (
     <div>

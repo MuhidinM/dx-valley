@@ -94,9 +94,18 @@ const Page = () => {
         </div>
 
         <br />
-        <h1 className='text-3xl font-bold m-0 text-center'>
+        {/* <h1 className='text-3xl font-bold m-0 text-center'>
           Breakthroughs We&apos;ve Delivered
-        </h1>
+        </h1> */}
+        <div className='text-center'>
+          <h2 className='text-4xl sm:text-wrap md:text-wrap  font-bold'>
+            <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
+            Delivered
+          </h2>
+          <div className='flex justify-center mt-2  mb-16'>
+            <div className='w-36 h-1 bg-coopOrange'></div>
+          </div>
+        </div>
         <br></br>
         <ProductsBeam products={homepageItems?.delivered || []} />
         <ContactUs address={homepageItems?.connect as Address} />
