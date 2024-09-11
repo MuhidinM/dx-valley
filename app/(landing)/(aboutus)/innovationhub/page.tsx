@@ -52,7 +52,7 @@ const Page = () => {
         href={"/innovationhub"}
       />
       <CTA
-        title={"Work with Us!"}
+        title={"Work with Us"}
         buttonText={"Get in Touch!"}
         href={"#collab-form"}
         buttonDesc={"Let's join forces to spark the next big breakthrough"} //Ignite innovation with us as an alternative
