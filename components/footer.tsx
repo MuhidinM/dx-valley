@@ -203,7 +203,7 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
           </div>
         </div>
 
-        <div className='py-6 md:py-8 text-center sm:text-center md:text-center lg:text-center'>
+        <div className='py-6 md:py-8 text-center sm:text-center  md:text-center'>
           <div className='space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0'>
             <Link href='/' className='flex items-center justify-center'>
               <span className='text-xl font-semibold'>

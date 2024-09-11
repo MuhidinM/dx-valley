@@ -1,5 +1,6 @@
 /** @format */
 "use client";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
@@ -17,6 +18,7 @@ import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
 import VideosList from "@/components/video";
 import NewsList from "@/components/News";
+<link rel='icon' href='/DX.ico' sizes='any' />;
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -33,7 +35,9 @@ const Page = () => {
   // if (!homepageItems) {
   //   return <SkeletonLoader />;
   // }
-
+      <Head>
+        <link rel='icon' href='/DX.ico' sizes='any' />
+      </Head>
   return (
     <div>
       {/* <div >
