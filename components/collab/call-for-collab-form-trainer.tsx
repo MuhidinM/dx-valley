@@ -131,9 +131,11 @@ export default function TrainerRegistrationForm() {
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            Trainer Registration Form
+            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Trainer Registration Form
+            </span>
             <div className='flex justify-center'>
-              <div className='w-20 mt-1 h-1 bg-coopOrange'></div>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
           <div className='mb-8 '>

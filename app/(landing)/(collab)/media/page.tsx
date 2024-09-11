@@ -23,9 +23,9 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
- if (!mediaItems) {
-   return <SkeletonPageColloab />;
- }
+//  if (!mediaItems) {
+//    return <SkeletonPageColloab />;
+//  }
   
   return (
     <div>
@@ -72,6 +72,7 @@ const Page = () => {
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
+        <div>""</div>
         <CollabForm />
       </div>
     </div>

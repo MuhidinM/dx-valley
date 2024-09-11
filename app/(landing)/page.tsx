@@ -36,10 +36,9 @@ const Page = () => {
 
   return (
     <div>
-      {" "}
-      {/* <div >
-        {<ComingSoonModal />}
-      </div> */}
+           {/* <div >
+          {<ComingSoonModal />}
+        </div> */}
       <div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
           <div className='lg:col-span-2 flex flex-col justify-between'>

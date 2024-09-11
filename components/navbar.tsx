@@ -29,9 +29,15 @@ const Navbar = () => {
         }>
         <div className='flex justify-between items-center mx-auto max-w-screen-xl'>
           <Link href='/' className='flex items-center'>
-            <span className='self-center text-xl font-semibold whitespace-nowrap dark:text-white sm:tetx-sm md:text-sm'>
+            {/* <span className='self-center text-xl font-semibold whitespace-nowrap dark:text-white sm:tetx-sm md:text-sm'>
               D <span className='text-orange-500'>X</span> VALLEY
-            </span>
+            </span> */}
+            <img
+              src={"/image/dxvalleymainlogo.png"}
+              alt='dxvalley logo'
+              width={200} // adjust the width as needed
+              // className='mx-auto mb-4 '
+            />
           </Link>
           <div className='flex items-center lg:order-2 space-x-2'>
             <ModeToggle />
