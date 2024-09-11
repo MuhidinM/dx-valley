@@ -29,14 +29,14 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-   if (!innovationItems) {
-     return <SkeletonLoaderAboutInnovationPage />;
-   }
+  //  if (!innovationItems) {
+  //    return <SkeletonLoaderAboutInnovationPage />;
+  //  }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])
   return (
-    // <div>Page</div>
+ 
     <div className='space-y-8 mb-8 justify-center'>
       <SectionLeft
         svg={

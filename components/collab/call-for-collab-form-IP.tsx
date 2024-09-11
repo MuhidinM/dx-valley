@@ -124,6 +124,7 @@ export default function IndependentRegistrationForm() {
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
         });
+        handleNext();
       } else {
         console.error('Error:', result);
         toast.error("Registration failed", {

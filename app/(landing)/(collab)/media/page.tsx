@@ -72,7 +72,7 @@ const Page = () => {
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
-        <CollabForm type="media" />
+        <CollabForm />
       </div>
     </div>
   );

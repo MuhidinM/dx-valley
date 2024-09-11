@@ -16,7 +16,7 @@ import Link from "next/link";
 import { Videos } from "@/types/strapi-types";
 
 
-export default function Videos({
+export default function VideosList({
   video}: {
   video: Videos[];
 }) {

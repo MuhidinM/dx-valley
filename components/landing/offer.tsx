@@ -31,7 +31,7 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
               />
 
               <div className='bg-white dark:bg-gray-950 p-4 sm:p-6'>
-                <Link href='#'>
+                <Link href='/'>
                   <h3 className='mt-0.5 text-lg text-gray-900 dark:text-gray-200'>
                     {item.title}
                   </h3>
