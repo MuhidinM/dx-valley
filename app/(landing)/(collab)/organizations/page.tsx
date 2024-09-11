@@ -28,9 +28,9 @@ const Page = () => {
   //   console.log("org items: ", orgItems);
   // });
 
-  if (!orgItems) {
-    return <SkeletonPageColloab />;
-  }
+  // if (!orgItems) {
+  //   return <SkeletonPageColloab />;
+  // }
   return (
     <div>
       <PageTitle />
