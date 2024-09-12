@@ -87,15 +87,6 @@ export default function MediaRegistrationForm() {
     phoneNumberOne: '',
   });
 
-  // const handleCheckboxChange = (name: keyof FormData, value: string) => {
-  //   setFormData((prev) => {
-  //     const updatedValues = (prev[name] as string[]).includes(value)
-  //       ? (prev[name] as string[]).filter((item) => item !== value)
-  //       : [...(prev[name] as string[]), value];
-  //     return { ...prev, [name]: updatedValues };
-  //   });
-  // };
-
 
 const handleCheckboxChange = (name: keyof FormData, value: string) => {
   setFormData((prev) => {
