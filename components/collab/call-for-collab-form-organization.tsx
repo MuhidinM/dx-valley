@@ -210,10 +210,15 @@ export default function OrganizationRegistrationForm() {
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
       <Toaster position='top-right' richColors />
-      <Card className='w-full max-w-2xl min-w-[700px]'>
+      <Card className='w-full max-w-2xl '>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            Organization Registration Form
+            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Organization Registration Form
+            </span>
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -228,7 +233,9 @@ export default function OrganizationRegistrationForm() {
                 <div className='space-y-4'>
                   <div className='flex gap-4'>
                     <div className='flex-1'>
-                      <Label htmlFor='organizationName'>Organization Name</Label>
+                      <Label htmlFor='organizationName'>
+                        Organization Name
+                      </Label>
                       <Input
                         id='organizationName'
                         value={formData.organizationName}
@@ -238,7 +245,9 @@ export default function OrganizationRegistrationForm() {
                         placeholder='Enter Organization name'
                       />
                       {errors.organizationName && (
-                        <p className='text-red-500 text-sm'>{errors.organizationName}</p>
+                        <p className='text-red-500 text-sm'>
+                          {errors.organizationName}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -269,7 +278,9 @@ export default function OrganizationRegistrationForm() {
                       placeholder='Enter your primary phone number'
                     />
                     {errors.phoneNumberOne && (
-                      <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                      <p className='text-red-500 text-sm'>
+                        {errors.phoneNumberOne}
+                      </p>
                     )}
                   </div>
 
@@ -293,7 +304,6 @@ export default function OrganizationRegistrationForm() {
                   <div className='space-y-4'>
                     <Label htmlFor='focusArea'>Focus Area</Label>
                     <MultiSelectDropdown
-                      
                       options={focusAreaOptions}
                       selectedOptions={formData.focusArea}
                       onOptionChange={(option) =>
@@ -315,26 +325,34 @@ export default function OrganizationRegistrationForm() {
                       placeholder='Select areas of interest'
                     />
                     {errors.interestedArea && (
-                      <p className='text-red-500 text-sm'>{errors.interestedArea}</p>
+                      <p className='text-red-500 text-sm'>
+                        {errors.interestedArea}
+                      </p>
                     )}
 
-                    <div className="flex flex-col gap-2">
+                    <div className='flex flex-col gap-2'>
                       <Label htmlFor='organizationType'>
                         Organization Type
                       </Label>
                       <RadioGroup
-                        className="m-4 mt"
+                        className='m-4 mt gap-2'
                         onValueChange={handleRadioChange}
                         defaultValue={formData.organizationType}>
                         {organizationTypeOptions.map((option) => (
-                          <div key={option}>
-                            <RadioGroupItem value={option} id={option} />
+                          <div key={option} >
+                            <RadioGroupItem
+                              value={option}
+                              id={option}
+                              className='mr-2'
+                            />
                             <Label htmlFor={option}>{option}</Label>
                           </div>
                         ))}
                       </RadioGroup>
                       {errors.organizationType && (
-                        <p className='text-red-500 text-sm'>{errors.organizationType}</p>
+                        <p className='text-red-500 text-sm'>
+                          {errors.organizationType}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -343,38 +361,40 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 2 && (
                 <div>
-                  <h2 className='text-xl mb-4 text-center font-semibold' >Confirm your details</h2>
+                  <h2 className='text-xl mb-4 text-center font-semibold'>
+                    Confirm your details
+                  </h2>
                   {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
 
                   <div className='space-y-2'>
-                  {/* Confirm Details */}
-                  <div className='text-sm'>
-                    <p className='p-3'>
-                      <strong>Organization Name</strong> {formData.organizationName}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Email:</strong> {formData.email}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Phone:</strong> {formData.phoneNumberOne}
-                    </p>
-                    <p className='p-3'>
-                      <strong>From:</strong> {formData.city}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Focus on:</strong> {formData.focusArea}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Want to:</strong> {formData.interestedArea}
-                    </p>
-                    
-                    <p className='p-3'>
-                      <strong>Organization Type:</strong> {formData.organizationType}
-                    </p>
-                    
-                    
+                    {/* Confirm Details */}
+                    <div className='text-sm'>
+                      <p className='p-3'>
+                        <strong>Organization Name</strong>{" "}
+                        {formData.organizationName}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Email:</strong> {formData.email}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Phone:</strong> {formData.phoneNumberOne}
+                      </p>
+                      <p className='p-3'>
+                        <strong>From:</strong> {formData.city}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Focus on:</strong> {formData.focusArea}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Want to:</strong> {formData.interestedArea}
+                      </p>
+
+                      <p className='p-3'>
+                        <strong>Organization Type:</strong>{" "}
+                        {formData.organizationType}
+                      </p>
+                    </div>
                   </div>
-                </div>
                 </div>
               )}
 

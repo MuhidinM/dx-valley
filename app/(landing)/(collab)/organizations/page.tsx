@@ -71,10 +71,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title={orgItems.proposal.title}
-        buttonText={orgItems.proposal.button_name}
-        href={orgItems.proposal.href}
-        description={orgItems.proposal.description}
+        title={orgItems?.proposal.title || " "}
+        buttonText={orgItems?.proposal.button_name || " "}
+        href={orgItems?.proposal.href || " "}
+        description={orgItems?.proposal.description || " "}
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />

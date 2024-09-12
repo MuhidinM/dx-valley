@@ -131,7 +131,8 @@ export default function TrainerRegistrationForm() {
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
+            <span className='flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Trainer Registration Form
             </span>
             <div className='flex justify-center'>
@@ -177,7 +178,7 @@ export default function TrainerRegistrationForm() {
               transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
                 <div className='space-y-4'>
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='firstName'>First Name</Label>
                       <Input
@@ -202,7 +203,7 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='email'>Email</Label>
                       <Input
@@ -252,7 +253,7 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='flex-1 flex-col lg:flex-row'>
                       <Label htmlFor='schedule'>Schedule</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -277,7 +278,7 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='expertise'>Expertise</Label>
                       <DropdownMenu>
@@ -302,7 +303,7 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='flex-1 flex-col lg:flex-row'>
                       <Label htmlFor='country'>Country</Label>
                       <Input
                         id='country'

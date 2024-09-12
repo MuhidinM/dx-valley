@@ -691,6 +691,7 @@ const ApplyForIncubation = () => {
               </div>
             )}
           </form>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button

@@ -90,12 +90,12 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
   ];
 
   return (
-    <div className='mb-8'>
-      <div className='flex justify-between mb-2'>
+    <div className='mb-10'>
+      <div className='flex justify-between mb-2 gap-4'>
         {steps.map((step) => (
-          <div key={step.number} className='flex flex-col items-center'>
+          <div key={step.number} className='flex flex-col items-center '>
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold ${
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold sm:w-3 sm:h-5 lg:w-10 lg:h-10 md:w-10 md:h-10  xs:w-5 xs:h-5 ${
                 step.number === currentStep
                   ? "bg-coopBlue text-white"
                   : step.number < currentStep
@@ -104,7 +104,7 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
               }`}>
               {step.number}
             </div>
-            <span className='mt-2 text-xs text-center'>{step.title}</span>
+            <span className='mt-2 text-xs text-center flex flex-warp'>{step.title}</span>
           </div>
         ))}
       </div>
@@ -114,7 +114,7 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
           className='absolute top-0 left-0 h-2 bg-coopBlue  rounded-full transition-all duration-300 ease-in-out'
           style={{
             // width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
-            width: `${((currentStep ) / steps.length) * 100}%`,
+            width: `${(currentStep / steps.length) * 100}%`,
           }}></div>
       </div>
     </div>
@@ -238,11 +238,7 @@ export default function InternshipForm() {
                       <SelectContent>
                         <SelectItem value='male'>Male</SelectItem>
                         <SelectItem value='female'>Female</SelectItem>
-                        <SelectItem value='non-binary'>Non-binary</SelectItem>
-                        <SelectItem value='other'>Other</SelectItem>
-                        <SelectItem value='prefer-not-to-say'>
-                          Prefer not to say
-                        </SelectItem>
+                       
                       </SelectContent>
                     </Select>
                   </div>
