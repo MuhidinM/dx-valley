@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ctaProps } from "@/types/general";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-const CTA: React.FC<ctaProps> = ({ buttonText, title, href }) => {
+const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Mark the component as client-side after mounting
+  }, []);
+
   return (
-    <section className="dark:bg-gray-950 rounded-b-lg bg-white ">
+    <section className="dark:bg-gray-950 rounded-b-lg bg-white">
       <div className="container px-1 py-14 mx-auto flex flex-col flex-wrap  items-center justify-center md:flex-col md:space-y-5 md:justify-between">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl  dark:text-white">
           {title}
@@ -17,18 +25,20 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href }) => {
             </Button>
           </Link>
         </div>
-        <p>
+        <div>
           {" "}
-          <em className="text-gray-700">
-            Let’s Walk Together Your Innovation Journey
-          </em>{" "}
-        </p>
+          <div className="prose text-gray-700" suppressHydrationWarning>
+            {isClient && (
+              <ReactMarkdown
+                children={description?.toString() || ""}
+                remarkPlugins={[remarkGfm]}
+              />
+            )}
+          </div>
+          {" "}
+        </div>
       </div>
     </section>
   );
 };
-// <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'>
-//   {buttonText}
-// </Button>
-
 export default CTA;

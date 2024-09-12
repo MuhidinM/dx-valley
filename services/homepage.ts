@@ -2,7 +2,7 @@ import { HomePageResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const HomepageItemFetch = async ()=>{
-    const res = await axios.get<HomePageResponse>('http://10.1.151.64:1337/api/homepage?populate=slider.img,slider.link,stats.img,delivered.img,delivered.link,update.img,update.events,connect,vision,videos,news');
+    const res = await axios.get<HomePageResponse>('http://10.1.151.64:1337/api/homepage?populate=slider.img,slider.link,stats.img,delivered.img,delivered.link,update.img,update.events,connect,vision,videos,news,proposal');
     
     const data = res.data.data;
     const homepageItems = {
@@ -63,6 +63,12 @@ export const HomepageItemFetch = async ()=>{
             email: data.attributes.connect.email,
             address: data.attributes.connect.address,
         },
+        proposal: {
+            title: data.attributes.proposal.title || "",
+            description: data.attributes.proposal.description || "",
+            button_name: data.attributes.proposal.button_name || "",
+            href: data.attributes.proposal.href || ""
+        }
     }
     // console.log("homepage-items: ", homepageItems)
     return homepageItems

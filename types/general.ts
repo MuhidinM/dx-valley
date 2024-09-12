@@ -30,6 +30,7 @@ export interface ctaProps {
   title: string;
   buttonText?: string;
   href: string;
+  description?: string
 }
 
 
