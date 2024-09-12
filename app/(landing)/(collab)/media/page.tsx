@@ -9,7 +9,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [mediaItems, setmediaItems] = useState<OrgData>();
@@ -23,9 +23,9 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
- if (!mediaItems) {
-   return <SkeletonLoaderCollabForm />;
- }
+//  if (!mediaItems) {
+//    return <SkeletonPageColloab />;
+//  }
   
   return (
     <div>
@@ -36,7 +36,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -52,7 +52,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -63,7 +63,7 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        ); 
+        );
       })}
       <CTA
         title={mediaItems.proposal.title}

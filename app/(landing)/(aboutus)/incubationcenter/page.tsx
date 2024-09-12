@@ -40,9 +40,9 @@ const Page = () => {
     triggerOnce: true, // Only trigger once
   });
 
-  if (!incubationItems) {
-    return <SkeletonLoaderAboutPage />;
-  }
+  // if (!incubationItems) {
+  //   return <SkeletonLoaderAboutPage />;
+  // }
 
   return (
     <div className='space-y-8 mb-8 justify-center'>

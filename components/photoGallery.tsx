@@ -68,13 +68,14 @@ function GalleryGrid({ items }: GalleryGridProps) {
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {items.map((item, indx) => (
         <Card key={indx} className='overflow-hidden group'>
+
           <CardContent className='p-0 relative'>
             <AspectRatio ratio={3 / 2}>
               <Image
                 src={`http://10.1.151.64:1337${item.img}`}
                 alt={item.title}
                 fill
-                className='object-cover transition-opacity group-hover:opacity-30'
+                className='object-cover transition-opacity group-hover:opacity-20'
               />
             </AspectRatio>
             <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>

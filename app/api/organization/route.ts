@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       email,
       phoneNumberOne,
       addressType,
-      tradeLicence,
     } = data;
 
     // Check for existing email
@@ -29,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     if (existingEmail) {
       return NextResponse.json(
-        { message: 'Email is already registered' },
+        { message: "Email is already registered" },
         { status: 400 }
       );
     }
@@ -41,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     if (existingPhone) {
       return NextResponse.json(
-        { message: 'Phone number is already registered' },
+        { message: "Phone number is already registered" },
         { status: 400 }
       );
     }
@@ -52,8 +51,8 @@ export async function POST(req: NextRequest) {
         organizationName,
         industry,
         organizationType,
-        focusArea: focusArea.join(','), // Save as comma-separated string
-        interestArea: interestedArea.join(','), // Save as comma-separated string
+        focusArea: focusArea.join(","), // Save as comma-separated string
+        interestArea: interestedArea.join(","), // Save as comma-separated string
       },
     });
 
@@ -76,14 +75,34 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: 'Organization registered successfully!' },
+      { message: "Organization registered successfully!" },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error saving data:', error);
+    console.error("Error saving data:", error);
     return NextResponse.json(
-      { message: 'Failed to save organization data.' },
+      { message: "Failed to save organization data." },
       { status: 500 }
     );
+  }
+}
+
+export async function GET(): Promise<NextResponse> {
+  try {
+    const Organizations = await prisma.organizationInfo.findMany();
+    return NextResponse.json({ Organizations }, { status: 200 });
+  } catch (error: any) {
+    console.error(
+      "Error retrieving Organizations:",
+      error.message,
+      error.stack,
+      error.code
+    );
+    return NextResponse.json(
+      { message: "An error occurred while retrieving Organizations" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
   }
 }

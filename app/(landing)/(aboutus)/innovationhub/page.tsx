@@ -29,14 +29,13 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-   if (!innovationItems) {
-     return <SkeletonLoaderAboutInnovationPage />;
-   }
+  //  if (!innovationItems) {
+  //    return <SkeletonLoaderAboutInnovationPage />;
+  //  }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])
   return (
-    // <div>Page</div>
     <div className='space-y-8 mb-8 justify-center'>
       <SectionLeft
         svg={
@@ -71,20 +70,18 @@ const Page = () => {
                   src={"/image/companies/payroll.png"}
                   alt='Image Left Not Found'
                   width={400}
-                  height={400}                
-                
+                  height={400}
                 />
               }
               title={item.title}
               buttonText={"Visit Site"}
               description={item.description}
               href={" "}
-              
             />
           );
         })}
       </div>
-      <div id="collab-form">
+      <div id='collab-form'>
         <ContactUs address={innovationItems?.connect as Address} />
       </div>
     </div>

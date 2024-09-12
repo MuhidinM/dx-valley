@@ -4,10 +4,10 @@
 
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import Motto from "./motto";
 
-const LAUNCH_DATE = new Date("2024-09-14T00:00:00");
+const LAUNCH_DATE = new Date("2024-09-19T14:26:00");
 
 interface TimeLeft {
   days: number;
@@ -17,19 +17,39 @@ interface TimeLeft {
 }
 
 export default function ComingSoonModal() {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(getTimeLeft());
-    }, 1000);
+      const newTimeLeft = getTimeLeft();
+      if (
+        newTimeLeft.days <= 0 &&
+        newTimeLeft.hours <= 0 &&
+        newTimeLeft.minutes <= 0 &&
+        newTimeLeft.seconds <= 0
+      ) {
+        setIsOpen(false); // Close the modal when time runs out
+        clearInterval(timer); // Clear the interval once the timer finishes
+      } else {
+        setIsOpen(true);
+        setTimeLeft(newTimeLeft);
+      }
+    }, 1);
 
     return () => clearInterval(timer);
   }, []);
 
   function getTimeLeft(): TimeLeft {
     const difference = +LAUNCH_DATE - +new Date();
+    if (difference <= 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
@@ -38,31 +58,36 @@ export default function ComingSoonModal() {
     };
   }
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <Dialog open={isOpen}
-    //  onOpenChange={setIsOpen}
-     >
+    <Dialog open={isOpen}>
       <DialogContent className='sm:max-w-[800px] bg-white text-gray-800 overflow-hidden'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className='p-6 text-center relative'>
-          <h2 className='text-4xl font-bold mb-4 text-gray-900'>
-            D <span className='text-orange-500'>X</span> VALLEY
-          </h2>
+          {/* <h2 className='text-4xl font-bold mb-4 text-gray-800'>
+            D <span className='text-coopOrange'>X</span> VALLEY
+          </h2> */}
 
           <motion.h3
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className='text-5xl font-extrabold mb-8 text-orange-500'>
+            className='text-4xl font-extrabold mb-8 text-coopOrange'>
             We Are Coming Soon!
           </motion.h3>
-
-          <p className='mb-6 text-[#00adef] text-xl'>
-            Stay tuned! We're launching on September 14, 2024
-          </p>
+          <img
+            src={"/image/dxvalleymainlogo.png"}
+            alt='dxvalley logo'
+            width={500} // adjust the width as needed
+            className='mx-auto mb-4 '
+          />
+          {/* <p className='mb-6 text-[#00adef] text-xl'>Stay tuned!</p> */}
 
           <div className='flex justify-center space-x-4 mb-8'>
             {Object.entries(timeLeft).map(([unit, value]) => (
@@ -74,16 +99,11 @@ export default function ComingSoonModal() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className='mb-8'>
-            {/* <Button
-              onClick={() => setIsOpen(false)}
-              className='bg-orange-500 text-white hover:bg-[#00adef] transition-colors text-lg px-6 py-3'>
-              Can't Wait!
-            </Button> */}
-          </motion.div>
+            className='mb-6'></motion.div>
 
-          <AnimatedMotto />
         </motion.div>
+          
+            <AnimatedMotto />
       </DialogContent>
     </Dialog>
   );
@@ -112,10 +132,11 @@ function CalendarFlipUnit({ unit, value }: CalendarFlipUnitProps) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <span className='text-sm capitalize mt-2 text-orange-500'>{unit}</span>
+      <span className='text-sm capitalize mt-2 text-coopOrange'>{unit}</span>
     </div>
   );
 }
+
 
 function AnimatedMotto() {
   return (
@@ -123,12 +144,12 @@ function AnimatedMotto() {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
-      className='relative top-4 right-4 text-right'>
+      className='relative top-0 right-4 text-right'>
       <h4 className='text-2xl font-bold mb-2 text-[#00adef] sparkling-text'>
-        Empowering Communities,
+        Empowering <span className='italic font-extrabold '> Communities,</span>
       </h4>
-      <h4 className='text-2xl font-bold text-orange-500 sparkling-text'>
-        Transforming Lives
+      <h4 className='text-2xl font-bold text-coopOrange sparkling-text'>
+        Transforming <span className='italic font-extrabold'> Lives</span>
       </h4>
       <style jsx>{`
         @keyframes sparkle {
@@ -150,5 +171,7 @@ function AnimatedMotto() {
         }
       `}</style>
     </motion.div>
+
+  // <Motto />
   );
 }

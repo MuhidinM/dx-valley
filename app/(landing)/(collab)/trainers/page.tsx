@@ -11,7 +11,7 @@ import CollabObjectives from "@/components/CollabObjectives";
 import { OrgData } from "@/types/strapi-types";
 import { TrainerItemFetch } from "@/services/trainers";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [trainersItems, setTrainersItems] = useState<OrgData>();
@@ -25,9 +25,9 @@ const Page = () => {
     fetchTrainersItems();
   }, []);
 
- if (!trainersItems) {
-   return <SkeletonLoaderCollabForm />;
- }
+//  if (!trainersItems) {
+//    return <SkeletonPageColloab />;
+//  }
 
   return (
     <div>
@@ -38,7 +38,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -54,7 +54,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -77,8 +77,8 @@ const Page = () => {
       {/* <Objectives items={objectives} /> */}
       <CollabObjectives />
       {/* <InputForm /> */}
-      <div id="collab-form">
-        <CollabForm/>
+      <div id='collab-form'>
+        <CollabForm />
       </div>
     </div>
   );

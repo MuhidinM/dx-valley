@@ -232,3 +232,56 @@ export const SkeletonLoaderTrainingPage = () => (
   </div>
 );
 
+
+export const SkeletonPageColloab = () => {
+  return (
+    <div>
+      {/* Skeleton for Page Title */}
+      <div className='flex flex-col items-center mb-10'>
+        <Skeleton width='60%' height={32} />
+        <Skeleton width='40%' height={20} style={{ marginTop: "8px" }} />
+      </div>
+
+      {/* Skeleton for Sections */}
+    
+        <div
+          // key={index}
+          className={`flex "flex-row" : "flex-row-reverse"
+          } items-center mb-10`}>
+          {/* Skeleton for Image */}
+          <div className='w-1/2'>
+            <Skeleton height={400} />
+          </div>
+
+          {/* Skeleton for Text */}
+          <div className='w-1/2 p-6'>
+            <Skeleton width='70%' height={30} />
+            <Skeleton width='100%' height={20} style={{ marginTop: "10px" }} />
+            <Skeleton width='90%' height={20} style={{ marginTop: "10px" }} />
+            <Skeleton width='80%' height={20} style={{ marginTop: "10px" }} />
+          </div>
+        </div>
+  
+
+      {/* Skeleton for CTA */}
+      <div className='flex flex-col items-center mb-10'>
+        <Skeleton width='40%' height={80} />
+        <Skeleton width='25%' height={90} style={{ marginTop: "12px" }} />
+      </div>
+
+      {/* Skeleton for Professional Overview */}
+      <div className='p-6 bg-gray-100 rounded-lg mb-10'>
+        <Skeleton width='50%' height={30} />
+        <Skeleton width='100%' height={20} style={{ marginTop: "10px" }} />
+        <Skeleton width='90%' height={20} style={{ marginTop: "10px" }} />
+        <Skeleton width='80%' height={20} style={{ marginTop: "10px" }} />
+        <Skeleton width='70%' height={20} style={{ marginTop: "10px" }} />
+      </div>
+
+      {/* Skeleton for Collab Form */}
+      <div className='mb-10'>
+        <Skeleton height={300} />
+      </div>
+    </div>
+  );
+};

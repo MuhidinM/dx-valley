@@ -9,7 +9,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       mediaName,
       description,
       platform, // Expecting an array of strings
-      genre,    // Expecting an array of strings
+      genre, // Expecting an array of strings
       city,
       state,
       country,
@@ -18,8 +18,8 @@ export async function POST(req: Request): Promise<NextResponse> {
     } = await req.json();
 
     // Convert arrays to comma-separated strings
-    const platformString = platform.join(',');
-    const genreString = genre.join(',');
+    const platformString = platform.join(",");
+    const genreString = genre.join(",");
 
     // Check if the email is already registered
     const existingEmail = await prisma.contactInfo.findUnique({
@@ -51,7 +51,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         mediaName,
         description,
         contentGenre: genreString, // Save as a comma-separated string
-        platform: platformString,   // Save as a comma-separated string
+        platform: platformString, // Save as a comma-separated string
       },
     });
 
@@ -68,7 +68,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         city,
         state,
         country,
-        addressType: 'residential', // Default value or handle as needed
+        addressType: "residential", // Default value or handle as needed
         MediaInfo: { connect: { id: mediaInfo.id } },
       },
     });
@@ -83,5 +83,25 @@ export async function POST(req: Request): Promise<NextResponse> {
       { message: "Error registering media. Please try again.", error },
       { status: 500 }
     );
+  }
+}
+
+export async function GET(): Promise<NextResponse> {
+  try {
+    const media = await prisma.mediaInfo.findMany();
+    return NextResponse.json({ media }, { status: 200 });
+  } catch (error: any) {
+    console.error(
+      "Error retrieving media:",
+      error.message,
+      error.stack,
+      error.code
+    );
+    return NextResponse.json(
+      { message: "An error occurred while retrieving media" },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
   }
 }

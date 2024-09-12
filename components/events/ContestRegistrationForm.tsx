@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { toast, Toaster } from "sonner";
 
 const steps = [
   { id: "team-info", title: "Team Information" },
@@ -36,13 +37,13 @@ interface FormData {
   projectDescription: string;
   techStack: string;
   projectUrl: string;
-  eventId: number;
+  eventId: string;
 }
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
-  // const eventId = searchParams.get("eventId");
-  const eventId = 1;
+ const eventId = searchParams.get("eventId") || "";
+  // const eventId = 1;
 
   const [currentStep, setCurrentStep] = useState(0);
   const [alert, setAlert] = useState<{
@@ -63,8 +64,7 @@ export default function ContestRegistrationForm() {
     projectDescription: "",
     techStack: "",
     projectUrl: "",
-    eventId: eventId,
-   
+    eventId: eventId || "",
   });
 
   useEffect(() => {
@@ -164,24 +164,62 @@ export default function ContestRegistrationForm() {
         }),
       });
 
+      //     if (response.ok) {
+      //       setAlert({
+      //         type: "success",
+      //         message:
+      //         (  "Registration successful! Your details have been submitted successfully.").toString(),
+      //       });
+      //     } else {
+      //       const errorData = await response.json();
+      //       setAlert({
+      //         type: "error",
+      //         message: (
+      //           errorData.error || "An error occurred during registration."
+      //         ).toString(),
+      //       });
+      //     }
+      //   } catch (error) {
+      //     console.error("Error registering contest:", error);
+      //     setAlert({
+      //       type: "error",
+      //       message: "An error occurred. Please try again.",
+      //     });
+      //   }
+      // };
+
       if (response.ok) {
-        setAlert({
-          type: "success",
-          message:
-            "Registration successful! Your details have been submitted successfully.",
+        setIsSubmitted(true);
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
+        setFormData({
+          LeaderFirstName: "",
+          LeaderLastName: "",
+          email: "",
+          phoneNumber: "",
+          teamName: "",
+          numberOfMembers: 1,
+          teamMembers: [{ firstName: "", lastName: "", email: "", phoneNumber: "" }],
+          projectTitle: "",
+          projectDescription: "",
+          techStack: "",
+          projectUrl: "",
+          eventId: eventId,
         });
       } else {
-        const errorData = await response.json();
-        setAlert({
-          type: "error",
-          message: errorData.error || "An error occurred during registration.",
+        const errorMessage = await response.json();
+        console.error("Error:", JSON.stringify(errorMessage));
+        toast.error("Registration failed", {
+          description:
+            JSON.stringify(errorMessage) ||
+            "An error occurred during registration.",
         });
       }
     } catch (error) {
-      console.error("Error registering contest:", error);
-      setAlert({
-        type: "error",
-        message: "An error occurred. Please try again.",
+      console.error("Error registering:", error);
+      toast.error("An error occurred", {
+        description: "Please try again.",
       });
     }
   };
@@ -210,9 +248,10 @@ export default function ContestRegistrationForm() {
 
   return (
     <div className='w-94 mt-8 mb-8 flex items-center justify-center'>
-      <div className='w-full max-w-xl bg-white p-6 rounded-lg shadow-lg'>
+      <Toaster position='top-right' richColors />
+      <div className='w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg'>
         <div className='mb-8 text-center text-2xl font-bold'>
-          Register Contest Info
+          Contest Registeration Form
         </div>
         <div className='mb-8 flex justify-between items-center'>
           {steps.map((step, index) => (
@@ -233,10 +272,10 @@ export default function ContestRegistrationForm() {
                 }`}>
                 {step.title}
               </span>
-              {index < steps.length - 1 && (
+              {index < steps.length && (
                 <div
                   className={`h-1 w-24 mt-4 ${
-                    index < currentStep ? "bg-primary" : "bg-gray-200"
+                    index <= currentStep ? "bg-primary" : "bg-gray-200"
                   }`}
                 />
               )}
@@ -256,81 +295,85 @@ export default function ContestRegistrationForm() {
             <AlertTitle>
               {alert.type === "success" ? "Success" : "Error"}
             </AlertTitle>
-            <AlertDescription>{alert.message}</AlertDescription>
+            <AlertDescription>{alert?.message[10]}</AlertDescription>
           </Alert>
         )}
 
         <form onSubmit={handleSubmit}>
           {currentStep === 0 && (
-            <div className='mb-4 space-y-4'>
-              <div>
-                <Label htmlFor='LeaderFirstName'>Team Leader First Name</Label>
-                <Input
-                  id='LeaderFirstName'
-                  name='LeaderFirstName'
-                  value={formData.LeaderFirstName}
-                  onChange={handleChange}
-                  placeholder="Enter the team leader's first name"
-                />
-              </div>
-              <div>
-                <Label htmlFor='LeaderLastName'>Team Leader Last Name</Label>
-                <Input
-                  id='LeaderLastName'
-                  name='LeaderLastName'
-                  value={formData.LeaderLastName}
-                  onChange={handleChange}
-                  placeholder="Enter the team leader's last name"
-                />
-              </div>
-              <div>
-                <Label htmlFor='email'>Email</Label>
-                <Input
-                  id='email'
-                  name='email'
-                  type='email'
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder='Enter the email'
-                />
-              </div>
-              <div>
-                <Label htmlFor='phoneNumber'>Phone Number</Label>
-                <Input
-                  id='phoneNumber'
-                  name='phoneNumber'
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  placeholder='Enter the phone number'
-                />
-              </div>
-              <div>
-                <Label htmlFor='teamName'>Team Name</Label>
-                <Input
-                  id='teamName'
-                  name='teamName'
-                  value={formData.teamName}
-                  onChange={handleChange}
-                  placeholder='Enter the team name'
-                />
-              </div>
-              <div>
-                <Label htmlFor='numberOfMembers'>Number of Members</Label>
-                <Input
-                  id='numberOfMembers'
-                  type='number'
-                  name='numberOfMembers'
-                  value={formData.numberOfMembers}
-                  onChange={handleNumberOfMembersChange}
-                  min={1}
-                  max={10}
-                  placeholder='Enter the number of team members'
-                />
+            <div className='space-y-4'>
+              <div className='grid grid-cols-1   md:grid-cols-1  lg:grid-cols-2 gap-4'>
+                <div>
+                  <Label htmlFor='LeaderFirstName'>
+                    Team Leader First Name
+                  </Label>
+                  <Input
+                    id='LeaderFirstName'
+                    name='LeaderFirstName'
+                    value={formData.LeaderFirstName}
+                    onChange={handleChange}
+                    placeholder="Enter the team leader's first name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='LeaderLastName'>Team Leader Last Name</Label>
+                  <Input
+                    id='LeaderLastName'
+                    name='LeaderLastName'
+                    value={formData.LeaderLastName}
+                    onChange={handleChange}
+                    placeholder="Enter the team leader's last name"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='email'>Email</Label>
+                  <Input
+                    id='email'
+                    name='email'
+                    type='email'
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder='Enter the email'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='phoneNumber'>Phone Number</Label>
+                  <Input
+                    id='phoneNumber'
+                    name='phoneNumber'
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    placeholder='Enter the phone number'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='teamName'>Team Name</Label>
+                  <Input
+                    id='teamName'
+                    name='teamName'
+                    value={formData.teamName}
+                    onChange={handleChange}
+                    placeholder='Enter the team name'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='numberOfMembers'>Number of Members</Label>
+                  <Input
+                    id='numberOfMembers'
+                    type='number'
+                    name='numberOfMembers'
+                    value={formData.numberOfMembers}
+                    onChange={handleNumberOfMembersChange}
+                    min={1}
+                    max={10}
+                    placeholder='Enter the number of team members'
+                  />
+                </div>
               </div>
               {formData.teamMembers.map((member, index) => (
-                <div key={index} className='space-y-4'>
+                <div key={index} className='space-y-2'>
                   <h4 className='font-semibold'>Team Member {index + 1}</h4>
-                  <div className='grid grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-4'>
                     <div>
                       <Label>First Name</Label>
                       <Input
@@ -362,7 +405,7 @@ export default function ContestRegistrationForm() {
                       />
                     </div>
                   </div>
-                  <div className='grid grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1  lg:grid-cols-2 gap-4'>
                     <div>
                       <Label>Member Email</Label>
                       <Input
@@ -396,47 +439,52 @@ export default function ContestRegistrationForm() {
           )}
 
           {currentStep === 1 && (
-            <div className='mb-4 space-y-4'>
-              <div>
-                <Label htmlFor='projectTitle'>Project Title</Label>
-                <Input
-                  id='projectTitle'
-                  name='projectTitle'
-                  value={formData.projectTitle}
-                  onChange={handleChange}
-                  placeholder='Enter the project title'
-                />
-              </div>
-              <div>
-                <Label htmlFor='projectDescription'>Project Description</Label>
-                <Textarea
-                  id='projectDescription'
-                  name='projectDescription'
-                  value={formData.projectDescription}
-                  onChange={handleChange}
-                  placeholder='Enter the project description'
-                  rows={4}
-                />
-              </div>
-              <div>
-                <Label htmlFor='techStack'>Tech Stack</Label>
-                <Input
-                  id='techStack'
-                  name='techStack'
-                  value={formData.techStack}
-                  onChange={handleChange}
-                  placeholder='Enter the tech stack'
-                />
-              </div>
-              <div>
-                <Label htmlFor='projectUrl'>Project URL</Label>
-                <Input
-                  id='projectUrl'
-                  name='projectUrl'
-                  value={formData.projectUrl}
-                  onChange={handleChange}
-                  placeholder='Enter the project URL'
-                />
+            <div className='space-y-4'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div>
+                  {" "}
+                  <Label htmlFor='projectTitle'>Project Title</Label>
+                  <Input
+                    id='projectTitle'
+                    name='projectTitle'
+                    value={formData.projectTitle}
+                    onChange={handleChange}
+                    placeholder='Enter the project title'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='projectDescription'>
+                    Project Description
+                  </Label>
+                  <Textarea
+                    id='projectDescription'
+                    name='projectDescription'
+                    value={formData.projectDescription}
+                    onChange={handleChange}
+                    placeholder='Enter the project description'
+                    rows={4}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='techStack'>Tech Stack</Label>
+                  <Input
+                    id='techStack'
+                    name='techStack'
+                    value={formData.techStack}
+                    onChange={handleChange}
+                    placeholder='Enter the tech stack'
+                  />
+                </div>
+                <div>
+                  <Label htmlFor='projectUrl'>Project URL</Label>
+                  <Input
+                    id='projectUrl'
+                    name='projectUrl'
+                    value={formData.projectUrl}
+                    onChange={handleChange}
+                    placeholder='Enter the project URL'
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -489,7 +537,7 @@ export default function ContestRegistrationForm() {
             </div>
           )}
 
-          <div className='flex justify-between'>
+          <div className='flex justify-between mt-2'>
             {currentStep > 0 && (
               <Button type='button' onClick={handlePrevious} variant='outline'>
                 Previous
