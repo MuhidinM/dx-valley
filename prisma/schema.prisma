@@ -238,7 +238,7 @@ model OrganizationInfo {
   organizationName             String
   industry         String // Industry of the organization
   focusArea        String // e.g., "AI", "FinTech", "AgroTech"
-  interestArea     String // e.g., "Invest", "Support"
+  interestArea     String? // e.g., "Invest", "Support"
   tradeLicense     String?
   organizationType String // e.g., "NGO", "Private", "Government"
   createdAt        DateTime @default(now())
@@ -359,14 +359,13 @@ model MediaInfo {
 
 model TrainerInfo {
   id         Int      @id @default(autoincrement())
-  title      String
+  title      String?
   profession String
   expertise  String
   schedule   String
   motivation String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-
   // Relationships
   personalInfo   PersonalInfo?  @relation(fields: [personalInfoId], references: [id]) // One-to-One: Personal Info
   personalInfoId Int?           @unique
