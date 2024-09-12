@@ -232,7 +232,7 @@ export default function IndependentRegistrationForm() {
                           type='tel'
                           value={formData.phoneNumberOne}
                           onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
-                          placeholder='Enter your primary phone number'
+                          placeholder='Enter your phone number'
                         />
                       </div>
                     </div>
@@ -247,7 +247,7 @@ export default function IndependentRegistrationForm() {
                       />
                     </div>
 
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    {/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                       <div>
                         <Label htmlFor='state'>State</Label>
                         <Input
@@ -266,7 +266,7 @@ export default function IndependentRegistrationForm() {
                           placeholder='Enter your city'
                         />
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className='flex gap-4'>
                       <div className='flex-1'>
@@ -328,12 +328,12 @@ export default function IndependentRegistrationForm() {
                       <p className='p-3'>
                         <strong>Country:</strong> {formData.country}
                       </p>
-                      <p className='p-3'>
+                      {/* <p className='p-3'>
                         <strong>State:</strong> {formData.state}
                       </p>
                       <p className='p-3'>
                         <strong>City:</strong> {formData.city}
-                      </p>
+                      </p> */}
                       <p className='p-3'>
                         <strong>Focus Areas:</strong> {formData.focusArea.join(', ')}
                       </p>

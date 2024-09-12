@@ -40,9 +40,9 @@ const Page = () => {
     triggerOnce: true, // Only trigger once
   });
 
-  if (!incubationItems) {
-    return <SkeletonLoaderAboutPage />;
-  }
+  // if (!incubationItems) {
+  //   return <SkeletonLoaderAboutPage />;
+  // }
 
   return (
     <div className='space-y-8 mb-8 justify-center'>
@@ -64,6 +64,7 @@ const Page = () => {
         buttonText='Apply for Call'
         title='Have a Start-Up Idea?'
         href='/callforproposal'
+        buttonDesc={"Let’s Walk Together Your Innovation Journey"}
       />
 
       {/* Observe the feature component */}

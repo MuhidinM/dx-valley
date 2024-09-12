@@ -85,8 +85,14 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
                 <h6 className='mb-4 text-xl font-extrabold'>
                   {FooterItems?.title}
                   <span className='mx-2 text-gray-800 font-bold'>
-                    D<span className='text-coopOrange'> X </span>VALLEY
+                    D <span className='text-coopOrange'> X </span>VALLEY
                   </span>
+                  {/* <img
+                    src={"/image/dxvalleymainlogo.png"}
+                    alt='dxvalley logo'
+                    width={100} // adjust the width as needed
+                    className='mx-auto mb-4 '
+                  /> */}
                 </h6>
                 <p className='text-white'>{FooterItems?.description}</p>
               </div>
@@ -106,10 +112,12 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
                           /> */}
-                          <Input  type='email'
+                          <Input
+                            type='email'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
-                            className='text-black dark:text-white'/>
+                            className='text-black dark:text-white'
+                          />
                         </div>
                         <div className='sm:ml-3'>
                           <Button className='bg-coopOrange hover:bg-black'>
@@ -195,12 +203,18 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
           </div>
         </div>
 
-        <div className='py-6 md:py-8 text-center sm:text-left'>
+        <div className='py-6 md:py-8 text-center sm:text-center  md:text-center'>
           <div className='space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0'>
             <Link href='/' className='flex items-center justify-center'>
               <span className='text-xl font-semibold'>
                 D <span className='text-orange-500'>X</span> VALLEY
               </span>
+              {/* <img
+                src={"/image/dxvalleymainlogo.png"}
+                alt='dxvalley logo'
+                width={100} // adjust the width as needed
+                className='mx-auto mb-4 '
+              /> */}
             </Link>
 
             <p className='text-sm'>

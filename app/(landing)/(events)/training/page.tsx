@@ -24,9 +24,9 @@ const Page = () => {
     fetchTrainngItems();
   }, []);
 
-  if (!trainingItems.length) {
-    return <SkeletonLoaderTrainingPage   />;
-  }
+  // if (!trainingItems.length) {
+  //   return <SkeletonLoaderTrainingPage   />;
+  // }
   // useEffect(() => {console.log("final ", trainingItems)}, [trainingItems])
   return (
     <div>
@@ -65,7 +65,12 @@ const Page = () => {
           />
         );
       })}
-      <CTA title={"Want To Give a Training?"} buttonText={"Apply"} href='' />
+      <CTA
+        title={"Want To Give a Training?"}
+        buttonText={"Apply"}
+        href=''
+        buttonDesc={"Let's inspire excellence together"}
+      />
     </div>
   );
 };

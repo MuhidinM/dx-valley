@@ -1,5 +1,6 @@
 /** @format */
 "use client";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
@@ -17,6 +18,7 @@ import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
 import VideosList from "@/components/video";
 import NewsList from "@/components/News";
+<link rel='icon' href='/DX.ico' sizes='any' />;
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -33,13 +35,14 @@ const Page = () => {
   // if (!homepageItems) {
   //   return <SkeletonLoader />;
   // }
-
+      <Head>
+        <link rel='icon' href='/DX.ico' sizes='any' />
+      </Head>
   return (
     <div>
-      {" "}
       {/* <div >
-        {<ComingSoonModal />}
-      </div> */}
+          {<ComingSoonModal />}
+        </div> */}
       <div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
           <div className='lg:col-span-2 flex flex-col justify-between'>
@@ -62,6 +65,7 @@ const Page = () => {
               buttonText='Apply For Call'
               title='Have a Start-Up Idea?'
               href={"/callforproposal"}
+              buttonDesc='Let’s Walk Together Your Innovation Journey'
             />
           </div>
           <div className='lg:col-span-1'>
@@ -94,9 +98,18 @@ const Page = () => {
         </div>
 
         <br />
-        <h1 className='text-3xl font-bold m-0 text-center'>
+        {/* <h1 className='text-3xl font-bold m-0 text-center'>
           Breakthroughs We&apos;ve Delivered
-        </h1>
+        </h1> */}
+        <div className='text-center'>
+          <h2 className='text-4xl sm:text-wrap md:text-wrap  font-bold'>
+            <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
+            Delivered
+          </h2>
+          <div className='flex justify-center mt-2  mb-16'>
+            <div className='w-36 h-1 bg-coopOrange'></div>
+          </div>
+        </div>
         <br></br>
         <ProductsBeam products={homepageItems?.delivered || []} />
         <ContactUs address={homepageItems?.connect as Address} />

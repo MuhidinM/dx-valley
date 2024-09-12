@@ -23,9 +23,9 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
- if (!mediaItems) {
-   return <SkeletonPageColloab />;
- }
+//  if (!mediaItems) {
+//    return <SkeletonPageColloab />;
+//  }
   
   return (
     <div>
@@ -36,7 +36,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -52,7 +52,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -63,15 +63,16 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        ); 
+        );
       })}
       <CTA
-        title="Want to Work With Us?"
-        buttonText="Apply For Call"
+        title='Want to Work With Us?'
+        buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Partner with us to amplify impactful stories"}
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
-      <div id="collab-form">
+      <div id='collab-form'>
         <CollabForm />
       </div>
     </div>

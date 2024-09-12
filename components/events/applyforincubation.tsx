@@ -389,8 +389,10 @@ const ApplyForIncubation = () => {
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-            icon={<CheckCircle2 className="w-8 h-8 text-coopOrange" />}
-            desc={" Good luck! Stay tuned for our email."}
+
+            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+            desc={"Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."}
+
           />
         </div>
       </div>

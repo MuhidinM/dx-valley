@@ -28,9 +28,9 @@ const Page = () => {
   //   console.log("org items: ", orgItems);
   // });
 
-  if (!orgItems) {
-    return <SkeletonPageColloab />;
-  }
+  // if (!orgItems) {
+  //   return <SkeletonPageColloab />;
+  // }
   return (
     <div>
       <PageTitle />
@@ -74,6 +74,7 @@ const Page = () => {
         title='Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Let's empower change together"}
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />

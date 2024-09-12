@@ -25,9 +25,9 @@ const Page = () => {
     fetchStakeHolderItems();
   }, []);
 
-  if (!stakeHolderItems) {
-    return <SkeletonPageColloab />;
-  }
+  // if (!stakeHolderItems) {
+  //   return <SkeletonPageColloab />;
+  // }
   return (
     <div>
       <PageTitle />
@@ -71,10 +71,11 @@ const Page = () => {
       Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Partner with us to make your impact count"}
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
-        <CollabForm/>
+        <CollabForm />
       </div>
     </div>
   );
