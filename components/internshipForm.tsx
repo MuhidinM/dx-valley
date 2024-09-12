@@ -166,7 +166,7 @@ export default function InternshipForm() {
           <SubmissionSuccess
             title={"Submission Successful!"}
             icon={<CheckCircle2 className='w-8 h-8 text-green' />}
-            desc={"Application submitted successfully. Thank you!"}
+            desc={"Application submitted successfully. We will get back to you shortly."}
           />
         </div>
       </div>

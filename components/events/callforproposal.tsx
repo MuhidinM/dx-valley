@@ -52,13 +52,13 @@ export default function Callforproposal() {
   return (
     <div className='container w-2/3 my-16 h-1/2'>
       {callForProposalEvents.length > 0 ? (
-        callForProposalEvents.map((event) => (
+        callForProposalEvents.map((event, index) => (
           <div key={event.id}>
             <Countdown
               event={event}
               renderUI={false}
               onTimeLeftCalculated={(calculatedTimeLeft) =>
-                handleTimeLeftCalculated(event.id, calculatedTimeLeft)
+                handleTimeLeftCalculated(event?.id, calculatedTimeLeft)
               }
             />
             <Card>

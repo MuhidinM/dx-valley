@@ -11,7 +11,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { StakeHolderItemFetch } from "@/services/stakeholders";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm } from "@/components/SkeletonLoader";
+import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [stakeHolderItems, setStakeHolderItems] = useState<OrgData>();
@@ -25,9 +25,9 @@ const Page = () => {
     fetchStakeHolderItems();
   }, []);
 
-  if (!stakeHolderItems) {
-    return <SkeletonLoaderCollabForm />;
-  }
+  // if (!stakeHolderItems) {
+  //   return <SkeletonPageColloab />;
+  // }
   return (
     <div>
       <PageTitle />
@@ -71,10 +71,11 @@ const Page = () => {
       Want to Work With Us?'
         buttonText='Apply For Call'
         href={"#collab-form"}
+        buttonDesc={"Partner with us to make your impact count"}
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
-        <CollabForm/>
+        <CollabForm />
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const steps = [
   { id: "organization", title: "Organization Info" },
@@ -26,7 +27,7 @@ const steps = [
 const industryOptions = ["Agriculture", "AI", "Fintech"];
 const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
 const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
-const organizationTypeOptions = ["Private", "NGO", "Gov't"];
+const organizationTypeOptions = ["Private", "NGO", "Govermental", "Other"];
 
 type FormData = {
   organizationName: string;
@@ -114,6 +115,12 @@ export default function OrganizationRegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleRadioChange = (value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      organizationType: value,
+    }));
+  };
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
@@ -299,36 +306,32 @@ export default function OrganizationRegistrationForm() {
                       </div>
                     </div>
                     <div className='flex gap-4'>
-                      <div className='flex-1'>
+                      <div className=''>
                         <Label htmlFor='organizationType'>
                           Organization Type
                         </Label>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant='outline'
-                              className='w-full text-left'>
-                              {formData.organizationType || "Select "}
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
+                        <div className='w-full max-w-md mx-auto p-4'>
+                          <RadioGroup
+                            value={formData.organizationType}
+                            onValueChange={handleRadioChange}
+                            className='flex items-center space-x-4' // Use flex and space-x for horizontal alignment
+                          >
                             {organizationTypeOptions.map((option) => (
-                              <DropdownMenuCheckboxItem
+                              <div
                                 key={option}
-                                onCheckedChange={() =>
-                                  handleDropdownChange(
-                                    "organizationType",
-                                    option
-                                  )
-                                }>
-                                {option}
-                              </DropdownMenuCheckboxItem>
+                                className='flex items-center space-x-2'>
+                                <RadioGroupItem value={option} id={option} />
+                                <Label htmlFor={option}>{option}</Label>
+                              </div>
                             ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                          </RadioGroup>
+                          {/* <p className='mt-4 text-sm text-gray-600'>
+                              Selected: {formData.organizationType || "None"}
+                             </p> */}
+                        </div>
                       </div>
-
-                      <div className='flex-1'>
+                    </div>
+                    {/* <div className='flex-1'>
                         <Label htmlFor='organizationType'>Industry</Label>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
@@ -350,9 +353,9 @@ export default function OrganizationRegistrationForm() {
                             ))}
                           </DropdownMenuContent>
                         </DropdownMenu>
-                      </div>
-                    </div>
-                    <div>
+                      </div> */}
+
+                    {/* <div>
                       <Label htmlFor='tradeLicence'>Trade licence</Label>
                       <Input
                         id='tradeLicence'
@@ -362,7 +365,7 @@ export default function OrganizationRegistrationForm() {
                         }
                         placeholder='Enter your trade license'
                       />
-                    </div>
+                    </div> */}
 
                     <div>
                       <Label htmlFor='organizationType'>Motivation</Label>
@@ -384,7 +387,8 @@ export default function OrganizationRegistrationForm() {
 
                   <div className='text-sm'>
                     <p className='p-3'>
-                      <strong>Media Name:</strong> {formData.organizationName}
+                      <strong>Organization Name:</strong>{" "}
+                      {formData.organizationName}
                     </p>
 
                     <p className='p-3'>
@@ -401,6 +405,10 @@ export default function OrganizationRegistrationForm() {
                     </p>
                     <p className='p-3'>
                       <strong>City:</strong> {formData.city}
+                    </p>
+                    <p className='p-3'>
+                      <strong>Organization Type:</strong>{" "}
+                      {formData.organizationType}
                     </p>
                     <p className='p-3'>
                       <strong>Focus Areas:</strong>{" "}

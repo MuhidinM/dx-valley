@@ -8,6 +8,7 @@ import { Mail, MapPinCheckInside, Phone } from "lucide-react";
 import { Address } from "@/types/strapi-types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { toast, Toaster } from "sonner";
 
 const ContactUs = ({address}:{address:Address}) => {
   const [name, setName] = useState("");
@@ -25,14 +26,14 @@ const ContactUs = ({address}:{address:Address}) => {
       body: JSON.stringify({ name, email, message }),
     });
 
-    if (response.ok) {
-      alert("submitted successfully please check your email for confirmation!");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } else {
-      alert("Failed to submit");
-    }
+     if (response.ok) {
+       toast.success("Submitted Successfully, Thank You for Writing to Us!");
+       setName("");
+       setEmail("");
+       setMessage("");
+     } else {
+       toast.error("Failed to submit");
+     }
   };
 
   return (
@@ -40,30 +41,34 @@ const ContactUs = ({address}:{address:Address}) => {
       <div className='container px-6 py-12 mx-auto'>
         <div className='lg:flex lg:items-center lg:-mx-6'>
           <div className='lg:w-1/2 lg:mx-6'>
+            <Toaster position='top-right' richColors />
             <h1 className='text-2xl font-semibold text-gray-800 capitalize dark:text-white lg:text-3xl'>
               Connect with Us
             </h1>
             <div className='mt-6 space-y-8 md:mt-8'>
-              <div className="prose dark:text-gray-400">
-                <ReactMarkdown children={address?.description?.toString()} remarkPlugins={[remarkGfm]} />
+              <div className='prose dark:text-gray-400'>
+                <ReactMarkdown
+                  children={address?.description?.toString()}
+                  remarkPlugins={[remarkGfm]}
+                />
               </div>
               <p className='flex items-start -mx-2'>
                 <Phone />
                 <span className='mx-2 text-gray-700 truncate w-72 dark:text-gray-400'>
-                {address?.phone || ""}
+                  {address?.phone || ""}
                 </span>
               </p>
 
               <p className='flex items-start -mx-2'>
                 <Mail />
                 <span className='mx-2 text-gray-700 truncate w-72 dark:text-gray-400'>
-                {address?.email || ""}
+                  {address?.email || ""}
                 </span>
               </p>
               <p className='flex items-start -mx-2'>
                 <MapPinCheckInside />
                 <span className='mx-2 text-gray-700  w-2/3 dark:text-gray-400'>
-                {address?.address || ""}
+                  {address?.address || ""}
                 </span>
               </p>
             </div>
