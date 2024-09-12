@@ -8,12 +8,12 @@ import { SectionLeft } from "@/components/section";
 import { SVG1 } from "@/constants";
 import { TrainingItemFetch } from "@/services/training";
 import React, { useEffect, useState } from "react";
-import { CardData } from "@/types/strapi-types";
+import { TrainingData } from "@/types/strapi-types";
 import Image from "next/image";
 import { SkeletonLoaderTrainingPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
-  const [trainingItems, setTrainingItems] = useState<CardData[]>([]);
+  const [trainingItems, setTrainingItems] = useState<TrainingData>();
 
   useEffect(() => {
     const fetchTrainngItems = async () => {
@@ -24,13 +24,13 @@ const Page = () => {
     fetchTrainngItems();
   }, []);
 
-  // if (!trainingItems.length) {
-  //   return <SkeletonLoaderTrainingPage   />;
-  // }
-  // useEffect(() => {console.log("final ", trainingItems)}, [trainingItems])
+  if (!trainingItems) {
+    return <SkeletonLoaderTrainingPage   />;
+  }
+  
   return (
     <div>
-      {trainingItems.map((cards, indx) => {
+      {trainingItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
@@ -66,10 +66,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title={"Want To Give a Training?"}
-        buttonText={"Apply"}
-        href=''
-        buttonDesc={"Let's inspire excellence together"}
+        title={trainingItems.proposal.title}
+        buttonText={trainingItems.proposal.button_name}
+        href={trainingItems.proposal.href}
+        description={trainingItems.proposal.description}
       />
     </div>
   );

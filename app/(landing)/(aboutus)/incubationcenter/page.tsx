@@ -61,10 +61,10 @@ const Page = () => {
         href={"/innovationhub"}
       />
       <CTA
-        buttonText='Apply for Call'
-        title='Have a Start-Up Idea?'
-        href='/callforproposal'
-        buttonDesc={"Let’s Walk Together Your Innovation Journey"}
+        title={incubationItems.proposal.title}
+        buttonText={incubationItems.proposal.button_name}
+        href={incubationItems.proposal.href}
+        description={incubationItems.proposal.description}
       />
 
       {/* Observe the feature component */}

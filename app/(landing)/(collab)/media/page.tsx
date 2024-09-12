@@ -66,13 +66,13 @@ const Page = () => {
         );
       })}
       <CTA
-        title='Want to Work With Us?'
-        buttonText='Apply For Call'
-        href={"#collab-form"}
-        buttonDesc={"Partner with us to amplify impactful stories"}
+        title={mediaItems.proposal.title}
+        buttonText={mediaItems.proposal.button_name}
+        href={mediaItems.proposal.href}
+        description={mediaItems.proposal.description}
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
-      <div id='collab-form'>
+      <div id="collab-form">
         <CollabForm />
       </div>
     </div>

@@ -71,10 +71,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title='Want to Work With Us?'
-        buttonText='Apply For Call'
-        href={"#collab-form"}
-        buttonDesc={"Let's empower change together"}
+        title={orgItems.proposal.title}
+        buttonText={orgItems.proposal.button_name}
+        href={orgItems.proposal.href}
+        description={orgItems.proposal.description}
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />

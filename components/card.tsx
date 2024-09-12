@@ -50,8 +50,11 @@ export const Card: React.FC<CardProps> = ({
               "group-hover:opacity-100 group-hover:max-h-full": description, // Show description on hover
             }
           )}
+          suppressHydrationWarning
         >
-          <ReactMarkdown children={description?.toString() || ""} remarkPlugins={[remarkGfm]} />
+          <div className="prose">
+            <ReactMarkdown children={description?.toString() || ""} remarkPlugins={[remarkGfm]} />
+          </div>
           
         </div>
 
