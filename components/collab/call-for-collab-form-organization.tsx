@@ -40,7 +40,7 @@ type FormData = {
   email: string;
   phoneNumberOne: string;
   addressType: string;
-  tradeLicence: string;
+
 };
 
 const MultiSelectDropdown = ({
@@ -94,7 +94,7 @@ export default function OrganizationRegistrationForm() {
     email: "",
     phoneNumberOne: "",
     addressType: "",
-    tradeLicence: "",
+    
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -130,9 +130,11 @@ export default function OrganizationRegistrationForm() {
       if (!formData.organizationName ) {
         newErrors.organizationName = "Organization name is required and ";
       }
+
       if(formData.organizationName.length < 4){
         newErrors.organizationName = "Organization name must be at least 4 characters."
       }
+
       if (!formData.email) {
         newErrors.email = "Email is required.";
       } else {
@@ -145,15 +147,19 @@ export default function OrganizationRegistrationForm() {
       if (!formData.phoneNumberOne ) {
         newErrors.phoneNumberOne = "Phone number is required.";
       }
+
       if (formData.phoneNumberOne.length < 10 ) {
         newErrors.phoneNumberOne = "phone number cannot be less than.";
       }
+
       if (!formData.city) {
         newErrors.city = "City is required.";
       }
+
       if (formData.city.length < 4) {
         newErrors.city = "City must be at least 4 characters";
       }
+      
     } else if (currentStep === 1) {
       if (!formData.focusArea.length) {
         newErrors.focusArea = "At least one focus area is required.";

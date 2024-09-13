@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const platformOptions = ['Radio/FM', 'TV', 'Youtube', "Podcast", "Social Media"];
-const genreOptions = ['Awarness', 'Entertainment'];
+const genreOptions = ['Awareness', 'Entertainment'];
 
 type FormData = {
   mediaName: string;
@@ -88,6 +88,8 @@ export default function MediaRegistrationForm() {
   });
 
 
+const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
 const handleCheckboxChange = (name: keyof FormData, value: string) => {
   setFormData((prev) => {
     const prevValues = Array.isArray(prev[name])
@@ -103,14 +105,51 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
   });
 };
 
-
-
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (currentStep === 0) {
+      if (!formData.mediaName ) {
+        newErrors.mediaName = "Media name is required and ";
+      }
+
+      if(formData.mediaName.length < 4){
+        newErrors.mediaName = "Media name must be at least 4 characters."
+      }
+
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+      
+      if (!formData.phoneNumberOne ) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      }
+
+      if (formData.phoneNumberOne.length < 10 ) {
+        newErrors.phoneNumberOne = "phone number cannot be less than.";
+      }
+
+      
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
@@ -118,11 +157,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
   };
 
   const handleSubmit = async () => {
-    if (!formData.mediaName || !formData.email || !formData.phoneNumberOne) {
-      toast.error("Please fill out all required fields.");
-      return;
-    }
-  
+    
     try {
       const response = await fetch('/api/media', {
         method: 'POST',
@@ -215,6 +250,10 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         }
                         placeholder='Enter media name'
                       />
+                      {errors.mediaName && (
+                        <p className='text-red-500 text-sm'>{errors.mediaName}</p>
+                      )}  
+
                     </div>
                   </div>
 
@@ -228,6 +267,9 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         onChange={(e) => handleChange("email", e.target.value)}
                         placeholder='Enter your email'
                       />
+                      {errors.email && (
+                        <p className='text-red-500 text-sm'>{errors.email}</p>
+                      )}  
                     </div>
                     <div className='flex-1'>
                       <Label htmlFor='phoneNumberOne'>Phone</Label>
@@ -240,20 +282,26 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         }
                         placeholder='Enter your primary phone number'
                       />
+                      {errors.phoneNumberOne && (
+                        <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                      )}  
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor='country'>Country</Label>
+                    <Label htmlFor='city'>City</Label>
                     <Input
-                      id='country'
-                      value={formData.country}
-                      onChange={(e) => handleChange("country", e.target.value)}
-                      placeholder='Enter your country'
+                      id='city'
+                      value={formData.city}
+                      onChange={(e) => handleChange("city", e.target.value)}
+                      placeholder='Enter your city'
                     />
+                    {/* {errors.city && (
+                        <p className='text-red-500 text-sm'>{errors.city}</p>
+                      )}   */}
                   </div>
 
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  {/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div>
                       <Label htmlFor='state'>State</Label>
                       <Input
@@ -272,7 +320,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         placeholder='Enter your city'
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className='flex gap-4'>
                     <div className='flex-1'>
@@ -285,6 +333,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         }
                         placeholder='Select platform'
                       />
+                      
                     </div>
 
                     <div className='flex-1'>
@@ -335,17 +384,17 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                     <p className='p-3'>
                       <strong>Phone Number:</strong> {formData.phoneNumberOne}
                     </p>
-                    <p className='p-3'>
+                    {/* <p className='p-3'>
                       <strong>Country:</strong> {formData.country}
                     </p>
                     <p className='p-3'>
                       <strong>State:</strong> {formData.state}
-                    </p>
+                    </p> */}
                     <p className='p-3'>
                       <strong>City:</strong> {formData.city}
                     </p>
                     <p className='p-3'>
-                      <strong>Focus Areas:</strong>{" "}
+                      <strong>Platform:</strong>{" "}
                       {formData.platform.join(", ")}
                     </p>
                     <p className='p-3'>
@@ -353,7 +402,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                       {formData.genre.join(", ")}
                     </p>
                     <p className='p-3'>
-                      <strong>Motivation:</strong> {formData.description}
+                      <strong>Description:</strong> {formData.description}
                     </p>
                   </div>
                 </div>
