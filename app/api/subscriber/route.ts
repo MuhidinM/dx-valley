@@ -45,7 +45,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     });
 
     const mailOptionsToUser = {
-      from: "backend1221@gmail.com",
+      from: "subscribe@dxvalley.com",
       to: email,
       subject: "Subscribed to DxValley",
       html: `<p>Dear ${email},</p>
