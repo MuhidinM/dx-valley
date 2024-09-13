@@ -102,7 +102,7 @@ const Page = () => {
           Breakthroughs We&apos;ve Delivered
         </h1> */}
         <div className='text-center'>
-          <h2 className='text-4xl sm:text-wrap md:text-wrap  font-bold'>
+          <h2 className='text-4xl  lg:text-4xl sm:text-wrap md:text-wrap  font-bold'>
             <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
             Delivered
           </h2>
