@@ -15,6 +15,7 @@ import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
 import { getImageUrl } from "@/lib/utils";
+import { SkeletonLoader } from "@/components/SkeletonLoader";
 // import SkeletonLoader from "@/components/SkeletonLoader";
 const Page = () => {
   const [showcaseItems, setShowCaseItems] = useState<ShowCaseData[]>([]);
@@ -32,7 +33,7 @@ const Page = () => {
       console.log("showcases - log: ", showcaseItems);
     })
  if (!showcaseItems) {
-  //  return <SkeletonLoader />;
+   return <SkeletonLoader />;
  }
   return (
     <div className="flex items-center justify-center">
@@ -50,7 +51,7 @@ const Page = () => {
           {
             showcaseItems.map((projects, idx) => {
               return (
-                <Card className='w-full h-[600px] flex flex-col justify-between'>
+                <Card className='w-full h-[600px] flex flex-col justify-between' key={idx}>
                   <CardHeader key={idx} className=" h-[240px]">
                     <CardTitle>{projects.projectName}</CardTitle>
                     <CardDescription>

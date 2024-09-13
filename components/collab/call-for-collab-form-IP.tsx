@@ -189,11 +189,12 @@ export default function IndependentRegistrationForm() {
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4 '>
-       <Toaster position="top-right" richColors />
+      <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl  min-h-[700px]'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
+            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Individual Registration Form
             </span>
             <div className='flex justify-center'>
@@ -202,15 +203,16 @@ export default function IndependentRegistrationForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-        <div className='mb-8 '>
+          <div className='mb-8 '>
             <div className='flex justify-between items-center'>
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentStep
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-secondary-foreground'
-                      }`}>
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
                     {index < currentStep ? (
                       <Check className='w-4 h-4' />
                     ) : (
@@ -241,35 +243,41 @@ export default function IndependentRegistrationForm() {
                 {currentStep === 0 && (
                   <div className='space-y-4'>
                     {/* Form fields */}
-                    <div className='flex gap-4'>
+                    <div className='flex flex-col lg:flex-row gap-4'>
                       <div className='flex-1'>
                         <Label htmlFor='firstName'>First Name</Label>
                         <Input
                           id='firstName'
                           value={formData.firstName}
-                          onChange={(e) => handleChange('firstName', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("firstName", e.target.value)
+                          }
                           placeholder='Enter your first name'
                         />
                       </div>
                       <div className='flex-1'>
-                        <Label htmlFor='lastName'>Second Name</Label>
+                        <Label htmlFor='lastName'>Last Name</Label>
                         <Input
                           id='lastName'
                           value={formData.lastName}
-                          onChange={(e) => handleChange('lastName', e.target.value)}
-                          placeholder='Enter your second name'
+                          onChange={(e) =>
+                            handleChange("lastName", e.target.value)
+                          }
+                          placeholder='Enter your last name'
                         />
                       </div>
                     </div>
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
                       <div className='flex-1'>
                         <Label htmlFor='email'>Email</Label>
                         <Input
                           id='email'
                           type='email'
                           value={formData.email}
-                          onChange={(e) => handleChange('email', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("email", e.target.value)
+                          }
                           placeholder='Enter your email'
                         />
                       </div>
@@ -279,7 +287,9 @@ export default function IndependentRegistrationForm() {
                           id='phoneNumberOne'
                           type='tel'
                           value={formData.phoneNumberOne}
-                          onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("phoneNumberOne", e.target.value)
+                          }
                           placeholder='Enter your phone number'
                         />
                       </div>
@@ -290,7 +300,9 @@ export default function IndependentRegistrationForm() {
                       <Input
                         id='country'
                         value={formData.country}
-                        onChange={(e) => handleChange('country', e.target.value)}
+                        onChange={(e) =>
+                          handleChange("country", e.target.value)
+                        }
                         placeholder='Enter your country'
                       />
                     </div>
@@ -316,13 +328,15 @@ export default function IndependentRegistrationForm() {
                       </div>
                     </div> */}
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
                       <div className='flex-1'>
                         <Label className='mb-2 block'>Focus Area</Label>
                         <MultiSelectDropdown
                           options={focusAreaOptions}
                           selectedOptions={formData.focusArea}
-                          onOptionChange={(option) => handleCheckboxChange('focusArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("focusArea", option)
+                          }
                           placeholder='Select focus area'
                         />
                       </div>
@@ -332,18 +346,22 @@ export default function IndependentRegistrationForm() {
                         <MultiSelectDropdown
                           options={interestOptions}
                           selectedOptions={formData.interestedArea}
-                          onOptionChange={(option) => handleCheckboxChange('interestedArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("interestedArea", option)
+                          }
                           placeholder='Select interest area'
                         />
                       </div>
                     </div>
 
-                    <div className=''>
+                    <div className='flex-col lg:flex-row'>
                       <Label className='mb-2 block'>Motivation</Label>
                       <Textarea
                         id='motivation'
                         value={formData.motivation}
-                        onChange={(e) => handleChange('motivation', e.target.value)}
+                        onChange={(e) =>
+                          handleChange("motivation", e.target.value)
+                        }
                         placeholder='What motivates you to work with us'
                       />
                     </div>
@@ -383,10 +401,12 @@ export default function IndependentRegistrationForm() {
                         <strong>City:</strong> {formData.city}
                       </p> */}
                       <p className='p-3'>
-                        <strong>Focus Areas:</strong> {formData.focusArea.join(', ')}
+                        <strong>Focus Areas:</strong>{" "}
+                        {formData.focusArea.join(", ")}
                       </p>
                       <p className='p-3'>
-                        <strong>Interest Areas:</strong> {formData.interestedArea.join(', ')}
+                        <strong>Interest Areas:</strong>{" "}
+                        {formData.interestedArea.join(", ")}
                       </p>
                       <p className='p-3'>
                         <strong>Motivation:</strong> {formData.motivation}

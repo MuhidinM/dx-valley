@@ -48,10 +48,17 @@ export default function Callforproposal() {
   const callForProposalEvents = events.filter(
     (event) => event.category === "call for proposal"
   );
-
+if(!callForProposalEvents)
+{
   return (
-    <div className='container w-2/3 my-16 h-1/2'>
-      {callForProposalEvents.length > 0 ? (
+    <div className='col-span-full text-center py-10 min-h-full'>
+      <p className='text-lg font-semibold h-fit'>Not Available.</p>
+    </div>
+  );
+}
+  return (
+    <div className='container w-full my-16 h-full'>
+      {callForProposalEvents?.length > 0 ? (
         callForProposalEvents.map((event, index) => (
           <div key={event.id}>
             <Countdown
@@ -62,18 +69,18 @@ export default function Callforproposal() {
               }
             />
             <Card>
-              <CardHeader className=' flex flex-row justify-between p-4  rounded-lg m-4 sm:m-4'>
-                <CardTitle className='text-3xl lg:text-3xl sm:text-lg'>
+              <CardHeader className=' flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
+                <CardTitle className='text-lg lg:text-3xl sm:text-lg'>
                   Call for Start Up Proposal
                 </CardTitle>
                 <div className='h-full align-middle'>
-                  <p className='text-2xl flex text-left text-red-500 font-mono leading-none'>
+                  <p className='text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none'>
                     {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
 
-              <CardContent className="ailgn-center justify-around items-center">
+              <CardContent className='ailgn-center justify-around items-center'>
                 <p className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'>
                   {event.description}
                 </p>
@@ -91,11 +98,12 @@ export default function Callforproposal() {
             </Card>
           </div>
         ))
-      ) :  <div className='col-span-full text-center py-10 min-h-full'>
-          <p className='text-lg font-semibold h-fit'>No Call Available.</p>
-     
-          </div>}
-      
+      ) : (
+        // <div className='col-span-full text-center py-10 min-h-full'>
+        //   <p className='text-lg font-semibold h-fit'>No Call Available.</p>
+        // </div>
+        null
+      )}
     </div>
   );
 }
