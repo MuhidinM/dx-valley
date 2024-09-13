@@ -28,6 +28,7 @@ const Page = () => {
  if (!trainersItems) {
    return <SkeletonPageColloab />;
  }
+
   return (
     <div>
       <PageTitle />
