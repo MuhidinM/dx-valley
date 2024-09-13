@@ -52,10 +52,10 @@ const Page = () => {
         href={"/innovationhub"}
       />
       <CTA
-        title={innovationItems.proposal.title}
-        buttonText={innovationItems.proposal.button_name}
-        href={innovationItems.proposal.href}
-        description={innovationItems.proposal.description}
+        title={innovationItems?.proposal.title || " "}
+        buttonText={innovationItems?.proposal.button_name || " "}
+        href={innovationItems?.proposal.href || " " }
+        description={innovationItems?.proposal.description || " "}
       />
       <HowWeWorkSection works={innovationItems?.howeworks || []} />
       <SlidingCompanies companies={innovationItems?.companies || []} />

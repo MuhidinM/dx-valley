@@ -51,7 +51,7 @@ const Page = () => {
           {
             showcaseItems.map((projects, idx) => {
               return (
-                <Card className='w-full h-[600px] flex flex-col justify-between'>
+                <Card className='w-full h-[600px] flex flex-col justify-between' key={idx}>
                   <CardHeader key={idx} className=" h-[240px]">
                     <CardTitle>{projects.projectName}</CardTitle>
                     <CardDescription>

@@ -67,12 +67,12 @@ const Page = () => {
         );
       })}
       <CTA
-        title={trainersItems.proposal.title}
-        buttonText={trainersItems.proposal.button_name}
-        href={trainersItems.proposal.href}
-        description={trainersItems.proposal.description}
+        title={trainersItems?.proposal.title  || " "}
+        buttonText={trainersItems?.proposal.button_name || " "}
+        href={trainersItems?.proposal.href || " "}
+        description={trainersItems?.proposal.description || " "}
       />
-      <ProfessionalOverview overview={trainersItems?.overview || ""} />
+      <ProfessionalOverview overview={trainersItems?.overview ?? ""} />
       {/* <Objectives items={objectives} /> */}
       <CollabObjectives />
       {/* <InputForm /> */}
