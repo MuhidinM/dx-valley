@@ -44,7 +44,7 @@ import {
 //   AlertDialogTitle,
 //   AlertDialogTrigger,
 // } from "@/components/ui/alert-dialog";
-import { X, CheckCircle, Loader2, CheckCircle2 } from "lucide-react";
+import { X,  Loader2, CheckCircle2 } from "lucide-react";
 import SubmissionSuccess from "./submissionSuccess";
 
 type FileWithPreview = File & { preview?: string };
@@ -146,7 +146,7 @@ export default function InternshipForm() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
      setIsSubmitted(false);
@@ -191,7 +191,7 @@ export default function InternshipForm() {
                 <h3 className='text-xl font-semibold'>
                   1. Personal Information
                 </h3>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1  md:grid-cols-2 gap-4'>
                   <div className='space-y-2'>
                     <Label htmlFor='fullName'>Full Name</Label>
                     <Input
@@ -238,7 +238,6 @@ export default function InternshipForm() {
                       <SelectContent>
                         <SelectItem value='male'>Male</SelectItem>
                         <SelectItem value='female'>Female</SelectItem>
-                       
                       </SelectContent>
                     </Select>
                   </div>
@@ -505,7 +504,7 @@ export default function InternshipForm() {
               ) : (
                 <Button
                   type='button'
-                  onClick={handleSubmit}
+                  onClick={ handleSubmit}
                   className='ml-auto bg-coopBlue'>
                   {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>

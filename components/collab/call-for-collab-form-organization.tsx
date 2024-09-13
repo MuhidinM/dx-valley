@@ -128,10 +128,10 @@ export default function OrganizationRegistrationForm() {
     
     if (currentStep === 0) {
       if (!formData.organizationName ) {
-        newErrors.organizationName = "Organization name is required and ";
+        newErrors.organizationName = "Organization name is required  ";
       }
-      if(formData.organizationName.length < 4){
-        newErrors.organizationName = "Organization name must be at least 4 characters."
+      if(formData.organizationName.length < 3){
+        newErrors.organizationName = "Organization name must be at least 3 characters."
       }
       if (!formData.email) {
         newErrors.email = "Email is required.";
