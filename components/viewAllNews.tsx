@@ -98,9 +98,7 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
   }, [selectedArticle, isHovered]);
 
   return (
-    <div className='container mx-auto p-4'>
-      <h1 className='text-3xl font-bold mb-6'>Latest News</h1>
-
+    <div className='container my-10 mx-auto p-4'>
       {selectedArticle ? (
         <>
           {/* Selected news content */}
@@ -113,31 +111,33 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
               aria-label='Close article'>
               <X className='h-4 w-4' />
             </Button>
-            <CardHeader>
+            <CardHeader className='flex flex-row'>
               <Link
                 href={selectedArticle.news_link}
                 target='_blank'
                 className='hover:underline'>
                 <CardTitle>{selectedArticle.title}</CardTitle>
               </Link>
-
-              <p className='text-sm text-muted-foreground flex gap-1 font-semibold text-black'>
-                <Calendar className='ml-2 h-4 w-4' />{" "}
-                {new Date(selectedArticle.date).toLocaleDateString()}
-              </p>
             </CardHeader>
 
             <CardContent>
-              <div>
-                <img
-                  src={selectedArticle.img_link}
-                  alt={selectedArticle.title}
-                  className='w-1/12 h-15 object-cover rounded-md mb-4'
-                />
+              <div className='flex flex-row'>
+                <p className='text-sm text-muted-foreground flex gap-1 font-semibold text-black mr-5'>
+                  <Calendar className='ml-2 h-5  w-4' />{" "}
+                  {new Date(selectedArticle.date).toLocaleDateString()}
+                </p>
+                <Link href={selectedArticle.news_link} target='_blank'>
+                  <img
+                    src={selectedArticle.img_link}
+                    alt={selectedArticle.title}
+                    className='lg:w-1/6  w-2/6 h-15 object-cover rounded-md mb-4 hover:opacity-45'
+                  />
+                </Link>
               </div>
+
               <div>
-                <p>{selectedArticle.description}</p>
-              </div>{" "}
+                <p className='lg:px-8 py-5 px-2'>{selectedArticle.description}</p>
+              </div>
             </CardContent>
           </Card>
 
@@ -159,7 +159,7 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
                         <img
                           src={article.img_link}
                           alt={article.title}
-                          className='w-full h-24 object-cover rounded-md mb-2'
+                          className='lg:w-1/2 lg:h-24  object-cover rounded-md mb-2'
                         />
                         <h3 className='text-sm font-semibold line-clamp-2'>
                           {article.title}
@@ -214,19 +214,22 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
         <div className='mb-8'>
           {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
           <ScrollArea>
+          <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
               <Card
                 key={index}
                 className={`mb-4 cursor-pointer ${
-                  selectedArticle?.title === article.title
+                  selectedArticle?.title === article?.title
                     ? "border-primary"
                     : ""
                 }`}
                 onClick={() => handleArticleClick(article)}>
                 <CardHeader>
                   <CardTitle className='text-lg'>{article.title}</CardTitle>
-                  <p className='text-sm text-muted-foreground'>
+
+                  <p className='text-sm text-muted-foreground flex gap-1 font-semibold text-black mr-5'>
                     {" "}
+                    <Calendar className='ml-2 h-5  w-4' />{" "}
                     {new Date(article.date).toLocaleDateString()}
                   </p>
                 </CardHeader>
@@ -234,7 +237,7 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
                   <img
                     src={article.img_link}
                     alt={article.title}
-                    className='w-full h-32 object-cover rounded-md'
+                    className='w-1/2 h-28 object-contain rounded-md'
                   />
                 </CardContent>
               </Card>
