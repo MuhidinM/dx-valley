@@ -25,9 +25,9 @@ const Page = () => {
     fetchStakeHolderItems();
   }, []);
 
-  // if (!stakeHolderItems) {
-  //   return <SkeletonPageColloab />;
-  // }
+  if (!stakeHolderItems) {
+    return <SkeletonPageColloab />;
+  }
   return (
     <div>
       <PageTitle />
