@@ -14,7 +14,6 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
   const links = hero?.map((elmnt) => elmnt?.link?.href) || [];
   const link_desc = hero?.map((elmnt) => elmnt?.link?.title) || [];
 
-  console.log(hero);
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % hero.length);
