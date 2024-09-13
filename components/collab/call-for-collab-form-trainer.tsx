@@ -141,10 +141,7 @@ export default function TrainerRegistrationForm() {
 
 
   const handleSubmit = async () => {
-    if (!formData.firstName || !formData.email || !formData.phoneNumberOne) {
-      toast.error("Please fill out all required fields.");
-      return;
-    }
+    if (validateStep()) {
 
     try {
       const response = await fetch('/api/trainer', {
@@ -171,6 +168,7 @@ export default function TrainerRegistrationForm() {
         description: "An error occurred. Please try again later.",
       });
     }
+  }
   };
 
   return (
@@ -433,7 +431,7 @@ export default function TrainerRegistrationForm() {
                       <strong>Phone Number:</strong> {formData.phoneNumberOne}
                     </p>
                     <p className='p-3'>
-                      <strong>Country:</strong> {formData.country}
+                      <strong>City:</strong> {formData.country}
                     </p>
                     
                     <p className='p-3'>

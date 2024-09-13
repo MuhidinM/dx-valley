@@ -97,12 +97,58 @@ export default function IndependentRegistrationForm() {
     });
   };
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (currentStep === 0) {
+      // Validate first name
+      if (!formData.firstName) {
+        newErrors.firstName = "First name is required.";
+      } else if (formData.firstName.length < 4) {
+        newErrors.firstName = "First name must be at least 4 characters.";
+      }
+  
+      // Validate last name
+      if (!formData.lastName) {
+        newErrors.lastName = "Last name is required.";
+      } else if (formData.lastName.length < 4) {
+        newErrors.lastName = "Last name must be at least 4 characters.";
+      }
+
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+      
+      if (!formData.phoneNumberOne ) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      }
+
+      if (formData.phoneNumberOne.length < 10 ) {
+        newErrors.phoneNumberOne = "phone number cannot be less than.";
+      }
+
+      
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
@@ -110,6 +156,7 @@ export default function IndependentRegistrationForm() {
   };
 
   const handleSubmit = async () => {
+    if (validateStep()) {
     try {
       const response = await fetch('/api/independentpartner', {
         method: 'POST',
@@ -137,6 +184,7 @@ export default function IndependentRegistrationForm() {
         description: "An error occurred. Please try again later.",
       });
     }
+  }
   };
 
   return (

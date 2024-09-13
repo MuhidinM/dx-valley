@@ -25,9 +25,9 @@ const Page = () => {
     fetchTrainersItems();
   }, []);
 
-//  if (!trainersItems) {
-//    return <SkeletonPageColloab />;
-//  }
+ if (!trainersItems) {
+   return <SkeletonPageColloab />;
+ }
 
   return (
     <div>

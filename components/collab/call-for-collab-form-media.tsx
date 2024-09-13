@@ -158,6 +158,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
 
   const handleSubmit = async () => {
     
+    if (validateStep()) {
     try {
       const response = await fetch('/api/media', {
         method: 'POST',
@@ -183,6 +184,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
         description: "An error occurred. Please try again later.",
       });
     }
+  }
   };
   
 
