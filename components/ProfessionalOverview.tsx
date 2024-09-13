@@ -15,9 +15,9 @@ export default function Component({ overview }: { overview: string }) {
       </CardHeader>
 
       <CardContent className="">
-        <p className="px-5 text-md leading-relaxed text-gray-600">
+        <div className="px-5 text-md leading-relaxed text-gray-600">
           <ReactMarkdown children={overview} remarkPlugins={[remarkGfm]} />
-        </p>
+        </div>
         <div className="mt-4 flex justify-between items-center text-sm">
           <span className="text-lg font-bold text-coopOrange italic">
             "Driving excellence through partnership"

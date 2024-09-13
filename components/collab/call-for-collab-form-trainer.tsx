@@ -38,7 +38,7 @@ const scheduleOptions = [
 ];
 
 const steps = [
-  { id: 'organization', title: 'Organization Info' },
+  { id: 'trainer', title: 'Trainer Info' },
   { id: 'confirm', title: 'Confirm' },
 ];
 
@@ -76,6 +76,8 @@ export default function TrainerRegistrationForm() {
     state: '',
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -84,13 +86,59 @@ export default function TrainerRegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+  
+    if (currentStep === 0) {
+      // Validate first name
+      if (!formData.firstName) {
+        newErrors.firstName = "First name is required.";
+      } else if (formData.firstName.length < 4) {
+        newErrors.firstName = "First name must be at least 4 characters.";
+      }
+  
+      // Validate last name
+      if (!formData.lastName) {
+        newErrors.lastName = "Last name is required.";
+      } else if (formData.lastName.length < 4) {
+        newErrors.lastName = "Last name must be at least 4 characters.";
+      }
+  
+      // Validate email
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+  
+      // Validate phone number
+      if (!formData.phoneNumberOne) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      } else if (formData.phoneNumberOne.length < 10) {
+        newErrors.phoneNumberOne = "Phone number must be at least 10 digits.";
+      }
+    }
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+  
+  
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
+
 
   const handleSubmit = async () => {
     if (!formData.firstName || !formData.email || !formData.phoneNumberOne) {
@@ -127,15 +175,46 @@ export default function TrainerRegistrationForm() {
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
-      <Toaster position="top-right" richColors />
+      <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            Trainer Registration Form
+            {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
+            <span className='flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Trainer Registration Form
+            </span>
             <div className='flex justify-center'>
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
+          <div className='mb-8 '>
+            <div className='flex justify-between items-center'>
+              {steps.map((step, index) => (
+                <div key={step.id} className='flex flex-col items-center'>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
+                    {index < currentStep ? (
+                      <Check className='w-4 h-4' />
+                    ) : (
+                      index + 1
+                    )}
+                  </div>
+                  <span className='text-xs mt-1'>{step.title}</span>
+                </div>
+              ))}
+            </div>
+            <div className='h-2 bg-secondary mt-2 rounded-full'>
+              <div
+                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}></div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <AnimatePresence mode='wait'>
@@ -147,47 +226,65 @@ export default function TrainerRegistrationForm() {
               transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
                 <div className='space-y-4'>
-                  <div className='flex gap-4'>
-                  <div className='flex-1'>
-                        <Label htmlFor='firstName'>First Name</Label>
-                        <Input
-                          id='firstName'
-                          value={formData.firstName}
-                          onChange={(e) => handleChange('firstName', e.target.value)}
-                          placeholder='Enter first name'
-                        />
-                      </div>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
+                    <div className='flex-1'>
+                      <Label htmlFor='firstName'>First Name</Label>
+                      <Input
+                        id='firstName'
+                        value={formData.firstName}
+                        onChange={(e) =>
+                          handleChange("firstName", e.target.value)
+                        }
+                        placeholder='Enter your first name'
+                      />
+                      {errors.firstName && (
+                        <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                      )}
+                    </div>
                     <div className='flex-1'>
                       <Label htmlFor='lastName'>Last Name</Label>
                       <Input
                         id='lastName'
                         value={formData.lastName}
-                        onChange={(e) => handleChange('lastName', e.target.value)}
-                        placeholder='Enter last name'
+                        onChange={(e) =>
+                          handleChange("lastName", e.target.value)
+                        }
+                        placeholder='Enter your last name'
                       />
+                      {errors.lastName && (
+                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
+                      )}
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='email'>Email</Label>
                       <Input
                         id='email'
                         type='email'
                         value={formData.email}
-                        onChange={(e) => handleChange('email', e.target.value)}
+                        onChange={(e) => handleChange("email", e.target.value)}
                         placeholder='Enter your email'
                       />
+                      {errors.email && (
+                      <p className='text-red-500 text-sm'>{errors.email}</p>
+                    )}
                     </div>
                     <div className='flex-1'>
-                      <Label htmlFor='phoneNumberOne'>Phone</Label>
+                      <Label htmlFor='phoneNumberOne'>Phone Number</Label>
                       <Input
                         id='phoneNumberOne'
                         type='tel'
                         value={formData.phoneNumberOne}
-                        onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
-                        placeholder='Enter your primary phone number'
+                        onChange={(e) =>
+                          handleChange("phoneNumberOne", e.target.value)
+                        }
+                        placeholder='Enter your phone number'
                       />
+                      {errors.phoneNumberOne && (
+                        <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                      )}
                     </div>
                   </div>
 
@@ -196,37 +293,46 @@ export default function TrainerRegistrationForm() {
                       <Label htmlFor='profession'>Profession</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant='outline' className='w-full text-left'>
-                            {formData.profession || 'Select Profession'}
+                          <Button
+                            variant='outline'
+                            className='w-full text-left'>
+                            {formData.profession || "Select Profession"}
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           {professionOptions.map((option) => (
                             <DropdownMenuCheckboxItem
                               key={option}
-                              onCheckedChange={() => handleDropdownChange('profession', option)}
-                            >
+                              onCheckedChange={() =>
+                                handleDropdownChange("profession", option)
+                              }>
                               {option}
                             </DropdownMenuCheckboxItem>
                           ))}
                         </DropdownMenuContent>
                       </DropdownMenu>
+                      {errors.profession && (
+                      <p className='text-red-500 text-sm'>{errors.profession}</p>
+                    )}
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='flex-1 flex-col lg:flex-row'>
                       <Label htmlFor='schedule'>Schedule</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant='outline' className='w-full text-left'>
-                            {formData.schedule || 'Select Schedule'}
+                          <Button
+                            variant='outline'
+                            className='w-full text-left'>
+                            {formData.schedule || "Select Schedule"}
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           {scheduleOptions.map(({ value, description }) => (
                             <DropdownMenuCheckboxItem
                               key={value}
-                              onCheckedChange={() => handleDropdownChange('schedule', value)}
-                            >
+                              onCheckedChange={() =>
+                                handleDropdownChange("schedule", value)
+                              }>
                               {description}
                             </DropdownMenuCheckboxItem>
                           ))}
@@ -235,21 +341,24 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='expertise'>Expertise</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant='outline' className='w-full text-left'>
-                            {formData.expertise || 'Select Expertise'}
+                          <Button
+                            variant='outline'
+                            className='w-full text-left'>
+                            {formData.expertise || "Select Expertise"}
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
                           {expertiseOptions.map((option) => (
                             <DropdownMenuCheckboxItem
                               key={option}
-                              onCheckedChange={() => handleDropdownChange('expertise', option)}
-                            >
+                              onCheckedChange={() =>
+                                handleDropdownChange("expertise", option)
+                              }>
                               {option}
                             </DropdownMenuCheckboxItem>
                           ))}
@@ -257,24 +366,27 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='flex-1 flex-col lg:flex-row'>
                       <Label htmlFor='country'>Country</Label>
+
                       <Input
-                        id='country'
-                        value={formData.country}
-                        onChange={(e) => handleChange('country', e.target.value)}
-                        placeholder='Enter your country'
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) =>
+                          handleChange("city", e.target.value)
+                        }
+                        placeholder='Enter your city'
                       />
                     </div>
                   </div>
 
                   <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <div>
+                    {/* <div>
                       <Label htmlFor='state'>State</Label>
                       <Input
                         id='state'
                         value={formData.state}
-                        onChange={(e) => handleChange('state', e.target.value)}
+                        onChange={(e) => handleChange("state", e.target.value)}
                         placeholder='Enter your state'
                       />
                     </div>
@@ -283,10 +395,10 @@ export default function TrainerRegistrationForm() {
                       <Input
                         id='city'
                         value={formData.city}
-                        onChange={(e) => handleChange('city', e.target.value)}
+                        onChange={(e) => handleChange("city", e.target.value)}
                         placeholder='Enter your city'
                       />
-                    </div>
+                    </div> */}
                   </div>
 
                   <div>
@@ -294,8 +406,10 @@ export default function TrainerRegistrationForm() {
                     <Textarea
                       id='motivation'
                       value={formData.motivation}
-                      onChange={(e) => handleChange('motivation', e.target.value)}
-                      placeholder='Enter a short bio or description about your organization'
+                      onChange={(e) =>
+                        handleChange("motivation", e.target.value)
+                      }
+                      placeholder='Tell us about yourself'
                     />
                   </div>
                 </div>
@@ -306,7 +420,7 @@ export default function TrainerRegistrationForm() {
                   {/* Confirm Details */}
                   <div className='text-sm'>
                     <p className='p-3'>
-                      <strong>Title:</strong> {formData.title}
+                      {/* <strong>Title:</strong> {formData.title} */}
                     </p>
                     <p className='p-3'>
                       <strong>First Name:</strong> {formData.firstName}
@@ -323,12 +437,7 @@ export default function TrainerRegistrationForm() {
                     <p className='p-3'>
                       <strong>Country:</strong> {formData.country}
                     </p>
-                    <p className='p-3'>
-                      <strong>State:</strong> {formData.state}
-                    </p>
-                    <p className='p-3'>
-                      <strong>City:</strong> {formData.city}
-                    </p>
+                    
                     <p className='p-3'>
                       <strong>Expertise:</strong> {formData.expertise}
                     </p>

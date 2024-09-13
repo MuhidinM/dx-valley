@@ -67,14 +67,14 @@ const Page = () => {
         );
       })}
       <CTA
-        title='
-      Want to Work With Us?'
-        buttonText='Apply For Call'
-        href={"#collab-form"}
+        title={stakeHolderItems?.proposal.title || " " }
+        buttonText={stakeHolderItems?.proposal.button_name || " "}
+        href={stakeHolderItems?.proposal.href || " "}
+        description={stakeHolderItems?.proposal.description || " "}
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
-        <CollabForm/>
+        <CollabForm />
       </div>
     </div>
   );

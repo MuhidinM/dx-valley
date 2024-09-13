@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       email,
       phoneNumberOne,
       addressType,
-      tradeLicence,
     } = data;
 
     // Check for existing email

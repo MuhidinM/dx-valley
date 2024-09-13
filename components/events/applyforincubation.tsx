@@ -264,7 +264,7 @@ const ApplyForIncubation = () => {
         break;
 
       case 1:
-        const founderErrors: FounderErrors[] = formData.founderNames.map(
+        const founderErrors: FounderErrors[] = formData.founderNames.map (
           (founder) => {
             let errors: FounderErrors = {};
             if (!founder.firstName.trim()) {
@@ -389,8 +389,10 @@ const ApplyForIncubation = () => {
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-            icon={<CheckCircle2 className="w-8 h-8 text-coopOrange" />}
-            desc={" Good luck! Stay tuned for our email."}
+
+            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+            desc={"Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."}
+
           />
         </div>
       </div>
@@ -689,6 +691,7 @@ const ApplyForIncubation = () => {
               </div>
             )}
           </form>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button

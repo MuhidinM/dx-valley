@@ -36,7 +36,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -52,7 +52,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -63,16 +63,17 @@ const Page = () => {
             description={cards.description}
             buttonText={"hidden"}
           />
-        ); 
+        );
       })}
       <CTA
-        title="Want to Work With Us?"
-        buttonText="Apply For Call"
-        href={"#collab-form"}
+        title={mediaItems?.proposal.title   || " "}
+        buttonText={mediaItems?.proposal.button_name  || " "}
+        href={mediaItems?.proposal.href || " "}
+        description={mediaItems?.proposal.description || " "}
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
-        <CollabForm type="media" />
+        <CollabForm />
       </div>
     </div>
   );

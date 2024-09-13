@@ -1,4 +1,3 @@
-/** @format */
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -16,6 +16,7 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const steps = [
   { id: "organization", title: "Organization Info" },
@@ -23,10 +24,9 @@ const steps = [
   { id: "confirm", title: "Confirm" },
 ];
 
-const industryOptions = ["Agriculture", "AI", "Fintech"];
 const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
 const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
-const organizationTypeOptions = ["Private", "NGO", "Gov't"];
+const organizationTypeOptions = ["Private", "NGO", "Govermental", "Other"];
 
 type FormData = {
   organizationName: string;
@@ -97,6 +97,8 @@ export default function OrganizationRegistrationForm() {
     tradeLicence: "",
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => {
       const updatedValues = (prev[name] as string[]).includes(value)
@@ -114,8 +116,65 @@ export default function OrganizationRegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleRadioChange = (value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      organizationType: value,
+    }));
+  };
+
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (currentStep === 0) {
+      if (!formData.organizationName ) {
+        newErrors.organizationName = "Organization name is required  ";
+      }
+      if(formData.organizationName.length < 3){
+        newErrors.organizationName = "Organization name must be at least 3 characters."
+      }
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+      
+      if (!formData.phoneNumberOne ) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      }
+      if (formData.phoneNumberOne.length < 10 ) {
+        newErrors.phoneNumberOne = "phone number cannot be less than.";
+      }
+      if (!formData.city) {
+        newErrors.city = "City is required.";
+      }
+      if (formData.city.length < 4) {
+        newErrors.city = "City must be at least 4 characters";
+      }
+    } else if (currentStep === 1) {
+      if (!formData.focusArea.length) {
+        newErrors.focusArea = "At least one focus area is required.";
+      }
+      if (!formData.interestedArea.length) {
+        newErrors.interestedArea = "At least one interest area is required.";
+      }
+      if (!formData.organizationType) {
+        newErrors.organizationType = "Organization type is required.";
+      }
+    }
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
@@ -123,34 +182,38 @@ export default function OrganizationRegistrationForm() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch("/api/organization", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    if (validateStep()) {
+      try {
+        const response = await fetch("/api/organization", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
-      if (response.ok) {
-        const result = await response.json();
-        toast.success("Organization registered successfully!");
-      } else {
-        const errorData = await response.json();
-        toast.error("Failed to register organization.");
+        if (response.ok) {
+          const result = await response.json();
+          toast.success("Organization registered successfully!");
+        } else {
+          const errorData = await response.json();
+          // Display the error message received from the server, if available
+          const errorMessage = errorData.message || "An error occurred. Please try again.";
+          toast.error(errorMessage);
+        }        
+      } catch (error) {
+        toast.error("An error occurred. Please try again later.");
       }
-    } catch (error) {
-      toast.error("An error occurred. Please try again later.");
     }
   };
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
       <Toaster position='top-right' richColors />
-      <Card className='w-full max-w-2xl min-w-[700px] '>
+      <Card className='w-full max-w-2xl '>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
             <div className='flex justify-center'>
@@ -159,35 +222,6 @@ export default function OrganizationRegistrationForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='mb-8 '>
-            <div className='flex justify-between items-center'>
-              {steps.map((step, index) => (
-                <div key={step.id} className='flex flex-col items-center'>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      index <= currentStep
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground"
-                    }`}>
-                    {index < currentStep ? (
-                      <Check className='w-4 h-4' />
-                    ) : (
-                      index + 1
-                    )}
-                  </div>
-                  <span className='text-xs mt-1'>{step.title}</span>
-                </div>
-              ))}
-            </div>
-            <div className='h-2 bg-secondary mt-2 rounded-full'>
-              <div
-                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
-                style={{
-                  width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}></div>
-            </div>
-          </div>
-
           <AnimatePresence mode='wait'>
             <motion.div
               key={currentStep}
@@ -197,7 +231,6 @@ export default function OrganizationRegistrationForm() {
               transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
                 <div className='space-y-4'>
-                  {/* Form fields */}
                   <div className='flex gap-4'>
                     <div className='flex-1'>
                       <Label htmlFor='organizationName'>
@@ -211,6 +244,11 @@ export default function OrganizationRegistrationForm() {
                         }
                         placeholder='Enter Organization name'
                       />
+                      {errors.organizationName && (
+                        <p className='text-red-500 text-sm'>
+                          {errors.organizationName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -223,7 +261,11 @@ export default function OrganizationRegistrationForm() {
                       onChange={(e) => handleChange("email", e.target.value)}
                       placeholder='Enter your email'
                     />
+                    {errors.email && (
+                      <p className='text-red-500 text-sm'>{errors.email}</p>
+                    )}
                   </div>
+
                   <div>
                     <Label htmlFor='phoneNumberOne'>Phone</Label>
                     <Input
@@ -235,207 +277,149 @@ export default function OrganizationRegistrationForm() {
                       }
                       placeholder='Enter your primary phone number'
                     />
+                    {errors.phoneNumberOne && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.phoneNumberOne}
+                      </p>
+                    )}
                   </div>
 
                   <div>
-                    <Label htmlFor='country'>Country</Label>
+                    <Label htmlFor='city'>City</Label>
                     <Input
-                      id='country'
-                      value={formData.country}
-                      onChange={(e) => handleChange("country", e.target.value)}
-                      placeholder='Enter your country'
+                      id='city'
+                      value={formData.city}
+                      onChange={(e) => handleChange("city", e.target.value)}
+                      placeholder='Enter your city'
                     />
-                  </div>
-
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <div>
-                      <Label htmlFor='state'>State</Label>
-                      <Input
-                        id='state'
-                        value={formData.state}
-                        onChange={(e) => handleChange("state", e.target.value)}
-                        placeholder='Enter your state'
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor='city'>City</Label>
-                      <Input
-                        id='city'
-                        value={formData.city}
-                        onChange={(e) => handleChange("city", e.target.value)}
-                        placeholder='Enter your city'
-                      />
-                    </div>
+                    {errors.city && (
+                      <p className='text-red-500 text-sm'>{errors.city}</p>
+                    )}
                   </div>
                 </div>
               )}
 
               {currentStep === 1 && (
                 <div>
-                  <div className='flex flex-col gap-4'>
-                    <div className='flex gap-4'>
-                      <div className='flex-1'>
-                        <Label className='mb-2 block'>Focus Area</Label>
-                        <MultiSelectDropdown
-                          options={focusAreaOptions}
-                          selectedOptions={formData.focusArea}
-                          onOptionChange={(option) =>
-                            handleCheckboxChange("focusArea", option)
-                          }
-                          placeholder='Select focusArea'
-                        />
-                      </div>
+                  <div className='space-y-4'>
+                    <Label htmlFor='focusArea'>Focus Area</Label>
+                    <MultiSelectDropdown
+                      options={focusAreaOptions}
+                      selectedOptions={formData.focusArea}
+                      onOptionChange={(option) =>
+                        handleCheckboxChange("focusArea", option)
+                      }
+                      placeholder='Select focus areas'
+                    />
+                    {errors.focusArea && (
+                      <p className='text-red-500 text-sm'>{errors.focusArea}</p>
+                    )}
 
-                      <div className='flex-1'>
-                        <Label className='mb-2 block'>Interest Area</Label>
-                        <MultiSelectDropdown
-                          options={interestOptions}
-                          selectedOptions={formData.interestedArea}
-                          onOptionChange={(option) =>
-                            handleCheckboxChange("interestedArea", option)
-                          }
-                          placeholder='Select Interest area'
-                        />
-                      </div>
-                    </div>
-                    <div className='flex gap-4'>
-                      <div className='flex-1'>
-                        <Label htmlFor='organizationType'>
-                          Organization Type
-                        </Label>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant='outline'
-                              className='w-full text-left'>
-                              {formData.organizationType || "Select "}
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            {organizationTypeOptions.map((option) => (
-                              <DropdownMenuCheckboxItem
-                                key={option}
-                                onCheckedChange={() =>
-                                  handleDropdownChange(
-                                    "organizationType",
-                                    option
-                                  )
-                                }>
-                                {option}
-                              </DropdownMenuCheckboxItem>
-                            ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
+                    <Label htmlFor='interestedArea'>Interest Area</Label>
+                    <MultiSelectDropdown
+                      options={interestOptions}
+                      selectedOptions={formData.interestedArea}
+                      onOptionChange={(option) =>
+                        handleCheckboxChange("interestedArea", option)
+                      }
+                      placeholder='Select areas of interest'
+                    />
+                    {errors.interestedArea && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.interestedArea}
+                      </p>
+                    )}
 
-                      <div className='flex-1'>
-                        <Label htmlFor='organizationType'>Industry</Label>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button
-                              variant='outline'
-                              className='w-full text-left'>
-                              {formData.industry || "Select "}
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            {industryOptions.map((option) => (
-                              <DropdownMenuCheckboxItem
-                                key={option}
-                                onCheckedChange={() =>
-                                  handleDropdownChange("industry", option)
-                                }>
-                                {option}
-                              </DropdownMenuCheckboxItem>
-                            ))}
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    </div>
-                    <div>
-                      <Label htmlFor='tradeLicence'>Trade licence</Label>
-                      <Input
-                        id='tradeLicence'
-                        value={formData.tradeLicence}
-                        onChange={(e) =>
-                          handleChange("tradeLicence", e.target.value)
-                        }
-                        placeholder='Enter your trade license'
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor='organizationType'>Motivation</Label>
-                      <Textarea placeholder='can we know why you choose us?' />
+                    <div className='flex flex-col gap-2'>
+                      <Label htmlFor='organizationType'>
+                        Organization Type
+                      </Label>
+                      <RadioGroup
+                        className='m-4 mt gap-2'
+                        onValueChange={handleRadioChange}
+                        defaultValue={formData.organizationType}>
+                        {organizationTypeOptions.map((option) => (
+                          <div key={option} >
+                            <RadioGroupItem
+                              value={option}
+                              id={option}
+                              className='mr-2'
+                            />
+                            <Label htmlFor={option}>{option}</Label>
+                          </div>
+                        ))}
+                      </RadioGroup>
+                      {errors.organizationType && (
+                        <p className='text-red-500 text-sm'>
+                          {errors.organizationType}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
               )}
 
               {currentStep === 2 && (
-                <div className='space-y-2'>
-                  <h2 className='text-xl font-semibold text-center'>
-                    Confirm Details
+                <div>
+                  <h2 className='text-xl mb-4 text-center font-semibold'>
+                    Confirm your details
                   </h2>
-                  {/* Confirmation details */}
-                  <p className='text-sm text-center'>
-                    Please confirm that all your details are correct.
-                  </p>
+                  {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
 
-                  <div className='text-sm'>
-                    <p className='p-3'>
-                      <strong>Media Name:</strong> {formData.organizationName}
-                    </p>
+                  <div className='space-y-2'>
+                    {/* Confirm Details */}
+                    <div className='text-sm'>
+                      <p className='p-3'>
+                        <strong>Organization Name</strong>{" "}
+                        {formData.organizationName}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Email:</strong> {formData.email}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Phone:</strong> {formData.phoneNumberOne}
+                      </p>
+                      <p className='p-3'>
+                        <strong>From:</strong> {formData.city}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Focus on:</strong> {formData.focusArea}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Want to:</strong> {formData.interestedArea}
+                      </p>
 
-                    <p className='p-3'>
-                      <strong>Email:</strong> {formData.email}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Phone Number:</strong> {formData.phoneNumberOne}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Country:</strong> {formData.country}
-                    </p>
-                    <p className='p-3'>
-                      <strong>State:</strong> {formData.state}
-                    </p>
-                    <p className='p-3'>
-                      <strong>City:</strong> {formData.city}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Focus Areas:</strong>{" "}
-                      {formData.focusArea.join(", ")}
-                    </p>
-                    <p className='p-3'>
-                      <strong>Interest Areas:</strong>{" "}
-                      {formData.interestedArea.join(", ")}
-                    </p>
+                      <p className='p-3'>
+                        <strong>Organization Type:</strong>{" "}
+                        {formData.organizationType}
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}
+
+              <div className='flex justify-between mt-4'>
+                <Button
+                  variant='secondary'
+                  onClick={handlePrevious}
+                  disabled={currentStep === 0}>
+                  <ChevronLeft className='mr-2 h-4 w-4' />
+                  Previous
+                </Button>
+                {currentStep === steps.length - 1 ? (
+                  <Button onClick={handleSubmit}>
+                    <Check className='mr-2 h-4 w-4' />
+                    Submit
+                  </Button>
+                ) : (
+                  <Button onClick={handleNext}>
+                    Next
+                    <ChevronRight className='ml-2 h-4 w-4' />
+                  </Button>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
-
-          <div className='flex justify-between mt-8'>
-            {currentStep > 0 && (
-              <Button variant='outline' onClick={handlePrevious}>
-                <ChevronLeft className='mr-2 h-4 w-4' />
-                Previous
-              </Button>
-            )}
-            {currentStep < steps.length - 1 && (
-              <Button onClick={handleNext}>
-                Next
-                <ChevronRight className='ml-2 h-4 w-4' />
-              </Button>
-            )}
-            {currentStep === steps.length - 1 && (
-              <Button onClick={handleSubmit} className='w-24'>
-                Submit
-                <Check className='ml-2 h-4 w-4' />
-              </Button>
-            )}
-          </div>
         </CardContent>
       </Card>
     </div>

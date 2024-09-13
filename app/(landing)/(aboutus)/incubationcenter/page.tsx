@@ -17,8 +17,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { getImageUrl } from "@/lib/utils";
 import { useInView } from "react-intersection-observer"; // Install this hook using 'npm install react-intersection-observer'
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -55,15 +53,16 @@ const Page = () => {
             height={800}
           />
         }
-        title={incubationItems?.intro.title || ""}
+        title={incubationItems?.intro.title ?? " "}
         description={incubationItems?.intro.description}
         buttonText={"hidden"}
-        href={"/innovationhub"}
+        href={"/incubationcenter"}
       />
       <CTA
-        buttonText='Apply for Call'
-        title='Have a Start-Up Idea?'
-        href='/callforproposal'
+        title={incubationItems?.proposal.title || " "}
+        buttonText={incubationItems?.proposal.button_name || " "}
+        href={incubationItems?.proposal.href || " "}
+        description={incubationItems?.proposal.description || " "}
       />
 
       {/* Observe the feature component */}

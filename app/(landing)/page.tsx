@@ -1,5 +1,6 @@
 /** @format */
 "use client";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
@@ -10,15 +11,14 @@ import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
 import CardContainer from "@/components/cardContainer";
 import Motto from "@/components/motto";
-import MediaAndNews from "@/components/MediaAndNews";
 import { Address, HomePageData, Vision } from "@/types/strapi-types";
 import { HomepageItemFetch } from "@/services/homepage";
-import News from "@/components/News";
 import EventsSider from "@/components/eventsSider";
-import Videos from "@/components/video";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
-import AllNewsPage from "@/components/viewAllNews";
+import VideosList from "@/components/video";
+import NewsList from "@/components/News";
+<link rel='icon' href='/DX.ico' sizes='any' />;
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
@@ -32,16 +32,17 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  if (!homepageItems) {
-    return <SkeletonLoader />;
-  }
-
+      if (!homepageItems) {
+        return <SkeletonLoader />;
+      }
+      <Head>
+        <link rel='icon' href='/DX.ico' sizes='any' />
+      </Head>
   return (
     <div>
-      {" "}
       {/* <div >
-        {<ComingSoonModal />}
-      </div> */}
+          {<ComingSoonModal />}
+        </div> */}
       <div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
           <div className='lg:col-span-2 flex flex-col justify-between'>
@@ -54,17 +55,17 @@ const Page = () => {
               <Motto />
             </div>
             <div className='mt-auto'>
-              <News news={homepageItems?.news || []} />
-          
+              <NewsList news={homepageItems?.news || []} />
             </div>
           </div>
         </div>
         <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
           <div className='lg:col-span-2'>
             <CTA
-              buttonText='Apply For Call'
-              title='Have a Start-Up Idea?'
-              href={"/callforproposal"}
+              title={homepageItems?.proposal.title || " "}
+              buttonText={homepageItems?.proposal.button_name}
+              href={homepageItems?.proposal.href || " "}
+              description={homepageItems?.proposal.description || " "}
             />
           </div>
           <div className='lg:col-span-1'>
@@ -80,7 +81,7 @@ const Page = () => {
             />
           </div>
           <div className='lg:col-span-1'>
-            <Videos video={homepageItems?.videos || []} />
+            <VideosList video={homepageItems?.videos || []} />
           </div>
         </div>
 
@@ -97,9 +98,18 @@ const Page = () => {
         </div>
 
         <br />
-        <h1 className='text-3xl font-bold m-0 text-center'>
+        {/* <h1 className='text-3xl font-bold m-0 text-center'>
           Breakthroughs We&apos;ve Delivered
-        </h1>
+        </h1> */}
+        <div className='text-center'>
+          <h2 className='text-4xl sm:text-wrap md:text-wrap  font-bold'>
+            <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
+            Delivered
+          </h2>
+          <div className='flex justify-center mt-2  mb-16'>
+            <div className='w-36 h-1 bg-coopOrange'></div>
+          </div>
+        </div>
         <br></br>
         <ProductsBeam products={homepageItems?.delivered || []} />
         <ContactUs address={homepageItems?.connect as Address} />

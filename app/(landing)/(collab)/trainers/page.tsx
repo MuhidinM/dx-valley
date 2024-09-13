@@ -28,7 +28,6 @@ const Page = () => {
  if (!trainersItems) {
    return <SkeletonPageColloab />;
  }
-
   return (
     <div>
       <PageTitle />
@@ -38,7 +37,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -54,7 +53,7 @@ const Page = () => {
             svg={
               <Image
                 src={`http://10.1.151.64:1337${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -68,16 +67,17 @@ const Page = () => {
         );
       })}
       <CTA
-        title="Want to be a Trainer?"
-        buttonText="Apply"
-        href={"#collab-form"}
+        title={trainersItems?.proposal.title  || " "}
+        buttonText={trainersItems?.proposal.button_name || " "}
+        href={trainersItems?.proposal.href || " "}
+        description={trainersItems?.proposal.description || " "}
       />
-      <ProfessionalOverview overview={trainersItems?.overview || ""} />
+      <ProfessionalOverview overview={trainersItems?.overview ?? ""} />
       {/* <Objectives items={objectives} /> */}
       <CollabObjectives />
       {/* <InputForm /> */}
-      <div id="collab-form">
-        <CollabForm/>
+      <div id='collab-form'>
+        <CollabForm />
       </div>
     </div>
   );
