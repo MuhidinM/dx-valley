@@ -67,10 +67,11 @@ const Page = () => {
               key={indx}
               svg={
                 <Image
-                  src={"/image/companies/payroll.png"}
+                  src={`http://10.1.151.64:1337${item.img ?? ""}`}
                   alt='Image Left Not Found'
                   width={400}
                   height={400}
+                  className="h-28"
                 />
               }
               title={item.title}
