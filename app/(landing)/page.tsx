@@ -32,9 +32,9 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  // if (!homepageItems) {
-  //   return <SkeletonLoader />;
-  // }
+      if (!homepageItems) {
+        return <SkeletonLoader />;
+      }
       <Head>
         <link rel='icon' href='/DX.ico' sizes='any' />
       </Head>

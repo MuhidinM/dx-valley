@@ -1,4 +1,3 @@
-import { overview } from "@/constants";
 import { InnovationResponse } from "@/types/strapi-types";
 import axios from "axios";
 
