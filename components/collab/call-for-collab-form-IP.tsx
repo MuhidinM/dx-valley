@@ -250,6 +250,9 @@ export default function IndependentRegistrationForm() {
                           onChange={(e) => handleChange('firstName', e.target.value)}
                           placeholder='Enter your first name'
                         />
+                         {errors.firstName && (
+                          <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                        )}
                       </div>
                       <div className='flex-1'>
                         <Label htmlFor='lastName'>Second Name</Label>
@@ -259,6 +262,9 @@ export default function IndependentRegistrationForm() {
                           onChange={(e) => handleChange('lastName', e.target.value)}
                           placeholder='Enter your second name'
                         />
+                         {errors.lastName && (
+                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
+                      )}
                       </div>
                     </div>
 
@@ -272,6 +278,9 @@ export default function IndependentRegistrationForm() {
                           onChange={(e) => handleChange('email', e.target.value)}
                           placeholder='Enter your email'
                         />
+                         {errors.email && (
+                        <p className='text-red-500 text-sm'>{errors.email}</p>
+                      )}
                       </div>
                       <div className='flex-1'>
                         <Label htmlFor='phoneNumberOne'>Phone</Label>
@@ -282,16 +291,21 @@ export default function IndependentRegistrationForm() {
                           onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
                           placeholder='Enter your phone number'
                         />
+                        {errors.phoneNumberOne && (
+                          <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                        )}
                       </div>
                     </div>
 
-                    <div>
-                      <Label htmlFor='country'>Country</Label>
+                    <div className='flex-1'>
+                      <Label htmlFor='country'>City</Label>
                       <Input
-                        id='country'
-                        value={formData.country}
-                        onChange={(e) => handleChange('country', e.target.value)}
-                        placeholder='Enter your country'
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) =>
+                          handleChange("city", e.target.value)
+                        }
+                        placeholder='Enter your city'
                       />
                     </div>
 
@@ -374,7 +388,7 @@ export default function IndependentRegistrationForm() {
                         <strong>Phone Number:</strong> {formData.phoneNumberOne}
                       </p>
                       <p className='p-3'>
-                        <strong>Country:</strong> {formData.country}
+                        <strong>City:</strong> {formData.city}
                       </p>
                       {/* <p className='p-3'>
                         <strong>State:</strong> {formData.state}
