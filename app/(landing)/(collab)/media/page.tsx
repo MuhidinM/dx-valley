@@ -23,9 +23,9 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
-//  if (!mediaItems) {
-//    return <SkeletonPageColloab />;
-//  }
+ if (!mediaItems) {
+   return <SkeletonPageColloab />;
+ }
   
   return (
     <div>

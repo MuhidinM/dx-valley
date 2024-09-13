@@ -29,9 +29,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-  //  if (!innovationItems) {
-  //    return <SkeletonLoaderAboutInnovationPage />;
-  //  }
+   if (!innovationItems) {
+     return <SkeletonLoaderAboutInnovationPage />;
+   }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])

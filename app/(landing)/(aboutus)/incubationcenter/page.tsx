@@ -17,8 +17,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { getImageUrl } from "@/lib/utils";
 import { useInView } from "react-intersection-observer"; // Install this hook using 'npm install react-intersection-observer'
 
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -40,9 +38,9 @@ const Page = () => {
     triggerOnce: true, // Only trigger once
   });
 
-  // if (!incubationItems) {
-  //   return <SkeletonLoaderAboutPage />;
-  // }
+  if (!incubationItems) {
+    return <SkeletonLoaderAboutPage />;
+  }
 
   return (
     <div className='space-y-8 mb-8 justify-center'>
