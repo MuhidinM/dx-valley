@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Select,
@@ -63,7 +63,7 @@ type GalleryGridProps = {
   items: GalleryItem[];
 };
 
-function GalleryGrid({ items }: GalleryGridProps) {
+function GalleryGrid({ items }: Readonly<GalleryGridProps>) {
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {items.map((item, indx) => (

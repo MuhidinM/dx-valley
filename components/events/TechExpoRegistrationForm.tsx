@@ -31,7 +31,7 @@ interface FormData {
 
 const TechExpoRegistrationForm: React.FC = () => {
   const searchParams = useSearchParams();
-  const eventId = searchParams.get("eventId") || "";
+  const eventId = searchParams.get("eventId") ?? "";
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",

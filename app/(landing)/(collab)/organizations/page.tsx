@@ -28,9 +28,9 @@ const Page = () => {
   //   console.log("org items: ", orgItems);
   // });
 
-  // if (!orgItems) {
-  //   return <SkeletonPageColloab />;
-  // }
+  if (!orgItems) {
+    return <SkeletonPageColloab />;
+  }
   return (
     <div>
       <PageTitle />
@@ -71,10 +71,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title={orgItems.proposal.title}
-        buttonText={orgItems.proposal.button_name}
-        href={orgItems.proposal.href}
-        description={orgItems.proposal.description}
+        title={orgItems?.proposal.title || " "}
+        buttonText={orgItems?.proposal.button_name || " "}
+        href={orgItems?.proposal.href || " "}
+        description={orgItems?.proposal.description || " "}
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />

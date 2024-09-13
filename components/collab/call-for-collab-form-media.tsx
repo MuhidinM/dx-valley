@@ -193,8 +193,8 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl'>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+          <CardTitle className='text-2xl font-bold text-center mb-3'>
+            <span className='flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Media Registration Form
             </span>
             <div className='flex justify-center'>
