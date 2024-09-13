@@ -68,10 +68,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title='Want to be a Trainer?'
-        buttonText='Apply'
-        href={"#collab-form"}
-        buttonDesc={"Let's inspire excellence together"}
+        title={trainersItems.proposal.title}
+        buttonText={trainersItems.proposal.button_name}
+        href={trainersItems.proposal.href}
+        description={trainersItems.proposal.description}
       />
       <ProfessionalOverview overview={trainersItems?.overview || ""} />
       {/* <Objectives items={objectives} /> */}

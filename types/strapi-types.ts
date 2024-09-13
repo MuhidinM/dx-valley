@@ -15,6 +15,14 @@ interface ImageFormat {
       small: ImageFormat;
     };
   }
+  // call for proposal link automate
+  interface CallProposalLink{
+    title: string,
+    description: string, 
+    button_name: string,
+    href: string
+  }
+
   // common for image attribute 
   interface ImageData {
     data: {
@@ -139,12 +147,24 @@ export interface CardData {
   img: string,
 }
 
-export interface CardResponse {
-
+export interface TrainingData{
+  cards: {
+    title: string,
+    description: string,
+    link: {
+      title: string,
+      href: string
+    }
+    img: string,
+  }[]
+  proposal: CallProposalLink
+}
+export interface TrainingResponse{
   data: {
     id: number,
     attributes: {
-      cards: Card[]
+      cards: Card[],
+      proposal: CallProposalLink,
     }
   };
 }
@@ -152,7 +172,8 @@ export interface CardResponse {
 // interfaces for organization tab
 export interface OrgData {
   overview: string,
-  cards: CardData[]
+  cards: CardData[],
+  proposal: CallProposalLink
 }
 export interface OrgResponse {
 
@@ -160,7 +181,8 @@ export interface OrgResponse {
     id: number,
     attributes: {
       overview: string,
-      cards: Card[]
+      cards: Card[],
+      proposal: CallProposalLink
     }
   };
 }
@@ -223,7 +245,8 @@ export interface IncubationData{
   incubation_process: CardNoLinkData[],
   offers: CardNoLinkData[],
   training: CardNoLinkData[],
-  focus: CardNoLinkData[]
+  focus: CardNoLinkData[],
+  proposal: CallProposalLink
 }
 export interface IncubationResponse{
   data: {
@@ -234,6 +257,7 @@ export interface IncubationResponse{
       offers: CardNoLink[],
       training: CardNoLink[],
       focus: CardNoLink[],
+      proposal: CallProposalLink
     }
   };
 }
@@ -251,6 +275,7 @@ export interface InnovationData{
   howeworks: CardNoLinkData[],
   gallery: CardNoLinkData[],
   connect: Address,
+  proposal: CallProposalLink
 }
 export interface InnovationResponse{
   data: {
@@ -261,6 +286,7 @@ export interface InnovationResponse{
       howeworks: CardNoLink[],
       gallery: CardNoLink[],
       connect: Address,
+      proposal: CallProposalLink
     }
   };
 }
@@ -311,6 +337,7 @@ export interface HomePageData{
   videos: Videos[],
   news: News[],
   connect: Address,
+  proposal: CallProposalLink
 }
 export interface HomePageResponse{
   data: {
@@ -325,6 +352,25 @@ export interface HomePageResponse{
       videos: Videos[],
       news: News[],
       connect: Address,
+      proposal: CallProposalLink
     }
   };
+}
+
+// interface for gallery
+export interface GalleryData{
+  type: string,
+  title: string
+  description: string,
+  img: string
+}
+
+export interface GalleryResponse{
+  data: {
+    id: number,
+    attributes: {
+      type: string,
+      gallery : CardNoLink
+    }
+  }[]
 }

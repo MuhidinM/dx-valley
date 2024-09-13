@@ -3,7 +3,7 @@ import { IncubationResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const IncubationItemFetch = async ()=>{
-    const res = await axios.get<IncubationResponse>('http://10.1.151.64:1337/api/incubation?populate=intro.img,focus.img,offers.img,training.img,incubation_process.img');
+    const res = await axios.get<IncubationResponse>('http://10.1.151.64:1337/api/incubation?populate=intro.img,focus.img,offers.img,training.img,incubation_process.img,proposal');
 
     const data = res.data.data;
     const incubationItems = {
@@ -32,6 +32,12 @@ export const IncubationItemFetch = async ()=>{
             description: elmnt.description,
             img: elmnt.img.data?.attributes?.url || ""
         })) || [],
+        proposal: {
+            title: data.attributes.proposal.title || "",
+            description: data.attributes.proposal.description || "",
+            button_name: data.attributes.proposal.button_name || "",
+            href: data.attributes.proposal.href || ""
+        }
     }
     // console.log("incubation-items: ", incubationItems)
     return incubationItems 
