@@ -4,9 +4,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Calendar, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { News } from "@/types/strapi-types";
 import { ScrollArea } from "./ui/scroll-area";
+import Link from "next/link";
 
 // Example usage of the `News` interface
 
@@ -113,18 +114,30 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
               <X className='h-4 w-4' />
             </Button>
             <CardHeader>
-              <CardTitle>{selectedArticle.title}</CardTitle>
-              <p className='text-sm text-muted-foreground'>
+              <Link
+                href={selectedArticle.news_link}
+                target='_blank'
+                className='hover:underline'>
+                <CardTitle>{selectedArticle.title}</CardTitle>
+              </Link>
+
+              <p className='text-sm text-muted-foreground flex gap-1 font-semibold text-black'>
+                <Calendar className='ml-2 h-4 w-4' />{" "}
                 {new Date(selectedArticle.date).toLocaleDateString()}
               </p>
             </CardHeader>
+
             <CardContent>
-              <img
-                src={selectedArticle.img_link}
-                alt={selectedArticle.title}
-                className='w-full h-64 object-cover rounded-md mb-4'
-              />
-              <p>{selectedArticle.description}</p>
+              <div>
+                <img
+                  src={selectedArticle.img_link}
+                  alt={selectedArticle.title}
+                  className='w-1/12 h-15 object-cover rounded-md mb-4'
+                />
+              </div>
+              <div>
+                <p>{selectedArticle.description}</p>
+              </div>{" "}
             </CardContent>
           </Card>
 
@@ -196,11 +209,11 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
           </div> */}
         </>
       ) : (
-        /* News list */
+        /* News all list */
 
         <div className='mb-8'>
           {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
-          <ScrollArea >
+          <ScrollArea>
             {sortedNewsArticles.map((article, index) => (
               <Card
                 key={index}
