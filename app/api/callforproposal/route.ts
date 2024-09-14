@@ -194,7 +194,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       ideaDescription: string;
       documents: { connect: { id: number }[] };
       contactInfo: { connect: { id: number } };
-      founderId?: { connect: { id: number }[] };
+      personalInfo?: { connect: { id: number }[] };
       videoId?: number;
     } = {
       startupName: startupName,
@@ -211,7 +211,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (savedFounders.length > 0) {
       applicationData = {
         ...applicationData,
-        founderId: {
+        personalInfo: {
           connect: savedFounders.map((founder) => ({ id: founder.id })),
         },
       };
@@ -230,7 +230,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       };
     }
 
-    const application = await prisma.proposals.create({
+    const application = await prisma.startupInfo.create({
       data: applicationData,
     });
 
