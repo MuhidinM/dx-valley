@@ -4,7 +4,9 @@ import nodemailer from "nodemailer";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+// export async function POST(req: NextRequest) {
+
+  export async function POST(req: NextRequest): Promise<NextResponse> {
   const { name, email, message } = await req.json();
 
   // Save the contact form submission to the database
@@ -24,13 +26,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.SMTP_USERNAME,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
+ const transporter = nodemailer.createTransport({
+   // service: "Gmail",
+   host: "mail.dxvalley.com",
+   port: 465,
+   secure: true,
+   auth: {
+     user: process.env.SMTP_USERNAME_for_info,
+     pass: process.env.SMTP_PASSWORD_for_info,
+   },
+ });
 
   const mailOptionsToAdmin = {
     from: email,
