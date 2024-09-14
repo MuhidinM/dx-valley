@@ -90,7 +90,7 @@ export default function PhotoGallery() {
               </div>
             ))} */}
             <SelectItem value='innovation'>Innovation Hub</SelectItem>
-            <SelectItem value='incubation'>Incubation</SelectItem>
+            <SelectItem value='incubation'>Incubation Lab</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -99,7 +99,7 @@ export default function PhotoGallery() {
         <div
           className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'
           onClick={closeModal}>
-          <div className='relative max-w-3xl w-full h-full' {...handlers}>
+          <div className='relative max-w-5xl w-full h-full' {...handlers}>
             <Button
               className='absolute top-4 right-4 z-10'
               size='icon'
