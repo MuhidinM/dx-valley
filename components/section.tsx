@@ -68,7 +68,7 @@ export const SectionLeft: React.FC<SectionProps> = ({
   );
 };
 
-export const Card: React.FC<SectionProps> = ({
+export const CardComponent: React.FC<SectionProps> = ({
   svg,
   title,
   description,

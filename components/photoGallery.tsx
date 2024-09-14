@@ -90,7 +90,7 @@ export default function PhotoGallery() {
               </div>
             ))} */}
             <SelectItem value='innovation'>Innovation Hub</SelectItem>
-            <SelectItem value='incubation'>Incubation</SelectItem>
+            <SelectItem value='incubation'>Incubation Lab</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -99,13 +99,16 @@ export default function PhotoGallery() {
         <div
           className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'
           onClick={closeModal}>
-          <div className='relative max-w-3xl w-full h-full' {...handlers}>
+          <div
+            className='relative max-w-5xl w-full h-full'
+            // onClick={closeModal}
+            {...handlers}>
             <Button
               className='absolute top-4 right-4 z-10'
               size='icon'
-              variant='secondary'
+              // variant='secondary'
               onClick={(e) => {
-                e.stopPropagation();
+                // e.stopPropagation();
                 closeModal();
               }}>
               <X className='h-4 w-4' />
@@ -117,7 +120,7 @@ export default function PhotoGallery() {
               className='object-contain'
               onClick={(e) => e.stopPropagation()}
             />
-            <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black'>
+            <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black' >
               <h3 className='text-lg font-bold mb-2'>
                 {filteredItems[selectedImage].title}
               </h3>
@@ -132,7 +135,7 @@ export default function PhotoGallery() {
 
 function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2' >
       {items.map((item, index) => (
         <Card
           key={index}
@@ -144,10 +147,10 @@ function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
                 src={`http://10.1.151.64:1337${item.img}`}
                 alt={item.title}
                 fill
-                className='object-cover transition-opacity group-hover:opacity-20'
+                className='object-cover transition-opacity lg:group-hover:opacity-20'
               />
             </AspectRatio>
-            <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity'>
+            <div className='absolute inset-0 flex items-center justify-center opacity-0 lg:group-hover:opacity-100 transition-opacity'>
               <div className='text-center p-4'>
                 <h3 className='text-lg font-bold text-gray-900 mb-2'>
                   {item.title}
