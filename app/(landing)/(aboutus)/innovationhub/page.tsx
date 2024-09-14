@@ -91,7 +91,7 @@ const Page = () => {
           <div className='flex justify-center text-black'>
             <Button
               variant='outline'
-              className=' w-60 h-16 bg-slate-300 hover:bg-slate-400  hover:underline text-2xl font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105'>
+              className=' w-60 h-16 bg-slate-300 hover:bg-slate-400  hover:underline text-xl font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105'>
               List All Products
             </Button>
           </div>
