@@ -36,7 +36,8 @@ import Confetti from "react-confetti";
 import SubmissionSuccess from "../submissionSuccess";
 import { ChangeEvent, FormEvent, MouseEvent } from "react";
 import { string } from "zod";
-
+import { toast } from "sonner"; // Import the toast function
+import { Toaster } from "sonner";
 const steps = [
   { id: "startup", title: "Startup Info" },
   { id: "founder", title: "Founder Info" },
@@ -356,6 +357,20 @@ const ApplyForIncubation = () => {
       });
 
       const result = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
+    
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        toast.error("Registration failed", {
+          description:
+            result?.error || "An error occurred during registration.",
+        });
+      }
       console.log(result);
     } catch (error) {
       console.error("Error submitting form", error);
@@ -389,10 +404,10 @@ const ApplyForIncubation = () => {
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-
-            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
-            desc={"Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."}
-
+            icon={<CheckCircle2 className="w-8 h-8 text-green" />}
+            desc={
+              "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
+            }
           />
         </div>
       </div>
@@ -433,8 +448,8 @@ const ApplyForIncubation = () => {
                 className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}>
-                  
+                }}
+              ></div>
             </div>
           </div>
           <form onSubmit={handleSubmit}>
