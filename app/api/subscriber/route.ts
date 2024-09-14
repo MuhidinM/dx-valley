@@ -54,35 +54,32 @@ export async function POST(req: Request): Promise<NextResponse> {
       // html: `<p>Dear ${email},</p>
       //   <p>You are receiving this email because you subscribed to our newsletter.</p>
       //   <p>Best regards,<br/>Dx-VALLEY</p>`,
-      html: `<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8f8f8; border-radius: 5px;">
+      html: `
         <tr>
             <td style="padding: 20px;">
                 <h1 style="color: #4a4a4a; text-align: center;">Thank You for Subscribing!</h1>
                 <p style="text-align: center;">
-                    <img src="/image/dxvalleylogo.png" alt="Dxvalley" style="width: 60px; height: 60px;">
+                    <img src="https://www.dxvalley.com/image/dxvalleymaillogo.png" alt="Dxvalley" style="width: 60px; height: 60px;">
                 </p>
-                <p>Dear ${email},</p>
+                <p> <strong>Dear ${email}</strong>,</p>
                 <p>We're thrilled to have you join our community! Your subscription has been successfully confirmed, and you're now part of our inner circle.</p>
                 <p>Here's what you can expect:</p>
                 <ul>
                     <li>Exclusive content delivered straight to your inbox</li>
                     <li>Early access to new features and products</li>
-                    <li>Special offers and discounts for subscribers only</li>
+                    
                 </ul>
                 <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
                 <p>Best regards,<br>The Dx Valley Team</p>
                 <div style="text-align: center; margin-top: 20px;">
-                    <a href="#" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
+                    <a href="dxvalley.com" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
                 </div>
                 <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
                     You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="#" style="color: #888;">unsubscribe here</a>.
                 </p>
             </td>
         </tr>
-    </table>
-</body>
-`,
+ `,
     };
 
     await transporter.sendMail(mailOptionsToUser);

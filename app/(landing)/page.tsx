@@ -58,7 +58,12 @@ const Page = () => {
         </div>
         <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
           <div className='lg:col-span-2'>
-
+            <CTA
+              title={homepageItems?.proposal.title || " "}
+              buttonText={homepageItems?.proposal.button_name || " "}
+              href={homepageItems?.proposal.href || " "}
+              description={homepageItems?.proposal.description || " "}
+            />
           </div>
           <div className='lg:col-span-1'>
             <EventsSider />
@@ -82,7 +87,7 @@ const Page = () => {
             <CardContainer update={homepageItems?.update || []} />
           </div>
           <div className='lg:col-span-1'>
-            <CTAComponent JoinUs={homepageItems.joinus || []}/>
+            <CTAComponent JoinUs={homepageItems.joinus || []} />
           </div>
         </div>
         <div className=''>

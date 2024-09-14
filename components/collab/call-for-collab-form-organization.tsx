@@ -217,12 +217,12 @@ export default function OrganizationRegistrationForm() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+    <div className='flex items-center justify-center bg-background p-10'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl '>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+          <CardTitle className='text-2xl font-bold '>
+            <span className='flex justify-center text-3xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
             <div className='flex justify-center'>
@@ -348,7 +348,7 @@ export default function OrganizationRegistrationForm() {
                         onValueChange={handleRadioChange}
                         defaultValue={formData.organizationType}>
                         {organizationTypeOptions.map((option) => (
-                          <div key={option} >
+                          <div key={option}>
                             <RadioGroupItem
                               value={option}
                               id={option}

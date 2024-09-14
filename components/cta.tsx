@@ -13,9 +13,9 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
   }, []);
 
   return (
-    <section className="dark:bg-gray-950 rounded-b-lg bg-white">
-      <div className="container px-1 py-14 mx-auto flex flex-col flex-wrap  items-center justify-center md:flex-col md:space-y-5 md:justify-between">
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl  dark:text-white">
+    <section className='dark:bg-gray-950 rounded-b-lg bg-white'>
+      <div className='container px-1 py-14 mx-auto flex flex-col flex-wrap  items-center justify-center md:flex-col md:space-y-5 md:justify-between'>
+        <h2 className='text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl  dark:text-white'>
           {title}
         </h2>
         <div className='mt-6 lg:mt-2 mb-4'>
@@ -27,17 +27,17 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
         </div>
         <div>
           {" "}
-          <div className="prose text-gray-700" suppressHydrationWarning>
+          <div
+            className='prose text-gray-700 flex items-center justify-center'
+            suppressHydrationWarning>
             {isClient && (
               <ReactMarkdown
                 children={description?.toString() || ""}
                 remarkPlugins={[remarkGfm]}
               />
             )}
-          </div>
-          {" "}
+          </div>{" "}
         </div>
-
       </div>
     </section>
   );

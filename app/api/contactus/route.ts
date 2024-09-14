@@ -4,7 +4,9 @@ import nodemailer from "nodemailer";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest) {
+// export async function POST(req: NextRequest) {
+
+  export async function POST(req: NextRequest): Promise<NextResponse> {
   const { name, email, message } = await req.json();
 
   // Save the contact form submission to the database
