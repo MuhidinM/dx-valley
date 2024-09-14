@@ -265,7 +265,7 @@ const ApplyForIncubation = () => {
         break;
 
       case 1:
-        const founderErrors: FounderErrors[] = formData.founderNames.map(
+        const founderErrors: FounderErrors[] = formData.founderNames.map (
           (founder) => {
             let errors: FounderErrors = {};
             if (!founder.firstName.trim()) {
@@ -706,6 +706,7 @@ const ApplyForIncubation = () => {
               </div>
             )}
           </form>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button

@@ -21,7 +21,7 @@ import NewsList from "@/components/News";
 <link rel='icon' href='/DX.ico' sizes='any' />;
 
 const Page = () => {
-  const [homepageItems, setHomepageItems] = useState<HomePageData | null>(null);
+  const [homepageItems, setHomepageItems] = useState<HomePageData>();
 
   useEffect(() => {
     const fetchHomepageItems = async () => {
@@ -32,17 +32,14 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-  // if (!homepageItems) {
-  //   return <SkeletonLoader />;
-  // }
+      if (!homepageItems) {
+        return <SkeletonLoader />;
+      }
       <Head>
         <link rel='icon' href='/DX.ico' sizes='any' />
       </Head>
   return (
     <div>
-      {/* <div >
-          {<ComingSoonModal />}
-        </div> */}
       <div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
           <div className='lg:col-span-2 flex flex-col justify-between'>
@@ -61,14 +58,6 @@ const Page = () => {
         </div>
         <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
           <div className='lg:col-span-2'>
-
-          <CTA
-            title={homepageItems.proposal.title}
-            buttonText={homepageItems.proposal.button_name}
-            href={homepageItems.proposal.href}
-            description={homepageItems.proposal.description}
-          />
-          
 
           </div>
           <div className='lg:col-span-1'>
@@ -93,7 +82,7 @@ const Page = () => {
             <CardContainer update={homepageItems?.update || []} />
           </div>
           <div className='lg:col-span-1'>
-            <CTAComponent />
+            <CTAComponent JoinUs={homepageItems.joinus || []}/>
           </div>
         </div>
         <div className=''>
@@ -105,7 +94,7 @@ const Page = () => {
           Breakthroughs We&apos;ve Delivered
         </h1> */}
         <div className='text-center'>
-          <h2 className='text-4xl sm:text-wrap md:text-wrap  font-bold'>
+          <h2 className='text-4xl  lg:text-4xl sm:text-wrap md:text-wrap  font-bold'>
             <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
             Delivered
           </h2>

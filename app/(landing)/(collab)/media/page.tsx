@@ -23,9 +23,9 @@ const Page = () => {
     fetchmediaItems();
   }, []);
 
-//  if (!mediaItems) {
-//    return <SkeletonPageColloab />;
-//  }
+ if (!mediaItems) {
+   return <SkeletonPageColloab />;
+ }
   
   return (
     <div>
@@ -66,10 +66,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title={mediaItems.proposal.title}
-        buttonText={mediaItems.proposal.button_name}
-        href={mediaItems.proposal.href}
-        description={mediaItems.proposal.description}
+        title={mediaItems?.proposal.title   || " "}
+        buttonText={mediaItems?.proposal.button_name  || " "}
+        href={mediaItems?.proposal.href || " "}
+        description={mediaItems?.proposal.description || " "}
       />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">

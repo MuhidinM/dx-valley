@@ -29,9 +29,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-  //  if (!innovationItems) {
-  //    return <SkeletonLoaderAboutInnovationPage />;
-  //  }
+   if (!innovationItems) {
+     return <SkeletonLoaderAboutInnovationPage />;
+   }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])
@@ -52,10 +52,10 @@ const Page = () => {
         href={"/innovationhub"}
       />
       <CTA
-        title={innovationItems.proposal.title}
-        buttonText={innovationItems.proposal.button_name}
-        href={innovationItems.proposal.href}
-        description={innovationItems.proposal.description}
+        title={innovationItems?.proposal.title || " "}
+        buttonText={innovationItems?.proposal.button_name || " "}
+        href={innovationItems?.proposal.href || " " }
+        description={innovationItems?.proposal.description || " "}
       />
       <HowWeWorkSection works={innovationItems?.howeworks || []} />
       <SlidingCompanies companies={innovationItems?.companies || []} />
@@ -67,10 +67,11 @@ const Page = () => {
               key={indx}
               svg={
                 <Image
-                  src={"/image/companies/payroll.png"}
+                  src={`http://10.1.151.64:1337${item.img ?? ""}`}
                   alt='Image Left Not Found'
                   width={400}
                   height={400}
+                  className="h-28"
                 />
               }
               title={item.title}

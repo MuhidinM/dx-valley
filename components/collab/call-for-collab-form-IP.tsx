@@ -97,12 +97,58 @@ export default function IndependentRegistrationForm() {
     });
   };
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+    
+    if (currentStep === 0) {
+      // Validate first name
+      if (!formData.firstName) {
+        newErrors.firstName = "First name is required.";
+      } else if (formData.firstName.length < 4) {
+        newErrors.firstName = "First name must be at least 4 characters.";
+      }
+  
+      // Validate last name
+      if (!formData.lastName) {
+        newErrors.lastName = "Last name is required.";
+      } else if (formData.lastName.length < 4) {
+        newErrors.lastName = "Last name must be at least 4 characters.";
+      }
+
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+      
+      if (!formData.phoneNumberOne ) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      }
+
+      if (formData.phoneNumberOne.length < 10 ) {
+        newErrors.phoneNumberOne = "phone number cannot be less than.";
+      }
+
+      
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
@@ -110,6 +156,7 @@ export default function IndependentRegistrationForm() {
   };
 
   const handleSubmit = async () => {
+    if (validateStep()) {
     try {
       const response = await fetch('/api/independentpartner', {
         method: 'POST',
@@ -137,15 +184,17 @@ export default function IndependentRegistrationForm() {
         description: "An error occurred. Please try again later.",
       });
     }
+  }
   };
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4 '>
-       <Toaster position="top-right" richColors />
+      <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl  min-h-[700px]'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
+            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Individual Registration Form
             </span>
             <div className='flex justify-center'>
@@ -154,15 +203,16 @@ export default function IndependentRegistrationForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-        <div className='mb-8 '>
+          <div className='mb-8 '>
             <div className='flex justify-between items-center'>
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${index <= currentStep
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-secondary text-secondary-foreground'
-                      }`}>
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
                     {index < currentStep ? (
                       <Check className='w-4 h-4' />
                     ) : (
@@ -193,37 +243,52 @@ export default function IndependentRegistrationForm() {
                 {currentStep === 0 && (
                   <div className='space-y-4'>
                     {/* Form fields */}
-                    <div className='flex gap-4'>
+                    <div className='flex flex-col lg:flex-row gap-4'>
                       <div className='flex-1'>
                         <Label htmlFor='firstName'>First Name</Label>
                         <Input
                           id='firstName'
                           value={formData.firstName}
-                          onChange={(e) => handleChange('firstName', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("firstName", e.target.value)
+                          }
                           placeholder='Enter your first name'
                         />
+                         {errors.firstName && (
+                          <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                        )}
                       </div>
                       <div className='flex-1'>
-                        <Label htmlFor='lastName'>Second Name</Label>
+                        <Label htmlFor='lastName'>Last Name</Label>
                         <Input
                           id='lastName'
                           value={formData.lastName}
-                          onChange={(e) => handleChange('lastName', e.target.value)}
-                          placeholder='Enter your second name'
+                          onChange={(e) =>
+                            handleChange("lastName", e.target.value)
+                          }
+                          placeholder='Enter your last name'
                         />
+                         {errors.lastName && (
+                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
+                      )}
                       </div>
                     </div>
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
                       <div className='flex-1'>
                         <Label htmlFor='email'>Email</Label>
                         <Input
                           id='email'
                           type='email'
                           value={formData.email}
-                          onChange={(e) => handleChange('email', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("email", e.target.value)
+                          }
                           placeholder='Enter your email'
                         />
+                         {errors.email && (
+                        <p className='text-red-500 text-sm'>{errors.email}</p>
+                      )}
                       </div>
                       <div className='flex-1'>
                         <Label htmlFor='phoneNumberOne'>Phone</Label>
@@ -231,19 +296,26 @@ export default function IndependentRegistrationForm() {
                           id='phoneNumberOne'
                           type='tel'
                           value={formData.phoneNumberOne}
-                          onChange={(e) => handleChange('phoneNumberOne', e.target.value)}
+                          onChange={(e) =>
+                            handleChange("phoneNumberOne", e.target.value)
+                          }
                           placeholder='Enter your phone number'
                         />
+                        {errors.phoneNumberOne && (
+                          <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                        )}
                       </div>
                     </div>
 
-                    <div>
-                      <Label htmlFor='country'>Country</Label>
+                    <div className='flex-1'>
+                      <Label htmlFor='country'>City</Label>
                       <Input
-                        id='country'
-                        value={formData.country}
-                        onChange={(e) => handleChange('country', e.target.value)}
-                        placeholder='Enter your country'
+                        id='city'
+                        value={formData.city}
+                        onChange={(e) =>
+                          handleChange("city", e.target.value)
+                        }
+                        placeholder='Enter your city'
                       />
                     </div>
 
@@ -268,13 +340,15 @@ export default function IndependentRegistrationForm() {
                       </div>
                     </div> */}
 
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
                       <div className='flex-1'>
                         <Label className='mb-2 block'>Focus Area</Label>
                         <MultiSelectDropdown
                           options={focusAreaOptions}
                           selectedOptions={formData.focusArea}
-                          onOptionChange={(option) => handleCheckboxChange('focusArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("focusArea", option)
+                          }
                           placeholder='Select focus area'
                         />
                       </div>
@@ -284,18 +358,22 @@ export default function IndependentRegistrationForm() {
                         <MultiSelectDropdown
                           options={interestOptions}
                           selectedOptions={formData.interestedArea}
-                          onOptionChange={(option) => handleCheckboxChange('interestedArea', option)}
+                          onOptionChange={(option) =>
+                            handleCheckboxChange("interestedArea", option)
+                          }
                           placeholder='Select interest area'
                         />
                       </div>
                     </div>
 
-                    <div className=''>
+                    <div className='flex-col lg:flex-row'>
                       <Label className='mb-2 block'>Motivation</Label>
                       <Textarea
                         id='motivation'
                         value={formData.motivation}
-                        onChange={(e) => handleChange('motivation', e.target.value)}
+                        onChange={(e) =>
+                          handleChange("motivation", e.target.value)
+                        }
                         placeholder='What motivates you to work with us'
                       />
                     </div>
@@ -326,7 +404,7 @@ export default function IndependentRegistrationForm() {
                         <strong>Phone Number:</strong> {formData.phoneNumberOne}
                       </p>
                       <p className='p-3'>
-                        <strong>Country:</strong> {formData.country}
+                        <strong>City:</strong> {formData.city}
                       </p>
                       {/* <p className='p-3'>
                         <strong>State:</strong> {formData.state}
@@ -335,10 +413,12 @@ export default function IndependentRegistrationForm() {
                         <strong>City:</strong> {formData.city}
                       </p> */}
                       <p className='p-3'>
-                        <strong>Focus Areas:</strong> {formData.focusArea.join(', ')}
+                        <strong>Focus Areas:</strong>{" "}
+                        {formData.focusArea.join(", ")}
                       </p>
                       <p className='p-3'>
-                        <strong>Interest Areas:</strong> {formData.interestedArea.join(', ')}
+                        <strong>Interest Areas:</strong>{" "}
+                        {formData.interestedArea.join(", ")}
                       </p>
                       <p className='p-3'>
                         <strong>Motivation:</strong> {formData.motivation}

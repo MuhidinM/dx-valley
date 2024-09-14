@@ -76,6 +76,8 @@ export default function TrainerRegistrationForm() {
     state: '',
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -84,19 +86,62 @@ export default function TrainerRegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+
+  const validateStep = () => {
+    const newErrors: { [key: string]: string } = {};
+  
+    if (currentStep === 0) {
+      // Validate first name
+      if (!formData.firstName) {
+        newErrors.firstName = "First name is required.";
+      } else if (formData.firstName.length < 4) {
+        newErrors.firstName = "First name must be at least 4 characters.";
+      }
+  
+      // Validate last name
+      if (!formData.lastName) {
+        newErrors.lastName = "Last name is required.";
+      } else if (formData.lastName.length < 4) {
+        newErrors.lastName = "Last name must be at least 4 characters.";
+      }
+  
+      // Validate email
+      if (!formData.email) {
+        newErrors.email = "Email is required.";
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.email = "Invalid email format.";
+        }
+      }
+  
+      // Validate phone number
+      if (!formData.phoneNumberOne) {
+        newErrors.phoneNumberOne = "Phone number is required.";
+      } else if (formData.phoneNumberOne.length < 10) {
+        newErrors.phoneNumberOne = "Phone number must be at least 10 digits.";
+      }
+    }
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+  
+  
+
   const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
+    }
   };
 
   const handlePrevious = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
+
   const handleSubmit = async () => {
-    if (!formData.firstName || !formData.email || !formData.phoneNumberOne) {
-      toast.error("Please fill out all required fields.");
-      return;
-    }
+    if (validateStep()) {
 
     try {
       const response = await fetch('/api/trainer', {
@@ -123,6 +168,7 @@ export default function TrainerRegistrationForm() {
         description: "An error occurred. Please try again later.",
       });
     }
+  }
   };
 
   return (
@@ -131,7 +177,8 @@ export default function TrainerRegistrationForm() {
       <Card className='w-full max-w-2xl'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
+            <span className='flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Trainer Registration Form
             </span>
             <div className='flex justify-center'>
@@ -177,7 +224,7 @@ export default function TrainerRegistrationForm() {
               transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
                 <div className='space-y-4'>
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='firstName'>First Name</Label>
                       <Input
@@ -188,6 +235,9 @@ export default function TrainerRegistrationForm() {
                         }
                         placeholder='Enter your first name'
                       />
+                      {errors.firstName && (
+                        <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                      )}
                     </div>
                     <div className='flex-1'>
                       <Label htmlFor='lastName'>Last Name</Label>
@@ -199,10 +249,13 @@ export default function TrainerRegistrationForm() {
                         }
                         placeholder='Enter your last name'
                       />
+                      {errors.lastName && (
+                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
+                      )}
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='email'>Email</Label>
                       <Input
@@ -212,6 +265,9 @@ export default function TrainerRegistrationForm() {
                         onChange={(e) => handleChange("email", e.target.value)}
                         placeholder='Enter your email'
                       />
+                      {errors.email && (
+                      <p className='text-red-500 text-sm'>{errors.email}</p>
+                    )}
                     </div>
                     <div className='flex-1'>
                       <Label htmlFor='phoneNumberOne'>Phone Number</Label>
@@ -224,6 +280,9 @@ export default function TrainerRegistrationForm() {
                         }
                         placeholder='Enter your phone number'
                       />
+                      {errors.phoneNumberOne && (
+                        <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                      )}
                     </div>
                   </div>
 
@@ -250,9 +309,12 @@ export default function TrainerRegistrationForm() {
                           ))}
                         </DropdownMenuContent>
                       </DropdownMenu>
+                      {errors.profession && (
+                      <p className='text-red-500 text-sm'>{errors.profession}</p>
+                    )}
                     </div>
 
-                    <div className='flex-1'>
+                    <div className='flex-1 flex-col lg:flex-row'>
                       <Label htmlFor='schedule'>Schedule</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -277,7 +339,7 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
+                  <div className='flex gap-4 flex-col lg:flex-row'>
                     <div className='flex-1'>
                       <Label htmlFor='expertise'>Expertise</Label>
                       <DropdownMenu>
@@ -302,15 +364,17 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
+
                     <div className='flex-1'>
-                      <Label htmlFor='country'>Country</Label>
+                      <Label htmlFor='country'>City</Label>
+
                       <Input
-                        id='country'
-                        value={formData.country}
+                        id='city'
+                        value={formData.city}
                         onChange={(e) =>
-                          handleChange("country", e.target.value)
+                          handleChange("city", e.target.value)
                         }
-                        placeholder='Enter your country'
+                        placeholder='Enter your city'
                       />
                     </div>
                   </div>
@@ -355,7 +419,7 @@ export default function TrainerRegistrationForm() {
                   {/* Confirm Details */}
                   <div className='text-sm'>
                     <p className='p-3'>
-                      <strong>Title:</strong> {formData.title}
+                      {/* <strong>Title:</strong> {formData.title} */}
                     </p>
                     <p className='p-3'>
                       <strong>First Name:</strong> {formData.firstName}
@@ -370,14 +434,9 @@ export default function TrainerRegistrationForm() {
                       <strong>Phone Number:</strong> {formData.phoneNumberOne}
                     </p>
                     <p className='p-3'>
-                      <strong>Country:</strong> {formData.country}
+                      <strong>City:</strong> {formData.country}
                     </p>
-                    {/* <p className='p-3'>
-                      <strong>State:</strong> {formData.state}
-                    </p>
-                    <p className='p-3'>
-                      <strong>City:</strong> {formData.city}
-                    </p> */}
+                    
                     <p className='p-3'>
                       <strong>Expertise:</strong> {formData.expertise}
                     </p>

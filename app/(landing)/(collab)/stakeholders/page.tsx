@@ -25,9 +25,9 @@ const Page = () => {
     fetchStakeHolderItems();
   }, []);
 
-  // if (!stakeHolderItems) {
-  //   return <SkeletonPageColloab />;
-  // }
+  if (!stakeHolderItems) {
+    return <SkeletonPageColloab />;
+  }
   return (
     <div>
       <PageTitle />
@@ -67,10 +67,10 @@ const Page = () => {
         );
       })}
       <CTA
-        title={stakeHolderItems.proposal.title}
-        buttonText={stakeHolderItems.proposal.button_name}
-        href={stakeHolderItems.proposal.href}
-        description={stakeHolderItems.proposal.description}
+        title={stakeHolderItems?.proposal.title || " " }
+        buttonText={stakeHolderItems?.proposal.button_name || " "}
+        href={stakeHolderItems?.proposal.href || " "}
+        description={stakeHolderItems?.proposal.description || " "}
       />
       <ProfessionalOverview overview={stakeHolderItems?.overview || ""} />
       <div id='collab-form'>
