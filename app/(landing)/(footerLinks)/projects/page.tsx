@@ -1,7 +1,7 @@
 "use client"
 
-import { Card } from "@/components/section";
-
+import { CardComponent } from "@/components/section";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect,useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import {  InnovationData } from "@/types/strapi-types";
@@ -23,32 +23,41 @@ const Page = () =>{
         }, []);
       if(!innovationItems)
       {
-        return <SkeletonLoaderAboutInnovationPage />;
+        return (
+         <SkeletonLoaderAboutInnovationPage />
+        );
       }
     return (
-         <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 p-10'>
-        {innovationItems?.gallery.map((item, indx) => {
-          return (
-            <Card
-              key={indx}
-              svg={
-                <Image
-                  src={`http://10.1.151.64:1337${item.img ?? ""}`}
-                  alt='Image Left Not Found'
-                  width={400}
-                  height={400}
-                  className='h-28'
-                />
-              }
-              title={item.title}
-              buttonText={"Visit Site"}
-              description={item.description}
-              href={" "}
-            />
-          );
-        })}
+      <div className='mt-16'>
+        <Card className='contest-title'>
+          <CardHeader>
+            <CardTitle>Projects</CardTitle>
+          </CardHeader>
+        </Card>
+        <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6  my-14'>
+          {innovationItems?.gallery.map((item, indx) => {
+            return (
+              <CardComponent
+                key={indx}
+                svg={
+                  <Image
+                    src={`http://10.1.151.64:1337${item.img ?? ""}`}
+                    alt='Image Left Not Found'
+                    width={400}
+                    height={400}
+                    className='h-28'
+                  />
+                }
+                title={item.title}
+                buttonText={"Visit Site"}
+                description={item.description}
+                href={" "}
+              />
+            );
+          })}
+        </div>
       </div>
-    )
+    );
 }
 
 export default Page;
