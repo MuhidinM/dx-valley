@@ -26,6 +26,11 @@ type GalleryItem = {
   type: string;
 };
 
+type GalleryGridProps = {
+  items: GalleryItem[];
+  onImageClick: (index: number) => void;
+};
+
 export default function PhotoGallery() {
   const [filter, setFilter] = useState<string>("all");
   const [galleryItems, setGalleryItems] = useState<GalleryData[]>([]);
@@ -78,6 +83,12 @@ export default function PhotoGallery() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value='all'>All</SelectItem>
+            {/* {filteredItems.map((item, index) => (
+              <div key={index}>
+                <SelectItem value={item.type}>{item.type}</SelectItem>
+               
+              </div>
+            ))} */}
             <SelectItem value='innovation'>Innovation Hub</SelectItem>
             <SelectItem value='incubation'>Incubation</SelectItem>
           </SelectContent>
@@ -118,11 +129,6 @@ export default function PhotoGallery() {
     </div>
   );
 }
-
-type GalleryGridProps = {
-  items: GalleryItem[];
-  onImageClick: (index: number) => void;
-};
 
 function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
   return (

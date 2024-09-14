@@ -29,9 +29,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-   if (!innovationItems) {
-     return <SkeletonLoaderAboutInnovationPage />;
-   }
+  //  if (!innovationItems) {
+  //    return <SkeletonLoaderAboutInnovationPage />;
+  //  }
   // useEffect(() => {
   //   console.log("first: ", innovationItems)
   // }, [innovationItems])
@@ -54,13 +54,13 @@ const Page = () => {
       <CTA
         title={innovationItems?.proposal.title || " "}
         buttonText={innovationItems?.proposal.button_name || " "}
-        href={innovationItems?.proposal.href || " " }
+        href={innovationItems?.proposal.href || " "}
         description={innovationItems?.proposal.description || " "}
       />
       <HowWeWorkSection works={innovationItems?.howeworks || []} />
       <SlidingCompanies companies={innovationItems?.companies || []} />
 
-      <div className='grid grid-cols-3 gap-4 p-10'>
+      <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 p-10'>
         {innovationItems?.gallery.map((item, indx) => {
           return (
             <Card
@@ -71,7 +71,7 @@ const Page = () => {
                   alt='Image Left Not Found'
                   width={400}
                   height={400}
-                  className="h-28"
+                  className='h-28'
                 />
               }
               title={item.title}

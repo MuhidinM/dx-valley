@@ -47,9 +47,9 @@ export default function NewsList({ news }: { news: News[] }) {
                     <p className='text-xs text-muted-foreground'>
                       {new Date(item.date).toLocaleDateString()}
                     </p>
-                    {index === 0 && (
-                      <p className='text-sm mt-1'>{item.description}</p>
-                    )}
+                    {/* {index === 0 && (
+                      <p className='text-sm mt-1'>{item.description}</p>  //dont need this for the homepage news section 
+                    )} */}
                   </div>
                 </div>
               </Link>

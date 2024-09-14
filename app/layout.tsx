@@ -17,7 +17,7 @@ const fontSans = FontSans({
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
 
-<link rel='icon' href='/DX.ico' sizes='any' />;
+{/* <link rel='icon' href='/DX.ico' sizes='any' />; */}
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,9 +29,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "DX-Valley",
   description: "Powered By Coop Bank",
-  icons: {
-    icon: "/DX.ico",
-  },
+  // icons: {
+  //   icon: "/favicon.ico",
+  // },
 };
 
 export default function RootLayout({
