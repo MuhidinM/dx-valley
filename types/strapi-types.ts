@@ -292,6 +292,17 @@ export interface InnovationResponse{
 }
 
 // interfaces for home-page 
+interface BgLink{
+  title: string,
+  href: string,
+  background_is_orange: boolean
+}[]
+export interface JoinUs{
+  text_1: string,
+  text_2: string,
+  text_3: string,
+  buttons: BgLink[]
+}
 export interface Videos{
   title: string,
   youtubeId: string,
@@ -336,6 +347,7 @@ export interface HomePageData{
   vision: Vision,
   videos: Videos[],
   news: News[],
+  joinus: JoinUs,
   connect: Address,
   proposal: CallProposalLink
 }
@@ -350,6 +362,7 @@ export interface HomePageResponse{
       update: Update[],
       vision: Vision,
       videos: Videos[],
+      joinus: JoinUs,
       news: News[],
       connect: Address,
       proposal: CallProposalLink

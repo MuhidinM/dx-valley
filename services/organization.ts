@@ -7,7 +7,7 @@ export const OrgItemFetch = async ()=>{
     const res = await axios.get<OrgResponse>('http://10.1.151.64:1337/api/organization?populate=cards.img,proposal');
 
     const data = res.data.data;
-    console.log("org-data: ", data)
+    // console.log("org-data: ", data)
     const orgItems = {
         overview: data.attributes.overview,
         cards: data.attributes?.cards?.map(card => ({

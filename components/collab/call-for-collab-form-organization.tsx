@@ -40,7 +40,7 @@ type FormData = {
   email: string;
   phoneNumberOne: string;
   addressType: string;
-  tradeLicence: string;
+
 };
 
 const MultiSelectDropdown = ({
@@ -94,7 +94,7 @@ export default function OrganizationRegistrationForm() {
     email: "",
     phoneNumberOne: "",
     addressType: "",
-    tradeLicence: "",
+    
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -130,9 +130,14 @@ export default function OrganizationRegistrationForm() {
       if (!formData.organizationName ) {
         newErrors.organizationName = "Organization name is required  ";
       }
-      if(formData.organizationName.length < 3){
-        newErrors.organizationName = "Organization name must be at least 3 characters."
+
+
+      if(formData.organizationName.length < 4){
+        newErrors.organizationName = "Organization name must be at least 4 characters."
+
+
       }
+
       if (!formData.email) {
         newErrors.email = "Email is required.";
       } else {
@@ -145,15 +150,19 @@ export default function OrganizationRegistrationForm() {
       if (!formData.phoneNumberOne ) {
         newErrors.phoneNumberOne = "Phone number is required.";
       }
+
       if (formData.phoneNumberOne.length < 10 ) {
         newErrors.phoneNumberOne = "phone number cannot be less than.";
       }
+
       if (!formData.city) {
         newErrors.city = "City is required.";
       }
+
       if (formData.city.length < 4) {
         newErrors.city = "City must be at least 4 characters";
       }
+      
     } else if (currentStep === 1) {
       if (!formData.focusArea.length) {
         newErrors.focusArea = "At least one focus area is required.";
@@ -208,12 +217,12 @@ export default function OrganizationRegistrationForm() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+    <div className='flex items-center justify-center bg-background p-10'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl '>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center'>
-            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+          <CardTitle className='text-2xl font-bold '>
+            <span className='flex justify-center text-3xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
             <div className='flex justify-center'>
@@ -339,7 +348,7 @@ export default function OrganizationRegistrationForm() {
                         onValueChange={handleRadioChange}
                         defaultValue={formData.organizationType}>
                         {organizationTypeOptions.map((option) => (
-                          <div key={option} >
+                          <div key={option}>
                             <RadioGroupItem
                               value={option}
                               id={option}
