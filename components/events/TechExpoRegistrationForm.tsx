@@ -112,11 +112,11 @@ const TechExpoRegistrationForm: React.FC = () => {
       } else {
         const errorMessage = await response.json();
         console.error("Error:", errorMessage);
-      toast.error("Registration failed", {
-        description:
-          errorMessage?.error?.message ||
-          "An error occurred during registration.",
-      });
+        toast.error("Registration failed", {
+          description:
+            errorMessage?.error?.message ||
+            "An error occurred during registration.",
+        });
       }
     } catch (error) {
       console.error("Error registering:", error);
@@ -318,7 +318,10 @@ const TechExpoRegistrationForm: React.FC = () => {
                     {" "}
                     <strong> First Name:</strong> {formData.firstName}
                   </p>
-                  <p> <strong>Last Name: </strong> {formData.lastName}</p>
+                  <p>
+                    {" "}
+                    <strong>Last Name: </strong> {formData.lastName}
+                  </p>
                   <p>
                     {" "}
                     <strong>Email:</strong> {formData.email}

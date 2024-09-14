@@ -18,7 +18,9 @@ import { SkeletonLoader } from "@/components/SkeletonLoader";
 import ComingSoonModal from "@/components/coming-soon-modal";
 import VideosList from "@/components/video";
 import NewsList from "@/components/News";
-{/* <link rel='icon' href='/DX.ico' sizes='any' />; */}
+{
+  /* <link rel='icon' href='/DX.ico' sizes='any' />; */
+}
 
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData>();
@@ -32,12 +34,12 @@ const Page = () => {
     fetchHomepageItems();
   }, []);
 
-      if (!homepageItems) {
-        return <SkeletonLoader />;
-      }
-      // <Head>
-      //   <link rel='icon' href='/DX.ico' sizes='any' />
-      // </Head>
+  if (!homepageItems) {
+    return <SkeletonLoader />;
+  }
+  // <Head>
+  //   <link rel='icon' href='/DX.ico' sizes='any' />
+  // </Head>
   return (
     <div>
       <div>

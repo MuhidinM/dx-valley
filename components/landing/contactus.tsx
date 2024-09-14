@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 import React, { useState } from "react";
 import { Label } from "../ui/label";
@@ -10,7 +12,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { toast, Toaster } from "sonner";
 
-const ContactUs = ({address}:{address:Address}) => {
+const ContactUs = ({ address }: { address: Address }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -26,14 +28,14 @@ const ContactUs = ({address}:{address:Address}) => {
       body: JSON.stringify({ name, email, message }),
     });
 
-     if (response.ok) {
-       toast.success("Submitted Successfully, Thank You for Writing to Us!");
-       setName("");
-       setEmail("");
-       setMessage("");
-     } else {
-       toast.error("Failed to submit");
-     }
+    if (response.ok) {
+      toast.success("Submitted Successfully, Thank You for Writing to Us!");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } else {
+      toast.error("Failed to submit");
+    }
   };
 
   return (

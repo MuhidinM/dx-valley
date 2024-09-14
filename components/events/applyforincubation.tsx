@@ -1,6 +1,8 @@
+/** @format */
+
 "use client";
 
-import { useState, useRef } from "react";
+
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +36,7 @@ import {
 } from "@/components/ui/dialog";
 import Confetti from "react-confetti";
 import SubmissionSuccess from "../submissionSuccess";
-import { ChangeEvent, FormEvent, MouseEvent } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState, useRef } from "react";
 import { string } from "zod";
 
 const steps = [
@@ -264,7 +266,7 @@ const ApplyForIncubation = () => {
         break;
 
       case 1:
-        const founderErrors: FounderErrors[] = formData.founderNames.map (
+        const founderErrors: FounderErrors[] = formData.founderNames.map(
           (founder) => {
             let errors: FounderErrors = {};
             if (!founder.firstName.trim()) {
@@ -384,15 +386,15 @@ const ApplyForIncubation = () => {
 
   if (submitSuccess) {
     return (
-      <div className=" bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 ">
+      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
         <div>
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-
             icon={<CheckCircle2 className='w-8 h-8 text-green' />}
-            desc={"Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."}
-
+            desc={
+              "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
+            }
           />
         </div>
       </div>
@@ -400,10 +402,10 @@ const ApplyForIncubation = () => {
   }
 
   return (
-    <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2">
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
+      <Card className='max-w-2xl mx-auto'>
+        <CardHeader className='space-y-1'>
+          <CardTitle className='text-2xl font-bold'>
             Apply for Startup Incubation
           </CardTitle>
           <CardDescription>
@@ -411,87 +413,85 @@ const ApplyForIncubation = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="mb-8">
-            <div className="flex justify-between">
+          <div className='mb-8'>
+            <div className='flex justify-between'>
               {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
+                <div key={step.id} className='flex flex-col items-center'>
                   <div
                     className={`rounded-full h-8 w-8 flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-[#00adef] text-white"
                         : "bg-gray-200 text-gray-600"
-                    }`}
-                  >
+                    }`}>
                     {index + 1}
                   </div>
-                  <div className="text-xs mt-2">{step.title}</div>
+                  <div className='text-xs mt-2'>{step.title}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-4 h-2 bg-gray-200 rounded-full">
+            <div className='mt-4 h-2 bg-gray-200 rounded-full'>
               <div
-                className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
+                className='h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out'
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}>
-                  
+                }}></div>
             </div>
-          </div>
-          <form onSubmit={handleSubmit}>
-            {currentStep === 0 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="startupName">Startup Name</Label>
-                  <div className="flex space-x-2">
-                    <Input
-                      id="startupName"
-                      placeholder="Enter your startup name"
-                      value={formData.startupName}
-                      onChange={(e) =>
-                        handleChange("startupName", e.target.value)
-                      }
-                    />
-                    <Button type="button" onClick={generateStartupName}>
-                      Generate
-                    </Button>
+            <form onSubmit={handleSubmit}>
+              {currentStep === 0 && (
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='startupName'>Startup Name</Label>
+                    <div className='flex space-x-2'>
+                      <Input
+                        id='startupName'
+                        placeholder='Enter your startup name'
+                        value={formData.startupName}
+                        onChange={(e) =>
+                          handleChange("startupName", e.target.value)
+                        }
+                      />
+                      <Button type='button' onClick={generateStartupName}>
+                        Generate
+                      </Button>
+                    </div>
+                    {errors.startupName && (
+                      <p className='text-sm text-red-500'>
+                        {errors.startupName}
+                      </p>
+                    )}
                   </div>
-                  {errors.startupName && (
-                    <p className="text-sm text-red-500">{errors.startupName}</p>
-                  )}
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Current Stage</Label>
+                    <Select
+                      onValueChange={(value) => handleChange("stage", value)}
+                      value={formData.stage}>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select your current stage' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
+                          Early Revenue
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.stage && (
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="stage">Current Stage</Label>
-                  <Select
-                    onValueChange={(value) => handleChange("stage", value)}
-                    value={formData.stage}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your current stage" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="idea">Idea</SelectItem>
-                      <SelectItem value="prototype">Prototype</SelectItem>
-                      <SelectItem value="mvp">MVP</SelectItem>
-                      <SelectItem value="early-revenue">
-                        Early Revenue
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {errors.stage && (
-                    <p className="text-sm text-red-500">{errors.stage}</p>
-                  )}
-                </div>
-              </div>
-            )}
-            {currentStep === 1 && (
-              <div className="space-y-4">
-                {formData.founderNames.map((founder, index) => (
-                  <div key={index} className="space-y-2">
-                    <Label htmlFor={`founderName-${index}`}>
-                      Founder's Name
-                    </Label>
-                    <div className="flex space-x-2">
-                      {/* <Input
+              )}
+              {currentStep === 1 && (
+                <div className='space-y-4'>
+                  {formData.founderNames.map((founder, index) => (
+                    <div key={index} className='space-y-2'>
+                      <Label htmlFor={`founderName-${index}`}>
+                        Founder's Name
+                      </Label>
+                      <div className='flex space-x-2'>
+                        {/* <Input
                         id={`founderFirstName-${index}`}
                         placeholder="Enter first name"
                         value={founder.firstName}
@@ -507,198 +507,193 @@ const ApplyForIncubation = () => {
                           handleChange("lastName", e.target.value, index)
                         }
                       /> */}
-                      <Input
-                        id={`founderFirstName-${index}`}
-                        placeholder="Enter first name"
-                        value={founder.firstName}
-                        onChange={
-                          (e) =>
-                            handleChange(
-                              "founderNames",
-                              e.target.value,
-                              index,
-                              "firstName"
-                            ) // Pass "founderNames" as the name and "firstName" as subField
-                        }
-                      />
-                      <Input
-                        id={`founderLastName-${index}`}
-                        placeholder="Enter last name"
-                        value={founder.lastName}
-                        onChange={
-                          (e) =>
-                            handleChange(
-                              "founderNames",
-                              e.target.value,
-                              index,
-                              "lastName"
-                            ) // Pass "founderNames" as the name and "lastName" as subField
-                        }
-                      />
+                        <Input
+                          id={`founderFirstName-${index}`}
+                          placeholder='Enter first name'
+                          value={founder.firstName}
+                          onChange={
+                            (e) =>
+                              handleChange(
+                                "founderNames",
+                                e.target.value,
+                                index,
+                                "firstName"
+                              ) // Pass "founderNames" as the name and "firstName" as subField
+                          }
+                        />
+                        <Input
+                          id={`founderLastName-${index}`}
+                          placeholder='Enter last name'
+                          value={founder.lastName}
+                          onChange={
+                            (e) =>
+                              handleChange(
+                                "founderNames",
+                                e.target.value,
+                                index,
+                                "lastName"
+                              ) // Pass "founderNames" as the name and "lastName" as subField
+                          }
+                        />
 
-                      {index > 0 && (
+                        {index > 0 && (
+                          <Button
+                            type='button'
+                            variant='outline'
+                            onClick={() => handleRemoveFounder(index)}>
+                            <X className='h-4 w-4' />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                  <Button
+                    type='button'
+                    variant='outline'
+                    onClick={handleAddFounder}>
+                    <Plus className='h-4 w-4 mr-2' /> Add Founder
+                  </Button>
+
+                  {/* {errors.founderNames && (
+                  <p className="text-sm text-red-500">{errors.founderNames}</p>
+                )} */}
+                  {Array.isArray(errors.founderNames) &&
+                    errors.founderNames.length > 0 && (
+                      <div>
+                        {errors.founderNames.map((error, index) => (
+                          <p key={index} className='text-sm text-red-500'>
+                            {error.firstName &&
+                              `Founder ${index + 1} first name: ${
+                                error.firstName
+                              }`}
+                            {error.lastName &&
+                              `Founder ${index + 1} last name: ${
+                                error.lastName
+                              }`}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='email'>Email</Label>
+                    <Input
+                      id='email'
+                      type='email'
+                      placeholder='Enter your email'
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                    />
+                    {errors?.email && (
+                      <p className='text-sm text-red-500'>{errors.email}</p>
+                    )}
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='phone'>Phone Number</Label>
+                    <Input
+                      id='phone'
+                      type='tel'
+                      placeholder='Enter your phone number'
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                    />
+                    {errors.phone && (
+                      <p className='text-sm text-red-500'>{errors.phone}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+              {currentStep === 2 && (
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='video'>
+                      Video Pitch (Optional, Max 100MB)
+                    </Label>
+                    <div className='flex items-center space-x-2'>
+                      <Input
+                        id='video'
+                        type='file'
+                        accept='video/*'
+                        onChange={(e) => handleFileChange(e, "video")}
+                        ref={videoInputRef}
+                      />
+                      {formData.video && (
                         <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => handleRemoveFounder(index)}
-                        >
-                          <X className="h-4 w-4" />
+                          type='button'
+                          variant='outline'
+                          onClick={handleRemoveVideo}>
+                          <X className='h-4 w-4' />
                         </Button>
                       )}
                     </div>
-                  </div>
-                ))}
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={handleAddFounder}
-                >
-                  <Plus className="h-4 w-4 mr-2" /> Add Founder
-                </Button>
-
-                {/* {errors.founderNames && (
-                  <p className="text-sm text-red-500">{errors.founderNames}</p>
-                )} */}
-                {Array.isArray(errors.founderNames) &&
-                  errors.founderNames.length > 0 && (
-                    <div>
-                      {errors.founderNames.map((error, index) => (
-                        <p key={index} className="text-sm text-red-500">
-                          {error.firstName &&
-                            `Founder ${index + 1} first name: ${
-                              error.firstName
-                            }`}
-                          {error.lastName &&
-                            `Founder ${index + 1} last name: ${error.lastName}`}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                  />
-                  {errors?.email && (
-                    <p className="text-sm text-red-500">{errors.email}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    value={formData.phone}
-                    onChange={(e) => handleChange("phone", e.target.value)}
-                  />
-                  {errors.phone && (
-                    <p className="text-sm text-red-500">{errors.phone}</p>
-                  )}
-                </div>
-              </div>
-            )}
-            {currentStep === 2 && (
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="video">
-                    Video Pitch (Optional, Max 100MB)
-                  </Label>
-                  <div className="flex items-center space-x-2">
-                    <Input
-                      id="video"
-                      type="file"
-                      accept="video/*"
-                      onChange={(e) => handleFileChange(e, "video")}
-                      ref={videoInputRef}
-                    />
                     {formData.video && (
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleRemoveVideo}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
+                      <p className='text-sm text-gray-500'>
+                        {formData.video.name}
+                      </p>
+                    )}
+                    {errors.video && (
+                      <p className='text-sm text-red-500'>{errors.video}</p>
                     )}
                   </div>
-                  {formData.video && (
-                    <p className="text-sm text-gray-500">
-                      {formData.video.name}
-                    </p>
-                  )}
-                  {errors.video && (
-                    <p className="text-sm text-red-500">{errors.video}</p>
-                  )}
+                  <div className='space-y-2'>
+                    <Label htmlFor='documents'>
+                      Documents (Optional, Max 10MB each)
+                    </Label>
+                    <Input
+                      id='documents'
+                      type='file'
+                      multiple
+                      accept='.pdf,.doc,.docx,.txt'
+                      onChange={(e) => handleFileChange(e, "document")}
+                      ref={documentInputRef}
+                    />
+                    {formData.documents.map((doc, index) => (
+                      <div
+                        key={index}
+                        className='flex items-center justify-between'>
+                        <span>{doc.name}</span>
+                        <Button
+                          type='button'
+                          variant='ghost'
+                          onClick={() => handleRemoveDocument(index)}>
+                          <X className='h-4 w-4' />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      type='button'
+                      variant='outline'
+                      onClick={() => documentInputRef.current?.click()}>
+                      <Plus className='h-4 w-4 mr-2' /> Add Document
+                    </Button>
+                    {errors.documents && (
+                      <p className='text-sm text-red-500'>{errors.documents}</p>
+                    )}
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>Startup Idea</Label>
+                    <Textarea
+                      id='idea'
+                      placeholder='Describe your startup idea'
+                      value={formData.idea}
+                      onChange={(e) => handleChange("idea", e.target.value)}
+                      rows={5}
+                    />
+                    {errors.idea && (
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="documents">
-                    Documents (Optional, Max 10MB each)
-                  </Label>
-                  <Input
-                    id="documents"
-                    type="file"
-                    multiple
-                    accept=".pdf,.doc,.docx,.txt"
-                    onChange={(e) => handleFileChange(e, "document")}
-                    ref={documentInputRef}
-                  />
-                  {formData.documents.map((doc, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between"
-                    >
-                      <span>{doc.name}</span>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        onClick={() => handleRemoveDocument(index)}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => documentInputRef.current?.click()}
-                  >
-                    <Plus className="h-4 w-4 mr-2" /> Add Document
-                  </Button>
-                  {errors.documents && (
-                    <p className="text-sm text-red-500">{errors.documents}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="idea">Startup Idea</Label>
-                  <Textarea
-                    id="idea"
-                    placeholder="Describe your startup idea"
-                    value={formData.idea}
-                    onChange={(e) => handleChange("idea", e.target.value)}
-                    rows={5}
-                  />
-                  {errors.idea && (
-                    <p className="text-sm text-red-500">{errors.idea}</p>
-                  )}
-                </div>
-              </div>
-            )}
-          </form>
+              )}
+            </form>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className='flex justify-between'>
           <Button
-            variant="outline"
+            variant='outline'
             onClick={handlePrevious}
-            disabled={currentStep === 0}
-          >
+            disabled={currentStep === 0}>
             Previous
           </Button>
           {currentStep < steps.length - 1 ? (
@@ -722,14 +717,13 @@ const ApplyForIncubation = () => {
           </DialogHeader>
           <DialogFooter>
             <Button
-              variant="outline"
-              onClick={() => setShowConfirmDialog(false)}
-            >
+              variant='outline'
+              onClick={() => setShowConfirmDialog(false)}>
               Cancel
             </Button>
             <Button onClick={confirmSubmit} disabled={isSubmitting}>
               {isSubmitting ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
               ) : null}
               {isSubmitting ? "Submitting..." : "Confirm Submission"}
             </Button>

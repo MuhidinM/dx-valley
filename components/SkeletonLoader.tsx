@@ -1,3 +1,5 @@
+/** @format */
+
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -53,46 +55,45 @@ export const SkeletonLoader = () => (
   </div>
 );
 
- export const SkeletonLoaderCollabForm = () => {
-   return (
-     <div>
-      <div className="mb-8">
+export const SkeletonLoaderCollabForm = () => {
+  return (
+    <div>
+      <div className='mb-8'>
         <Skeleton height={40} width={300} />
       </div>
 
-      <div className="space-y-8">
+      <div className='space-y-8'>
         {/* Skeleton for each Section (Alternating Left and Right) */}
         {[...Array(3)].map((_, index) => (
-          <div key={index} className="flex flex-col lg:flex-row gap-8">
-            <div className="flex-1">
+          <div key={index} className='flex flex-col lg:flex-row gap-8'>
+            <div className='flex-1'>
               <Skeleton height={400} />
             </div>
-            <div className="flex-1">
+            <div className='flex-1'>
               <Skeleton height={40} width={`60%`} />
-              <Skeleton height={20} width={`80%`} className="mt-2" />
-              <Skeleton height={20} width={`90%`} className="mt-2" />
-              <Skeleton height={20} width={`75%`} className="mt-2" />
-              <Skeleton height={20} width={`50%`} className="mt-2" />
+              <Skeleton height={20} width={`80%`} className='mt-2' />
+              <Skeleton height={20} width={`90%`} className='mt-2' />
+              <Skeleton height={20} width={`75%`} className='mt-2' />
+              <Skeleton height={20} width={`50%`} className='mt-2' />
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className='mt-8'>
         <Skeleton height={40} width={200} />
       </div>
 
-      <div className="mt-12">
+      <div className='mt-12'>
         <Skeleton height={300} />
       </div>
 
-      <div className="mt-12">
+      <div className='mt-12'>
         <Skeleton height={600} />
       </div>
     </div>
-  
-   );
- };
+  );
+};
 
 export const SkeletonLoaderAboutPage = () => {
   return (
@@ -199,7 +200,6 @@ export const SkeletonLoaderAboutInnovationPage = () => {
   );
 };
 
-
 export const SkeletonLoaderTrainingPage = () => (
   <div className='space-y-4'>
     <div className='flex flex-col lg:flex-row gap-8'>
@@ -232,7 +232,6 @@ export const SkeletonLoaderTrainingPage = () => (
   </div>
 );
 
-
 export const SkeletonPageColloab = () => {
   return (
     <div>
@@ -243,25 +242,24 @@ export const SkeletonPageColloab = () => {
       </div>
 
       {/* Skeleton for Sections */}
-    
-        <div
-          // key={index}
-          className={`flex "flex-row" : "flex-row-reverse"
-          } items-center mb-10`}>
-          {/* Skeleton for Image */}
-          <div className='w-1/2'>
-            <Skeleton height={400} />
-          </div>
 
-          {/* Skeleton for Text */}
-          <div className='w-1/2 p-6'>
-            <Skeleton width='70%' height={30} />
-            <Skeleton width='100%' height={20} style={{ marginTop: "10px" }} />
-            <Skeleton width='90%' height={20} style={{ marginTop: "10px" }} />
-            <Skeleton width='80%' height={20} style={{ marginTop: "10px" }} />
-          </div>
+      <div
+        // key={index}
+        className={`flex "flex-row" : "flex-row-reverse"
+          } items-center mb-10`}>
+        {/* Skeleton for Image */}
+        <div className='w-1/2'>
+          <Skeleton height={400} />
         </div>
-  
+
+        {/* Skeleton for Text */}
+        <div className='w-1/2 p-6'>
+          <Skeleton width='70%' height={30} />
+          <Skeleton width='100%' height={20} style={{ marginTop: "10px" }} />
+          <Skeleton width='90%' height={20} style={{ marginTop: "10px" }} />
+          <Skeleton width='80%' height={20} style={{ marginTop: "10px" }} />
+        </div>
+      </div>
 
       {/* Skeleton for CTA */}
       <div className='flex flex-col items-center mb-10'>

@@ -13,7 +13,6 @@ interface SubmissionSuccessProps {
   desc: string;
 }
 
-
 const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({
   title,
   icon,
@@ -29,12 +28,12 @@ const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({
         <h1 className='text-4xl font-bold text-gray-900'>
           {/* Submission Successful!
            */}
-           {title}
+          {title}
         </h1>
         <p className='text-xl text-gray-600'>
           {/* Good luck! Stay tuned for our email.
            */}
-           {desc}
+          {desc}
         </p>
         <Link href='/'>
           <Button className='mt-8'>Go Back to Home</Button>

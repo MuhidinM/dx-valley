@@ -9,7 +9,7 @@ const Objectives: React.FC<objectivesProps> = ({ items }) => {
       {/* <Head>
         <title>Objectives</title>
       </Head> */}
-        
+
       <div className='w-full max-w-6xl mx-auto'>
         <h1 className='text-center text-3xl font-extrabold text-gray-800 mb-12'>
           Objectives
@@ -84,9 +84,7 @@ const Objectives: React.FC<objectivesProps> = ({ items }) => {
 
             {/* Objective 4 */}
             <div className='flex flex-col items-center space-y-4'>
-              <div className='w-20 h-20 bg-gradient-to-r from-green-400 to-teal-600 text-white flex items-center justify-center rounded-lg shadow-lg'>
-               
-              </div>
+              <div className='w-20 h-20 bg-gradient-to-r from-green-400 to-teal-600 text-white flex items-center justify-center rounded-lg shadow-lg'></div>
               <div className='text-center text-lg font-medium text-gray-800'>
                 {item.description}
               </div>

@@ -120,7 +120,7 @@ export default function PhotoGallery() {
               className='object-contain'
               onClick={(e) => e.stopPropagation()}
             />
-            <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black' >
+            <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black'>
               <h3 className='text-lg font-bold mb-2'>
                 {filteredItems[selectedImage].title}
               </h3>
@@ -135,7 +135,7 @@ export default function PhotoGallery() {
 
 function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
   return (
-    <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2' >
+    <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2'>
       {items.map((item, index) => (
         <Card
           key={index}

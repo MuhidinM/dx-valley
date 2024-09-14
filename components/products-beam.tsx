@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React, { forwardRef, useRef, useState } from "react";
@@ -36,11 +38,10 @@ const Circle = forwardRef<
   );
 });
 
-
 Circle.displayName = "Circle";
 
-export function ProductsBeam({products}:{products:CardData[]}) {
-  const [activeTag, setActiveTag] = useState<number>(0) 
+export function ProductsBeam({ products }: { products: CardData[] }) {
+  const [activeTag, setActiveTag] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const div1Ref = useRef<HTMLDivElement>(null);
   const div2Ref = useRef<HTMLDivElement>(null);
