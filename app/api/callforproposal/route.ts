@@ -76,20 +76,17 @@ async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
-    // Convert the request body to a Node.js-readable stream with IncomingMessage properties
     const nodeReadableStream = await convertToNodeReadable(req);
 
     // Parse the incoming form data
     const { fields, files } = await parseForm(nodeReadableStream);
 
-    // Validate fields
     const startupName = fields.startupName?.toString();
     const stage = fields.stage?.toString();
     const email = fields.email?.toString();
     const phone = fields.phone?.toString();
     const idea = fields.idea?.toString();
 
-    // Validate required fields
     if (!startupName || !stage || !email || !phone || !idea) {
       return NextResponse.json({
         error: "Required fields are missing.",
@@ -105,19 +102,25 @@ export async function POST(req: Request): Promise<NextResponse> {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
 
-    // Handle uploaded documents
-    if (files.documents) {
-      const docs = Array.isArray(files.documents)
-        ? files.documents
-        : [files.documents];
+    if (Object.keys(files).some((key) => key.startsWith("documents"))) {
+      const docKeys = Object.keys(files).filter((key) =>
+        key.startsWith("documents")
+      );
 
-      for (const file of docs) {
-        const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-        fs.renameSync((file as File).filepath, newFilePath);
-        savedFiles.push({
-          name: (file as File).originalFilename || "",
-          path: `/uploads/${(file as File).newFilename}`,
-        });
+      for (const key of docKeys) {
+        const fileOrFiles = files[key];
+
+        // Check if it's an array of files or a single file
+        const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
+
+        for (const file of docs) {
+          const newFilePath = path.join(uploadDir, (file as File).newFilename!);
+          fs.renameSync((file as File).filepath, newFilePath);
+          savedFiles.push({
+            name: (file as File).originalFilename || "",
+            path: `/docs/${(file as File).newFilename}`,
+          });
+        }
       }
     }
 
@@ -129,11 +132,10 @@ export async function POST(req: Request): Promise<NextResponse> {
       fs.renameSync((video as File).filepath, videoFilePath);
       videoFile = {
         name: (video as File).originalFilename || "",
-        path: `/uploads/${(video as File).newFilename}`,
+        path: `/docs/${(video as File).newFilename}`,
       };
     }
 
-    // Save form data and file details to the database using Prisma
     const docPromises = savedFiles.map(async (file) => {
       return await prisma.documentInfo.create({
         data: {
@@ -145,19 +147,37 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     const savedDocuments = await Promise.all(docPromises);
 
-    // Save founder info only if founderNames are provided
     let savedFounders: any[] = [];
-    if (fields.founderNames) {
-      const founderInfoPromises = (fields.founderNames as any[]).map(
-        async (member: any) => {
-          return await prisma.personalInfo.create({
-            data: {
-              firstName: member.firstName,
-              lastName: member.lastName,
-            },
-          });
+
+    const founderNames: any[] = [];
+
+    Object.keys(fields).forEach((key) => {
+      const match = key.match(/founderNames\[(\d+)\]\[(firstName|lastName)\]/);
+      if (match) {
+        const index = parseInt(match[1], 10);
+        const fieldName = match[2];
+
+        // Ensure founderNames[index] is initialized
+        founderNames[index] = founderNames[index] || {};
+
+        if (Array.isArray(fields[key]) && fields[key][0]) {
+          founderNames[index][fieldName] = fields[key][0];
         }
-      );
+      }
+    });
+
+    if (Array.isArray(founderNames) && founderNames.length > 0) {
+      const founderInfoPromises = founderNames.map(async (member: any) => {
+        const savedFounder = await prisma.personalInfo.create({
+          data: {
+            firstName: member.firstName,
+            lastName: member.lastName,
+          },
+        });
+
+        return savedFounder;
+      });
+
       savedFounders = await Promise.all(founderInfoPromises);
     }
 
@@ -174,8 +194,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       ideaDescription: string;
       documents: { connect: { id: number }[] };
       contactInfo: { connect: { id: number } };
-      founderId?: { connect: { id: number }[] }; // Optional founderIds field
-      // videoId?: { connect: { id: number } }; // Optional video field
+      personalInfo?: { connect: { id: number }[] };
       videoId?: number;
     } = {
       startupName: startupName,
@@ -192,7 +211,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (savedFounders.length > 0) {
       applicationData = {
         ...applicationData,
-        founderId: {
+        personalInfo: {
           connect: savedFounders.map((founder) => ({ id: founder.id })),
         },
       };
@@ -211,7 +230,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       };
     }
 
-    const application = await prisma.proposals.create({
+    const application = await prisma.startupInfo.create({
       data: applicationData,
     });
 

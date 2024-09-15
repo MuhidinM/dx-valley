@@ -38,7 +38,8 @@ import Confetti from "react-confetti";
 import SubmissionSuccess from "../submissionSuccess";
 import { ChangeEvent, FormEvent, MouseEvent, useState, useRef } from "react";
 import { string } from "zod";
-
+import { toast } from "sonner"; // Import the toast function
+import { Toaster } from "sonner";
 const steps = [
   { id: "startup", title: "Startup Info" },
   { id: "founder", title: "Founder Info" },
@@ -111,33 +112,6 @@ const ApplyForIncubation = () => {
   const videoInputRef = useRef<HTMLInputElement | null>(null);
   const documentInputRef = useRef<HTMLInputElement | null>(null);
 
-  // const handleChange = (
-  //   name: keyof FormData,
-  //   value: string,
-  //   index: number | null = null
-  // ) => {
-  //   if (index !== null) {
-  //     const newFounderNames = [...formData.founderNames];
-  //     newFounderNames[index] = value;
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       founderNames: newFounderNames,
-  //     }));
-  //   } else {
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       [name]: value,
-  //     }));
-  //   }
-  // };
-
-  // const handleAddFounder = () => {
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     founderNames: [...prevState.founderNames, ""],
-  //   }));
-  // };
-
   const handleChange = (
     name: keyof FormData, // Keep 'name' as a key of FormData
     value: string,
@@ -171,13 +145,6 @@ const ApplyForIncubation = () => {
     });
   };
 
-  // const handleRemoveFounder = (index: number) => {
-  //   const newFounderNames = formData.founderNames.filter((_, i) => i !== index);
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     founderNames: newFounderNames,
-  //   }));
-  // };
   const handleRemoveFounder = (index: number) => {
     const updatedFounders = formData.founderNames.filter((_, i) => i !== index);
     setFormData({
@@ -358,6 +325,20 @@ const ApplyForIncubation = () => {
       });
 
       const result = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        toast.error("Registration failed", {
+          description:
+            result?.error || "An error occurred during registration.",
+        });
+      }
       console.log(result);
     } catch (error) {
       console.error("Error submitting form", error);

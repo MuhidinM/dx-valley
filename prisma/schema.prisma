@@ -219,8 +219,8 @@ model ContactInfo {
   TechexpoId Int?
   Techexpo   expoParticipant? @relation(fields: [TechexpoId], references: [id])
 
-  founderId Int?
-  startup   proposals? @relation(fields: [founderId], references: [id])
+  startupInfoId Int?
+  startupInfo   startupInfo? @relation(fields: [startupInfoId], references: [id])
 }
 
 model AddressInfo {
@@ -291,10 +291,10 @@ model PersonalInfo {
   expoParticipant expoParticipant?
 
 //relation with proposals
-   founderId Int?
-  startup   proposals? @relation(fields: [founderId], references: [id])
+  startupInfoId Int?
+  startupInfo   startupInfo? @relation(fields: [startupInfoId], references: [id])
 }
-model proposals {
+model startupInfo {
   id         Int      @id @default(autoincrement())
   startupName String
   stage      String
@@ -309,7 +309,7 @@ model proposals {
   contactInfo ContactInfo[] // One-to-Many: Multiple ContactInfo
 
   //relation with personal info
-  founderId PersonalInfo[]
+  personalInfo PersonalInfo[]
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -339,15 +339,15 @@ model DocumentInfo {
   IndependentPartnerInfoId Int?
   IndependentPartnerInfo   IndependentPartnerInfo? @relation(fields: [IndependentPartnerInfoId], references: [id])
 
-  applicationId Int?
-  application  proposals? @relation(fields: [applicationId], references: [id])
+  startupInfoId Int?
+  startupInfo  startupInfo? @relation(fields: [startupInfoId], references: [id])
   
 }
 model VideoInfo {
   id        Int     @id @default(autoincrement())
   name      String
   path      String  // Assuming video is stored as a URL
-  proposal  proposals? 
+  startupInfo  startupInfo? 
 }
 
 model MediaInfo {
