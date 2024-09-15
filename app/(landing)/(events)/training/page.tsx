@@ -3,9 +3,7 @@
 "use client";
 
 import CTA from "@/components/cta";
-import { SectionRight } from "@/components/section";
-import { SectionLeft } from "@/components/section";
-import { SVG1 } from "@/constants";
+import { SectionRight, SectionLeft } from "@/components/section";
 import { TrainingItemFetch } from "@/services/training";
 import React, { useEffect, useState } from "react";
 import { TrainingData } from "@/types/strapi-types";

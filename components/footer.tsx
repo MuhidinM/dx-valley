@@ -13,52 +13,51 @@ import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-const handleSubmit = async (e: { preventDefault: () => void }) => {
-  e.preventDefault();
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch("/api/subscriber", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const response = await fetch("/api/subscriber", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      if (!data.subscribed) {
-        toast.error(data.message2 || "Already subscribed!");
-        setEmail("");
+      if (response.ok) {
+        const data = await response.json();
+        if (!data.subscribed) {
+          toast.error(data.message2 || "Already subscribed!");
+          setEmail("");
+        } else {
+          toast.success(data.message3 || "Subscribed successfully!");
+          setEmail("");
+        }
       } else {
-        toast.success(data.message3 || "Subscribed successfully!");
-        setEmail("");
+        const data = await response.json();
+        if (data.message === "User already subscribed") {
+          toast.error("You are already subscribed!");
+        } else {
+          toast.error("Failed to subscribe!", {
+            description: "Please try again later.",
+          });
+        }
       }
-    } else {
-      const data = await response.json();
-      if (data.message === "User already subscribed") {
-        toast.error("You are already subscribed!");
-      } else {
-        toast.error("Failed to subscribe!", {
-          description: "Please try again later.",
-        });
-      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast.error("An unexpected error occurred", {
+        description: "Please try again later.",
+      });
     }
-  } catch (error) {
-    console.error("Subscription error:", error);
-    toast.error("An unexpected error occurred", {
-      description: "Please try again later.",
-    });
-  }
-};
-
+  };
 
   //   if (response.ok) {
   //     toast.success("Subscribed successfully!");
   //     setEmail("");
   //   } else {
   //     toast.error("Failed to subscribe!", {
-        
+
   //      description:""});
   //     }
   //   }

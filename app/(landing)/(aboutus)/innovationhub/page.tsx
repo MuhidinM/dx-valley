@@ -36,9 +36,7 @@ const Page = () => {
   //  if (!innovationItems) {
   //    return <SkeletonLoaderAboutInnovationPage />;
   //  }
-  // useEffect(() => {
-  //   console.log("first: ", innovationItems)
-  // }, [innovationItems])
+
   return (
     <div className='space-y-8 mb-8 justify-center'>
       <SectionLeft

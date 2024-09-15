@@ -56,7 +56,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
               window.location.href = links[currentIndex];
             }
           }}>
-          {link_desc[currentIndex] }
+          {link_desc[currentIndex]}
         </Button>
       </div>
       <div className='absolute bottom-4 left-8 flex space-x-2'>

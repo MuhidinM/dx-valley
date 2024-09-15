@@ -98,17 +98,21 @@ const events = [
   },
 ];
 
-export default function MediaAndNews({news, video}:{news:News[], video: Videos[]}) {
+export default function MediaAndNews({
+  news,
+  video,
+}: {
+  news: News[];
+  video: Videos[];
+}) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const videos = video.map((elmnt, indx) => (
-    {
-      id: indx,
-      title: elmnt.title,
-      thumbnail: elmnt.thumbnail_link,
-      youtubeId: elmnt.youtubeId
-    }
-  ))
+  const videos = video.map((elmnt, indx) => ({
+    id: indx,
+    title: elmnt.title,
+    thumbnail: elmnt.thumbnail_link,
+    youtubeId: elmnt.youtubeId,
+  }));
 
   useEffect(() => {
     if (!isPlaying) {

@@ -42,7 +42,7 @@ interface FormData {
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
- const eventId = searchParams.get("eventId") || "";
+  const eventId = searchParams.get("eventId") || "";
   // const eventId = 1;
 
   const [currentStep, setCurrentStep] = useState(0);
@@ -200,7 +200,9 @@ export default function ContestRegistrationForm() {
           phoneNumber: "",
           teamName: "",
           numberOfMembers: 1,
-          teamMembers: [{ firstName: "", lastName: "", email: "", phoneNumber: "" }],
+          teamMembers: [
+            { firstName: "", lastName: "", email: "", phoneNumber: "" },
+          ],
           projectTitle: "",
           projectDescription: "",
           techStack: "",
