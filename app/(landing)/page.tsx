@@ -89,7 +89,10 @@ const Page = () => {
             <CardContainer update={homepageItems?.update || []} />
           </div>
           <div className='lg:col-span-1'>
-            <CTAComponent JoinUs={homepageItems.joinus || []} />
+            {/* <CTAComponent JoinUs={homepageItems?.joinus  []} /> */}
+            {homepageItems?.joinus && (
+              <CTAComponent JoinUs={homepageItems.joinus} />
+            )}
           </div>
         </div>
         <div className=''>
