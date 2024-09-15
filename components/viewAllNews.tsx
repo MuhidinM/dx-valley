@@ -29,10 +29,12 @@ export default function AllNewsPage({
   //   );
   // }
 
-  // const sortedNewsArticles = newsArticles.sort((a, b) => {
-  //   return new Date(a.date).getTime() - new Date(b.date).getTime();})
+  // const sortedNewsArticles: any[] = [...newsArticles].sort((a, b) => {
+  //   console.log("a.date", a.date, "b.date", b.date);
+  //   return new Date(a.date).getTime() - new Date(b.date).getTime();
+  // });
 
-  const sortedNewsArticles = useMemo(() => {
+  const sortedNewsArticles :any[]= useMemo(() => {
     return newsArticles.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
