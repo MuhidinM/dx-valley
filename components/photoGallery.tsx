@@ -70,7 +70,7 @@ export default function PhotoGallery() {
   const handlers = useSwipeable({
     onSwipedLeft: () => navigateImage("next"),
     onSwipedRight: () => navigateImage("prev"),
-    preventDefaultTouchmoveEvent: true,
+    // preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
 
