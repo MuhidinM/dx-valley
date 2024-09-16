@@ -5,7 +5,7 @@ const Header = () => {
     <div>
       <div className='text-center mb-20'>
         <h2 className=' text-4xl tracking-tight mb-2 font-extrabold leading-tight underline-offset-auto dark:text-white'>
-        Innovation  <span className=' text-coopBlue'>  </span> Gallery
+          Innovation <span className=' text-coopBlue'> </span> Gallery
         </h2>
         <div className='flex justify-center mt-2  mb-12'>
           <div className='w-20 h-1 bg-coopOrange'></div>

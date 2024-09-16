@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { Button } from "./ui/button";
 import { SectionProps } from "@/types/general";
@@ -17,29 +19,21 @@ export const Card: React.FC<CardProps> = ({
   buttonText,
   href,
 }) => {
-
-
   return (
     <div
-      className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600 shadow-lg overflow-hidden group transition-all duration-300 ease-in-out"
+      className='relative bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600 shadow-lg overflow-hidden group transition-all duration-300 ease-in-out'
       style={{ minHeight: "150px" }} // Adjust the minHeight as needed
     >
       {/* Image (SVG) on top */}
-      <div className="p-0">{svg}</div>
+      <div className='p-0'>{svg}</div>
 
       {/* Title, always visible */}
       <div
-        className={classNames(
-          "p-2 transition-all duration-300 ease-in-out",
-          {
-            "h-24": !description, // Adjust height when description is not visible
-            "group-hover:h-auto": description, // Expand height when description is visible
-          }
-        )}
-      >
-        <h2 className="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-          
-        </h2>
+        className={classNames("p-2 transition-all duration-300 ease-in-out", {
+          "h-24": !description, // Adjust height when description is not visible
+          "group-hover:h-auto": description, // Expand height when description is visible
+        })}>
+        <h2 className='mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white'></h2>
 
         {/* Description, hidden until hover */}
         <div
@@ -50,18 +44,19 @@ export const Card: React.FC<CardProps> = ({
               "group-hover:opacity-100 group-hover:max-h-full": description, // Show description on hover
             }
           )}
-          suppressHydrationWarning
-        >
-          <div className="prose">
-            <ReactMarkdown children={description?.toString() || ""} remarkPlugins={[remarkGfm]} />
+          suppressHydrationWarning>
+          <div className='prose'>
+            <ReactMarkdown
+              children={description?.toString() || ""}
+              remarkPlugins={[remarkGfm]}
+            />
           </div>
-          
         </div>
 
         {/* Button, always visible */}
         {buttonText && buttonText !== "hidden" && (
           <Link href={href}>
-            <Button className="bg-coopBlue hover:bg-coopBlueHover text-lg  py-3 px-6 rounded-lg transition-colors duration-300 mt-6">
+            <Button className='bg-coopBlue hover:bg-coopBlueHover text-lg  py-3 px-6 rounded-lg transition-colors duration-300 mt-6'>
               {buttonText}
             </Button>
           </Link>

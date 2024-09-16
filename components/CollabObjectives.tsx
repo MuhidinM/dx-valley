@@ -1,3 +1,5 @@
+/** @format */
+
 import {
   BrainCircuitIcon,
   RocketIcon,

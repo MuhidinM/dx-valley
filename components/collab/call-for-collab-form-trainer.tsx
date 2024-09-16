@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner'; // Import the toast function
-import { Toaster } from 'sonner'; // Ensure this is imported
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+/** @format */
+
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { toast, Toaster } from "sonner"; // Import the toast function
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 const expertiseOptions = [
   "Tech Sales",
@@ -32,14 +33,20 @@ const professionOptions = [
 ];
 
 const scheduleOptions = [
-  { value: "2hr/week", description: "Available for a commitment of 2 hours per week." },
-  { value: "On Call", description: "Available to respond as needed on an on-call basis." },
+  {
+    value: "2hr/week",
+    description: "Available for a commitment of 2 hours per week.",
+  },
+  {
+    value: "On Call",
+    description: "Available to respond as needed on an on-call basis.",
+  },
   { value: "Other", description: "Custom schedule arrangement." },
 ];
 
 const steps = [
-  { id: 'trainer', title: 'Trainer Info' },
-  { id: 'confirm', title: 'Confirm' },
+  { id: "trainer", title: "Trainer Info" },
+  { id: "confirm", title: "Confirm" },
 ];
 
 const titleOptions = ["Mr", "Ms", "Dr", "Prof"];
@@ -62,18 +69,18 @@ type FormData = {
 export default function TrainerRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    title: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumberOne: '',
-    expertise: '',
-    profession: '',
-    schedule: '',
-    motivation: '',
-    country: '',
-    city: '',
-    state: '',
+    title: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumberOne: "",
+    expertise: "",
+    profession: "",
+    schedule: "",
+    motivation: "",
+    country: "",
+    city: "",
+    state: "",
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -86,10 +93,9 @@ export default function TrainerRegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
-  
+
     if (currentStep === 0) {
       // Validate first name
       if (!formData.firstName) {
@@ -97,14 +103,14 @@ export default function TrainerRegistrationForm() {
       } else if (formData.firstName.length < 4) {
         newErrors.firstName = "First name must be at least 4 characters.";
       }
-  
+
       // Validate last name
       if (!formData.lastName) {
         newErrors.lastName = "Last name is required.";
       } else if (formData.lastName.length < 4) {
         newErrors.lastName = "Last name must be at least 4 characters.";
       }
-  
+
       // Validate email
       if (!formData.email) {
         newErrors.email = "Email is required.";
@@ -114,7 +120,7 @@ export default function TrainerRegistrationForm() {
           newErrors.email = "Invalid email format.";
         }
       }
-  
+
       // Validate phone number
       if (!formData.phoneNumberOne) {
         newErrors.phoneNumberOne = "Phone number is required.";
@@ -122,12 +128,10 @@ export default function TrainerRegistrationForm() {
         newErrors.phoneNumberOne = "Phone number must be at least 10 digits.";
       }
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
-  
-  
 
   const handleNext = () => {
     if (validateStep()) {
@@ -139,36 +143,35 @@ export default function TrainerRegistrationForm() {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
-
   const handleSubmit = async () => {
     if (validateStep()) {
-
-    try {
-      const response = await fetch('/api/trainer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
+      try {
+        const response = await fetch("/api/trainer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         });
-      } else {
+
+        const result = await response.json();
+        if (response.ok) {
+          toast.success("Registration successful!", {
+            description: "Your details have been submitted successfully.",
+          });
+        } else {
+          toast.error("Registration failed", {
+            description:
+              result?.message || "An error occurred during registration.",
+          });
+        }
+      } catch (error) {
+        console.error("Request error:", error);
         toast.error("Registration failed", {
-          description: result?.message || "An error occurred during registration.",
+          description: "An error occurred. Please try again later.",
         });
       }
-    } catch (error) {
-      console.error('Request error:', error);
-      toast.error("Registration failed", {
-        description: "An error occurred. Please try again later.",
-      });
     }
-  }
   };
 
   return (
@@ -236,7 +239,9 @@ export default function TrainerRegistrationForm() {
                         placeholder='Enter your first name'
                       />
                       {errors.firstName && (
-                        <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                        <p className='text-red-500 text-sm'>
+                          {errors.firstName}
+                        </p>
                       )}
                     </div>
                     <div className='flex-1'>
@@ -250,7 +255,9 @@ export default function TrainerRegistrationForm() {
                         placeholder='Enter your last name'
                       />
                       {errors.lastName && (
-                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
+                        <p className='text-red-500 text-sm'>
+                          {errors.lastName}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -266,8 +273,8 @@ export default function TrainerRegistrationForm() {
                         placeholder='Enter your email'
                       />
                       {errors.email && (
-                      <p className='text-red-500 text-sm'>{errors.email}</p>
-                    )}
+                        <p className='text-red-500 text-sm'>{errors.email}</p>
+                      )}
                     </div>
                     <div className='flex-1'>
                       <Label htmlFor='phoneNumberOne'>Phone Number</Label>
@@ -281,7 +288,9 @@ export default function TrainerRegistrationForm() {
                         placeholder='Enter your phone number'
                       />
                       {errors.phoneNumberOne && (
-                        <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                        <p className='text-red-500 text-sm'>
+                          {errors.phoneNumberOne}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -310,8 +319,10 @@ export default function TrainerRegistrationForm() {
                         </DropdownMenuContent>
                       </DropdownMenu>
                       {errors.profession && (
-                      <p className='text-red-500 text-sm'>{errors.profession}</p>
-                    )}
+                        <p className='text-red-500 text-sm'>
+                          {errors.profession}
+                        </p>
+                      )}
                     </div>
 
                     <div className='flex-1 flex-col lg:flex-row'>
@@ -364,16 +375,13 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
-
                     <div className='flex-1'>
                       <Label htmlFor='country'>City</Label>
 
                       <Input
                         id='city'
                         value={formData.city}
-                        onChange={(e) =>
-                          handleChange("city", e.target.value)
-                        }
+                        onChange={(e) => handleChange("city", e.target.value)}
                         placeholder='Enter your city'
                       />
                     </div>
@@ -436,7 +444,7 @@ export default function TrainerRegistrationForm() {
                     <p className='p-3'>
                       <strong>City:</strong> {formData.country}
                     </p>
-                    
+
                     <p className='p-3'>
                       <strong>Expertise:</strong> {formData.expertise}
                     </p>

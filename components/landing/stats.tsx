@@ -1,11 +1,12 @@
+/** @format */
+
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
-import { StatsProps } from "@/types/general";
 import Image from "next/image";
 import { CardNoLinkData } from "@/types/strapi-types";
 
-export default function Stats({ items }:{ items: CardNoLinkData[] }){
+export default function Stats({ items }: { items: CardNoLinkData[] }) {
   const [inView, setInView] = useState(false);
   const statsRef = useRef(null);
 
@@ -47,7 +48,7 @@ export default function Stats({ items }:{ items: CardNoLinkData[] }){
                   width={60}
                   height={0}
                   src={`http://10.1.151.64:1337${item.img}`}
-                className="pb-6"
+                  className='pb-6'
                 />
                 {/* <div className="w-60 h-60">{item.img}</div> */}
               </div>
@@ -72,6 +73,4 @@ export default function Stats({ items }:{ items: CardNoLinkData[] }){
       </div>
     </section>
   );
-};
-
- 
+}

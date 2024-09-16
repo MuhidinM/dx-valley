@@ -17,7 +17,7 @@ export type ContactUs = {
   id: string;
   fullName: string;
   email: string;
-  message: String;
+  message: string;
 };
 
 export const columns: ColumnDef<ContactUs>[] = [

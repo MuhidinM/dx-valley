@@ -5,7 +5,6 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import Motto from "./motto";
 
 const LAUNCH_DATE = new Date("2024-09-19T14:26:00");
 
@@ -100,10 +99,9 @@ export default function ComingSoonModal() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className='mb-6'></motion.div>
-
         </motion.div>
-          
-            <AnimatedMotto />
+
+        <AnimatedMotto />
       </DialogContent>
     </Dialog>
   );
@@ -136,7 +134,6 @@ function CalendarFlipUnit({ unit, value }: CalendarFlipUnitProps) {
     </div>
   );
 }
-
 
 function AnimatedMotto() {
   return (
@@ -172,6 +169,6 @@ function AnimatedMotto() {
       `}</style>
     </motion.div>
 
-  // <Motto />
+    // <Motto />
   );
 }

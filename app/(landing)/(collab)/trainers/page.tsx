@@ -2,9 +2,8 @@
 
 import CollabForm from "@/components/collab/call-for-collab-form-trainer";
 import CTA from "@/components/cta";
-import PageTitle from "@/components/collab/pageTitle";
+
 import { SectionLeft, SectionRight } from "@/components/section";
-import { Trainer } from "@/constants";
 import React, { useEffect, useState } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import CollabObjectives from "@/components/CollabObjectives";
@@ -31,7 +30,7 @@ const Page = () => {
 
   return (
     <div>
-      <PageTitle />
+    
       {trainersItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft

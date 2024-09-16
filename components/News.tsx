@@ -3,17 +3,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  ArrowRightIcon,
-} from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { News} from "@/types/strapi-types";
-
+import { News } from "@/types/strapi-types";
 
 export default function NewsList({ news }: { news: News[] }) {
-
   const sortedNews = [...news].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );

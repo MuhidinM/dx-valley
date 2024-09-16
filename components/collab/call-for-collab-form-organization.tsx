@@ -1,3 +1,4 @@
+/** @format */
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Textarea } from "../ui/textarea";
-import { Toaster } from "sonner";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const steps = [
@@ -40,7 +39,6 @@ type FormData = {
   email: string;
   phoneNumberOne: string;
   addressType: string;
-
 };
 
 const MultiSelectDropdown = ({
@@ -94,7 +92,6 @@ export default function OrganizationRegistrationForm() {
     email: "",
     phoneNumberOne: "",
     addressType: "",
-    
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -125,17 +122,15 @@ export default function OrganizationRegistrationForm() {
 
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
-    
+
     if (currentStep === 0) {
-      if (!formData.organizationName ) {
+      if (!formData.organizationName) {
         newErrors.organizationName = "Organization name is required  ";
       }
 
-
-      if(formData.organizationName.length < 4){
-        newErrors.organizationName = "Organization name must be at least 4 characters."
-
-
+      if (formData.organizationName.length < 4) {
+        newErrors.organizationName =
+          "Organization name must be at least 4 characters.";
       }
 
       if (!formData.email) {
@@ -146,12 +141,12 @@ export default function OrganizationRegistrationForm() {
           newErrors.email = "Invalid email format.";
         }
       }
-      
-      if (!formData.phoneNumberOne ) {
+
+      if (!formData.phoneNumberOne) {
         newErrors.phoneNumberOne = "Phone number is required.";
       }
 
-      if (formData.phoneNumberOne.length < 10 ) {
+      if (formData.phoneNumberOne.length < 10) {
         newErrors.phoneNumberOne = "phone number cannot be less than.";
       }
 
@@ -162,7 +157,6 @@ export default function OrganizationRegistrationForm() {
       if (formData.city.length < 4) {
         newErrors.city = "City must be at least 4 characters";
       }
-      
     } else if (currentStep === 1) {
       if (!formData.focusArea.length) {
         newErrors.focusArea = "At least one focus area is required.";
@@ -174,11 +168,10 @@ export default function OrganizationRegistrationForm() {
         newErrors.organizationType = "Organization type is required.";
       }
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
 
   const handleNext = () => {
     if (validateStep()) {
@@ -207,9 +200,10 @@ export default function OrganizationRegistrationForm() {
         } else {
           const errorData = await response.json();
           // Display the error message received from the server, if available
-          const errorMessage = errorData.message || "An error occurred. Please try again.";
+          const errorMessage =
+            errorData.message || "An error occurred. Please try again.";
           toast.error(errorMessage);
-        }        
+        }
       } catch (error) {
         toast.error("An error occurred. Please try again later.");
       }

@@ -1,10 +1,12 @@
-"use client";
-import { useState } from 'react';
-import {focusAreaProps} from "@/types/general"
-import { getImageUrl } from '@/lib/utils';
+/** @format */
 
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm'
+"use client";
+import { useState } from "react";
+import { focusAreaProps } from "@/types/general";
+import { getImageUrl } from "@/lib/utils";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -63,13 +65,11 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
                 ? "border-b-2 border-coopOrange font-semibold"
                 : "border-b-2 border-transparent hover:border-gray-300"
             }`}>
-            {
-              item.title === "Agricultural Technology" 
-              ? "Agrotech" 
-              : item.title === "Financial Technology" 
-              ? "Fintech" 
-              : item.title
-            }
+            {item.title === "Agricultural Technology"
+              ? "Agrotech"
+              : item.title === "Financial Technology"
+              ? "Fintech"
+              : item.title}
           </li>
         ))}
       </ul>
@@ -87,11 +87,12 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
               alt={"image"}
             />
             <div className='text-left md:text-left ml-10 space-y-3'>
-              <h3 className='text-lg md:text-l font-bold'>
-                {item.title}
-              </h3>
+              <h3 className='text-lg md:text-l font-bold'>{item.title}</h3>
               <div className='text-gray-700 space-y-10 prose'>
-                <ReactMarkdown children={item.description} remarkPlugins={[remarkGfm]} />
+                <ReactMarkdown
+                  children={item.description}
+                  remarkPlugins={[remarkGfm]}
+                />
               </div>
             </div>
           </div>

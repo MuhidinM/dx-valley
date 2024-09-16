@@ -11,8 +11,11 @@ import Link from "next/link";
 
 // Example usage of the `News` interface
 
-
-export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) {
+export default function AllNewsPage({
+  newsArticles,
+}: {
+  newsArticles: News[];
+}) {
   const [selectedArticle, setSelectedArticle] = useState<News | null>(null);
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false); // Track hover state
@@ -26,18 +29,16 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
   //   );
   // }
 
+  // const sortedNewsArticles: any[] = [...newsArticles].sort((a, b) => {
+  //   console.log("a.date", a.date, "b.date", b.date);
+  //   return new Date(a.date).getTime() - new Date(b.date).getTime();
+  // });
 
-  // const sortedNewsArticles = newsArticles.sort((a, b) => {
-  //   return new Date(a.date).getTime() - new Date(b.date).getTime();})
-
-
- const sortedNewsArticles = useMemo(() => {
-   return newsArticles.sort((a, b) => {
-     return new Date(a.date).getTime() - new Date(b.date).getTime();
-   });
- }, [newsArticles]); //use memo code 
-
-
+  const sortedNewsArticles :any[]= useMemo(() => {
+    return newsArticles.sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  }, [newsArticles]); //use memo code
 
   const handleArticleClick = (article: News) => {
     setSelectedArticle(article);
@@ -136,7 +137,9 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
               </div>
 
               <div>
-                <p className='lg:px-8 py-5 px-2'>{selectedArticle.description}</p>
+                <p className='lg:px-8 py-5 px-2'>
+                  {selectedArticle.description}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -214,7 +217,7 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
         <div className='mb-8'>
           {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
           <ScrollArea>
-          <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
+            <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
               <Card
                 key={index}

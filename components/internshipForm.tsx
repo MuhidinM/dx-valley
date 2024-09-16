@@ -44,7 +44,7 @@ import {
 //   AlertDialogTitle,
 //   AlertDialogTrigger,
 // } from "@/components/ui/alert-dialog";
-import { X,  Loader2, CheckCircle2 } from "lucide-react";
+import { X, Loader2, CheckCircle2 } from "lucide-react";
 import SubmissionSuccess from "./submissionSuccess";
 
 type FileWithPreview = File & { preview?: string };
@@ -104,7 +104,9 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
               }`}>
               {step.number}
             </div>
-            <span className='mt-2 text-xs text-center flex flex-warp'>{step.title}</span>
+            <span className='mt-2 text-xs text-center flex flex-warp'>
+              {step.title}
+            </span>
           </div>
         ))}
       </div>
@@ -120,7 +122,6 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
     </div>
   );
 };
-
 
 export default function InternshipForm() {
   const [step, setStep] = useState(1);
@@ -149,7 +150,7 @@ export default function InternshipForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-     setIsSubmitted(false);
+    setIsSubmitted(false);
     // Simulate API call
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     // setIsSubmitting(false);
@@ -166,7 +167,9 @@ export default function InternshipForm() {
           <SubmissionSuccess
             title={"Submission Successful!"}
             icon={<CheckCircle2 className='w-8 h-8 text-green' />}
-            desc={"Application submitted successfully. We will get back to you shortly."}
+            desc={
+              "Application submitted successfully. We will get back to you shortly."
+            }
           />
         </div>
       </div>
@@ -504,7 +507,7 @@ export default function InternshipForm() {
               ) : (
                 <Button
                   type='button'
-                  onClick={ handleSubmit}
+                  onClick={handleSubmit}
                   className='ml-auto bg-coopBlue'>
                   {isSubmitting ? "Submitting..." : "Submit Application"}
                 </Button>

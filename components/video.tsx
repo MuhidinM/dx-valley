@@ -15,11 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Videos } from "@/types/strapi-types";
 
-
-export default function VideosList({
-  video}: {
-  video: Videos[];
-}) {
+export default function VideosList({ video }: { video: Videos[] }) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const videos = video.map((elmnt, indx) => ({

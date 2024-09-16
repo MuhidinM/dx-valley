@@ -4,15 +4,13 @@
 
 import CollabForm from "@/components/collab/call-for-collab-form-organization";
 import CTA from "@/components/cta";
-import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
-import { Organizaion } from "@/constants";
 import React, { useState, useEffect } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
+import {  SkeletonPageColloab } from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -33,7 +31,7 @@ const Page = () => {
   }
   return (
     <div>
-      <PageTitle />
+   
 
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (

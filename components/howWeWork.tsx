@@ -6,7 +6,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const HowWeWorkSection = ({works}:{works:CardNoLinkData[]}) => {
+const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
   return (
     <div className='container flex mx-auto items-center justify-center'>
       <section className='relative py-2 lg:py-2 '>
