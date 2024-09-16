@@ -9,7 +9,6 @@ import FocusAreas from "@/components/focusAreas";
 import Offer from "@/components/landing/offer";
 import Stats from "@/components/landing/stats";
 import { SectionRight } from "@/components/section";
-import { stats, SVG1, focusArea } from "@/constants";
 import { IncubationItemFetch } from "@/services/incubation";
 import { IncubationData } from "@/types/strapi-types";
 import Image from "next/image";

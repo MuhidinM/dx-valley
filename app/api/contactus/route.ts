@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 // export async function POST(req: NextRequest) {
 
-  export async function POST(req: NextRequest): Promise<NextResponse> {
+  export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
 
   // Save the contact form submission to the database

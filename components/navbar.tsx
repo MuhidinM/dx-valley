@@ -52,6 +52,9 @@ const Navbar = () => {
             /> */}
           </Link>
 
+          <div className='hidden lg:block p-2'>
+            <Menu />
+          </div>
           <div className='flex items-center lg:order-2 space-x-2'>
             <ModeToggle />
             <Button
@@ -65,7 +68,7 @@ const Navbar = () => {
               <MobileMenu />
 
               {isMenuOpen && (
-                <div className='justify-between items-center lg:flex lg:w-auto lg:order-1'>
+                <div className='block justify-between items-center lg:flex lg:w-auto lg:order-1'>
                   <MobileMenu />
                 </div>
               )}

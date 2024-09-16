@@ -4,7 +4,6 @@
 
 import CollabForm from "@/components/collab/call-for-collab-form-IP";
 import CTA from "@/components/cta";
-import PageTitle from "@/components/collab/pageTitle";
 import { SectionLeft, SectionRight } from "@/components/section";
 import React, { useState, useEffect } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
