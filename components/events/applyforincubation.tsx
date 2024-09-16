@@ -326,18 +326,30 @@ const ApplyForIncubation = () => {
 
       const result = await response.json();
       if (response.ok) {
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
-        });
+        // toast.success("Registration successful!", {
+        //   description: "Your details have been submitted successfully.",
+        // });
+     setSubmitSuccess(true);
+     setShowConfetti(true)
+        //   <SubmissionSuccess
+        //     title={" Submission Successful!"}
+        //     icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+        //     desc={
+        //       "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
+        //     }
+        //   />
+      
+        // console.log("call for proposal submitted successfully");
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 100000);
       } else {
         toast.error("Registration failed", {
           description:
             result?.error || "An error occurred during registration.",
         });
+          console.log("call for proposal error on submission");
       }
       console.log(result);
     } catch (error) {
