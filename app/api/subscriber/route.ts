@@ -75,7 +75,7 @@ export async function POST(req: Request): Promise<NextResponse> {
                     <a href="dxvalley.com" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
                 </div>
                 <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
-                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="#" style="color: #888;">unsubscribe here</a>.
+                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="/api/unsubscribe?email=${email}" style="color: #888;">unsubscribe here</a>.
                 </p>
             </td>
         </tr>
