@@ -75,7 +75,7 @@ export async function POST(req: Request): Promise<NextResponse> {
                     <a href="dxvalley.com" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
                 </div>
                 <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
-                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="/api/unsubscribe?email=${email}" style="color: #888 text-decoration: underline;">unsubscribe </a>here.
+                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="http://localhost:3000/api/unsubscribe?email=${email}" style="color: #888 text-decoration: underline;">unsubscribe </a>here.
                 </p>
             </td>
         </tr>
@@ -89,10 +89,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       ],
     };
 
-
-
     await transporter.sendMail(mailOptionsToUser);
-    
 
     return NextResponse.json({
       message3: "Subscribed successfully",
