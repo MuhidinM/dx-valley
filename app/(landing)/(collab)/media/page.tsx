@@ -28,7 +28,7 @@ const Page = () => {
   
   return (
     <div>
-      <PageTitle />
+ 
       {mediaItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
