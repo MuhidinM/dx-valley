@@ -2,7 +2,6 @@
 
 import CollabForm from "@/components/collab/call-for-collab-form-trainer";
 import CTA from "@/components/cta";
-
 import { SectionLeft, SectionRight } from "@/components/section";
 import React, { useEffect, useState } from "react";
 import ProfessionalOverview from "@/components/ProfessionalOverview";
