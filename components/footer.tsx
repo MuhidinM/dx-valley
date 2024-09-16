@@ -8,7 +8,7 @@ import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
 import { toast, Toaster } from "sonner";
-import { description } from "@/app/admin/dashboard/page";
+// import { description } from "@/app/admin/dashboard/page";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {

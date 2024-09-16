@@ -1,3 +1,5 @@
+/** @format */
+
 import fs from "fs";
 import path from "path";
 import { IncomingForm, File, Fields, Files } from "formidable";
@@ -5,12 +7,6 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 interface SavedFile {
   name: string;

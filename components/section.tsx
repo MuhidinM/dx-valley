@@ -23,10 +23,9 @@ export const SectionRight: React.FC<SectionProps> = ({
             {title}
           </h2>
           <div className='prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
-            <ReactMarkdown
-              children={description?.toString()}
-              remarkPlugins={[remarkGfm]}
-            />
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {description?.toString()}
+            </ReactMarkdown>
           </div>
           {buttonText !== "hidden" && (
             <Link href={href}>
@@ -56,10 +55,9 @@ export const SectionLeft: React.FC<SectionProps> = ({
             {title}
           </h2>
           <div className='prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
-            <ReactMarkdown
-              children={description?.toString()}
-              remarkPlugins={[remarkGfm]}
-            />
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {description?.toString()}
+            </ReactMarkdown>
           </div>
 
           {buttonText !== "hidden" && (
@@ -92,11 +90,10 @@ export const CardComponent: React.FC<SectionProps> = ({
           {title}
         </h2>
         <div className='prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
-          <ReactMarkdown
-            children={description?.toString()}
-            remarkPlugins={[remarkGfm]}
-          />
-          {/* {description} */}
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {description?.toString()}
+            {/* {description} */}
+          </ReactMarkdown>
         </div>
         <div className='mt-auto'>
           {buttonText && buttonText !== "hidden" && (

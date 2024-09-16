@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Videos } from "@/types/strapi-types";
+import Image from "next/image";
 
 export default function VideosList({ video }: { video: Videos[] }) {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -80,9 +81,11 @@ export default function VideosList({ video }: { video: Videos[] }) {
                 key={video.id}
                 onClick={() => selectVideo(index)}
                 className='flex-shrink-0 w-1/4 focus:outline-none focus:ring-2 focus:ring-primary'>
-                <img
+                <Image
                   src={video.thumbnail}
                   alt={video.title}
+                  height={200}
+                  width={100}
                   className={`w-full h-[45px] object-cover  dark:bg-gray-400 ${
                     index === currentVideoIndex ? "border-2 border-primary" : ""
                   }`}

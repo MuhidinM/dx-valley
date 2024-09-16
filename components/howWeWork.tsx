@@ -44,10 +44,9 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
 
                   <div className='prose mt-5 mb-3 w-full text-left'>
                     <div id='description_11 dark:text-gray-400'>
-                      <ReactMarkdown
-                        children={item.description}
-                        remarkPlugins={[remarkGfm]}
-                      />
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {item.description}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 </div>
@@ -64,10 +63,9 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                     <span className='h-4 w-4 bg-coopBlue rounded-full'></span>
                   </div>
                   <div className='prose mt-5 mb-3 w-full text-left list-dis'>
-                    <ReactMarkdown
-                      children={item.description}
-                      remarkPlugins={[remarkGfm]}
-                    />
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {item.description}
+                    </ReactMarkdown>
                   </div>
                 </div>
                 <div className='lg:w-3/5 w-full'>

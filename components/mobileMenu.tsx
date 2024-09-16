@@ -16,6 +16,7 @@ import { MenuItemFetch } from "@/services/menu";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import React from "react";
+import Image from "next/image";
 // import { MenuItem } from "@/types/strapi-types";
 
 interface Links {
@@ -125,10 +126,11 @@ export default function MobileMenu() {
         </Button>
       </SheetTrigger>
       <SheetContent side='left' className='flex flex-col'>
-        <img
+        <Image
           src={"/image/dx_sm.png"}
           alt='dxvalley logo'
           width={80} // adjust the width for smaller devices
+          height={200}
           className='block sm:hidden p-2' // shown on smaller screens, hidden on larger ones
         />
         <SidebarNavItem href='#' label='Home' icon={Home} active />
@@ -140,7 +142,7 @@ export default function MobileMenu() {
                 <ul>
                   {item.links.map((link, i) => (
                     <ListItem key={i} href={link.href} title={link.title} />
-                                  ))}
+                  ))}
                 </ul>
               </div>
             ))}
@@ -171,4 +173,5 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
+ListItem.displayName = "ListItem";
 

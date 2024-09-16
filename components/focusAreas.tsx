@@ -7,6 +7,7 @@ import { getImageUrl } from "@/lib/utils";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Image from "next/image";
 
 const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -81,7 +82,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
             className={`box flex flex-col md:flex-row gap-4 p-4 md:p-6 bg-white shadow-sm rounded-lg transition-transform duration-800 ease-in-out ${
               activeTab === index ? "opacity-100" : "hidden opacity-0"
             }`}>
-            <img
+            <Image
               className='w-full md:w-2/5 rounded-lg'
               src={`http://10.1.151.64:1337${item?.img ?? ""}`}
               alt={"image"}
@@ -90,9 +91,11 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
               <h3 className='text-lg md:text-l font-bold'>{item.title}</h3>
               <div className='text-gray-700 space-y-10 prose'>
                 <ReactMarkdown
-                  children={item.description}
+              
                   remarkPlugins={[remarkGfm]}
-                />
+                >
+                  {item.description}
+                  </ReactMarkdown>
               </div>
             </div>
           </div>

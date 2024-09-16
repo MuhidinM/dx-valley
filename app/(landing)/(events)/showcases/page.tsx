@@ -51,19 +51,26 @@ const Page = () => {
           {
             showcaseItems.map((projects, idx) => {
               return (
-                <Card className='w-full h-[600px] flex flex-col justify-between' key={idx}>
-                  <CardHeader key={idx} className=" h-[240px]">
+                <Card
+                  className='w-full h-[600px] flex flex-col justify-between'
+                  key={idx}>
+                  <CardHeader key={idx} className=' h-[240px]'>
                     <CardTitle>{projects.projectName}</CardTitle>
                     <CardDescription>
-                    <span className="text-orange-500 font-bold">{projects.projectName}</span> {projects.small_description}
+                      <span className='text-orange-500 font-bold'>
+                        {projects.projectName}
+                      </span>{" "}
+                      {projects.small_description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="">
+                  <CardContent className=''>
                     <div className='relative w-full h-64'>
                       {" "}
                       {/* Set a fixed height for the image container */}
                       <Image
                         src={`http://10.1.151.64:1337${projects.img_1}`}
+                        height={200}
+                        width={200}
                         layout='fill' /* Make the image fill the container */
                         objectFit='cover' /* Ensure the image covers the entire container */
                         alt='incubation'
@@ -78,22 +85,21 @@ const Page = () => {
                           ))}
                         </ul>
                       </div>
-                      <div className="">
-                        <h3 className="font-bold">Co-Investors</h3>
-                        <ul className="text-gray-500">
+                      <div className=''>
+                        <h3 className='font-bold'>Co-Investors</h3>
+                        <ul className='text-gray-500'>
                           {projects.investors.map((investor, inx) => {
-                            return <li key={inx}>{investor.name}</li>
+                            return <li key={inx}>{investor.name}</li>;
                           })}
                         </ul>
                       </div>
                     </div>
                   </CardContent>
                   <CardFooter className='w-full justify-between '>
-                    <div className="ml-auto">
+                    <div className='ml-auto'>
                       <Popup details={projects} />
                     </div>
                   </CardFooter>
-
                 </Card>
               );
 

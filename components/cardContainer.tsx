@@ -15,7 +15,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { UpdateData } from "@/types/strapi-types";
 
-export default function ({ update }: { update: UpdateData[] }) {
+export default function cardContainer ({ update }: { update: UpdateData[] }) {
   return (
     <section className=''>
       <div className='grid gap-2 md:grid-cols-2'>

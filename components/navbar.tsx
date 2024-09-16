@@ -10,6 +10,7 @@ import { MenuIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useScroll from "./useScroll"; //Custom Hook for scroll
 import MobileMenu from "./mobileMenu";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to track menu visibility
@@ -31,15 +32,17 @@ const Navbar = () => {
         <div className='flex justify-between items-center mx-auto max-w-screen-xl'>
           <Link href='/' className='flex items-center'>
             {/* Regular logo for larger screens */}
-            <img
+            <Image
               src={"/image/dxvalleymainlogo.png"}
               alt='dxvalley logo'
               width={200}
+              height={200}
               className='hidden sm:block' // hidden on smaller screens, shown on larger ones
             />
             {/* Smaller logo for small screens */}
-            <img
+            <Image
               src={"/image/dx_sm.png"}
+              height={200}
               alt='dxvalley logo'
               width={80} // adjust the width for smaller devices
               className='block sm:hidden p-2' // shown on smaller screens, hidden on larger ones

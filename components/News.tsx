@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { News } from "@/types/strapi-types";
+import Image from "next/image";
 
 export default function NewsList({ news }: { news: News[] }) {
   const sortedNews = [...news].sort(
@@ -26,9 +27,11 @@ export default function NewsList({ news }: { news: News[] }) {
             <div key={index} className={index === 0 ? "mb-4" : "mb-2"}>
               <Link href={item.news_link} className='group' target='_blank'>
                 <div className='flex items-start space-x-2'>
-                  <img
+                  <Image
                     src={item.img_link}
                     alt={item.title}
+                    height={100}
+                    width={100}
                     className={`object-contain rounded-sm  dark:bg-gray-400 ${
                       index === 0 ? "w-12 h-12" : "w-10 h-10"
                     }`}
