@@ -8,7 +8,6 @@ export async function GET(req: Request): Promise<NextResponse> {
   const email = searchParams.get("email");
 
   if (!email) {
-    // Handle the case where email is not provided
     return NextResponse.json({
       message: "Email is required",
       unsubscribed: false,
@@ -16,7 +15,6 @@ export async function GET(req: Request): Promise<NextResponse> {
   }
 
   try {
-    // Find the subscriber by email
     const subscriber = await prisma.subscriber.findUnique({
       where: { email },
     });
@@ -28,7 +26,6 @@ export async function GET(req: Request): Promise<NextResponse> {
       });
     }
 
-    // Update the subscriber's status to false (unsubscribe)
     await prisma.subscriber.update({
       where: { email },
       data: { status: false },
