@@ -62,7 +62,7 @@ const prisma = new PrismaClient();
                 <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     <tr>
                         <td style="padding: 48px 24px; text-align: center;">
-                            <img src="https://dxvalley.com/public/image/dxvalleymainlogo.png" alt="DxLogo" width="40" height="37" style="display: inline-block; margin-bottom: 24px;">
+                            <img src='cid:unique@dxvalleymainlogo.png' alt="Dx Valley Logo" width="400px" height="200px" style="display: inline-block; margin-bottom: 24px;">
                             <h1 style="margin: 0 0 24px; font-size: 24px; font-weight: bold; color: #333333;">We've Received Your Message</h1>
                             <p style="margin: 0 0 24px; font-size: 16px; line-height: 24px; color: #666666;">Hello <strong>  ${name}</strong>,</p>
                             <p style="margin: 0 0 24px; font-size: 16px; line-height: 24px; color: #666666;">Thank you for reaching out. We've received your message and will get back to you shortly.</p>
@@ -87,6 +87,14 @@ const prisma = new PrismaClient();
         </tr>
   
 `,
+  attachments: [
+        {
+          filename: "dxvalleymainlogo.png",
+          path: "./public/image/dxvalleymainlogo.png",
+          cid: "unique@dxvalleymainlogo.png",
+        },
+      ],
+    };
   };
 
 

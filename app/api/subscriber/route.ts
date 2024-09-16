@@ -59,7 +59,7 @@ export async function POST(req: Request): Promise<NextResponse> {
             <td style="padding: 20px;">
                 <h1 style="color: #4a4a4a; text-align: center;">Thank You for Subscribing!</h1>
                 <p style="text-align: center;">
-                    <img src="https://www.dxvalley.com/image/dxvalleymaillogo.png" alt="Dxvalley" style="width: 60px; height: 60px;">
+                  <img src='cid:unique@dxvalleymainlogo.png' alt="Dxvalley" style="width: 400px; height: 200px;">
                 </p>
                 <p> <strong>Dear ${email}</strong>,</p>
                 <p>We're thrilled to have you join our community! Your subscription has been successfully confirmed, and you're now part of our inner circle.</p>
@@ -75,14 +75,24 @@ export async function POST(req: Request): Promise<NextResponse> {
                     <a href="dxvalley.com" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
                 </div>
                 <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
-                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="/api/unsubscribe?email=${email}" style="color: #888;">unsubscribe here</a>.
+                    You received this email because you subscribed to DxValley newsletter. If you believe this is an error, please <a href="/api/unsubscribe?email=${email}" style="color: #888 text-decoration: underline;">unsubscribe </a>here.
                 </p>
             </td>
         </tr>
  `,
+      attachments: [
+        {
+          filename: "dxvalleymainlogo.png",
+          path: "./public/image/dxvalleymainlogo.png",
+          cid: "unique@dxvalleymainlogo.png",
+        },
+      ],
     };
 
+
+
     await transporter.sendMail(mailOptionsToUser);
+    
 
     return NextResponse.json({
       message3: "Subscribed successfully",
