@@ -116,8 +116,8 @@ export default function PhotoGallery() {
             <Image
               src={`http://10.1.151.64:1337${filteredItems[selectedImage].img}`}
               alt={filteredItems[selectedImage].title}
-              height={200}
-              width={100}
+             // height={200}
+              // width={100} 
               fill
               className='object-contain'
               onClick={(e) => e.stopPropagation()}
@@ -147,8 +147,8 @@ function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
             <AspectRatio ratio={3 / 2}>
               <Image
                 src={`http://10.1.151.64:1337${item.img}`}
-                height={200}
-                width={100}
+                // height={200}
+                // width={100}
                 alt={item.title}
                 fill
                 className='object-cover transition-opacity lg:group-hover:opacity-20'

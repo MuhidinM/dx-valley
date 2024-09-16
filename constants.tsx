@@ -46,15 +46,18 @@ export const HardSkillTrainingImage = () => (
   <Image src={HardSkillTraining} alt="Hard Skill Training" />
 );
 
-export const Trainer = ()=>
-  <Image src={TrainerOne} alt="tariner"/>
+export const Trainer = () => (
+  <Image src={TrainerOne} alt='tariner' height={200} width={100} />
+);
 
 export const SoftSkillImage = () => (
-  <Image src={SoftSkill} alt="Soft Skill" />
+  <Image src={SoftSkill} alt='Soft Skill' height={200} width={100} />
 );
 
 
-export const VSLAImage = () => <Image src={VSLAPhoto} alt="coopstream" />;
+export const VSLAImage = () => (
+  <Image src={VSLAPhoto} alt='coopstream' height={200} width={100} />
+);
 
 export const overview = [
   {
@@ -69,13 +72,17 @@ export const Media1 = () => <Image src={Media} alt="media" />;
 export const Organizaion = ()=> <Image src={Organization} alt="" />;
 
 
-export const Dx1_Team = () => <Image src={dx1_team} alt='dx1_team' />;
+export const Dx1_Team = () => (
+  <Image src={dx1_team} alt='dx1_team' height={200} width={100} />
+);
 
 export const DeboImage = () => (
   <Image src={DeboPhoto} alt="Debo crowdfund platform" />
 );
 
-export const SVG2 = () => <Image src={Innovation} alt="reconcillation" />;
+export const SVG2 = () => (
+  <Image src={Innovation} alt='reconcillation' height={200} width={100} />
+);
 
 export const features = [
   {
@@ -154,7 +161,7 @@ export const reviews = [
   },
   {
     id: 5,
-    img: <Image src={Diaspora} width={100} alt="Diaspora Banking" />,
+    img: <Image src={Diaspora} width={100} height={100} alt="Diaspora Banking" />,
     name: "",
     link: "",
   },
