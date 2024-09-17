@@ -1,9 +1,11 @@
-import React from "react";
+import { Suspense } from "react";
 import TechExpoRegistrationForm from "@/components/events/TechExpoRegistrationForm";
 const Expo = () => {
   return (
     <div>
-      <TechExpoRegistrationForm />;
+      <Suspense fallback={<div>Loading...</div>}>
+        <TechExpoRegistrationForm />;
+      </Suspense>
     </div>
   );
 };

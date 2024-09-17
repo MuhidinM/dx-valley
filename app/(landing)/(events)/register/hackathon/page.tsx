@@ -1,10 +1,12 @@
-import React from "react";
+import { Suspense } from "react";
 import ContestRegistrationForm from "@/components/events/ContestRegistrationForm";
 
 const Hackathon = () => {
   return (
     <div>
-      <ContestRegistrationForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ContestRegistrationForm />
+      </Suspense>
     </div>
   );
 };
