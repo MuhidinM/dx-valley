@@ -1,34 +1,25 @@
 /** @format */
-"use client";
 
+import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import {
-  CircleUser,
-  Home,
-  Menu,
-  Package,
-  ShieldCheck,
-  BookUser,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, Home, Menu } from "lucide-react";
 import { MenuItemFetch } from "@/services/menu";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-// import { MenuItem } from "@/types/strapi-types";
+import { cn } from "@/lib/utils";
 
 interface Links {
   href: string;
   title: string;
-  // description: string;
 }
 
 interface MenuItem {
   trigger: string;
-  // highlight: Highlight;
   links: Links[];
 }
+
 const SidebarNavItem = ({
   href,
   label,
@@ -42,70 +33,19 @@ const SidebarNavItem = ({
 }) => (
   <Link
     href={href}
-    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
-      active
+    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${active
         ? "bg-muted text-primary"
         : "text-muted-foreground hover:text-primary"
-    }`}>
-    {/* <Icon className='h-4 w-4' /> */}
+      }`}>
     {label}
   </Link>
 );
 
-// export function MobileMenu() {
-//   const [menuItems, setMenuItems] = useState<MenuItem[]>([]); // Initialize as an empty array
-
-//   useEffect(() => {
-//     const fetchMenuItems = async () => {
-//       const data = await MenuItemFetch();
-//       setMenuItems(data);
-//     };
-
-//     fetchMenuItems();
-//   }, []);
-//   return (
-//     <Sheet>
-//       <SheetTrigger asChild>
-//         <Button variant='outline' size='icon' className='shrink-0 md:hidden'>
-//           <Menu className='h-5 w-5' />
-//           <span className='sr-only'>Toggle navigation menu</span>
-//         </Button>
-//       </SheetTrigger>
-//       <SheetContent side='left' className='flex flex-col'>
-//         <nav className='grid gap-2 text-lg font-medium'>
-//           {/* <SidebarNavItem href='#' label='Home' icon={Home} active />
-//         <SidebarNavItem href='#' label='About US' icon={BookUser} /> */}
-//           <SidebarNavItem href='#' label='Home' icon={Home} active />
-
-//           {menuItems &&
-//             menuItems.map((item, index) => (
-//               <div>
-//                 <SidebarNavItem
-//                   href={" "}
-//                   label={item.links[index].title}
-//                   icon={null}
-//                 />
-//                 {item.links.map((link, i) => (
-//                   <ul>
-//                     <ListItem key={i} href={link.href} title={link.title}>
-//                       {link.description}
-//                     </ListItem>
-//                   </ul>
-//                 ))}
-//                 {/* <SidebarNavItem href='#' label='About US' icon={BookUser} /> */}
-//               </div>
-//             ))}
-//         </nav>
-//       </SheetContent>
-//     </Sheet>
-//   );
-
-// }
-
-
-// codeium suggestion
 export default function MobileMenu() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -116,37 +56,68 @@ export default function MobileMenu() {
     fetchMenuItems();
   }, []);
 
+  const toggleSection = (section: string) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant='outline' size='icon' className='shrink-0 md:hidden'>
-          <Menu className='h-5 w-5' />
-          <span className='sr-only'>Toggle navigation menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side='left' className='flex flex-col'>
-        <img
-          src={"/image/dx_sm.png"}
-          alt='dxvalley logo'
-          width={80} // adjust the width for smaller devices
-          className='block sm:hidden p-2' // shown on smaller screens, hidden on larger ones
-        />
-        <SidebarNavItem href='#' label='Home' icon={Home} active />
-        <nav className='grid gap-2 text-lg font-medium'>
-          {menuItems &&
-            menuItems.map((item, index) => (
-              <div key={index}>
-                <SidebarNavItem href={" "} label={item.trigger} icon={" "} />
-                <ul>
-                  {item.links.map((link, i) => (
-                    <ListItem key={i} href={link.href} title={link.title} />
-                                  ))}
-                </ul>
-              </div>
-            ))}
-        </nav>
-      </SheetContent>
-    </Sheet>
+    <div>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant='outline' size='icon' className='shrink-0 md:hidden'>
+            <Menu className='h-5 w-5' />
+            <span className='sr-only'>Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side='left' className='flex flex-col'>
+          <Image
+            src={"/image/dx_sm.png"}
+            alt='dxvalley logo'
+            width={80}
+            height={200}
+            className='block sm:hidden p-2'
+          />
+          <SidebarNavItem href='/' label='Home' icon={Home} active />
+          <div className='flex-grow '>
+            <nav className='grid gap-2 text-lg font-medium'>
+              {menuItems.map((item, index) => (
+                <div key={index}>
+                  {/* Trigger the dropdown when the item is clicked */}
+                  <button
+                    className='flex w-full justify-between items-center py-2 px-3 text-left'
+                    onClick={() => toggleSection(item.trigger)}>
+                    {item.trigger}
+                    <span className='ml-2'>
+                      {openSections[item.trigger] ? (
+                        <ChevronUp />
+                      ) : (
+                        <ChevronDown />
+                      )}
+                    </span>
+                  </button>
+
+                  {/* Dropdown content */}
+                  {openSections[item.trigger] && (
+                    <ul className='pl-6 space-y-2'>
+                      {item.links.map((link, i) => (
+                        <ListItem key={i} href={link.href} title={link.title} />
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </nav>
+            {/* <p>Dx Valley, All Right Rserverd</p> */}
+          </div>
+          <footer className='text-gray-900 py-4 text-center'>
+            <p>©2024, Cooperative Bank of Oromia, All Rights Reserved</p>
+          </footer>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 }
 
@@ -171,4 +142,4 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
-
+ListItem.displayName = "ListItem";

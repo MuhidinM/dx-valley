@@ -18,10 +18,10 @@ const DxDescription = () => {
             <p className='mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400'>
               The Innovation Hub is where we develop exceptional in-house
               products, designed to seamlessly integrate with other companies,
-              fintech solutions, and various industries. It's a collaborative
-              space where innovation meets partnership, allowing us to create
-              groundbreaking solutions that work harmoniously across the
-              financial ecosystem and beyond!
+              fintech solutions, and various industries. It&apos;s a
+              collaborative space where innovation meets partnership, allowing
+              us to create groundbreaking solutions that work harmoniously
+              across the financial ecosystem and beyond!
             </p>
             {/* <Button className="bg-coopBlue hover:bg-coopBlueHover">Get Started</Button> */}
           </div>

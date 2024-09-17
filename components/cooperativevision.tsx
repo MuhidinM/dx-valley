@@ -34,10 +34,12 @@ const CooperativeVision = ({
           </div>
           <div className="prose text-base sm:text-lg text-gray-600 leading-relaxed dark:text-gray-300 mb-3 font-['Open Sans']">
             <ReactMarkdown
-              children={vision?.description ?? ""}
+             
               remarkPlugins={[remarkGfm]}
-            />
-          </div>
+            >
+              {vision?.description ?? ""}
+               </ReactMarkdown>
+          </div>    
 
           <div className='flex justify-end'>
             <div className="bg-orange-100 text-orange-800 text-xs sm:text-sm font-semibold py-1.5 px-3 rounded-full inline-block font-['Open Sans'] shadow-md">

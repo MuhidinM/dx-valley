@@ -402,7 +402,8 @@ const ApplyForIncubation = () => {
             Apply for Startup Incubation
           </CardTitle>
           <CardDescription>
-            Join Dx Valley's Incubation Program and turn your idea into reality!
+            Join Dx Valley&apos;s Incubation Program and turn your idea into
+            reality!
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -481,7 +482,7 @@ const ApplyForIncubation = () => {
                   {formData.founderNames.map((founder, index) => (
                     <div key={index} className='space-y-2'>
                       <Label htmlFor={`founderName-${index}`}>
-                        Founder's Name
+                        Founder&apos;s Name
                       </Label>
                       <div className='flex space-x-2'>
                         {/* <Input

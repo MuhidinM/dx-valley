@@ -47,10 +47,9 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
                 </Link>
 
                 <div className='prose mt-2 text-sm/relaxed text-gray-500'>
-                  <ReactMarkdown
-                    children={item?.description}
-                    remarkPlugins={[remarkGfm]}
-                  />
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {item?.description}
+                  </ReactMarkdown>
                 </div>
               </div>
             </article>

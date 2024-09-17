@@ -22,7 +22,7 @@ export default function CTAComponent({ JoinUs }: { JoinUs: JoinUs }) {
         </div>
         <div className='grid grid-cols-2 gap-3 mt-8'>
           {JoinUs.buttons.map((item, indx) => (
-            <Link href={item.href}>
+            <Link href={item.href} key={indx}> 
               <Button
                 className={`w-full ${
                   item.background_is_orange

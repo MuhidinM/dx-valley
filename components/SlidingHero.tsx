@@ -47,7 +47,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
           {mottos[currentIndex] || " "}
         </h1>
         <p className='text-md md:text-base italic md:mt-1 mt-2'>
-          "{quotes[currentIndex] || " "}"
+          &quot;{quotes[currentIndex] || " "}&quot;
         </p>
         <Button
           className='w-36 bg-coopBlue mt-5 text-white font-bold font-sans hover:bg-coopBlueHover hover:cursor-pointer'

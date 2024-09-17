@@ -144,10 +144,10 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
 
           <div className='prose mb-4 '>
             <ReactMarkdown
-              children={products[activeTag]?.description ?? ""}
               remarkPlugins={[remarkGfm]}
-              className={"prose dark:prose-invert"}
-            />
+              className={"prose dark:prose-invert"}>
+              {products[activeTag]?.description ?? ""}
+            </ReactMarkdown>
           </div>
         </div>
         <div className='flex gap-8'>

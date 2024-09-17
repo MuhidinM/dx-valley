@@ -46,10 +46,9 @@ export const Card: React.FC<CardProps> = ({
           )}
           suppressHydrationWarning>
           <div className='prose'>
-            <ReactMarkdown
-              children={description?.toString() || ""}
-              remarkPlugins={[remarkGfm]}
-            />
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {description?.toString() ?? ""}
+            </ReactMarkdown>
           </div>
         </div>
 

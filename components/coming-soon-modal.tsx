@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 const LAUNCH_DATE = new Date("2024-09-19T14:26:00");
 
 interface TimeLeft {
@@ -80,10 +80,11 @@ export default function ComingSoonModal() {
             className='text-4xl font-extrabold mb-8 text-coopOrange'>
             We Are Coming Soon!
           </motion.h3>
-          <img
+          <Image
             src={"/image/dxvalleymainlogo.png"}
             alt='dxvalley logo'
             width={500} // adjust the width as needed
+            height={200}
             className='mx-auto mb-4 '
           />
           {/* <p className='mb-6 text-[#00adef] text-xl'>Stay tuned!</p> */}

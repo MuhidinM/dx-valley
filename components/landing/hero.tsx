@@ -46,6 +46,8 @@ export function Hero() {
                         fill
                         style={{ objectFit: "cover" }}
                         className='rounded'
+                        height={200}
+                        width={100}
                       />
                     </div>
                   </CardContent>
