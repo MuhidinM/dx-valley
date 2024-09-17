@@ -12,9 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { cn } from "@/lib/utils";
-// import { menuItems } from "@/constants";
 import { MenuItemFetch } from "@/services/menu";
-// import { MenuItem } from "@/types/strapi-types";
 
 interface Links {
   href: string;
@@ -61,12 +59,20 @@ export function Menu() {
                     <NavigationMenuLink asChild>
                       <a
                         href={item.highlight.href}
-                        className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'>
+                        className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
+                        style={{
+                          backgroundImage: `url(http://10.1.151.64:1337${item.highlight.img})`, 
+                          backgroundSize: 'cover', 
+                          backgroundPosition: 'center', 
+                        }}
+                        >
                         <div className='mb-2 mt-4 text-lg font-medium'>
                           {item.highlight.title}
                         </div>
-                        <p className='text-sm leading-tight text-muted-foreground'>
+                        {/* I removed .text-muted-foreground to fix visibility over images */}
+                         <p className='text-sm leading-tight'>  
                           {item.highlight.description}
+                          
                         </p>
                       </a>
                     </NavigationMenuLink>
