@@ -96,9 +96,9 @@ const Countdown: React.FC<ContestCardProps> = ({
   }
 
   return (
-    <div className="event-container">
+    <div className='event-container'>
       {renderUI && (
-        <Card className="shadow-xl border-spacing-2 rounded-lg">
+        <Card className='shadow-xl border-spacing-2 rounded-lg'>
           <CardHeader>
             <CardTitle>{event.name}</CardTitle>
             <CardDescription>
@@ -109,20 +109,19 @@ const Countdown: React.FC<ContestCardProps> = ({
             <p>{event?.description}</p>
           </CardHeader>
           <CardContent>
-            <div className="border p-4 rounded shadow">
-              <p className="mt-4 text-lg text-red-500">{timeLeft}</p>
+            <div className='border p-4 rounded shadow'>
+              <p className='mt-4 text-lg text-red-500'>{timeLeft}</p>
             </div>
           </CardContent>
           <CardFooter>
             {!eventHasPassed && renderUI ? (
               <Button
-                className="w-full bg-coopBlue hover:bg-coopBlueHover "
-                onClick={handleRegisterClick}
-              >
+                className='w-full bg-coopBlue hover:bg-coopBlueHover '
+                onClick={handleRegisterClick}>
                 Register
               </Button>
             ) : (
-              <Button disabled className="w-full">
+              <Button disabled className='w-full'>
                 Register
               </Button>
             )}

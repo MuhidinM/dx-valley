@@ -1,24 +1,28 @@
-"use client"
+/** @format */
 
-import { Card } from "@/components/section";
+"use client";
+
+import { CardComponent } from "@/components/section";
 import CTA from "@/components/cta";
 import Header from "@/components/header";
 import HowWeWorkSection from "@/components/howWeWork";
 import { SlidingCompanies } from "@/components/landing/company";
 import ContactUs from "@/components/landing/contactus";
 import { SectionLeft } from "@/components/section";
+import { Button } from "@/components/ui/button";
 
-import { SVG1, EkubImage } from "@/constants";
 import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { Address, InnovationData } from "@/types/strapi-types";
 import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
-import classNames from "classnames";
 
+import Link from "next/link";
 
 const Page = () => {
-  const [innovationItems, setInnovationItems] = useState<InnovationData | null>(null);
+  const [innovationItems, setInnovationItems] = useState<InnovationData | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchInnovationItems = async () => {
@@ -32,9 +36,7 @@ const Page = () => {
   //  if (!innovationItems) {
   //    return <SkeletonLoaderAboutInnovationPage />;
   //  }
-  // useEffect(() => {
-  //   console.log("first: ", innovationItems)
-  // }, [innovationItems])
+
   return (
     <div className='space-y-8 mb-8 justify-center'>
       <SectionLeft
@@ -60,10 +62,10 @@ const Page = () => {
       <HowWeWorkSection works={innovationItems?.howeworks || []} />
       <SlidingCompanies companies={innovationItems?.companies || []} />
 
-      <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 p-10'>
-        {innovationItems?.gallery.map((item, indx) => {
+      <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 p-5'>
+        {innovationItems?.gallery.slice(0, 3).map((item, indx) => {
           return (
-            <Card
+            <CardComponent
               key={indx}
               svg={
                 <Image
@@ -82,6 +84,18 @@ const Page = () => {
           );
         })}
       </div>
+      <div className='m-1 mx-28 justify-center'>
+        <Link href='/projects' passHref>
+          <div className='flex justify-center text-black'>
+            <Button
+              variant='outline'
+              className=' w-60 h-16 bg-slate-300 hover:bg-slate-400  hover:underline text-xl font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105'>
+              List All Products
+            </Button>
+          </div>
+        </Link>
+      </div>
+
       <div id='collab-form'>
         <ContactUs address={innovationItems?.connect as Address} />
       </div>

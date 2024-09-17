@@ -1,29 +1,30 @@
+/** @format */
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner"; // Import the toast function
-import { Toaster } from 'sonner'; // Ensure this is imported
+import { Toaster } from "sonner"; // Ensure this is imported
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 const steps = [
-  { id: 'organization', title: 'Tell us about yourself' },
-  { id: 'confirm', title: 'Confirm details'  },
+  { id: "organization", title: "Tell us about yourself" },
+  { id: "confirm", title: "Confirm details" },
 ];
 
-const focusAreaOptions = ['Agriculture', 'AI', 'Fintech'];
-const interestOptions = ['Invest', 'Buy startup', 'Support vision', 'Sponsor'];
+const focusAreaOptions = ["Agriculture", "AI", "Fintech"];
+const interestOptions = ["Invest", "Buy startup", "Support vision", "Sponsor"];
 
 type FormData = {
   firstName: string;
@@ -53,7 +54,9 @@ const MultiSelectDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline' className='w-full justify-between'>
-          {selectedOptions.length > 0 ? selectedOptions.join(', ') : placeholder}
+          {selectedOptions.length > 0
+            ? selectedOptions.join(", ")
+            : placeholder}
           <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </DropdownMenuTrigger>
@@ -76,16 +79,16 @@ const MultiSelectDropdown = ({
 export default function IndependentRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    motivation: '',
+    firstName: "",
+    lastName: "",
+    motivation: "",
     focusArea: [],
     interestedArea: [],
-    city: '',
-    state: '',
-    country: '',
-    email: '',
-    phoneNumberOne: '',
+    city: "",
+    state: "",
+    country: "",
+    email: "",
+    phoneNumberOne: "",
   });
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
@@ -99,14 +102,13 @@ export default function IndependentRegistrationForm() {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
-    
+
     if (currentStep === 0) {
       // Validate first name
       if (!formData.firstName) {
@@ -114,7 +116,7 @@ export default function IndependentRegistrationForm() {
       } else if (formData.firstName.length < 4) {
         newErrors.firstName = "First name must be at least 4 characters.";
       }
-  
+
       // Validate last name
       if (!formData.lastName) {
         newErrors.lastName = "Last name is required.";
@@ -130,16 +132,14 @@ export default function IndependentRegistrationForm() {
           newErrors.email = "Invalid email format.";
         }
       }
-      
-      if (!formData.phoneNumberOne ) {
+
+      if (!formData.phoneNumberOne) {
         newErrors.phoneNumberOne = "Phone number is required.";
       }
 
-      if (formData.phoneNumberOne.length < 10 ) {
+      if (formData.phoneNumberOne.length < 10) {
         newErrors.phoneNumberOne = "phone number cannot be less than.";
       }
-
-      
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -157,34 +157,35 @@ export default function IndependentRegistrationForm() {
 
   const handleSubmit = async () => {
     if (validateStep()) {
-    try {
-      const response = await fetch('/api/independentpartner', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      const result = await response.json();
-      if (response.ok) {
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
+      try {
+        const response = await fetch("/api/independentpartner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         });
-        handleNext();
-      } else {
-        console.error('Error:', result);
+
+        const result = await response.json();
+        if (response.ok) {
+          toast.success("Registration successful!", {
+            description: "Your details have been submitted successfully.",
+          });
+          handleNext();
+        } else {
+          console.error("Error:", result);
+          toast.error("Registration failed", {
+            description:
+              result?.message || "An error occurred during registration.",
+          });
+        }
+      } catch (error) {
+        console.error("Request error:", error);
         toast.error("Registration failed", {
-          description: result?.message || "An error occurred during registration.",
+          description: "An error occurred. Please try again later.",
         });
       }
-    } catch (error) {
-      console.error('Request error:', error);
-      toast.error("Registration failed", {
-        description: "An error occurred. Please try again later.",
-      });
     }
-  }
   };
 
   return (
@@ -254,8 +255,10 @@ export default function IndependentRegistrationForm() {
                           }
                           placeholder='Enter your first name'
                         />
-                         {errors.firstName && (
-                          <p className='text-red-500 text-sm'>{errors.firstName}</p>
+                        {errors.firstName && (
+                          <p className='text-red-500 text-sm'>
+                            {errors.firstName}
+                          </p>
                         )}
                       </div>
                       <div className='flex-1'>
@@ -268,9 +271,11 @@ export default function IndependentRegistrationForm() {
                           }
                           placeholder='Enter your last name'
                         />
-                         {errors.lastName && (
-                        <p className='text-red-500 text-sm'>{errors.lastName}</p>
-                      )}
+                        {errors.lastName && (
+                          <p className='text-red-500 text-sm'>
+                            {errors.lastName}
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -286,9 +291,9 @@ export default function IndependentRegistrationForm() {
                           }
                           placeholder='Enter your email'
                         />
-                         {errors.email && (
-                        <p className='text-red-500 text-sm'>{errors.email}</p>
-                      )}
+                        {errors.email && (
+                          <p className='text-red-500 text-sm'>{errors.email}</p>
+                        )}
                       </div>
                       <div className='flex-1'>
                         <Label htmlFor='phoneNumberOne'>Phone</Label>
@@ -302,7 +307,9 @@ export default function IndependentRegistrationForm() {
                           placeholder='Enter your phone number'
                         />
                         {errors.phoneNumberOne && (
-                          <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
+                          <p className='text-red-500 text-sm'>
+                            {errors.phoneNumberOne}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -312,9 +319,7 @@ export default function IndependentRegistrationForm() {
                       <Input
                         id='city'
                         value={formData.city}
-                        onChange={(e) =>
-                          handleChange("city", e.target.value)
-                        }
+                        onChange={(e) => handleChange("city", e.target.value)}
                         placeholder='Enter your city'
                       />
                     </div>

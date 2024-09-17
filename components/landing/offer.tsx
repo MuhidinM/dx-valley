@@ -17,8 +17,10 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
             What We Offer
           </h2> */}
           <div className='text-center'>
-            <h2 className='text-4xl font-bold'>What We 
-              <span className='text-coopBlue'> Offer</span> </h2>
+            <h2 className='text-4xl font-bold'>
+              What We
+              <span className='text-coopBlue'> Offer</span>{" "}
+            </h2>
             <div className='flex justify-center mt-2  mb-16'>
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
@@ -29,7 +31,7 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
             <article
               key={index}
               className='overflow-hidden rounded-lg shadow transition hover:shadow-lg'>
-              <img
+              <Image
                 alt={`Image for ${item.title} not found`}
                 width={1}
                 height={10}
@@ -45,10 +47,9 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
                 </Link>
 
                 <div className='prose mt-2 text-sm/relaxed text-gray-500'>
-                  <ReactMarkdown
-                    children={item.description}
-                    remarkPlugins={[remarkGfm]}
-                  />
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {item?.description}
+                  </ReactMarkdown>
                 </div>
               </div>
             </article>

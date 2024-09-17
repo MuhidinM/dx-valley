@@ -1,6 +1,8 @@
+/** @format */
+
 "use client";
 
-import { useState, useRef } from "react";
+
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +36,7 @@ import {
 } from "@/components/ui/dialog";
 import Confetti from "react-confetti";
 import SubmissionSuccess from "../submissionSuccess";
-import { ChangeEvent, FormEvent, MouseEvent } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState, useRef } from "react";
 import { string } from "zod";
 import { toast } from "sonner"; // Import the toast function
 import { Toaster } from "sonner";
@@ -324,18 +326,30 @@ const ApplyForIncubation = () => {
 
       const result = await response.json();
       if (response.ok) {
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
-        });
+        // toast.success("Registration successful!", {
+        //   description: "Your details have been submitted successfully.",
+        // });
+     setSubmitSuccess(true);
+     setShowConfetti(true)
+        //   <SubmissionSuccess
+        //     title={" Submission Successful!"}
+        //     icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+        //     desc={
+        //       "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
+        //     }
+        //   />
+      
+        // console.log("call for proposal submitted successfully");
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 100000);
       } else {
         toast.error("Registration failed", {
           description:
             result?.error || "An error occurred during registration.",
         });
+          console.log("call for proposal error on submission");
       }
       console.log(result);
     } catch (error) {
@@ -365,12 +379,12 @@ const ApplyForIncubation = () => {
 
   if (submitSuccess) {
     return (
-      <div className=" bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 ">
+      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
         <div>
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-            icon={<CheckCircle2 className="w-8 h-8 text-green" />}
+            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
             desc={
               "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
             }
@@ -381,101 +395,96 @@ const ApplyForIncubation = () => {
   }
 
   return (
-    <div>
-      <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2">
-        <Card className="max-w-2xl mx-auto">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">
-              Apply for Startup Incubation
-            </CardTitle>
-            <CardDescription>
-              Join Dx Valley's Incubation Program and turn your idea into
-              reality!
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="mb-8">
-              <div className="flex justify-between">
-                {steps.map((step, index) => (
-                  <div key={step.id} className="flex flex-col items-center">
-                    <div
-                      className={`rounded-full h-8 w-8 flex items-center justify-center ${
-                        index <= currentStep
-                          ? "bg-[#00adef] text-white"
-                          : "bg-gray-200 text-gray-600"
-                      }`}
-                    >
-                      {index + 1}
-                    </div>
-                    <div className="text-xs mt-2">{step.title}</div>
+    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
+      <Card className='max-w-2xl mx-auto'>
+        <CardHeader className='space-y-1'>
+          <CardTitle className='text-2xl font-bold'>
+            Apply for Startup Incubation
+          </CardTitle>
+          <CardDescription>
+            Join Dx Valley&apos;s Incubation Program and turn your idea into
+            reality!
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className='mb-8'>
+            <div className='flex justify-between'>
+              {steps.map((step, index) => (
+                <div key={step.id} className='flex flex-col items-center'>
+                  <div
+                    className={`rounded-full h-8 w-8 flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-[#00adef] text-white"
+                        : "bg-gray-200 text-gray-600"
+                    }`}>
+                    {index + 1}
                   </div>
-                ))}
-              </div>
-              <div className="mt-4 h-2 bg-gray-200 rounded-full">
-                <div
-                  className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
-                  style={{
-                    width: `${((currentStep + 1) / steps.length) * 100}%`,
-                  }}
-                ></div>
-              </div>
+                  <div className='text-xs mt-2'>{step.title}</div>
+                </div>
+              ))}
+            </div>
+            <div className='mt-4 h-2 bg-gray-200 rounded-full'>
+              <div
+                className='h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out'
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}></div>
             </div>
             <form onSubmit={handleSubmit}>
               {currentStep === 0 && (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="startupName">Startup Name</Label>
-                    <div className="flex space-x-2">
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='startupName'>Startup Name</Label>
+                    <div className='flex space-x-2'>
                       <Input
-                        id="startupName"
-                        placeholder="Enter your startup name"
+                        id='startupName'
+                        placeholder='Enter your startup name'
                         value={formData.startupName}
                         onChange={(e) =>
                           handleChange("startupName", e.target.value)
                         }
                       />
-                      <Button type="button" onClick={generateStartupName}>
+                      <Button type='button' onClick={generateStartupName}>
                         Generate
                       </Button>
                     </div>
                     {errors.startupName && (
-                      <p className="text-sm text-red-500">
+                      <p className='text-sm text-red-500'>
                         {errors.startupName}
                       </p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="stage">Current Stage</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Current Stage</Label>
                     <Select
                       onValueChange={(value) => handleChange("stage", value)}
-                      value={formData.stage}
-                    >
+                      value={formData.stage}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your current stage" />
+                        <SelectValue placeholder='Select your current stage' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="idea">Idea</SelectItem>
-                        <SelectItem value="prototype">Prototype</SelectItem>
-                        <SelectItem value="mvp">MVP</SelectItem>
-                        <SelectItem value="early-revenue">
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
                           Early Revenue
                         </SelectItem>
                       </SelectContent>
                     </Select>
                     {errors.stage && (
-                      <p className="text-sm text-red-500">{errors.stage}</p>
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
                     )}
                   </div>
                 </div>
               )}
               {currentStep === 1 && (
-                <div className="space-y-4">
+                <div className='space-y-4'>
                   {formData.founderNames.map((founder, index) => (
-                    <div key={index} className="space-y-2">
+                    <div key={index} className='space-y-2'>
                       <Label htmlFor={`founderName-${index}`}>
-                        Founder's Name
+                        Founder&apos;s Name
                       </Label>
-                      <div className="flex space-x-2">
+                      <div className='flex space-x-2'>
                         {/* <Input
                         id={`founderFirstName-${index}`}
                         placeholder="Enter first name"
@@ -494,7 +503,7 @@ const ApplyForIncubation = () => {
                       /> */}
                         <Input
                           id={`founderFirstName-${index}`}
-                          placeholder="Enter first name"
+                          placeholder='Enter first name'
                           value={founder.firstName}
                           onChange={
                             (e) =>
@@ -508,7 +517,7 @@ const ApplyForIncubation = () => {
                         />
                         <Input
                           id={`founderLastName-${index}`}
-                          placeholder="Enter last name"
+                          placeholder='Enter last name'
                           value={founder.lastName}
                           onChange={
                             (e) =>
@@ -523,11 +532,10 @@ const ApplyForIncubation = () => {
 
                         {index > 0 && (
                           <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => handleRemoveFounder(index)}
-                          >
-                            <X className="h-4 w-4" />
+                            type='button'
+                            variant='outline'
+                            onClick={() => handleRemoveFounder(index)}>
+                            <X className='h-4 w-4' />
                           </Button>
                         )}
                       </div>
@@ -535,11 +543,10 @@ const ApplyForIncubation = () => {
                   ))}
 
                   <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleAddFounder}
-                  >
-                    <Plus className="h-4 w-4 mr-2" /> Add Founder
+                    type='button'
+                    variant='outline'
+                    onClick={handleAddFounder}>
+                    <Plus className='h-4 w-4 mr-2' /> Add Founder
                   </Button>
 
                   {/* {errors.founderNames && (
@@ -549,7 +556,7 @@ const ApplyForIncubation = () => {
                     errors.founderNames.length > 0 && (
                       <div>
                         {errors.founderNames.map((error, index) => (
-                          <p key={index} className="text-sm text-red-500">
+                          <p key={index} className='text-sm text-red-500'>
                             {error.firstName &&
                               `Founder ${index + 1} first name: ${
                                 error.firstName
@@ -563,166 +570,160 @@ const ApplyForIncubation = () => {
                       </div>
                     )}
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='email'>Email</Label>
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter your email"
+                      id='email'
+                      type='email'
+                      placeholder='Enter your email'
                       value={formData.email}
                       onChange={(e) => handleChange("email", e.target.value)}
                     />
                     {errors?.email && (
-                      <p className="text-sm text-red-500">{errors.email}</p>
+                      <p className='text-sm text-red-500'>{errors.email}</p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='phone'>Phone Number</Label>
                     <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="Enter your phone number"
+                      id='phone'
+                      type='tel'
+                      placeholder='Enter your phone number'
                       value={formData.phone}
                       onChange={(e) => handleChange("phone", e.target.value)}
                     />
                     {errors.phone && (
-                      <p className="text-sm text-red-500">{errors.phone}</p>
+                      <p className='text-sm text-red-500'>{errors.phone}</p>
                     )}
                   </div>
                 </div>
               )}
               {currentStep === 2 && (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="video">
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='video'>
                       Video Pitch (Optional, Max 100MB)
                     </Label>
-                    <div className="flex items-center space-x-2">
+                    <div className='flex items-center space-x-2'>
                       <Input
-                        id="video"
-                        type="file"
-                        accept="video/*"
+                        id='video'
+                        type='file'
+                        accept='video/*'
                         onChange={(e) => handleFileChange(e, "video")}
                         ref={videoInputRef}
                       />
                       {formData.video && (
                         <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handleRemoveVideo}
-                        >
-                          <X className="h-4 w-4" />
+                          type='button'
+                          variant='outline'
+                          onClick={handleRemoveVideo}>
+                          <X className='h-4 w-4' />
                         </Button>
                       )}
                     </div>
                     {formData.video && (
-                      <p className="text-sm text-gray-500">
+                      <p className='text-sm text-gray-500'>
                         {formData.video.name}
                       </p>
                     )}
                     {errors.video && (
-                      <p className="text-sm text-red-500">{errors.video}</p>
+                      <p className='text-sm text-red-500'>{errors.video}</p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="documents">
+                  <div className='space-y-2'>
+                    <Label htmlFor='documents'>
                       Documents (Optional, Max 10MB each)
                     </Label>
                     <Input
-                      id="documents"
-                      type="file"
+                      id='documents'
+                      type='file'
                       multiple
-                      accept=".pdf,.doc,.docx,.txt"
+                      accept='.pdf,.doc,.docx,.txt'
                       onChange={(e) => handleFileChange(e, "document")}
                       ref={documentInputRef}
                     />
                     {formData.documents.map((doc, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between"
-                      >
+                        className='flex items-center justify-between'>
                         <span>{doc.name}</span>
                         <Button
-                          type="button"
-                          variant="ghost"
-                          onClick={() => handleRemoveDocument(index)}
-                        >
-                          <X className="h-4 w-4" />
+                          type='button'
+                          variant='ghost'
+                          onClick={() => handleRemoveDocument(index)}>
+                          <X className='h-4 w-4' />
                         </Button>
                       </div>
                     ))}
                     <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => documentInputRef.current?.click()}
-                    >
-                      <Plus className="h-4 w-4 mr-2" /> Add Document
+                      type='button'
+                      variant='outline'
+                      onClick={() => documentInputRef.current?.click()}>
+                      <Plus className='h-4 w-4 mr-2' /> Add Document
                     </Button>
                     {errors.documents && (
-                      <p className="text-sm text-red-500">{errors.documents}</p>
+                      <p className='text-sm text-red-500'>{errors.documents}</p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="idea">Startup Idea</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>Startup Idea</Label>
                     <Textarea
-                      id="idea"
-                      placeholder="Describe your startup idea"
+                      id='idea'
+                      placeholder='Describe your startup idea'
                       value={formData.idea}
                       onChange={(e) => handleChange("idea", e.target.value)}
                       rows={5}
                     />
                     {errors.idea && (
-                      <p className="text-sm text-red-500">{errors.idea}</p>
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
                     )}
                   </div>
                 </div>
               )}
             </form>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button
-              variant="outline"
-              onClick={handlePrevious}
-              disabled={currentStep === 0}
-            >
-              Previous
+          </div>
+        </CardContent>
+        <CardFooter className='flex justify-between'>
+          <Button
+            variant='outline'
+            onClick={handlePrevious}
+            disabled={currentStep === 0}>
+            Previous
+          </Button>
+          {currentStep < steps.length - 1 ? (
+            <Button onClick={handleNext}>Next</Button>
+          ) : (
+            <Button onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit Application"}
             </Button>
-            {currentStep < steps.length - 1 ? (
-              <Button onClick={handleNext}>Next</Button>
-            ) : (
-              <Button onClick={handleSubmit} disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : "Submit Application"}
-              </Button>
-            )}
-          </CardFooter>
-        </Card>
+          )}
+        </CardFooter>
+      </Card>
 
-        <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Confirm Submission</DialogTitle>
-              <DialogDescription>
-                Are you sure you want to submit your application? Please review
-                all information before confirming.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setShowConfirmDialog(false)}
-              >
-                Cancel
-              </Button>
-              <Button onClick={confirmSubmit} disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : null}
-                {isSubmitting ? "Submitting..." : "Confirm Submission"}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Submission</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to submit your application? Please review
+              all information before confirming.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant='outline'
+              onClick={() => setShowConfirmDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={confirmSubmit} disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              ) : null}
+              {isSubmitting ? "Submitting..." : "Confirm Submission"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

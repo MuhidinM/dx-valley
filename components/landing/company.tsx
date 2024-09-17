@@ -1,6 +1,7 @@
+/** @format */
+
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
-import { reviews } from "@/constants";
 import { CardNoLinkData } from "@/types/strapi-types";
 import Image from "next/image";
 import Header from "@/components/header";
@@ -10,14 +11,13 @@ const Companies = ({ img }: { img: JSX.Element }) => {
     <figure
       className={cn(
         "relative cursor-pointer overflow-hidden rounded-xl p-4 md:ml-16"
-      )}
-    >
-      <div className="flex flex-row items-center gap-2">{img}</div>
+      )}>
+      <div className='flex flex-row items-center gap-2'>{img}</div>
     </figure>
   );
 };
 
-export function SlidingCompanies(companies:{companies:CardNoLinkData[]}) {
+export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
   return (
     <div className='py-8 lg:py-16 mx-auto max-w-screen-xl px-4'>
       <h2 className='mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl'>

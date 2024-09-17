@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+/** @format */
+
+import { useState, useEffect } from "react";
 
 const useScroll = () => {
   const [scroll, setScroll] = useState(false);

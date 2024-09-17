@@ -27,7 +27,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
   };
 
   return (
-    <div className='relative h-[650px] overflow-hidden'>
+    <div className='relative lg:h-[650px]  h-[350px]   overflow-hidden'>
       {hero.map((img, index) => (
         <div
           key={index}
@@ -43,11 +43,11 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
       ))}
       <div className='absolute inset-0 bg-black bg-opacity-70' />
       <div className='absolute inset-0 flex flex-col justify-end text-white p-8 md:p-16 max-w-2xl'>
-        <h1 className='text-5xl md:text-4xl font-bold mb-2'>
+        <h1 className='lg:text-5xl md:text-4xl text-xl font-bold mb-2'>
           {mottos[currentIndex] || " "}
         </h1>
         <p className='text-md md:text-base italic md:mt-1 mt-2'>
-          "{quotes[currentIndex] || " "}"
+          &quot;{quotes[currentIndex] || " "}&quot;
         </p>
         <Button
           className='w-36 bg-coopBlue mt-5 text-white font-bold font-sans hover:bg-coopBlueHover hover:cursor-pointer'
@@ -56,7 +56,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
               window.location.href = links[currentIndex];
             }
           }}>
-          {link_desc[currentIndex] }
+          {link_desc[currentIndex]}
         </Button>
       </div>
       <div className='absolute bottom-4 left-8 flex space-x-2'>

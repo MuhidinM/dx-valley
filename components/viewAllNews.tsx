@@ -8,11 +8,15 @@ import { Calendar, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { News } from "@/types/strapi-types";
 import { ScrollArea } from "./ui/scroll-area";
 import Link from "next/link";
+import Image from "next/image";
 
 // Example usage of the `News` interface
 
-
-export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) {
+export default function AllNewsPage({
+  newsArticles,
+}: {
+  newsArticles: News[];
+}) {
   const [selectedArticle, setSelectedArticle] = useState<News | null>(null);
   const [sliderIndex, setSliderIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false); // Track hover state
@@ -26,18 +30,16 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
   //   );
   // }
 
+  // const sortedNewsArticles: any[] = [...newsArticles].sort((a, b) => {
+  //   console.log("a.date", a.date, "b.date", b.date);
+  //   return new Date(a.date).getTime() - new Date(b.date).getTime();
+  // });
 
-  // const sortedNewsArticles = newsArticles.sort((a, b) => {
-  //   return new Date(a.date).getTime() - new Date(b.date).getTime();})
-
-
- const sortedNewsArticles = useMemo(() => {
-   return newsArticles.sort((a, b) => {
-     return new Date(a.date).getTime() - new Date(b.date).getTime();
-   });
- }, [newsArticles]); //use memo code 
-
-
+  const sortedNewsArticles :any[]= useMemo(() => {
+    return newsArticles.sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  }, [newsArticles]); //use memo code
 
   const handleArticleClick = (article: News) => {
     setSelectedArticle(article);
@@ -95,7 +97,7 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
         slider.removeEventListener("mouseleave", () => setIsHovered(false));
       }
     };
-  }, [selectedArticle, isHovered]);
+  }, [handleNextSlide,selectedArticle, isHovered]);
 
   return (
     <div className='container my-10 mx-auto p-4'>
@@ -127,16 +129,20 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
                   {new Date(selectedArticle.date).toLocaleDateString()}
                 </p>
                 <Link href={selectedArticle.news_link} target='_blank'>
-                  <img
+                  <Image
                     src={selectedArticle.img_link}
                     alt={selectedArticle.title}
+                    height={200}
+                    width={100}
                     className='lg:w-1/6  w-2/6 h-15 object-cover rounded-md mb-4 hover:opacity-45'
                   />
                 </Link>
               </div>
 
               <div>
-                <p className='lg:px-8 py-5 px-2'>{selectedArticle.description}</p>
+                <p className='lg:px-8 py-5 px-2'>
+                  {selectedArticle.description}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -156,9 +162,11 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
                     onClick={() => handleArticleClick(article)}>
                     <Card className='h-full hover:shadow-lg transition-shadow duration-300'>
                       <CardContent className='p-4'>
-                        <img
+                        <Image
                           src={article.img_link}
                           alt={article.title}
+                          height={200}
+                          width={100}
                           className='lg:w-1/2 lg:h-24  object-cover rounded-md mb-2'
                         />
                         <h3 className='text-sm font-semibold line-clamp-2'>
@@ -214,16 +222,9 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
         <div className='mb-8'>
           {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
           <ScrollArea>
-          <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
+            <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
-              <Card
-                key={index}
-                className={`mb-4 cursor-pointer ${
-                  selectedArticle?.title === article?.title
-                    ? "border-primary"
-                    : ""
-                }`}
-                onClick={() => handleArticleClick(article)}>
+              <Card key={index} onClick={() => handleArticleClick(article)}>
                 <CardHeader>
                   <CardTitle className='text-lg'>{article.title}</CardTitle>
 
@@ -234,9 +235,11 @@ export default function AllNewsPage({ newsArticles }: { newsArticles: News[] }) 
                   </p>
                 </CardHeader>
                 <CardContent>
-                  <img
+                  <Image
                     src={article.img_link}
                     alt={article.title}
+                    height={200}
+                    width={100}
                     className='w-1/2 h-28 object-contain rounded-md'
                   />
                 </CardContent>

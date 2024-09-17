@@ -1,29 +1,34 @@
+/** @format */
 
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner"; // Import the toast function
-import { Toaster } from 'sonner'; // Ensure this is imported
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { toast, Toaster } from "sonner";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, Check } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-
+} from "@/components/ui/dropdown-menu";
 
 const steps = [
-  { id: 'media', title: 'Media Info' },
-  { id: 'confirm', title: 'Confirm' },
+  { id: "media", title: "Media Info" },
+  { id: "confirm", title: "Confirm" },
 ];
 
-const platformOptions = ['Radio/FM', 'TV', 'Youtube', "Podcast", "Social Media"];
-const genreOptions = ['Awareness', 'Entertainment'];
+const platformOptions = [
+  "Radio/FM",
+  "TV",
+  "Youtube",
+  "Podcast",
+  "Social Media",
+];
+const genreOptions = ["Awareness", "Entertainment"];
 
 type FormData = {
   mediaName: string;
@@ -52,7 +57,9 @@ const MultiSelectDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline' className='w-full justify-between'>
-          {selectedOptions.length > 0 ? selectedOptions.join(', ') : placeholder}
+          {selectedOptions.length > 0
+            ? selectedOptions.join(", ")
+            : placeholder}
           <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </DropdownMenuTrigger>
@@ -62,8 +69,9 @@ const MultiSelectDropdown = ({
             key={option}
             checked={selectedOptions.includes(option)}
             onCheckedChange={(checked) => {
-              if (checked) {onOptionChange(option);}
-              
+              if (checked) {
+                onOptionChange(option);
+              }
             }}>
             {option}
           </DropdownMenuCheckboxItem>
@@ -76,50 +84,48 @@ const MultiSelectDropdown = ({
 export default function MediaRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    mediaName: '',
-    description: '',
+    mediaName: "",
+    description: "",
     platform: [],
     genre: [],
-    city: '',
-    state: '',
-    country: '',
-    email: '',
-    phoneNumberOne: '',
+    city: "",
+    state: "",
+    country: "",
+    email: "",
+    phoneNumberOne: "",
   });
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const handleCheckboxChange = (name: keyof FormData, value: string) => {
+    setFormData((prev) => {
+      const prevValues = Array.isArray(prev[name])
+        ? (prev[name] as string[])
+        : [];
 
-const handleCheckboxChange = (name: keyof FormData, value: string) => {
-  setFormData((prev) => {
-    const prevValues = Array.isArray(prev[name])
-      ? (prev[name] as string[])
-      : [];
+      // Toggle value in array
+      const updatedValues = prevValues.includes(value)
+        ? prevValues.filter((item) => item !== value) // Remove value if already selected
+        : [...prevValues, value]; // Add value if not selected
 
-    // Toggle value in array
-    const updatedValues = prevValues.includes(value)
-      ? prevValues.filter((item) => item !== value) // Remove value if already selected
-      : [...prevValues, value]; // Add value if not selected
-
-    return { ...prev, [name]: updatedValues };
-  });
-};
+      return { ...prev, [name]: updatedValues };
+    });
+  };
 
   const handleChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
-    
+
     if (currentStep === 0) {
-      if (!formData.mediaName ) {
+      if (!formData.mediaName) {
         newErrors.mediaName = "Media name is required and ";
       }
 
-      if(formData.mediaName.length < 4){
-        newErrors.mediaName = "Media name must be at least 4 characters."
+      if (formData.mediaName.length < 4) {
+        newErrors.mediaName = "Media name must be at least 4 characters.";
       }
 
       if (!formData.email) {
@@ -130,21 +136,18 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
           newErrors.email = "Invalid email format.";
         }
       }
-      
-      if (!formData.phoneNumberOne ) {
+
+      if (!formData.phoneNumberOne) {
         newErrors.phoneNumberOne = "Phone number is required.";
       }
 
-      if (formData.phoneNumberOne.length < 10 ) {
+      if (formData.phoneNumberOne.length < 10) {
         newErrors.phoneNumberOne = "phone number cannot be less than.";
       }
-
-      
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
 
   const handleNext = () => {
     if (validateStep()) {
@@ -157,36 +160,35 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
   };
 
   const handleSubmit = async () => {
-    
     if (validateStep()) {
-    try {
-      const response = await fetch('/api/media', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      const result = await response.json();
-      if (response.ok) {
-        toast.success("Registration successful!", {
-          description: "Your details have been submitted successfully.",
+      try {
+        const response = await fetch("/api/media", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         });
-      } else {
+
+        const result = await response.json();
+        if (response.ok) {
+          toast.success("Registration successful!", {
+            description: "Your details have been submitted successfully.",
+          });
+        } else {
+          toast.error("Registration failed", {
+            description:
+              result?.message || "An error occurred during registration.",
+          });
+        }
+      } catch (error) {
+        console.error("Request error:", error);
         toast.error("Registration failed", {
-          description: result?.message || "An error occurred during registration.",
+          description: "An error occurred. Please try again later.",
         });
       }
-    } catch (error) {
-      console.error('Request error:', error);
-      toast.error("Registration failed", {
-        description: "An error occurred. Please try again later.",
-      });
     }
-  }
   };
-  
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-background p-4'>
@@ -253,9 +255,10 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         placeholder='Enter media name'
                       />
                       {errors.mediaName && (
-                        <p className='text-red-500 text-sm'>{errors.mediaName}</p>
-                      )}  
-
+                        <p className='text-red-500 text-sm'>
+                          {errors.mediaName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -271,7 +274,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                       />
                       {errors.email && (
                         <p className='text-red-500 text-sm'>{errors.email}</p>
-                      )}  
+                      )}
                     </div>
                     <div className='flex-1'>
                       <Label htmlFor='phoneNumberOne'>Phone</Label>
@@ -285,8 +288,10 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         placeholder='Enter your primary phone number'
                       />
                       {errors.phoneNumberOne && (
-                        <p className='text-red-500 text-sm'>{errors.phoneNumberOne}</p>
-                      )}  
+                        <p className='text-red-500 text-sm'>
+                          {errors.phoneNumberOne}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -335,7 +340,6 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                         }
                         placeholder='Select platform'
                       />
-                      
                     </div>
 
                     <div className='flex-1'>
@@ -396,8 +400,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                       <strong>City:</strong> {formData.city}
                     </p>
                     <p className='p-3'>
-                      <strong>Platform:</strong>{" "}
-                      {formData.platform.join(", ")}
+                      <strong>Platform:</strong> {formData.platform.join(", ")}
                     </p>
                     <p className='p-3'>
                       <strong>Interest Areas:</strong>{" "}
