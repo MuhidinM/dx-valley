@@ -125,6 +125,7 @@ interface Errors {
   internshipStart?: string;
   internshipEnd?: string;
   interestAreas?: string;
+  portfolio?: string;
   documents?: string;
 }
 interface FormData {
@@ -268,6 +269,7 @@ export default function InternshipForm() {
           stepErrors.interestAreas =
             "At least one area of interest must be selected";
         }
+     
         if (!formData.documents || formData.documents.length === 0) {
           stepErrors.documents = "At least one document is required";
         }
@@ -659,6 +661,20 @@ export default function InternshipForm() {
                     }
                     placeholder="Enter any other areas of interest not listed above"
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">Portfolio</Label>
+                  <Input
+                    id="portfolio"
+                    name="portfolio"
+                    value={formData.portfolio}
+                    onChange={(e) => handleChange("portfolio", e.target.value)}
+                    placeholder="http://yourportfolio.com"
+                    required
+                  />
+                  {errors.portfolio && (
+                    <p className="text-sm text-red-500">{errors.portfolio}</p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label>Upload Request Letter from your university</Label>
