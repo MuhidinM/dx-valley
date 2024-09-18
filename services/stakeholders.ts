@@ -3,7 +3,7 @@ import { OrgResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const StakeHolderItemFetch = async ()=>{
-    const res = await axios.get<OrgResponse>('http://10.1.151.64:1337/api/stakeholder?populate=cards.link,cards.img,proposal');
+    const res = await axios.get<OrgResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/stakeholder?populate=cards.link,cards.img,proposal`);
 
     const data = res.data.data;
     const stakeItems = {

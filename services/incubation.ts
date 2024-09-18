@@ -3,7 +3,7 @@ import { IncubationResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const IncubationItemFetch = async ()=>{
-    const res = await axios.get<IncubationResponse>('http://10.1.151.64:1337/api/incubation?populate=intro.img,focus.img,offers.img,training.img,incubation_process.img,proposal');
+    const res = await axios.get<IncubationResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/incubation?populate=intro.img,focus.img,offers.img,training.img,incubation_process.img,proposal`);
 
     const data = res.data.data;
     const incubationItems = {

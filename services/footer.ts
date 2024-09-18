@@ -2,7 +2,7 @@ import { FooterItems } from "@/types/strapi-types";
 import axios from "axios";
 
 export const FooterItemFetch = async ()=>{
-    const res = await axios.get<FooterItems>('http://10.1.151.64:1337/api/footer?populate=divisions,collaboration,events,otherlinks,logo_white,logo_black');
+    const res = await axios.get<FooterItems>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/footer?populate=divisions,collaboration,events,otherlinks,logo_white,logo_black`);
 
     const data = res.data.data;
 

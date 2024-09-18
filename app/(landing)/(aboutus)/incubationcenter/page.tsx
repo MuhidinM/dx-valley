@@ -46,7 +46,7 @@ const Page = () => {
       <SectionRight
         svg={
           <Image
-            src={`http://10.1.151.64:1337${incubationItems?.intro?.img ?? ""}`}
+            src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${incubationItems?.intro?.img ?? ""}`}
             alt='Image Left Not Found'
             width={500}
             height={800}
