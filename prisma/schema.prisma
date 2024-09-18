@@ -222,6 +222,9 @@ model ContactInfo {
 
   startupInfoId Int?
   startupInfo   startupInfo? @relation(fields: [startupInfoId], references: [id])
+
+  internsInfoId Int?
+  internsInfo   internsInfo? @relation(fields: [internsInfoId], references: [id])
 }
 
 model AddressInfo {
@@ -265,6 +268,7 @@ model PersonalInfo {
   title     String?
   firstName String
   lastName  String
+  gender String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -294,6 +298,9 @@ model PersonalInfo {
 //relation with proposals
   startupInfoId Int?
   startupInfo   startupInfo? @relation(fields: [startupInfoId], references: [id])
+
+  internsInfoId Int?
+  internsInfo    internsInfo? @relation(fields: [internsInfoId], references: [id])
 }
 model startupInfo {
   id         Int      @id @default(autoincrement())
@@ -342,6 +349,10 @@ model DocumentInfo {
 
   startupInfoId Int?
   startupInfo  startupInfo? @relation(fields: [startupInfoId], references: [id])
+
+  
+  internsInfoId Int?
+  internsInfo  internsInfo? @relation(fields: [internsInfoId], references: [id])
   
 }
 model VideoInfo {
@@ -391,4 +402,30 @@ model IndependentPartnerInfo {
   personalInfo   PersonalInfo?  @relation(fields: [personalInfoId], references: [id]) // One-to-One: Personal Info
   personalInfoId Int?           @unique
   documentInfo   DocumentInfo[] // One-to-Many: Multiple DocumentInfo
+}
+
+//interns info
+model internsInfo {
+  id         Int      @id @default(autoincrement())
+  aboutYourself String?
+  university String
+  department      String
+  ideaDescription String?
+  year              Int
+  internshipStart   DateTime
+  internshipEnd     DateTime
+  // interestAreas     String   
+  interestAreas  String[]
+  otherInterests    String?  
+  portfolioLink     String?
+  linkedinProfile   String?
+
+  documents  DocumentInfo[] 
+
+  contactInfo ContactInfo[] 
+
+  personalInfo PersonalInfo[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
