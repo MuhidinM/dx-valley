@@ -63,17 +63,21 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
             name={""}
             className='dark:bg-gray-200'>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[3]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[3]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
             />
           </Circle>
           <Circle ref={div5Ref} onClick={() => setActiveTag(1)} name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[1]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[1]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />
@@ -83,9 +87,11 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
         <div className='flex flex-row items-center justify-between'>
           <Circle ref={div2Ref} onClick={() => setActiveTag(2)} name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[2]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[2]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />
@@ -96,18 +102,22 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
             onClick={() => setActiveTag(0)}
             name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[0]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[0]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />
           </Circle>
           <Circle ref={div6Ref} onClick={() => setActiveTag(4)} name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[4]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[4]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />
@@ -117,18 +127,22 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
         <div className='flex flex-row items-center justify-between'>
           <Circle ref={div3Ref} onClick={() => setActiveTag(5)} name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[5]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[5]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />
           </Circle>
           <Circle ref={div7Ref} onClick={() => setActiveTag(6)} name={""}>
             <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${products[6]?.img ?? ""}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                products[6]?.img ?? ""
+              }`}
               alt=''
-              width={100}
+              width={200}
               height={100}
               className='dark:bg-gray-200'
             />

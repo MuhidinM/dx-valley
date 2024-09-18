@@ -34,9 +34,11 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
                 key={indx}
                 img={
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                      item?.img ?? ""
+                    }`}
                     height={70}
-                    width={100}
+                    width={200}
                     alt={item.title}
                   />
                 }

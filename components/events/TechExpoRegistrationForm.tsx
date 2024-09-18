@@ -144,7 +144,7 @@ const TechExpoRegistrationForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-gray-100 p-4'>
+      <div className='min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900  p-4'>
         <Card className='w-full max-w-md'>
           <CardHeader>
             <CardTitle className='text-center'>Submission Successful</CardTitle>
@@ -163,7 +163,7 @@ const TechExpoRegistrationForm: React.FC = () => {
   }
 
   return (
-    <div className='w-full flex items-center justify-center bg-gray-100 p-4'>
+    <div className='w-full flex items-center justify-center dark:bg-gray-900  bg-gray-100 p-4'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl'>
         <CardHeader>
@@ -181,17 +181,21 @@ const TechExpoRegistrationForm: React.FC = () => {
                 <div
                   key={step.id}
                   className={`flex items-center ${
-                    index <= currentStep ? "text-gray-700" : "text-gray-400"
+                    index <= currentStep
+                      ? "text-gray-700 dark:text-gray-900"
+                      : "text-gray-800 dark:text-gray-950"
                   }`}>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
                       index <= currentStep
-                        ? "bg-gray-900 text-white"
-                        : "bg-gray-200 text-gray-400"
+                        ? "bg-coopBlue text-white dark:text-gray-900"
+                        : "bg-gray-400 text-gray-300 dark:text-gray-900"
                     }`}>
                     {index + 1}
                   </div>
-                  <span className='text-md'>{step.title}</span>
+                  <span className='text-md dark:text-gray-300'>
+                    {step.title}
+                  </span>
                 </div>
               ))}
             </div>
