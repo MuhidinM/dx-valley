@@ -308,7 +308,6 @@ export async function POST(req: Request): Promise<NextResponse> {
         year: year,
         internshipStart: internshipStart,
         internshipEnd: internshipEnd,
-        // interestAreas: interestAreas,
         interestAreas: fields.interestAreas,
         otherInterests: otherInterests,
         portfolioLink: portfolio,
@@ -324,8 +323,6 @@ export async function POST(req: Request): Promise<NextResponse> {
         },
       },
     });
-    console.log("Saved intern info:", internInfo);
-    console.log(interestAreas);
 
     return NextResponse.json({
       message: "Intern application submitted successfully",
