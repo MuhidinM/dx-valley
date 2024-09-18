@@ -309,11 +309,11 @@ model startupInfo {
   ideaDescription String?
 
   //relation with video
-  videoId Int? @unique
-  VideoInfo   VideoInfo? @relation(fields: [videoId], references: [id])
-
+  // videoId Int? @unique
+  // VideoInfo   VideoInfo? @relation(fields: [videoId], references: [id])
+  
+  video VideoInfo[]
   documents  DocumentInfo[] // Relation to the documents
-
   contactInfo ContactInfo[] // One-to-Many: Multiple ContactInfo
 
   //relation with personal info
@@ -359,7 +359,9 @@ model VideoInfo {
   id        Int     @id @default(autoincrement())
   name      String
   path      String  // Assuming video is stored as a URL
-  startupInfo  startupInfo? 
+  // startupInfo  startupInfo? 
+  startupInfoId Int?
+  startupInfo  startupInfo? @relation(fields: [startupInfoId], references: [id])
 }
 
 model MediaInfo {
