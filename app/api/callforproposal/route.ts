@@ -191,7 +191,8 @@ export async function POST(req: Request): Promise<NextResponse> {
       documents: { connect: { id: number }[] };
       contactInfo: { connect: { id: number } };
       personalInfo?: { connect: { id: number }[] };
-      videoId?: number;
+      // videoId?: number;
+      video?: { connect: { id: number }[] };
     } = {
       startupName: startupName,
       stage: stage,
@@ -222,7 +223,11 @@ export async function POST(req: Request): Promise<NextResponse> {
       });
       applicationData = {
         ...applicationData,
-        videoId: savedVideo.id,
+        //   // videoId: savedVideo.id,
+        // video: { connect: { id: savedVideo.id } },
+        video: {
+          connect: [{ id: savedVideo.id }],
+        },
       };
     }
 
