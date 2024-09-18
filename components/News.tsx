@@ -31,7 +31,7 @@ export default function NewsList({ news }: { news: News[] }) {
                     src={item.img_link}
                     alt={item.title}
                     height={100}
-                    width={100}
+                    width={200}
                     className={`object-contain rounded-sm  dark:bg-gray-400 ${
                       index === 0 ? "w-12 h-12" : "w-10 h-10"
                     }`}

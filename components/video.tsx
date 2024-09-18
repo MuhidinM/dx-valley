@@ -85,7 +85,7 @@ export default function VideosList({ video }: { video: Videos[] }) {
                   src={video.thumbnail}
                   alt={video.title}
                   height={200}
-                  width={100}
+                  width={200}
                   className={`w-full h-[45px] object-cover  dark:bg-gray-400 ${
                     index === currentVideoIndex ? "border-2 border-primary" : ""
                   }`}

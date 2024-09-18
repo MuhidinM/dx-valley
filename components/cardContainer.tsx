@@ -15,7 +15,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { UpdateData } from "@/types/strapi-types";
 
-export default function cardContainer ({ update }: { update: UpdateData[] }) {
+export default function cardContainer({ update }: { update: UpdateData[] }) {
   return (
     <section className=''>
       <div className='grid gap-2 md:grid-cols-2'>
@@ -26,7 +26,7 @@ export default function cardContainer ({ update }: { update: UpdateData[] }) {
                 <Image
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
-                  width={100}
+                  width={200}
                   height={100}
                   className='rounded-lg w-full h-56'
                 />

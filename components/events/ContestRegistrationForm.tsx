@@ -228,7 +228,7 @@ export default function ContestRegistrationForm() {
 
   if (isSubmitted) {
     return (
-      <div className='flex items-center justify-center min-h-screen bg-gray-100'>
+      <div className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'>
         <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
           <CheckCircle2 className='w-16 h-16 text-green-500 mx-auto mb-4' />
           <h2 className='text-2xl font-bold text-center mb-4'>
@@ -249,28 +249,28 @@ export default function ContestRegistrationForm() {
   }
 
   return (
-    <div className='w-94 mt-8 mb-8 flex items-center justify-center'>
+    <div className='w-94 mt-8 mb-8 dark:bg-gray-900  flex items-center justify-center'>
       <Toaster position='top-right' richColors />
-      <div className='w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg'>
+      <div className='w-full max-w-4xl bg-white dark:bg-gray-9500 dark:bg-gray-950  p-6 rounded-lg shadow-lg'>
         <div className='mb-8 text-center text-2xl font-bold'>
           Contest Registeration Form
         </div>
-        <div className='mb-8 flex justify-between items-center'>
+        <div className='mb-8 flex justify-between  items-center'>
           {steps.map((step, index) => (
             <div key={step.id} className='flex flex-col items-center'>
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center ${
                   index <= currentStep
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-gray-200 text-gray-500"
+                    ? "bg-primary text-primary-foreground dark:bg-coopBlue"
+                    : "bg-gray-200 text-gray-500  dark:text-gray-800"
                 }`}>
                 {index + 1}
               </div>
               <span
                 className={`mt-2 text-sm ${
                   index <= currentStep
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                    ? "text-primary  dark:text-gray-300"
+                    : "text-muted-foreground "
                 }`}>
                 {step.title}
               </span>

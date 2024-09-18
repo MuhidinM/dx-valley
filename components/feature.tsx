@@ -4,7 +4,7 @@
 import { cn, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { IncubationData, CardNoLinkData } from "@/types/strapi-types";
+import { CardNoLinkData } from "@/types/strapi-types";
 
 export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   const [featureOpen, setFeatureOpen] = useState<number>(0);
@@ -34,7 +34,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   // Create IntersectionObserver instance
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.1, // Trigger when at least 10% of the component is visible
+      threshold: 0.1  , // Trigger when at least 10% of the component is visible
     });
 
     if (featureRef.current) {
@@ -95,8 +95,8 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
                 key={item.title}
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
                 alt={item.title}
-                width={200}
-                height={400}
+                width={1000}
+                height={1000}
                 className={cn(
                   "rounded-lg absolute w-full object-cover transition-all duration-300 h-[500px] transform-gpu",
                   featureOpen === index ? "scale-100" : "scale-70",
