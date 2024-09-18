@@ -39,17 +39,7 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast, Toaster } from "sonner";
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
+
 import { X, Loader2, CheckCircle2 } from "lucide-react";
 import SubmissionSuccess from "./submissionSuccess";
 
@@ -86,7 +76,6 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
     { number: 1, title: "Personal Info" },
     { number: 2, title: "Education" },
     { number: 3, title: "Internship Details" },
-    // { number: 4, title: "Additional Info" },
   ];
 
   return (
@@ -116,7 +105,6 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
         <div
           className="absolute top-0 left-0 h-2 bg-coopBlue  rounded-full transition-all duration-300 ease-in-out"
           style={{
-            // width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
             width: `${(currentStep / steps.length) * 100}%`,
           }}
         ></div>
@@ -124,6 +112,21 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
     </div>
   );
 };
+interface Errors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  gender?: string;
+  aboutYourself?: string;
+  university?: string;
+  department?: string;
+  year?: string;
+  internshipStart?: string;
+  internshipEnd?: string;
+  interestAreas?: string;
+  documents?: string;
+}
 interface FormData {
   firstName: string;
   lastName: string;
@@ -145,8 +148,10 @@ interface FormData {
 }
 
 export default function InternshipForm() {
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const [step, setStep] = useState(1);
   const [documents, setDocuments] = useState<FileWithPreview[]>([]);
+  const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -169,38 +174,16 @@ export default function InternshipForm() {
     documents: [],
   });
 
-  // Handle input changes for text, select, and textarea fields
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-  // const handleChange = (
-  //   e: ChangeEvent<HTMLInputElement> | { name: string; value: string }
-  // ) => {
-  //   const { name, value } = "target" in e ? e.target : e; // Check if it's an event or a custom value object
-  //   setFormData((prevData) => ({ ...prevData, [name]: value }));
-  // };
   const handleChange = (
-    name: keyof FormData, // Keep 'name' as a key of FormData
+    name: keyof FormData,
     value: string,
-    index: number | null = null // Index for handling founderNames
+    index: number | null = null
   ) => {
-    // Handle change for other fields in FormData
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
-  const handleRadioChange = (value: string) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      organizationType: value,
-    }));
-  };
-  // Handle checkbox changes (for interestAreas)
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
@@ -219,7 +202,7 @@ export default function InternshipForm() {
       );
       setFormData((prev) => ({
         ...prev,
-        documents: [...prev.documents, ...newFiles], // Append to documents array
+        documents: [...prev.documents, ...newFiles],
       }));
     }
   };
@@ -233,106 +216,95 @@ export default function InternshipForm() {
     });
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   setIsSubmitted(false);
-  //   // Simulate API call
-  //   // await new Promise((resolve) => setTimeout(resolve, 5000));
-  //   // setIsSubmitting(false);
-  //   // setIsSubmitted(false);
-  // };
+  //validation
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch("/api/internshipform", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //           personalInfo: {
-  //             firstName: formData.firstName,
-  //             lastName: formData.lastName,
-  //             },
-  //           contactInfo: {
-  //             email: formData.email,
-  //             phoneNumberOne: formData.phone,
-  //           },
-  //       }),
-  //     });
-  //  const formData: FormData = {
-  //   personalInfo: {
-  //     firstName: formData.firstName,
-  //     lastName: formData.lastName,
-  //     gender: formData.gender,
-  //     aboutYourself: formData.aboutYourself,
-  //   },
-  //   contactInfo: {
-  //     email: formData.email,
-  //     phoneNumberOne: formData.phone,
-  //   },
-  //   educationInfo: {
-  //     university: formData.university,
-  //     department: formData.department,
-  //     year: formData.year,
-  //   },
-  //   internshipDetails: {
-  //     internshipStart: formData.internshipStart,
-  //     internshipEnd: formData.internshipEnd,
-  //     interestAreas: formData.interestAreas,
-  //     otherInterests: formData.otherInterests,
-  //   },
-  //   additionalInfo: {
-  //     portfolio: formData.portfolio,
-  //     linkedin: formData.linkedin,
-  //     documents: formData.documents,
-  //   },
-  // };
+  const validateStep = (step: number): Errors => {
+    let stepErrors: Errors = {};
 
-  //     if (response.ok) {
-  //       setIsSubmitted(true);
-  //       toast.success("Registration successful!", {
-  //         description: "Your details have been submitted successfully.",
-  //       });
-  //       setFormData({
-  //         LeaderFirstName: "",
-  //         LeaderLastName: "",
-  //         email: "",
-  //         phoneNumber: "",
-  //         teamName: "",
-  //         numberOfMembers: 1,
-  //         teamMembers: [
-  //           { firstName: "", lastName: "", email: "", phoneNumber: "" },
-  //         ],
-  //         projectTitle: "",
-  //         projectDescription: "",
-  //         techStack: "",
-  //         projectUrl: "",
-  //         eventId: eventId,
-  //       });
-  //     } else {
-  //       const errorMessage = await response.json();
-  //       console.error("Error:", JSON.stringify(errorMessage));
-  //       toast.error("Registration failed", {
-  //         description:
-  //           JSON.stringify(errorMessage) ||
-  //           "An error occurred during registration.",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error registering:", error);
-  //     toast.error("An error occurred", {
-  //       description: "Please try again.",
-  //     });
-  //   }
-  // };
+    switch (step) {
+      case 1: // Step 1: Personal Information
+        if (!formData.firstName.trim()) {
+          stepErrors.firstName = "First name is required";
+        }
+        if (!formData.lastName.trim()) {
+          stepErrors.lastName = "Last name is required";
+        }
+        if (!formData.email.trim()) {
+          stepErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+          stepErrors.email = "Email is invalid";
+        }
+        if (!formData.phone.trim()) {
+          stepErrors.phone = "Phone number is required";
+        }
+        if (!formData.gender.trim()) {
+          stepErrors.gender = "Gender is required";
+        }
+        if (!formData.aboutYourself.trim()) {
+          stepErrors.aboutYourself = "Information about yourself is required";
+        }
+        break;
+
+      case 2: // Step 2: Education
+        if (!formData.university.trim()) {
+          stepErrors.university = "University is required";
+        }
+        if (!formData.department.trim()) {
+          stepErrors.department = "Department is required";
+        }
+        if (!formData.year.trim()) {
+          stepErrors.year = "Year of study is required";
+        }
+        break;
+
+      case 3: // Step 3: Internship Details
+        if (!formData.internshipStart.trim()) {
+          stepErrors.internshipStart = "Internship start date is required";
+        }
+        if (!formData.internshipEnd.trim()) {
+          stepErrors.internshipEnd = "Internship end date is required";
+        }
+        if (formData.interestAreas.length === 0) {
+          stepErrors.interestAreas =
+            "At least one area of interest must be selected";
+        }
+        if (!formData.documents || formData.documents.length === 0) {
+          stepErrors.documents = "At least one document is required";
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    return stepErrors;
+  };
+
+  const handleNext = () => {
+    const stepErrors = validateStep(step);
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      return;
+    }
+
+    setErrors({});
+    setStep((prevStep) => Math.min(prevStep + 1, 4));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // const formData = new FormData();
+    const stepErrors = validateStep(step);
+
+    // If there are validation errors, display them and prevent submission
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      return;
+    }
+
+    setErrors({});
+
     const formValues = new FormData();
     formValues.append("firstName", formData.firstName);
     formValues.append("lastName", formData.lastName);
@@ -345,7 +317,6 @@ export default function InternshipForm() {
     formValues.append("year", formData.year);
     formValues.append("internshipStart", formData.internshipStart);
     formValues.append("internshipEnd", formData.internshipEnd);
-    // formValues.append("interestAreas", formData.interestAreas);
     formValues.append("otherInterests", formData.otherInterests);
     formValues.append("portfolio", formData.portfolio);
     formValues.append("linkedin", formData.linkedin);
@@ -429,6 +400,9 @@ export default function InternshipForm() {
                       placeholder="Enter your first name"
                       required
                     />
+                    {errors.firstName && (
+                      <p className="text-sm text-red-500">{errors.firstName}</p>
+                    )}
                   </div>
 
                   {/* Last Name */}
@@ -442,6 +416,9 @@ export default function InternshipForm() {
                       placeholder="Enter your last name"
                       required
                     />
+                    {errors.lastName && (
+                      <p className="text-sm text-red-500">{errors.lastName}</p>
+                    )}
                   </div>
 
                   {/* Email */}
@@ -456,6 +433,9 @@ export default function InternshipForm() {
                       placeholder="Enter your email"
                       required
                     />
+                    {errors.email && (
+                      <p className="text-sm text-red-500">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Phone */}
@@ -470,6 +450,9 @@ export default function InternshipForm() {
                       placeholder="Enter your phone number"
                       required
                     />
+                    {errors.phone && (
+                      <p className="text-sm text-red-500">{errors.phone}</p>
+                    )}
                   </div>
 
                   {/* Gender */}
@@ -487,6 +470,9 @@ export default function InternshipForm() {
                         <SelectItem value="female">Female</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.gender && (
+                      <p className="text-sm text-red-500">{errors.gender}</p>
+                    )}
                   </div>
                 </div>
 
@@ -503,6 +489,11 @@ export default function InternshipForm() {
                     placeholder="Tell us about yourself"
                     rows={4}
                   />
+                  {errors.aboutYourself && (
+                    <p className="text-sm text-red-500">
+                      {errors.aboutYourself}
+                    </p>
+                  )}
                 </div>
               </div>
             )}
@@ -524,6 +515,11 @@ export default function InternshipForm() {
                       placeholder="Enter your university"
                       required
                     />
+                    {errors.university && (
+                      <p className="text-sm text-red-500">
+                        {errors.university}
+                      </p>
+                    )}
                   </div>
 
                   {/* Department */}
@@ -539,6 +535,11 @@ export default function InternshipForm() {
                       placeholder="Enter your Department"
                       required
                     />
+                    {errors.department && (
+                      <p className="text-sm text-red-500">
+                        {errors.department}
+                      </p>
+                    )}
                   </div>
 
                   {/* Year */}
@@ -559,6 +560,9 @@ export default function InternshipForm() {
                         <SelectItem value="5">Fifth Year or above</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.year && (
+                      <p className="text-sm text-red-500">{errors.year}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -583,6 +587,11 @@ export default function InternshipForm() {
                       type="date"
                       required
                     />
+                    {errors.internshipStart && (
+                      <p className="text-sm text-red-500">
+                        {errors.internshipStart}
+                      </p>
+                    )}
                   </div>
 
                   {/* Internship End */}
@@ -598,6 +607,11 @@ export default function InternshipForm() {
                       type="date"
                       required
                     />
+                    {errors.internshipEnd && (
+                      <p className="text-sm text-red-500">
+                        {errors.internshipEnd}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -621,6 +635,11 @@ export default function InternshipForm() {
                         <Label htmlFor={`interest-${interest}`}>
                           {interest}
                         </Label>
+                        {errors.interestAreas && (
+                          <p className="text-sm text-red-500">
+                            {errors.interestAreas}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -642,13 +661,17 @@ export default function InternshipForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Upload Documents</Label>
+                  <Label>Upload Request Letter from your university</Label>
                   <Input
                     type="file"
                     multiple
                     accept=".pdf,.doc,.docx"
                     onChange={handleFileChange}
                   />
+                  {errors.documents && (
+                    <p className="text-sm text-red-500">{errors.documents}</p>
+                  )}
+
                   <ul>
                     {documents.map((file, index) => (
                       <li key={index} className="flex items-center space-x-2">
@@ -663,62 +686,6 @@ export default function InternshipForm() {
               </div>
             )}
 
-            {/* {step === 4 && (
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold">
-                  4. Additional Information
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="portfolio">Portfolio URL</Label>
-                    <Input
-                      id="portfolio"
-                      name="portfolio"
-                      type="url"
-                      value={formData.portfolio}
-                      onChange={(e) =>
-                        handleChange("portfolio", e.target.value)
-                      }
-                      placeholder="https://your-portfolio.com"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="linkedin">LinkedIn Profile URL</Label>
-                    <Input
-                      id="linkedin"
-                      name="linkedin"
-                      type="url"
-                      value={formData.linkedin}
-                      // onChange={handleChange}
-                      onChange={(e) => handleChange("linkedin", e.target.value)}
-                      placeholder="https://linkedin.com/in/your-profile"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Upload Documents</Label>
-                  <Input
-                    type="file"
-                    multiple
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                  />
-                  <ul>
-                    {documents.map((file, index) => (
-                      <li key={index} className="flex items-center space-x-2">
-                        <span>{file.name}</span>
-                        <button type="button" onClick={() => removeFile(index)}>
-                          Remove
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )} */}
-
             {/* Navigation Buttons */}
 
             <div className="flex justify-between">
@@ -728,7 +695,7 @@ export default function InternshipForm() {
                 </Button>
               )}
               {step < 3 ? (
-                <Button type="button" onClick={nextStep} className="ml-auto">
+                <Button type="button" onClick={handleNext} className="ml-auto">
                   Next
                 </Button>
               ) : (
