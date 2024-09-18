@@ -93,7 +93,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
             {focus.map((item, index) => (
               <Image
                 key={item.title}
-                src={`http://10.1.151.64:1337${item?.img ?? ""}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
                 alt={item.title}
                 width={200}
                 height={400}

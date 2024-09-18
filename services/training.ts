@@ -2,7 +2,7 @@ import { TrainingResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const TrainingItemFetch = async ()=>{
-    const res = await axios.get<TrainingResponse>('http://10.1.151.64:1337/api/training?populate=cards.img,cards.link,proposal');
+    const res = await axios.get<TrainingResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/training?populate=cards.img,cards.link,proposal`);
 
     const data = res.data.data;
     const trainingItems = {

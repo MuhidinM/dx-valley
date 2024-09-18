@@ -114,7 +114,7 @@ export default function PhotoGallery() {
               <X className='h-4 w-4' />
             </Button>
             <Image
-              src={`http://10.1.151.64:1337${filteredItems[selectedImage].img}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${filteredItems[selectedImage].img}`}
               alt={filteredItems[selectedImage].title}
              // height={200}
               // width={100} 
@@ -146,7 +146,7 @@ function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
           <CardContent className='p-0 relative'>
             <AspectRatio ratio={3 / 2}>
               <Image
-                src={`http://10.1.151.64:1337${item.img}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                 // height={200}
                 // width={100}
                 alt={item.title}

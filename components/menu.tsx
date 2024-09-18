@@ -61,7 +61,7 @@ export function Menu() {
                         href={item.highlight.href}
                         className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
                         style={{
-                          backgroundImage: `url(http://10.1.151.64:1337${item.highlight.img})`, 
+                          backgroundImage: `url(${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.highlight.img})`, 
                           backgroundSize: 'cover', 
                           backgroundPosition: 'center', 
                         }}
