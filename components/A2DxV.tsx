@@ -31,9 +31,9 @@ export default function A2DxV() {
           <div className='text-center mb-6'>
             <h2 className='font-bold text-base mb-2'>What is A2DxV?</h2>
             <p className='text-gray-600 text-sm'>
-              A2DxV stands for "Africans to DxValley". It represents our mission
-              to keep African talent in Africa, fostering innovation and growth
-              within the continent.
+              A2DxV stands for &quot;Africans to DxValley&quot;. It represents
+              our mission to keep African talent in Africa, fostering innovation
+              and growth within the continent.
             </p>
           </div>
           <Link href='/callforproposal' className='text-gray-600'>
@@ -66,7 +66,7 @@ export default function A2DxV() {
           {/* <h1 className="text-3xl font-bold text-gray-800 mb-4">DxValley's Incubation Lab</h1> */}
           <div className='flex items-center justify-between'>
             <h1 className='text-3xl font-bold text-gray-800'>
-              DxValley's Incubation Lab
+              DxValley&apos;s Incubation Lab
             </h1>
             <motion.div
               className='text-2xl font-bold'
@@ -83,8 +83,8 @@ export default function A2DxV() {
               bold dreams into reality.
             </p> */}
             <p className='font-bold text-lg text-gray-800 italic'>
-              Why send Africa's brightest to Silicon Valley when we can nurture
-              talent right here?
+              Why send Africa&apos;s brightest to Silicon Valley when we can
+              nurture talent right here?
             </p>
             {/* <p>We provide comprehensive support including:</p>
             <ul className='list-disc list-inside pl-4 space-y-2'>
