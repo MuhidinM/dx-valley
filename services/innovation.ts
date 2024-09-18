@@ -2,7 +2,7 @@ import { InnovationResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const InnovationItemFetch = async ()=>{
-    const res = await axios.get<InnovationResponse>('http://10.1.151.64:1337/api/innovation?populate=intro.img,companies.img,howeworks.img,gallery.img,connect,proposal');
+    const res = await axios.get<InnovationResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/innovation?populate=intro.img,companies.img,howeworks.img,gallery.img,connect,proposal`);
 
     const data = res.data.data;
     const innovationItems = {

@@ -4,7 +4,7 @@ import axios from "axios";
 import { title } from "process";
 
 export const OrgItemFetch = async ()=>{
-    const res = await axios.get<OrgResponse>('http://10.1.151.64:1337/api/organization?populate=cards.img,proposal');
+    const res = await axios.get<OrgResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/organization?populate=cards.img,proposal`);
 
     const data = res.data.data;
     // console.log("org-data: ", data)

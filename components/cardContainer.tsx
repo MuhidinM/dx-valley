@@ -24,7 +24,7 @@ export default function cardContainer ({ update }: { update: UpdateData[] }) {
             <CardHeader>
               <div className='mb-4'>
                 <Image
-                  src={`http://10.1.151.64:1337${card.img}`}
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
                   width={100}
                   height={100}

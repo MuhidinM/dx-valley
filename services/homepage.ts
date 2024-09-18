@@ -2,7 +2,7 @@ import { HomePageResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const HomepageItemFetch = async ()=>{
-    const res = await axios.get<HomePageResponse>('http://10.1.151.64:1337/api/homepage?populate=slider.img,slider.link,stats.img,delivered.img,delivered.link,update.img,update.events,connect,vision,videos,news,proposal,joinus.buttons');
+    const res = await axios.get<HomePageResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/homepage?populate=slider.img,slider.link,stats.img,delivered.img,delivered.link,update.img,update.events,connect,vision,videos,news,proposal,joinus.buttons`);
     
     const data = res.data.data;
     const homepageItems = {
