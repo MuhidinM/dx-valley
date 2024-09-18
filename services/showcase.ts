@@ -3,7 +3,7 @@ import { ShowCaseResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const ShowCaseItemFetch = async ()=>{
-    const res = await axios.get<ShowCaseResponse>('http://10.1.151.64:1337/api/incubateds?populate=incubated.link,incubated.img_1,incubated.img_2,incubated.founders,incubated.investors');
+    const res = await axios.get<ShowCaseResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/incubateds?populate=incubated.link,incubated.img_1,incubated.img_2,incubated.founders,incubated.investors`);
 
     const data = res.data.data;
     const showCaseItems = data[0].attributes.incubated.map(item => ({ 

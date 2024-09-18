@@ -35,7 +35,7 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
                 alt={`Image for ${item.title} not found`}
                 width={1}
                 height={10}
-                src={`http://10.1.151.64:1337${item.img ?? ""}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img ?? ""}`}
                 className='w-5/6 h-64 object-center items-center'
               />
 

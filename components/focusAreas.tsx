@@ -50,7 +50,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
               }`}>
               <Image
                 className='w-full md:w-2/5 rounded-lg'
-                src={`http://10.1.151.64:1337${item?.img ?? ""}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
                 alt={"image"}
                 height={200}
                 width={100}

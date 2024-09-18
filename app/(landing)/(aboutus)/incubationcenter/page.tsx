@@ -17,6 +17,7 @@ import { getImageUrl } from "@/lib/utils";
 import { useInView } from "react-intersection-observer"; // Install this hook using 'npm install react-intersection-observer'
 
 import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
+import A2DxV from "@/components/A2DxV";
 
 const Page = () => {
   const [incubationItems, setIncubationItems] = useState<IncubationData | null>(
@@ -46,7 +47,7 @@ const Page = () => {
       <SectionRight
         svg={
           <Image
-            src={`http://10.1.151.64:1337${incubationItems?.intro?.img ?? ""}`}
+            src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${incubationItems?.intro?.img ?? ""}`}
             alt='Image Left Not Found'
             width={500}
             height={800}
@@ -57,12 +58,16 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/incubationcenter"}
       />
-      <CTA
+      <div className="items-center align-middle px-16">
+        <A2DxV />
+      </div>
+
+      {/* <CTA
         title={incubationItems?.proposal.title || " "}
         buttonText={incubationItems?.proposal.button_name || " "}
         href={incubationItems?.proposal.href || " "}
         description={incubationItems?.proposal.description || " "}
-      />
+      /> */}
 
       {/* Observe the feature component */}
       <div ref={featureRef}>

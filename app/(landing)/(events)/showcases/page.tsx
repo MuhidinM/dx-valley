@@ -68,7 +68,7 @@ const Page = () => {
                       {" "}
                       {/* Set a fixed height for the image container */}
                       <Image
-                        src={`http://10.1.151.64:1337${projects.img_1}`}
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${projects.img_1}`}
                         // height={200}
                         // width={200}
                         layout='fill' /* Make the image fill the container */

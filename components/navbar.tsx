@@ -55,7 +55,7 @@ const Navbar = () => {
             /> */}
           </Link>
 
-          <div className='hidden lg:block p-2'>
+          <div className='hidden lg:block md:block p-2 md:mx-2'>
             <Menu />
           </div>
           <div className='flex items-center lg:order-2 space-x-2'>

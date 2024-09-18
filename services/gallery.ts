@@ -2,7 +2,7 @@ import { GalleryResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const GalleryItemFetch = async ()=>{
-    const res = await axios.get<GalleryResponse>('http://10.1.151.64:1337/api/galleries?populate=gallery.img');
+    const res = await axios.get<GalleryResponse>(`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/galleries?populate=gallery.img`);
     
     const data = res.data;   
     const galleryItems = data.data.map(item => ({

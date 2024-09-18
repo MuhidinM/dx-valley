@@ -35,7 +35,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
             index === currentIndex ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            backgroundImage: `url(http://10.1.151.64:1337${img?.img})`,
+            backgroundImage: `url(${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${img?.img})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

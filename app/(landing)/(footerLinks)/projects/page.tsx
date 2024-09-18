@@ -40,7 +40,7 @@ const Page = () => {
               key={indx}
               svg={
                 <Image
-                  src={`http://10.1.151.64:1337${item.img ?? ""}`}
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img ?? ""}`}
                   alt='Image Left Not Found'
                   width={400}
                   height={400}

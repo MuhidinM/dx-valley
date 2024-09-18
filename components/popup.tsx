@@ -52,7 +52,7 @@ export function Popup({details}:{details:ShowCaseData}) {
           </div>
           <div className=''>
             <Image
-              src={`http://10.1.151.64:1337${details.img_2}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${details.img_2}`}
               width={800}
               height={800}
               alt='incubation'

@@ -47,7 +47,7 @@ export default function Stats({ items }: { items: CardNoLinkData[] }) {
                   alt=''
                   width={60}
                   height={0}
-                  src={`http://10.1.151.64:1337${item.img}`}
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                   className='pb-6'
                 />
                 {/* <div className="w-60 h-60">{item.img}</div> */}
