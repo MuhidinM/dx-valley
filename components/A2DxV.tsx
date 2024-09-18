@@ -38,7 +38,7 @@ export default function A2DxV() {
           </div>
           <Link href='/callforproposal' className='text-gray-600'>
             <motion.button
-              className='bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full max-w-xs'
+              className='bg-coopBlue hover:coopBlueHover text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full max-w-xs'
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               animate={{
