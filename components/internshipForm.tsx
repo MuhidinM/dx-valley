@@ -1,8 +1,13 @@
 /** @format */
 
 "use client";
-
-import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { ChangeEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,7 +37,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { toast, Toaster } from "sonner";
 // import {
 //   AlertDialog,
 //   AlertDialogAction,
@@ -69,16 +75,10 @@ const techStackOptions = [
 ];
 
 const interestAreaOptions = [
-  "Web Development",
+  "Frontend Development",
+  "Backend Development",
   "Mobile Development",
-  "Data Science",
-  "Cloud Computing",
-  "DevOps",
-  "Cybersecurity",
-  "UI/UX Design",
   "Artificial Intelligence",
-  "Internet of Things",
-  "Robotics",
 ];
 
 const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
@@ -86,14 +86,14 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
     { number: 1, title: "Personal Info" },
     { number: 2, title: "Education" },
     { number: 3, title: "Internship Details" },
-    { number: 4, title: "Additional Info" },
+    // { number: 4, title: "Additional Info" },
   ];
 
   return (
-    <div className='mb-10'>
-      <div className='flex justify-between mb-2 gap-4'>
+    <div className="mb-10">
+      <div className="flex justify-between mb-2 gap-4">
         {steps.map((step) => (
-          <div key={step.number} className='flex flex-col items-center '>
+          <div key={step.number} className="flex flex-col items-center ">
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold sm:w-3 sm:h-5 lg:w-10 lg:h-10 md:w-10 md:h-10  xs:w-5 xs:h-5 ${
                 step.number === currentStep
@@ -101,27 +101,48 @@ const ProgressIndicator = ({ currentStep }: { currentStep: number }) => {
                   : step.number < currentStep
                   ? "bg-coopBlue text-white"
                   : "bg-gray-200 text-gray-600"
-              }`}>
+              }`}
+            >
               {step.number}
             </div>
-            <span className='mt-2 text-xs text-center flex flex-warp'>
+            <span className="mt-2 text-xs text-center flex flex-warp">
               {step.title}
             </span>
           </div>
         ))}
       </div>
-      <div className='relative'>
-        <div className='absolute top-0 left-0 h-2 rounded-full bg-gray-200 w-full'></div>
+      <div className="relative">
+        <div className="absolute top-0 left-0 h-2 rounded-full bg-gray-200 w-full"></div>
         <div
-          className='absolute top-0 left-0 h-2 bg-coopBlue  rounded-full transition-all duration-300 ease-in-out'
+          className="absolute top-0 left-0 h-2 bg-coopBlue  rounded-full transition-all duration-300 ease-in-out"
           style={{
             // width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
             width: `${(currentStep / steps.length) * 100}%`,
-          }}></div>
+          }}
+        ></div>
       </div>
     </div>
   );
 };
+interface FormData {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  phone: string;
+  aboutYourself: string;
+  university: string;
+  department: string;
+  year: string;
+  internshipStart: string;
+  internshipEnd: string;
+  // interestAreas: [];
+  interestAreas: string[];
+  otherInterests: string;
+  portfolio: string;
+  linkedin: string;
+  documents: File[];
+}
 
 export default function InternshipForm() {
   const [step, setStep] = useState(1);
@@ -129,12 +150,77 @@ export default function InternshipForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    aboutYourself: "",
+    university: "",
+    department: "",
+    year: "",
+    internshipStart: "",
+    internshipEnd: "",
+    interestAreas: [],
+    otherInterests: "",
+    portfolio: "",
+    linkedin: "",
+    documents: [],
+  });
+
+  // Handle input changes for text, select, and textarea fields
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+  // const handleChange = (
+  //   e: ChangeEvent<HTMLInputElement> | { name: string; value: string }
+  // ) => {
+  //   const { name, value } = "target" in e ? e.target : e; // Check if it's an event or a custom value object
+  //   setFormData((prevData) => ({ ...prevData, [name]: value }));
+  // };
+  const handleChange = (
+    name: keyof FormData, // Keep 'name' as a key of FormData
+    value: string,
+    index: number | null = null // Index for handling founderNames
+  ) => {
+    // Handle change for other fields in FormData
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleRadioChange = (value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      organizationType: value,
+    }));
+  };
+  // Handle checkbox changes (for interestAreas)
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = e.target;
+    setFormData((prevState) => {
+      const updatedInterests = checked
+        ? [...prevState.interestAreas, value]
+        : prevState.interestAreas.filter((interest) => interest !== value);
+      return { ...prevState, [name]: updatedInterests };
+    });
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const newFiles = Array.from(e.target.files).map((file) =>
         Object.assign(file, { preview: URL.createObjectURL(file) })
       );
-      setDocuments((prev) => [...prev, ...newFiles]);
+      setFormData((prev) => ({
+        ...prev,
+        documents: [...prev.documents, ...newFiles], // Append to documents array
+      }));
     }
   };
 
@@ -147,14 +233,149 @@ export default function InternshipForm() {
     });
   };
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   setIsSubmitted(false);
+  //   // Simulate API call
+  //   // await new Promise((resolve) => setTimeout(resolve, 5000));
+  //   // setIsSubmitting(false);
+  //   // setIsSubmitted(false);
+  // };
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch("/api/internshipform", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //           personalInfo: {
+  //             firstName: formData.firstName,
+  //             lastName: formData.lastName,
+  //             },
+  //           contactInfo: {
+  //             email: formData.email,
+  //             phoneNumberOne: formData.phone,
+  //           },
+  //       }),
+  //     });
+  //  const formData: FormData = {
+  //   personalInfo: {
+  //     firstName: formData.firstName,
+  //     lastName: formData.lastName,
+  //     gender: formData.gender,
+  //     aboutYourself: formData.aboutYourself,
+  //   },
+  //   contactInfo: {
+  //     email: formData.email,
+  //     phoneNumberOne: formData.phone,
+  //   },
+  //   educationInfo: {
+  //     university: formData.university,
+  //     department: formData.department,
+  //     year: formData.year,
+  //   },
+  //   internshipDetails: {
+  //     internshipStart: formData.internshipStart,
+  //     internshipEnd: formData.internshipEnd,
+  //     interestAreas: formData.interestAreas,
+  //     otherInterests: formData.otherInterests,
+  //   },
+  //   additionalInfo: {
+  //     portfolio: formData.portfolio,
+  //     linkedin: formData.linkedin,
+  //     documents: formData.documents,
+  //   },
+  // };
+
+  //     if (response.ok) {
+  //       setIsSubmitted(true);
+  //       toast.success("Registration successful!", {
+  //         description: "Your details have been submitted successfully.",
+  //       });
+  //       setFormData({
+  //         LeaderFirstName: "",
+  //         LeaderLastName: "",
+  //         email: "",
+  //         phoneNumber: "",
+  //         teamName: "",
+  //         numberOfMembers: 1,
+  //         teamMembers: [
+  //           { firstName: "", lastName: "", email: "", phoneNumber: "" },
+  //         ],
+  //         projectTitle: "",
+  //         projectDescription: "",
+  //         techStack: "",
+  //         projectUrl: "",
+  //         eventId: eventId,
+  //       });
+  //     } else {
+  //       const errorMessage = await response.json();
+  //       console.error("Error:", JSON.stringify(errorMessage));
+  //       toast.error("Registration failed", {
+  //         description:
+  //           JSON.stringify(errorMessage) ||
+  //           "An error occurred during registration.",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error registering:", error);
+  //     toast.error("An error occurred", {
+  //       description: "Please try again.",
+  //     });
+  //   }
+  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setIsSubmitted(false);
-    // Simulate API call
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
-    // setIsSubmitting(false);
-    // setIsSubmitted(false);
+
+    // const formData = new FormData();
+    const formValues = new FormData();
+    formValues.append("firstName", formData.firstName);
+    formValues.append("lastName", formData.lastName);
+    formValues.append("email", formData.email);
+    formValues.append("phone", formData.phone);
+    formValues.append("gender", formData.gender);
+    formValues.append("aboutYourself", formData.aboutYourself);
+    formValues.append("university", formData.university);
+    formValues.append("department", formData.department);
+    formValues.append("year", formData.year);
+    formValues.append("internshipStart", formData.internshipStart);
+    formValues.append("internshipEnd", formData.internshipEnd);
+    // formValues.append("interestAreas", formData.interestAreas);
+    formValues.append("otherInterests", formData.otherInterests);
+    formValues.append("portfolio", formData.portfolio);
+    formValues.append("linkedin", formData.linkedin);
+
+    formData.documents.forEach((doc, index) => {
+      formValues.append(`documents[${index}]`, doc);
+    });
+
+    formData.interestAreas.forEach((area) => {
+      formValues.append("interestAreas", area);
+    });
+
+    try {
+      // Send the data to the server or API
+      const response = await fetch("/api/internship", {
+        method: "POST",
+        body: formValues,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit application");
+      }
+
+      // Handle successful submission
+      setIsSubmitted(true);
+      setIsSubmitting(false);
+    } catch (error) {
+      console.error(error);
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
@@ -162,11 +383,11 @@ export default function InternshipForm() {
 
   if (isSubmitted) {
     return (
-      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
+      <div className=" bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 ">
         <div>
           <SubmissionSuccess
             title={"Submission Successful!"}
-            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+            icon={<CheckCircle2 className="w-8 h-8 text-green" />}
             desc={
               "Application submitted successfully. We will get back to you shortly."
             }
@@ -177,8 +398,8 @@ export default function InternshipForm() {
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
-      <Card className='w-full max-w-4xl mx-auto'>
+    <div className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2">
+      <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle>Internship Application</CardTitle>
           <CardDescription>
@@ -188,69 +409,98 @@ export default function InternshipForm() {
         </CardHeader>
         <CardContent>
           <ProgressIndicator currentStep={step} />
-          <form onSubmit={handleSubmit} className='space-y-8'>
+          <form onSubmit={handleSubmit} className="space-y-8">
             {step === 1 && (
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold'>
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">
                   1. Personal Information
                 </h3>
-                <div className='grid grid-cols-1  md:grid-cols-2 gap-4'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='fullName'>Full Name</Label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* First Name */}
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First Name</Label>
                     <Input
-                      id='fullName'
-                      name='fullName'
-                      placeholder='Enter your full name'
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        handleChange("firstName", e.target.value)
+                      }
+                      placeholder="Enter your first name"
                       required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='email'>Email</Label>
+
+                  {/* Last Name */}
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last Name</Label>
                     <Input
-                      id='email'
-                      name='email'
-                      type='email'
-                      placeholder='Enter your email'
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={(e) => handleChange("lastName", e.target.value)}
+                      placeholder="Enter your last name"
                       required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='phone'>Phone Number</Label>
+
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
                     <Input
-                      id='phone'
-                      name='phone'
-                      type='tel'
-                      placeholder='Enter your phone number'
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      type="email"
+                      placeholder="Enter your email"
                       required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='city'>City</Label>
+
+                  {/* Phone */}
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number</Label>
                     <Input
-                      id='city'
-                      name='city'
-                      placeholder='Enter your city'
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                      type="tel"
+                      placeholder="Enter your phone number"
+                      required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='gender'>Gender</Label>
-                    <Select name='gender'>
-                      <SelectTrigger id='gender'>
-                        <SelectValue placeholder='Select your gender' />
+
+                  {/* Gender */}
+                  <div className="space-y-2">
+                    <Label htmlFor="gender">Gender</Label>
+                    <Select
+                      onValueChange={(value) => handleChange("gender", value)}
+                      value={formData.gender}
+                    >
+                      <SelectTrigger id="gender">
+                        <SelectValue placeholder="Select your gender" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value='male'>Male</SelectItem>
-                        <SelectItem value='female'>Female</SelectItem>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='aboutYourself'>Tell us about yourself</Label>
+
+                {/* About Yourself */}
+                <div className="space-y-2">
+                  <Label htmlFor="aboutYourself">Tell us about yourself</Label>
                   <Textarea
-                    id='aboutYourself'
-                    name='aboutYourself'
-                    placeholder='Share a brief introduction about yourself, your background, and your career aspirations'
+                    id="aboutYourself"
+                    name="aboutYourself"
+                    value={formData.aboutYourself}
+                    onChange={(e) =>
+                      handleChange("aboutYourself", e.target.value)
+                    }
+                    placeholder="Tell us about yourself"
                     rows={4}
                   />
                 </div>
@@ -258,151 +508,115 @@ export default function InternshipForm() {
             )}
 
             {step === 2 && (
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold'>2. Education</h3>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                  {/* <div className='space-y-2'>
-                  <Label htmlFor='educationLevel'>Education Level</Label>
-                  <RadioGroup
-                    defaultValue='undergrad'
-                    id='educationLevel'
-                    name='educationLevel'>
-                    <div className='flex items-center space-x-2'>
-                      <RadioGroupItem value='undergrad' id='undergrad' />
-                      <Label htmlFor='undergrad'>Undergraduate</Label>
-                    </div>
-                    <div className='flex items-center space-x-2'>
-                      <RadioGroupItem value='grad' id='grad' />
-                      <Label htmlFor='grad'>Graduate</Label>
-                    </div>
-                  </RadioGroup>
-                </div> */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='university'>University</Label>
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">2. Education</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* University */}
+                  <div className="space-y-2">
+                    <Label htmlFor="university">University</Label>
                     <Input
-                      id='university'
-                      name='university'
-                      placeholder='Enter your university'
+                      id="university"
+                      name="university"
+                      value={formData.university}
+                      onChange={(e) =>
+                        handleChange("university", e.target.value)
+                      }
+                      placeholder="Enter your university"
                       required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='department'>Department</Label>
-                    {/* <Select name='department'>
-                      <SelectTrigger id='department'>
-                        <SelectValue placeholder='Select department' />
+
+                  {/* Department */}
+                  <div className="space-y-2">
+                    <Label htmlFor="department">Department</Label>
+                    <Input
+                      id="department"
+                      name="department"
+                      value={formData.department}
+                      onChange={(e) =>
+                        handleChange("department", e.target.value)
+                      }
+                      placeholder="Enter your Department"
+                      required
+                    />
+                  </div>
+
+                  {/* Year */}
+                  <div className="space-y-2">
+                    <Label htmlFor="year">Year of Study</Label>
+                    <Select
+                      onValueChange={(value) => handleChange("year", value)}
+                      value={formData.year}
+                    >
+                      <SelectTrigger id="year">
+                        <SelectValue placeholder="Select your year of study" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value='software'>
-                          Software Development
-                        </SelectItem>
-                        <SelectItem value='data'>Data Science</SelectItem>
-                        <SelectItem value='design'>UX/UI Design</SelectItem>
-                        <SelectItem value='marketing'>
-                          Digital Marketing
-                        </SelectItem>
-                        <SelectItem value='business'>
-                          Business Development
-                        </SelectItem>
-                      </SelectContent>
-                    </Select> */}
-                    <Input
-                      id='department'
-                      name='department'
-                      placeholder='Enter your Department'
-                      required
-                    />
-                  </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='major'>Major/Field of Study</Label>
-                    <Input
-                      id='major'
-                      name='major'
-                      placeholder='Enter your major'
-                      required
-                    />
-                  </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='year'>Year of Study</Label>
-                    <Select name='year'>
-                      <SelectTrigger id='year'>
-                        <SelectValue placeholder='Select your year of study' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='1'>First Year</SelectItem>
-                        <SelectItem value='2'>Second Year</SelectItem>
-                        <SelectItem value='3'>Third Year</SelectItem>
-                        <SelectItem value='4'>Fourth Year</SelectItem>
-                        <SelectItem value='5'>Fifth Year or above</SelectItem>
+                        <SelectItem value="1">First Year</SelectItem>
+                        <SelectItem value="2">Second Year</SelectItem>
+                        <SelectItem value="3">Third Year</SelectItem>
+                        <SelectItem value="4">Fourth Year</SelectItem>
+                        <SelectItem value="5">Fifth Year or above</SelectItem>
                       </SelectContent>
                     </Select>
-                  </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='graduationDate'>
-                      Expected Graduation Date
-                    </Label>
-                    <Input
-                      id='graduationDate'
-                      name='graduationDate'
-                      type='month'
-                      required
-                    />
                   </div>
                 </div>
               </div>
             )}
 
             {step === 3 && (
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold'>3. Internship Details</h3>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='internshipStart'>
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">3. Internship Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Internship Start */}
+                  <div className="space-y-2">
+                    <Label htmlFor="internshipStart">
                       Internship Start Date
                     </Label>
                     <Input
-                      id='internshipStart'
-                      name='internshipStart'
-                      type='date'
+                      id="internshipStart"
+                      name="internshipStart"
+                      value={formData.internshipStart}
+                      onChange={(e) =>
+                        handleChange("internshipStart", e.target.value)
+                      }
+                      type="date"
                       required
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='internshipEnd'>Internship End Date</Label>
+
+                  {/* Internship End */}
+                  <div className="space-y-2">
+                    <Label htmlFor="internshipEnd">Internship End Date</Label>
                     <Input
-                      id='internshipEnd'
-                      name='internshipEnd'
-                      type='date'
+                      id="internshipEnd"
+                      name="internshipEnd"
+                      value={formData.internshipEnd}
+                      onChange={(e) =>
+                        handleChange("internshipEnd", e.target.value)
+                      }
+                      type="date"
                       required
                     />
                   </div>
                 </div>
-                <div className='space-y-2'>
-                  <Label>Tech Stack</Label>
-                  <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
-                    {techStackOptions.map((tech) => (
-                      <div key={tech} className='flex items-center space-x-2'>
-                        <Checkbox
-                          id={`tech-${tech}`}
-                          name='techStack'
-                          value={tech}
-                        />
-                        <Label htmlFor={`tech-${tech}`}>{tech}</Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className='space-y-2'>
+
+                {/* Interest Areas */}
+                <div className="space-y-2">
                   <Label>Areas of Interest</Label>
-                  <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {interestAreaOptions.map((interest) => (
                       <div
                         key={interest}
-                        className='flex items-center space-x-2'>
-                        <Checkbox
+                        className="flex items-center space-x-2"
+                      >
+                        <input
+                          type="checkbox"
                           id={`interest-${interest}`}
-                          name='interestAreas'
+                          name="interestAreas"
                           value={interest}
+                          checked={formData.interestAreas.includes(interest)}
+                          onChange={handleCheckboxChange} // Make sure this is only for checkboxes
                         />
                         <Label htmlFor={`interest-${interest}`}>
                           {interest}
@@ -411,111 +625,125 @@ export default function InternshipForm() {
                     ))}
                   </div>
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='otherInterests'>
+
+                {/* Other Interests */}
+                <div className="space-y-2">
+                  <Label htmlFor="otherInterests">
                     Other Areas of Interest
                   </Label>
                   <Input
-                    id='otherInterests'
-                    name='otherInterests'
-                    placeholder='Enter any other areas of interest not listed above'
+                    id="otherInterests"
+                    name="otherInterests"
+                    value={formData.otherInterests}
+                    onChange={(e) =>
+                      handleChange("otherInterests", e.target.value)
+                    }
+                    placeholder="Enter any other areas of interest not listed above"
                   />
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='project-idea'>Project Idea</Label>
-                  <Textarea
-                    id='project-idea'
-                    name='project-idea'
-                    placeholder="Describe a project idea you'd like to work on during your internship"
-                    rows={4}
+                <div className="space-y-2">
+                  <Label>Upload Documents</Label>
+                  <Input
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileChange}
                   />
+                  <ul>
+                    {documents.map((file, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <span>{file.name}</span>
+                        <button type="button" onClick={() => removeFile(index)}>
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             )}
 
-            {step === 4 && (
-              <div className='space-y-4'>
-                <h3 className='text-xl font-semibold'>
+            {/* {step === 4 && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">
                   4. Additional Information
                 </h3>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='portfolio'>Portfolio URL</Label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="portfolio">Portfolio URL</Label>
                     <Input
-                      id='portfolio'
-                      name='portfolio'
-                      type='url'
-                      placeholder='https://your-portfolio.com'
+                      id="portfolio"
+                      name="portfolio"
+                      type="url"
+                      value={formData.portfolio}
+                      onChange={(e) =>
+                        handleChange("portfolio", e.target.value)
+                      }
+                      placeholder="https://your-portfolio.com"
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='linkedin'>LinkedIn Profile URL</Label>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="linkedin">LinkedIn Profile URL</Label>
                     <Input
-                      id='linkedin'
-                      name='linkedin'
-                      type='url'
-                      placeholder='https://www.linkedin.com/in/your-profile'
+                      id="linkedin"
+                      name="linkedin"
+                      type="url"
+                      value={formData.linkedin}
+                      // onChange={handleChange}
+                      onChange={(e) => handleChange("linkedin", e.target.value)}
+                      placeholder="https://linkedin.com/in/your-profile"
                     />
                   </div>
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='documents'>Upload Documents</Label>
+
+                <div className="space-y-2">
+                  <Label>Upload Documents</Label>
                   <Input
-                    id='documents'
-                    name='documents'
-                    type='file'
+                    type="file"
                     multiple
+                    accept=".pdf,.doc,.docx"
                     onChange={handleFileChange}
-                    className='file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90'
                   />
-                  {documents.length > 0 && (
-                    <ul className='mt-2 space-y-2'>
-                      {documents.map((doc, index) => (
-                        <li
-                          key={index}
-                          className='flex items-center justify-between p-2 bg-muted rounded-md'>
-                          <span className='text-sm text-muted-foreground truncate'>
-                            {doc.name}
-                          </span>
-                          <Button
-                            type='button'
-                            variant='ghost'
-                            size='icon'
-                            onClick={() => removeFile(index)}
-                            className='h-8 w-8'>
-                            <X className='h-4 w-4' />
-                            <span className='sr-only'>Remove file</span>
-                          </Button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <ul>
+                    {documents.map((file, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <span>{file.name}</span>
+                        <button type="button" onClick={() => removeFile(index)}>
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            )}
+            )} */}
 
-            <div className='flex justify-between'>
+            {/* Navigation Buttons */}
+
+            <div className="flex justify-between">
               {step > 1 && (
-                <Button type='button' onClick={prevStep} variant='outline'>
+                <Button type="button" onClick={prevStep} variant="outline">
                   Previous
                 </Button>
               )}
-              {step < 4 ? (
-                <Button type='button' onClick={nextStep} className='ml-auto'>
+              {step < 3 ? (
+                <Button type="button" onClick={nextStep} className="ml-auto">
                   Next
                 </Button>
               ) : (
                 <Button
-                  type='button'
+                  type="button"
                   onClick={handleSubmit}
-                  className='ml-auto bg-coopBlue'>
-                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                  className="ml-auto bg-coopBlue"
+                >
+                  Submit Application
+                  {/* {isSubmitting ? "Submitting..." : "Submit Application"} */}
                 </Button>
               )}
             </div>
           </form>
-
-          <Dialog open={isSubmitting} onOpenChange={setIsSubmitting}>
+          {/* <Dialog open={isSubmitting} onOpenChange={setIsSubmitting}>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Confirm Submission</DialogTitle>
@@ -526,25 +754,26 @@ export default function InternshipForm() {
               </DialogHeader>
               <DialogFooter>
                 <Button
-                  variant='outline'
-                  onClick={() => setIsSubmitting(false)}>
+                  variant="outline"
+                  onClick={() => setIsSubmitting(false)}
+                >
                   Cancel
                 </Button>
-
                 <Button
                   onClick={() => {
                     //   document.querySelector("form")?.requestSubmit();
                     //   setIsSubmitting(false); // Reset isSubmitting state to false
                     setIsSubmitted(true);
-                  }}>
+                  }}
+                >
                   {!isSubmitting ? (
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : null}
                   {!isSubmitting ? "Submitting..." : "Confirm Submission"}
                 </Button>
               </DialogFooter>
             </DialogContent>
-          </Dialog>
+          </Dialog> */}
         </CardContent>
       </Card>
     </div>
