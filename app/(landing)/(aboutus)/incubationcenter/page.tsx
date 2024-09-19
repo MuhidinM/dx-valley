@@ -37,11 +37,6 @@ const Page = () => {
     threshold: 0.2, // How much of the component should be visible to trigger (20% of the element in view)
     triggerOnce: true, // Only trigger once
   });
-
-  // if (!incubationItems) {
-  //   return <SkeletonLoaderAboutPage />;
-  // }
-
   return (
     <div className='space-y-8 mb-8 justify-center'>
       <SectionRight
@@ -61,15 +56,6 @@ const Page = () => {
       <div className="items-center align-middle lg:px-16 md:px-14 px-3">
         <A2DxV />
       </div>
-
-      {/* <CTA
-        title={incubationItems?.proposal.title || " "}
-        buttonText={incubationItems?.proposal.button_name || " "}
-        href={incubationItems?.proposal.href || " "}
-        description={incubationItems?.proposal.description || " "}
-      /> */}
-
-      {/* Observe the feature component */}
       <div ref={featureRef}>
         {featureInView && (
           <Feature focus={incubationItems?.incubation_process || []} />
