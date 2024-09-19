@@ -18,7 +18,7 @@ export default function ContestsPage() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setEvents(data);
-          console.log("event data", data);
+          // console.log("event data", data);
         } else {
           console.error("Expected an array but received:", data);
           setEvents([]);
@@ -34,7 +34,7 @@ export default function ContestsPage() {
   const Events = events.filter(
     (event) => event.category !== "call for proposal"
   );
-  console.log(Events.length, "is the event length");
+  // console.log(Events.length, "is the event length");
 
   if (!events) {
     return <div>No Events Found</div>;

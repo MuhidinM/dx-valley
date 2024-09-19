@@ -17,7 +17,7 @@ const Page = () => {
 
     fetchHomepageItems();
   }, []);
-  console.log("news article news homepage page", homepageItems?.news);
+  // console.log("news article news homepage page", homepageItems?.news);
   return (
     <div>
       {" "}

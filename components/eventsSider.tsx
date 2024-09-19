@@ -19,7 +19,7 @@ export default function EventsSider() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setEvents(data);
-          console.log("event data", data);
+          // console.log("event data", data);
         } else {
           console.error("Expected an array but received:", data);
           setEvents([]);
@@ -50,7 +50,7 @@ export default function EventsSider() {
     (event) => event.category !== "call for proposal"
   );
 
-  console.log(filteredEvents.length, "is the event length");
+  // console.log(filteredEvents.length, "is the event length");
 
   if (!filteredEvents) {
     return <div>No Events Found</div>;

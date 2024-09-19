@@ -5,7 +5,7 @@ import Link from "next/link";
 import { JoinUs } from "@/types/strapi-types";
 
 export default function CTAComponent({ JoinUs }: { JoinUs: JoinUs }) {
-  console.log(": ", JoinUs);
+  // console.log(": ", JoinUs);
   return (
     <section className='w-full px-2 py-2 md:py-10 lg:py-10'>
       <div className='container mx-auto max-w-7xl px-4  sm:px-6 lg:px-8 flex flex-col justify-between h-full'>

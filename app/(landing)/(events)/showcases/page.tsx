@@ -29,9 +29,9 @@ const Page = () => {
       fetchShowCaseItems();
     }, []);
 
-    useEffect(() => {
-      console.log("showcases - log: ", showcaseItems);
-    })
+    // useEffect(() => {
+    //   console.log("showcases - log: ", showcaseItems);
+    // })
  if (!showcaseItems) {
    return <SkeletonLoader />;
  }
