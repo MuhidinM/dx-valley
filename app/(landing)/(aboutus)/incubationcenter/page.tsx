@@ -58,7 +58,7 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/incubationcenter"}
       />
-      <div className="items-center align-middle px-16">
+      <div className="items-center align-middle lg:px-16 md:px-14 px-3">
         <A2DxV />
       </div>
 

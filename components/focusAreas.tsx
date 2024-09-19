@@ -22,7 +22,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
             <div className='w-20 h-1 bg-coopOrange'></div>
           </div>
         </div>
-        <ul className='tabs flex  flex-row w-full md:w-5/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-10 justify-center lg:gap-12 px-5 '>
+        <ul className='tabs flex  flex-row w-full md:w-5/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-10 justify-center lg:gap-12 px-4 '>
           {items?.map((item, index) => (
             <li
               key={index}

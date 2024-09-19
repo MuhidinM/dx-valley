@@ -28,7 +28,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                   <Image
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                     alt=''
-                    className='rounded-full'
+                    className='rounded-full '
                     width={300}
                     height={300}
                     id='image1'
@@ -54,10 +54,10 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
             ) : (
               <div
                 key={indx}
-                className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center my-5'>
-                <div className='w-full relative'>
-                  <div className='flex items-center mb-4'>
-                    <h4 className='text-2xl font-semibold mr-4' id='title2'>
+                className='flex flex-col-reverse lg:grid lg:grid-cols-2 items-center justify-center my-5'>
+                <div className='w-full relative lg:order-1'>
+                  <div className='flex items-center mt-6 mb-4'>
+                    <h4 className='text-2xl  font-semibold mr-4' id='title2'>
                       {item.title}
                     </h4>
                     <span className='h-4 w-4 bg-coopBlue rounded-full'></span>
@@ -68,7 +68,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                     </ReactMarkdown>
                   </div>
                 </div>
-                <div className='lg:w-3/5 w-full'>
+                <div className='lg:w-3/5 w-full lg:order-2'>
                   <Image
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                     alt=''

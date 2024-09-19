@@ -26,16 +26,18 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
             </div>
           </div>
         </div>
-        <div className='grid gap-4 grid-cols-4'>
+        <div className='grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-4 p-4'>
           {features.map((item, index) => (
             <article
               key={index}
-              className='overflow-hidden rounded-lg shadow transition hover:shadow-lg'>
+              className='overflow-hidden rounded-lg shadow transition hover:shadow-lg p-2'>
               <Image
                 alt={`Image for ${item.title} not found`}
                 width={1}
                 height={10}
-                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img ?? ""}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                  item.img ?? ""
+                }`}
                 className='w-5/6 h-64 object-center items-center'
               />
 
