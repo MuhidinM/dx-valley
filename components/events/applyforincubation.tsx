@@ -379,7 +379,7 @@ const ApplyForIncubation = () => {
 
   if (submitSuccess) {
     return (
-      <div className=' bg-gray-50 py-28  px-4 sm:px-6 lg:px-8 '>
+      <div className=' bg-gray-50 py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '>
         <div>
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
@@ -395,7 +395,7 @@ const ApplyForIncubation = () => {
   }
 
   return (
-    <div className=' bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 h-1/2'>
+    <div className=' bg-gray-50 py-12  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 h-1/2'>
       <Card className='max-w-2xl mx-auto'>
         <CardHeader className='space-y-1'>
           <CardTitle className='text-2xl font-bold'>

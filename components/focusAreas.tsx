@@ -53,7 +53,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
                 alt={"image"}
                 height={200}
-                width={100}
+                width={200}
               />
               <div className='text-left md:text-left ml-10 space-y-3'>
                 <h3 className='text-lg md:text-l font-bold'>{item.title}</h3>
