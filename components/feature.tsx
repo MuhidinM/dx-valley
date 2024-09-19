@@ -58,7 +58,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   return (
     <div ref={featureRef} className='container mt-20'>
       <div className='text-center '>
-        <h2 className='text-3xl b-4 shrink-0 font-bold'>
+        <h2 className='text-4xl b-4 shrink-0 font-extrabold'>
           <span className=' text-coopBlue'> How</span> Does It Work ?
         </h2>
         <div className='flex justify-center mt-2 mb-12'>

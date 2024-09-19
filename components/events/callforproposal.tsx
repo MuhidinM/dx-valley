@@ -97,10 +97,11 @@ export default function Callforproposal() {
               </Card>
             </div>
           ))
-        : // <div className='col-span-full text-center py-10 min-h-full'>
-          //   <p className='text-lg font-semibold h-fit'>No Call Available.</p>
-          // </div>
-          null}
+        : 
+        <div className='col-span-full text-center py-10 min-h-full'>
+            <p className='text-lg font-semibold h-fit'>No Call Available.</p>
+          </div>
+          }
     </div>
   );
 }

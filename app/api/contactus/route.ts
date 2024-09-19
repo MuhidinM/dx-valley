@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
             </tr>
             <tr>
               <td style="padding: 24px; text-align: center; background-color: #f9f9f9; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
-                <p style="margin: 0; font-size: 12px; line-height: 18px; color: #999999;">&copy; 2024 Dx Valley. All rights reserved.</p>
+                <p style="margin: 0; font-size: 12px; line-height: 18px; color: #999999;">&copy; ${new Date().getFullYear()} Dx Valley. All rights reserved.</p>
               </td>
             </tr>
           </table>
