@@ -37,8 +37,8 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                       item?.img ?? ""
                     }`}
-                    height={70}
-                    width={200}
+                     height={70}
+                    width={100}
                     alt={item.title}
                   />
                 }

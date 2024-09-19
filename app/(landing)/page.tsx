@@ -43,14 +43,14 @@ const Page = () => {
   return (
     <div>
       <div>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
-          <div className='lg:col-span-2 flex flex-col justify-between'>
+        <div className=' grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5'>
+          <div className='lg:col-span-2  flex flex-col justify-between'>
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}
           </div>
           <div className='lg:col-span-1 flex flex-col'>
-            <div className='mt-auto'>
+            <div className='mt-auto lg:block md:block hidden'>
               <Motto />
             </div>
             <div className='mt-auto'>
@@ -59,7 +59,7 @@ const Page = () => {
           </div>
         </div>
         <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
-          <div className='lg:col-span-2'>
+          <div className='lg:col-span-2 mx-2'>
             <CTA
               title={homepageItems?.proposal.title || " "}
               buttonText={homepageItems?.proposal.button_name || " "}
@@ -73,22 +73,22 @@ const Page = () => {
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-3'>
-          <div className='lg:col-span-2'>
+          <div className='lg:col-span-2 mx-2'>
             <CooperativeVision
               vision={homepageItems?.vision as Vision}
               motto_title={homepageItems?.motto_title || " "}
             />
           </div>
-          <div className='lg:col-span-1'>
+          <div className='lg:col-span-1 lg:block md:block hidden'>
             <VideosList video={homepageItems?.videos || []} />
           </div>
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5'>
-          <div className='lg:col-span-2'>
+          <div className='lg:col-span-2 m-3'>
             <CardContainer update={homepageItems?.update || []} />
           </div>
-          <div className='lg:col-span-1'>
+          <div className='lg:col-span-1 m-2'>
             {/* <CTAComponent JoinUs={homepageItems?.joinus  []} /> */}
             {homepageItems?.joinus && (
               <CTAComponent JoinUs={homepageItems.joinus} />
