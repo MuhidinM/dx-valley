@@ -10,7 +10,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 import Image from "next/image";
-import {  SkeletonPageColloab } from "@/components/SkeletonLoader";
+import { SkeletonPageColloab } from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -22,24 +22,19 @@ const Page = () => {
 
     fetchOrgItems();
   }, []);
-  // useEffect(() => {
-  //   console.log("org items: ", orgItems);
-  // });
 
   if (!orgItems) {
     return <SkeletonPageColloab />;
   }
   return (
     <div>
-   
-
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -55,7 +50,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -76,10 +71,7 @@ const Page = () => {
       />
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />
-
-      {/* <CollabObjectives /> */}
-      <div id='collab-form'>
-        {/* <CollabForm type='organization' /> */}
+      <div id="collab-form">
         <CollabForm />
       </div>
     </div>
