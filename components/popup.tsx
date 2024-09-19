@@ -1,3 +1,5 @@
+/** @format */
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,10 +13,10 @@ import {
 import Image from "next/image";
 import AiUserImage from "@/public/image/ai-user-image.png";
 import { ShowCaseData } from "@/types/strapi-types";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm'
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-export function Popup({details}:{details:ShowCaseData}) {
+export function Popup({ details }: { details: ShowCaseData }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,11 +24,13 @@ export function Popup({details}:{details:ShowCaseData}) {
           Read More
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[800px]'>
-        <DialogHeader></DialogHeader>
-        <div className='grid grid-cols-2 gap-4'>
-          <div className=''>
-            <h1 className='text-4xl font-bold'>{details.projectName}</h1>
+      <DialogContent className='sm:max-w-[800px] rounded-lg'>
+        {/* <DialogHeader></DialogHeader> */}
+        <div className='grid grid-cols-1 gap-4'>
+          <div className='text-sm md:text-lg'>
+            <h1 className='md:text-4xl text-2xl font-bold'>
+              {details.projectName}
+            </h1>
             <div className='flex justify-between'>
               <div className=''>
                 <p className='font-bold'>Launched</p>
@@ -53,8 +57,8 @@ export function Popup({details}:{details:ShowCaseData}) {
           <div className=''>
             <Image
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${details.img_2}`}
-              width={800}
-              height={800}
+              width={400}
+              height={400}
               alt='incubation'
             />
           </div>
@@ -78,10 +82,16 @@ export function Popup({details}:{details:ShowCaseData}) {
               </ul>
             </div>
           </div>
-          <p>
+          <p className='hidden md:block'>
             <span className='prose font-bold'>{details.projectName}</span>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-             {details.long_description}
+              {details.long_description}
+            </ReactMarkdown>
+          </p>
+          <p className='block md:hidden'>
+            <span className='prose font-bold'>{details.projectName}</span>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {details.small_description}
             </ReactMarkdown>
           </p>
         </div>

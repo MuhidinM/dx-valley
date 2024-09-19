@@ -37,8 +37,8 @@ export default function A2DxV() {
     <div
       ref={statsRef}
       // className='min-h-screen bg-gray-100 flex items-center justify-center p-4 overflow-hidden relative'
-      >
-      <div className='z-10 w-full max-w-6xl bg-white rounded-lg shadow-xl p-8 flex flex-col md:flex-row lg:items-center md:items-center gap-8'>
+    >
+      <div className='z-10 w-full max-w-6xl bg-white dark:bg-gray-950 rounded-lg shadow-xl p-8 flex flex-col md:flex-row lg:items-center md:items-center gap-8'>
         <motion.div
           className='w-full md:w-1/3 flex flex-col items-center'
           initial={{ opacity: 0, x: -50 }}
@@ -48,7 +48,7 @@ export default function A2DxV() {
             <span className='text-orange-500'>A2</span>
             <span className='text-[#00adef]'>DxV</span>
           </div>
-          <div className='text-center mb-6'>
+          <div className='text-center mb-6 '>
             <h2 className='font-bold text-base mb-2'>What is A2DxV?</h2>
             <p className='text-gray-600 text-sm'>
               A2DxV stands for &quot;Africans to DxValley&quot;. It represents
@@ -90,7 +90,7 @@ export default function A2DxV() {
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
           transition={{ duration: 0.5, delay: 0.2 }}>
           <div className='flex items-center justify-between'>
-            <h1 className='lg:text-3xl md:text-3xl text-xl font-bold text-gray-800'>
+            <h1 className='lg:text-3xl md:text-3xl text-xl font-bold text-gray-800 dark:text-gray-300'>
               DxValley&apos;s Incubation Lab
             </h1>
             <motion.div
@@ -103,7 +103,7 @@ export default function A2DxV() {
             </motion.div>
           </div>
           <div className='space-y-4 text-gray-600'>
-            <p className='font-bold text-lg text-gray-800 italic'>
+            <p className='font-bold text-lg text-gray-800 italic dark:text-gray-300'>
               Why send Africa&apos;s brightest to Silicon Valley when we can
               nurture talent right here?
             </p>
@@ -112,7 +112,7 @@ export default function A2DxV() {
               empowering African innovators to build solutions for Africa and
               beyond.
             </p>
-            <p className='font-bold italic text-lg text-black'>
+            <p className='font-bold italic text-lg text-black dark:text-gray-300'>
               Come to DxValley, where African talent grows for Africa.
             </p>
           </div>
