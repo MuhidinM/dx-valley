@@ -223,7 +223,7 @@ const Footer = () => {
                 className='hover:underline'>
                 Cooperative Bank of Oromia
               </Link>
-              , Inc. All rights reserved.
+               Inc. All rights reserved.
             </p>
           </div>
         </div>
