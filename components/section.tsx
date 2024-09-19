@@ -1,4 +1,3 @@
-/** @format */
 
 import React from "react";
 import { Button } from "./ui/button";
@@ -19,7 +18,7 @@ export const SectionRight: React.FC<SectionProps> = ({
       <div className="gap-8 items-center py-4 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-10 lg:px-6">
         {svg}
         <div className="mt-4 md:mt-0">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+          <h2 className="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             {title}
           </h2>
           <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
@@ -29,7 +28,7 @@ export const SectionRight: React.FC<SectionProps> = ({
           </div>
           {buttonText !== "hidden" && (
             <Link href={href}>
-              <Button className="bg-coopBlue hover:bg-coopBlueHover ">
+              <Button className="bg-coopBlue hover:bg-coopBlueHover">
                 {buttonText}
               </Button>
             </Link>
@@ -51,7 +50,7 @@ export const SectionLeft: React.FC<SectionProps> = ({
     <section className="dark:bg-gray-900">
       <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <div className="mt-4 md:mt-0">
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+          <h2 className="mb-4 text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             {title}
           </h2>
           <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
@@ -62,7 +61,7 @@ export const SectionLeft: React.FC<SectionProps> = ({
 
           {buttonText !== "hidden" && (
             <Link href={href}>
-              <Button className="bg-coopBlue hover:bg-coopBlueHover ">
+              <Button className="bg-coopBlue hover:bg-coopBlueHover mb-4 md:mb-0">
                 {buttonText}
               </Button>
             </Link>
