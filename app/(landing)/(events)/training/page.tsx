@@ -23,9 +23,9 @@ const Page = () => {
   }, []);
 
   if (!trainingItems) {
-    return <SkeletonLoaderTrainingPage   />;
+    return <SkeletonLoaderTrainingPage />;
   }
-  
+
   return (
     <div>
       {trainingItems?.cards.map((cards, indx) => {
@@ -34,7 +34,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -46,12 +46,11 @@ const Page = () => {
             buttonText={cards.link.title}
           />
         ) : (
-          
           <SectionRight
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
