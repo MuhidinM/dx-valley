@@ -98,10 +98,10 @@ const Footer = () => {
 
               <div className='flex justify-end'>
                 <div className='w-full md:max-w-md lg:max-w-lg'>
-                  <div className='space-y-5 p-6'>
+                  <div className='space-y-2 p-2'>
                     <form onSubmit={handleSubmit}>
-                      <div className='space-y-4 sm:flex sm:space-y-0 sm:items-end'>
-                        <div className='w-full sm:w-auto flex-grow space-y-2'>
+                      <div className='space-y-4 sm:flex flex-col '>
+                        <div className='w-auto flex-grow space-y-2'>
                           <Label htmlFor='email' className='text-white'>
                             Get the latest News and More.
                           </Label>
@@ -111,14 +111,14 @@ const Footer = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
                           /> */}
+                        </div>
+                        <div className='sm:ml-1 flex gap-2'>
                           <Input
                             type='email'
                             placeholder='Email'
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
                           />
-                        </div>
-                        <div className='sm:ml-3'>
                           <Button className='bg-coopOrange hover:bg-black'>
                             <span className='text-white '> SUBSCRIBE</span>
                           </Button>
