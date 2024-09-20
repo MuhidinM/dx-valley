@@ -247,14 +247,12 @@ export interface IncubationData {
 export interface IncubationResponse {
   data: {
     id: number;
-    attributes: {
-      intro: CardNoLink;
-      incubation_process: CardNoLink[];
-      offers: CardNoLink[];
-      training: CardNoLink[];
-      focus: CardNoLink[];
-      proposal: CallProposalLink;
-    };
+    intro: CardNoLink;
+    incubation_process: CardNoLink[];
+    offers: CardNoLink[];
+    training: CardNoLink[];
+    focus: CardNoLink[];
+    proposal: CallProposalLink;
   };
 }
 
