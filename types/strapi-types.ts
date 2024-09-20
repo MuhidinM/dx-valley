@@ -351,19 +351,17 @@ export interface HomePageData {
 export interface HomePageResponse {
   data: {
     id: number;
-    attributes: {
-      motto_title: string;
-      slider: Card[];
-      stats: CardNoLink[];
-      delivered: Card[];
-      update: Update[];
-      vision: Vision;
-      videos: Videos[];
-      joinus: JoinUs;
-      news: News[];
-      connect: Address;
-      proposal: CallProposalLink;
-    };
+    motto_title: string;
+    slider: Card[];
+    stats: CardNoLink[];
+    delivered: Card[];
+    update: Update[];
+    vision: Vision;
+    videos: Videos[];
+    joinus: JoinUs;
+    news: News[];
+    connect: Address;
+    proposal: CallProposalLink;
   };
 }
 
