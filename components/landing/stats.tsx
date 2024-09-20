@@ -45,7 +45,7 @@ export default function Stats({ items }: { items: CardNoLinkData[] }) {
               className="flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-gray-800 rounded-xl shadow-lg"
             >
               <div>
-                <Image
+                <img
                   alt=""
                   width={60}
                   height={0}

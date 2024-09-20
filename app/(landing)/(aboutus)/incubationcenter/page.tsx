@@ -38,12 +38,14 @@ const Page = () => {
     triggerOnce: true, // Only trigger once
   });
   return (
-    <div className='space-y-8 mb-8 justify-center'>
+    <div className="space-y-8 mb-8 justify-center">
       <SectionRight
         svg={
-          <Image
-            src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${incubationItems?.intro?.img ?? ""}`}
-            alt='Image Left Not Found'
+          <img
+            src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+              incubationItems?.intro?.img ?? ""
+            }`}
+            alt="Image Left Not Found"
             width={500}
             height={800}
           />
