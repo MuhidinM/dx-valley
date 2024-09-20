@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const TrainingItemFetch = async () => {
   const res = await axios.get<TrainingResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/training?populate=cards.img,cards.link,proposal`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/training?populate=cards.img&populate=cards.link&populate=proposal`
   );
 
   const data = res.data.data;
@@ -16,7 +16,7 @@ export const TrainingItemFetch = async () => {
           title: card.link.title,
           href: card.link.href,
         },
-        img: card.img.data?.url || "",
+        img: card.img?.url || "",
       })) || [],
     proposal: {
       title: data.proposal.title || "",

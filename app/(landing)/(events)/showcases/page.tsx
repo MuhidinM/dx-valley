@@ -44,57 +44,55 @@ const Page = () => {
    return <SkeletonLoader />;
  }
   return (
-    <div className='flex items-center justify-center mx-2'>
-      <div className='text-center my-8'>
-        <div className=''>
-          <h2 className='text-4xl font-bold'>
-            <span className='text-coopBlue'>Incubated</span> Products
+    <div className="flex items-center justify-center mx-2">
+      <div className="text-center my-8">
+        <div className="">
+          <h2 className="text-4xl font-bold">
+            <span className="text-coopBlue">Incubated</span> Products
           </h2>
-          <div className='flex justify-center mt-2  mb-12'>
-            <div className='w-20 h-1 bg-coopOrange'></div>
+          <div className="flex justify-center mt-2  mb-12">
+            <div className="w-20 h-1 bg-coopOrange"></div>
           </div>
         </div>
 
-        <div className='grid lg:grid-cols-3 gap-4'>
+        <div className="grid lg:grid-cols-3 gap-4">
           {showcaseItems.map((projects, idx) => {
             return (
               <Card
-                className='w-full h-[600px] flex flex-col justify-between'
-                key={idx}>
-                <CardHeader key={idx} className=' h-[240px]'>
+                className="w-full h-[600px] flex flex-col justify-between"
+                key={idx}
+              >
+                <CardHeader key={idx} className=" h-[240px]">
                   <CardTitle>{projects.projectName}</CardTitle>
                   <CardDescription>
-                    <span className='text-orange-500 font-bold'>
+                    <span className="text-orange-500 font-bold">
                       {projects.projectName}
                     </span>{" "}
                     {projects.small_description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className=''>
-                  <div className='relative w-full h-64'>
+                <CardContent className="">
+                  <div className="relative w-full h-64">
                     {" "}
                     {/* Set a fixed height for the image container */}
-                    <Image
+                    <img
                       src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${projects.img_1}`}
-                      // height={200}
-                      // width={200}
-                      layout='fill' /* Make the image fill the container */
-                      objectFit='cover' /* Ensure the image covers the entire container */
-                      alt='incubation'
+                      className="w-full h-64"
+                      alt="incubation"
                     />
                   </div>
-                  <div className='flex justify-between my-2'>
+                  <div className="flex justify-between my-2">
                     <div>
-                      <h3 className='font-bold'>Founders</h3>
-                      <ul className='text-gray-500'>
+                      <h3 className="font-bold">Founders</h3>
+                      <ul className="text-gray-500">
                         {projects.founders.map((founder, inx) => (
                           <li key={inx}>{founder.name}</li>
                         ))}
                       </ul>
                     </div>
-                    <div className=''>
-                      <h3 className='font-bold'>Co-Investors</h3>
-                      <ul className='text-gray-500'>
+                    <div className="">
+                      <h3 className="font-bold">Co-Investors</h3>
+                      <ul className="text-gray-500">
                         {projects.investors.map((investor, inx) => {
                           return <li key={inx}>{investor.name}</li>;
                         })}
@@ -102,8 +100,8 @@ const Page = () => {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className='w-full justify-between '>
-                  <div className='md:ml-auto '>
+                <CardFooter className="w-full justify-between ">
+                  <div className="md:ml-auto ">
                     <Popup details={projects} />
                   </div>
                 </CardFooter>

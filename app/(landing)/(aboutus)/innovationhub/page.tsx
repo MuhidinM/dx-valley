@@ -42,7 +42,7 @@ const Page = () => {
     <div className="space-y-8 mb-8 justify-center">
       <SectionLeft
         svg={
-          <Image
+          <img
             src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
               innovationItems?.intro?.img ?? ""
             }`}
@@ -71,7 +71,7 @@ const Page = () => {
             <CardComponent
               key={indx}
               svg={
-                <Image
+                <img
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                     item.img ?? ""
                   }`}

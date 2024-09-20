@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const MediaItemFetch = async () => {
   const res = await axios.get<OrgResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/media?populate=cards.link,cards.img,proposal`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/media?populate=cards.link&populate=cards.img&populate=proposal`
   );
 
   const data = res.data.data;
@@ -18,7 +18,7 @@ export const MediaItemFetch = async () => {
           title: card?.link?.title,
           href: card?.link?.href,
         },
-        img: card.img.data?.url || "",
+        img: card.img?.url || "",
       })) || {},
     proposal: {
       title: data.proposal.title || "",
