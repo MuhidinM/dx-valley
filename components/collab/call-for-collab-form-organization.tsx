@@ -211,7 +211,7 @@ export default function OrganizationRegistrationForm() {
   };
 
   return (
-    <div className='flex items-center justify-center bg-background p-10'>
+    <div className='flex items-center justify-center bg-background lg:p-10 md:p-10 p-6'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl '>
         <CardHeader>
