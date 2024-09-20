@@ -159,10 +159,8 @@ export interface TrainingData {
 export interface TrainingResponse {
   data: {
     id: number;
-    attributes: {
-      cards: Card[];
-      proposal: CallProposalLink;
-    };
+    cards: Card[];
+    proposal: CallProposalLink;
   };
 }
 
@@ -175,11 +173,9 @@ export interface OrgData {
 export interface OrgResponse {
   data: {
     id: number;
-    attributes: {
-      overview: string;
-      cards: Card[];
-      proposal: CallProposalLink;
-    };
+    overview: string;
+    cards: Card[];
+    proposal: CallProposalLink;
   };
 }
 
@@ -219,9 +215,7 @@ export interface ShowCaseData {
 export interface ShowCaseResponse {
   data: {
     id: number;
-    attributes: {
-      incubated: Incubated[];
-    };
+    incubated: Incubated[];
   }[];
 }
 
@@ -247,14 +241,12 @@ export interface IncubationData {
 export interface IncubationResponse {
   data: {
     id: number;
-    attributes: {
-      intro: CardNoLink;
-      incubation_process: CardNoLink[];
-      offers: CardNoLink[];
-      training: CardNoLink[];
-      focus: CardNoLink[];
-      proposal: CallProposalLink;
-    };
+    intro: CardNoLink;
+    incubation_process: CardNoLink[];
+    offers: CardNoLink[];
+    training: CardNoLink[];
+    focus: CardNoLink[];
+    proposal: CallProposalLink;
   };
 }
 
@@ -276,14 +268,12 @@ export interface InnovationData {
 export interface InnovationResponse {
   data: {
     id: number;
-    attributes: {
-      intro: CardNoLink;
-      companies: CardNoLink[];
-      howeworks: CardNoLink[];
-      gallery: CardNoLink[];
-      connect: Address;
-      proposal: CallProposalLink;
-    };
+    intro: CardNoLink;
+    companies: CardNoLink[];
+    howeworks: CardNoLink[];
+    gallery: CardNoLink[];
+    connect: Address;
+    proposal: CallProposalLink;
   };
 }
 
@@ -351,19 +341,17 @@ export interface HomePageData {
 export interface HomePageResponse {
   data: {
     id: number;
-    attributes: {
-      motto_title: string;
-      slider: Card[];
-      stats: CardNoLink[];
-      delivered: Card[];
-      update: Update[];
-      vision: Vision;
-      videos: Videos[];
-      joinus: JoinUs;
-      news: News[];
-      connect: Address;
-      proposal: CallProposalLink;
-    };
+    motto_title: string;
+    slider: Card[];
+    stats: CardNoLink[];
+    delivered: Card[];
+    update: Update[];
+    vision: Vision;
+    videos: Videos[];
+    joinus: JoinUs;
+    news: News[];
+    connect: Address;
+    proposal: CallProposalLink;
   };
 }
 
@@ -378,9 +366,7 @@ export interface GalleryData {
 export interface GalleryResponse {
   data: {
     id: number;
-    attributes: {
-      type: string;
-      gallery: CardNoLink;
-    };
+    type: string;
+    gallery: CardNoLink;
   }[];
 }

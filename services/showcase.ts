@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const ShowCaseItemFetch = async () => {
   const res = await axios.get<ShowCaseResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/incubateds?populate=incubated.link,incubated.img_1,incubated.img_2,incubated.founders,incubated.investors`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/incubateds?populate=incubated.link&populate=incubated.img_1&populate=incubated.img_2&populate=incubated.founders&populate=incubated.investors`
   );
 
   const data = res.data.data;
@@ -26,8 +26,8 @@ export const ShowCaseItemFetch = async () => {
       item.founders.map((investor) => ({
         name: investor.name,
       })) || {},
-    img_1: item.img_1.data?.url || "",
-    img_2: item.img_2.data?.url || "",
+    img_1: item.img_1?.url || "",
+    img_2: item.img_2?.url || "",
   }));
   //console.log("showCaseItems: ", showCaseItems)
   return showCaseItems;
