@@ -28,18 +28,15 @@ const CooperativeVision = ({
         <div className='relative z-10'>
           <div className='flex items-center mb-4'>
             <Users className='text-coopBlue w-6 h-6 sm:w-8 sm:h-8 mr-3' />
-            <h2 className="text-sm sm:text-3xl font-bold text-gray-800 dark:text-gray-300 font-['Open Sans']">
+            <h2 className="text-md lg:text-3xl font-bold text-gray-800 dark:text-gray-300 font-['Open Sans']">
               {vision?.title ?? ""}
             </h2>
           </div>
-          <div className="prose text-base sm:text-lg text-gray-600 leading-relaxed dark:text-gray-300 mb-3 font-['Open Sans']">
-            <ReactMarkdown
-             
-              remarkPlugins={[remarkGfm]}
-            >
+          <div className="prose text-base  text-gray-600 leading-relaxed dark:text-gray-300 mb-3 font-['Open Sans'] text-sm lg:text-lg">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {vision?.description ?? ""}
-               </ReactMarkdown>
-          </div>    
+            </ReactMarkdown>
+          </div>
 
           <div className='flex justify-end'>
             <div className="bg-orange-100 text-orange-800 text-xs sm:text-sm font-semibold py-1.5 px-3 rounded-full inline-block font-['Open Sans'] shadow-md">

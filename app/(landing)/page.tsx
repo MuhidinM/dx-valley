@@ -33,33 +33,26 @@ const Page = () => {
 
     fetchHomepageItems();
   }, []);
-
-  // if (!homepageItems) {
-  //   return <SkeletonLoader />;
-  // }
-  // <Head>
-  //   <link rel='icon' href='/DX.ico' sizes='any' />
-  // </Head>
   return (
     <div>
       <div>
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5'>
-          <div className='lg:col-span-2 flex flex-col justify-between'>
+        <div className=" grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5">
+          <div className="lg:col-span-2  flex flex-col justify-between">
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}
           </div>
-          <div className='lg:col-span-1 flex flex-col'>
-            <div className='mt-auto'>
+          <div className="lg:col-span-1 flex flex-col">
+            <div className="mt-auto lg:block md:block hidden">
               <Motto />
             </div>
-            <div className='mt-auto'>
+            <div className="mt-auto">
               <NewsList news={homepageItems?.news || []} />
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6'>
-          <div className='lg:col-span-2'>
+        <div className="grid grid-cols-1 mt-3 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 mx-2">
             <CTA
               title={homepageItems?.proposal.title || " "}
               buttonText={homepageItems?.proposal.button_name || " "}
@@ -67,49 +60,54 @@ const Page = () => {
               description={homepageItems?.proposal.description || " "}
             />
           </div>
-          <div className='lg:col-span-1'>
+          <div className="lg:col-span-1">
             <EventsSider />
           </div>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mt-3'>
-          <div className='lg:col-span-2'>
+
+
+
+
+
+
+
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-3">
+          <div className="lg:col-span-2 mx-2">
             <CooperativeVision
               vision={homepageItems?.vision as Vision}
               motto_title={homepageItems?.motto_title || " "}
             />
           </div>
-          <div className='lg:col-span-1'>
+          <div className="lg:col-span-1 lg:block md:block hidden">
             <VideosList video={homepageItems?.videos || []} />
           </div>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5'>
-          <div className='lg:col-span-2'>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5">
+          <div className="lg:col-span-2 m-3">
             <CardContainer update={homepageItems?.update || []} />
           </div>
-          <div className='lg:col-span-1'>
+          <div className="lg:col-span-1 m-2">
             {/* <CTAComponent JoinUs={homepageItems?.joinus  []} /> */}
             {homepageItems?.joinus && (
               <CTAComponent JoinUs={homepageItems.joinus} />
             )}
           </div>
         </div>
-        <div className=''>
+        <div className="">
           <Stats items={homepageItems?.stats || []} />
         </div>
 
         <br />
-        {/* <h1 className='text-3xl font-bold m-0 text-center'>
-          Breakthroughs We&apos;ve Delivered
-        </h1> */}
-        <div className='text-center'>
-          <h2 className='text-4xl  lg:text-4xl sm:text-wrap md:text-wrap  font-bold'>
-            <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
+        <div className="text-center">
+          <h2 className="text-4xl  lg:text-4xl sm:text-wrap md:text-wrap  font-bold">
+            <span className="text-coopBlue">Breakthroughs</span> We&apos;ve
             Delivered
           </h2>
-          <div className='flex justify-center mt-2  mb-16'>
-            <div className='w-36 h-1 bg-coopOrange'></div>
+          <div className="flex justify-center mt-2  mb-16">
+            <div className="w-36 h-1 bg-coopOrange"></div>
           </div>
         </div>
         <br></br>

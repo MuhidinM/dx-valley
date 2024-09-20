@@ -10,7 +10,7 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgItemFetch } from "@/services/organization";
 import { OrgData } from "@/types/strapi-types";
 import Image from "next/image";
-import {  SkeletonPageColloab } from "@/components/SkeletonLoader";
+import { SkeletonPageColloab } from "@/components/SkeletonLoader";
 const Page = () => {
   const [orgItems, setOrgItems] = useState<OrgData>();
 
@@ -22,17 +22,12 @@ const Page = () => {
 
     fetchOrgItems();
   }, []);
-  // useEffect(() => {
-  //   console.log("org items: ", orgItems);
-  // });
 
   if (!orgItems) {
     return <SkeletonPageColloab />;
   }
   return (
     <div>
-   
-
       {orgItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
@@ -68,18 +63,17 @@ const Page = () => {
           />
         );
       })}
-      <CTA
-        title={orgItems?.proposal.title || " "}
-        buttonText={orgItems?.proposal.button_name || " "}
-        href={orgItems?.proposal.href || " "}
-        description={orgItems?.proposal.description || " "}
-      />
+      <div className="mx-2 p-3">
+        <CTA
+          title={orgItems?.proposal.title || " "}
+          buttonText={orgItems?.proposal.button_name || " "}
+          href={orgItems?.proposal.href || " "}
+          description={orgItems?.proposal.description || " "}
+        />
+      </div>
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />
-
-      {/* <CollabObjectives /> */}
       <div id='collab-form'>
-        {/* <CollabForm type='organization' /> */}
         <CollabForm />
       </div>
     </div>

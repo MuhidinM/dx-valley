@@ -30,7 +30,7 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
         <div>
           {" "}
           <div
-            className='prose text-gray-700 flex items-center justify-center'
+            className='prose text-gray-700 px-10 flex items-center justify-center'
             suppressHydrationWarning>
             {isClient && (
               <ReactMarkdown remarkPlugins={[remarkGfm]}>

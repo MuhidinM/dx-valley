@@ -12,6 +12,11 @@ import { Event } from "@/types/types";
 export default function EventsSider() {
   const [events, setEvents] = useState<Event[]>([]);
 
+// const sortedEvent = [...events].sort(
+//   (a, b) => new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
+// );
+// const latestEvent = sortedEvent.slice(0, 3);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -75,7 +80,7 @@ export default function EventsSider() {
                   </p>
                   <Link
                     // href={event.link}
-                    href='/contests'
+                    href={event.link || "/contests"}
                     className='text-primary text-sm font-semibold hover:underline  text-md'>
                     Register
                   </Link>
