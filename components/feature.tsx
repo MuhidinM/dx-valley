@@ -34,7 +34,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   // Create IntersectionObserver instance
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.1  , // Trigger when at least 10% of the component is visible
+      threshold: 0.1, // Trigger when at least 10% of the component is visible
     });
 
     if (featureRef.current) {
@@ -56,27 +56,28 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   }, [timer]);
 
   return (
-    <div ref={featureRef} className='container mt-20'>
-      <div className='text-center '>
-        <h2 className='text-4xl b-4 shrink-0 font-extrabold'>
-          <span className=' text-coopBlue'> How</span> Does It Work ?
+    <div ref={featureRef} className="container mt-20">
+      <div className="text-center ">
+        <h2 className="text-4xl b-4 shrink-0 font-extrabold">
+          <span className=" text-coopBlue"> How</span> Does It Work ?
         </h2>
-        <div className='flex justify-center mt-2 mb-12'>
-          <div className='w-20 h-1 bg-coopOrange'></div>
+        <div className="flex justify-center mt-2 mb-12">
+          <div className="w-20 h-1 bg-coopOrange"></div>
         </div>
       </div>
-      <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
-        <div className='space-y-6 '>
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-6 ">
           {focus.map((item, index) => (
             <button
               key={item.title}
-              type='button'
-              className='w-full'
+              type="button"
+              className="w-full"
               onClick={() => {
                 setFeatureOpen(index);
                 setTimer(0);
               }}
-              title={item.title}>
+              title={item.title}
+            >
               <TextComponent
                 number={index + 1}
                 title={item.title}
@@ -87,13 +88,16 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
             </button>
           ))}
         </div>
-        <div className='h-full w-full'>
+        <div className="h-full w-full">
           <div
-            className={cn("relative w-full h-full rounded-lg overflow-hidden")}>
+            className={cn("relative w-full h-full rounded-lg overflow-hidden")}
+          >
             {focus.map((item, index) => (
-              <Image
+              <img
                 key={item.title}
-                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                  item?.img ?? ""
+                }`}
                 alt={item.title}
                 width={1000}
                 height={1000}
@@ -130,18 +134,21 @@ function TextComponent({
       className={cn(
         "transition-colors rounded-lg transform-gpu",
         isOpen ? "bg-coopBlue/10" : "saturate-0 opacity-50"
-      )}>
-      <div className='w-full p-4 flex gap-4 items-center'>
+      )}
+    >
+      <div className="w-full p-4 flex gap-4 items-center">
         <p
           className={cn(
             "inline-flex size-8 rounded-md items-center justify-center text-coopBlue bg-coopBlue/20"
-          )}>
+          )}
+        >
           {number}
         </p>
         <h2
           className={cn(
             "text-xl font-medium dark:text-gray-200 text-gray-800 text-left"
-          )}>
+          )}
+        >
           {title}
         </h2>
       </div>
@@ -149,10 +156,11 @@ function TextComponent({
         className={cn(
           "overflow-hidden transition-all duration-500 text-left dark:text-gray-400 text-gray-600 w-full transform-gpu",
           isOpen ? " max-h-64" : "max-h-0"
-        )}>
-        <p className='p-4 text-lg'>{content}</p>
-        <div className='w-full pb-4 px-4'>
-          <div className='h-1 relative rounded-full w-full overflow-hidden'>
+        )}
+      >
+        <p className="p-4 text-lg">{content}</p>
+        <div className="w-full pb-4 px-4">
+          <div className="h-1 relative rounded-full w-full overflow-hidden">
             <div
               className={cn("absolute top-0 left-0 h-1 bg-coopBlue")}
               style={{ width: `${loadingWidthPercent}%` }}

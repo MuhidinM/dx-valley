@@ -32,7 +32,7 @@ const Page = () => {
         return indx % 2 ? (
           <SectionLeft
             svg={
-              <Image
+              <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
@@ -48,7 +48,7 @@ const Page = () => {
         ) : (
           <SectionRight
             svg={
-              <Image
+              <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
                 alt="Image Left Not Found"
                 width={500}
