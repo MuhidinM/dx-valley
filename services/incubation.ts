@@ -8,35 +8,35 @@ export const IncubationItemFetch = async ()=>{
     const data = res.data.data;
     const incubationItems = {
         intro: {
-            title: data.attributes.intro.title,
-            description: data.attributes.intro.description,
-            img: data.attributes.intro.img.data?.attributes?.url || ""
+            title: data.intro.title,
+            description: data.intro.description,
+            img: data.intro.img.data??.url || ""
         },
-        focus: data.attributes?.focus?.map(elmnt => ({
+        focus: data?.focus?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
-        offers: data.attributes?.offers?.map(elmnt => ({
+        offers: data?.offers?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
-        training: data.attributes?.training?.map(elmnt => ({
+        training: data?.training?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
-        incubation_process: data.attributes?.incubation_process?.map(elmnt => ({
+        incubation_process: data?.incubation_process?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
         proposal: {
-            title: data.attributes.proposal.title || "",
-            description: data.attributes.proposal.description || "",
-            button_name: data.attributes.proposal.button_name || "",
-            href: data.attributes.proposal.href || ""
+            title: data.proposal.title || "",
+            description: data.proposal.description || "",
+            button_name: data.proposal.button_name || "",
+            href: data.proposal.href || ""
         }
     }
     // console.log("incubation-items: ", incubationItems)

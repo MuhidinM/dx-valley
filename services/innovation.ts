@@ -7,36 +7,36 @@ export const InnovationItemFetch = async ()=>{
     const data = res.data.data;
     const innovationItems = {
         intro: {
-            title: data.attributes.intro.title,
-            description: data.attributes.intro.description,
-            img: data.attributes.intro.img.data?.attributes?.url || ""
+            title: data.intro.title,
+            description: data.intro.description,
+            img: data.intro.img.data??.url || ""
         },
-        companies: data.attributes?.companies?.map(elmnt => ({
+        companies: data?.companies?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
-        howeworks: data.attributes?.howeworks?.map(elmnt => ({
+        howeworks: data?.howeworks?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
-        gallery: data.attributes?.gallery?.map(elmnt => ({
+        gallery: data?.gallery?.map(elmnt => ({
             title: elmnt.title,
             description: elmnt.description,
-            img: elmnt.img.data?.attributes?.url || ""
+            img: elmnt.img.data??.url || ""
         })) || [],
         connect: {
-            description: data.attributes.connect.description,
-            phone: data.attributes.connect.phone,
-            email: data.attributes.connect.email,
-            address: data.attributes.connect.address,
+            description: data.connect.description,
+            phone: data.connect.phone,
+            email: data.connect.email,
+            address: data.connect.address,
         },
         proposal: {
-            title: data.attributes.proposal.title || "",
-            description: data.attributes.proposal.description || "",
-            button_name: data.attributes.proposal.button_name || "",
-            href: data.attributes.proposal.href || ""
+            title: data.proposal.title || "",
+            description: data.proposal.description || "",
+            button_name: data.proposal.button_name || "",
+            href: data.proposal.href || ""
         }
     }
     // console.log("innovation-items: ", innovationItems)
