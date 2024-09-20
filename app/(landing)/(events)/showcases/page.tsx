@@ -72,8 +72,6 @@ const Page = () => {
                     <img
                       src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${projects.img_1}`}
                       className="w-full h-64"
-                      layout="fill" /* Make the image fill the container */
-                      objectFit="cover" /* Ensure the image covers the entire container */
                       alt="incubation"
                     />
                   </div>
