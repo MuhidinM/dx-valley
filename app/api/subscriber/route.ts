@@ -58,7 +58,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       <tr>
   <td style="padding: 20px;">
     <p style="text-align: center;">
-      <img src='cid:unique@dxvalleymainlogo.png' alt="Dxvalley" style="height: 100px;">
+      <img src='cid:unique@dxvalleylogo1.png' alt="Dxvalley" style="height: 100px;">
     </p>
     <h1 style="color: #4a4a4a; text-align: center;">Thank You for Subscribing! </h1>
     <p><strong>Dear ${email}</strong>,</p>
@@ -92,9 +92,9 @@ export async function POST(req: Request): Promise<NextResponse> {
  `,
       attachments: [
         {
-          filename: "dxvalleymainlogo.png",
-          path: "./public/image/dxvalleymainlogo.png",
-          cid: "unique@dxvalleymainlogo.png",
+          filename: "dxvalleylogo1.png",
+          path: "./public/image/dxvalleylogo1.png",
+          cid: "unique@dxvalleylogo1.png",
         },
       ],
     };

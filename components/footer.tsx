@@ -87,7 +87,7 @@ const Footer = () => {
                     D <span className='text-coopOrange'> X </span>VALLEY
                   </span>
                   {/* <img
-                    src={"/image/dxvalleymainlogo.png"}
+                    src={"/image/dxvalleylogo1.png"}
                     alt='dxvalley logo'
                     width={200} // adjust the width as needed
                     className='mx-auto mb-4 '
@@ -209,7 +209,7 @@ const Footer = () => {
                 D <span className='text-orange-500'>X</span> VALLEY
               </span>
               {/* <img
-                src={"/image/dxvalleymainlogo.png"}
+                src={"/image/dxvalleylogo1.png"}
                 alt='dxvalley logo'
                 width={200} // adjust the width as needed
                 className='mx-auto mb-4 '
@@ -223,7 +223,7 @@ const Footer = () => {
                 className='hover:underline'>
                 Cooperative Bank of Oromia
               </Link>
-               Inc. All rights reserved.
+              Inc. All rights reserved.
             </p>
           </div>
         </div>
