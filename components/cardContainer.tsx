@@ -23,7 +23,7 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
           <Card key={index} className='flex flex-col'>
             <CardHeader>
               <div className='mb-4'>
-                <Image
+                <img
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
                   width={200}

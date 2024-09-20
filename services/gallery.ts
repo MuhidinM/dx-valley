@@ -13,6 +13,6 @@ export const GalleryItemFetch = async () => {
     description: item.gallery.description,
     img: item.gallery.img?.url || "",
   }));
-
+  console.log(galleryItems);
   return galleryItems;
 };

@@ -55,7 +55,7 @@ export function Popup({ details }: { details: ShowCaseData }) {
             </div>
           </div>
           <div className=''>
-            <Image
+            <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${details.img_2}`}
               width={400}
               height={400}

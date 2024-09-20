@@ -25,7 +25,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                 key={indx}
                 className='grid grid-cols-1 lg:grid-cols-2 items-center justify-center md:items-center md:justify-center    '>
                 <div className='lg:w-3/5 w-full mb-8 lg:mb-3 items-center justify-center '>
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                     alt=''
                     className='rounded-full '
@@ -69,7 +69,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                   </div>
                 </div>
                 <div className='lg:w-3/5 w-full lg:order-2'>
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                     alt=''
                     className='rounded-full'
