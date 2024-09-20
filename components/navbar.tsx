@@ -33,7 +33,7 @@ const Navbar = () => {
           <Link href='/' className='flex items-center'>
             {/* Regular logo for larger screens */}
             <Image
-              src={"/image/dxvalleymainlogo.png"}
+              src={"/image/dxvalleylogo1.png"}
               alt='dxvalley logo'
               width={200}
               height={200}
