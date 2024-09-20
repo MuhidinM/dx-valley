@@ -89,7 +89,7 @@ const Footer = () => {
                   {/* <img
                     src={"/image/dxvalleymainlogo.png"}
                     alt='dxvalley logo'
-                    width={100} // adjust the width as needed
+                    width={200} // adjust the width as needed
                     className='mx-auto mb-4 '
                   /> */}
                 </h6>
@@ -211,7 +211,7 @@ const Footer = () => {
               {/* <img
                 src={"/image/dxvalleymainlogo.png"}
                 alt='dxvalley logo'
-                width={100} // adjust the width as needed
+                width={200} // adjust the width as needed
                 className='mx-auto mb-4 '
               /> */}
             </Link>

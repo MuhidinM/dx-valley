@@ -35,7 +35,7 @@ export default function AllNewsPage({
   //   return new Date(a.date).getTime() - new Date(b.date).getTime();
   // });
 
-  const sortedNewsArticles :any[]= useMemo(() => {
+  const sortedNewsArticles: any[] = useMemo(() => {
     return newsArticles.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
@@ -97,7 +97,7 @@ export default function AllNewsPage({
         slider.removeEventListener("mouseleave", () => setIsHovered(false));
       }
     };
-  }, [handleNextSlide,selectedArticle, isHovered]);
+  }, [handleNextSlide, selectedArticle, isHovered]);
 
   return (
     <div className='container my-10 mx-auto p-4'>
@@ -133,7 +133,7 @@ export default function AllNewsPage({
                     src={selectedArticle.img_link}
                     alt={selectedArticle.title}
                     height={200}
-                    width={100}
+                    width={200}
                     className='lg:w-1/6  w-2/6 h-15 object-cover rounded-md mb-4 hover:opacity-45'
                   />
                 </Link>
@@ -166,7 +166,7 @@ export default function AllNewsPage({
                           src={article.img_link}
                           alt={article.title}
                           height={200}
-                          width={100}
+                          width={200}
                           className='lg:w-1/2 lg:h-24  object-cover rounded-md mb-2'
                         />
                         <h3 className='text-sm font-semibold line-clamp-2'>
@@ -239,7 +239,7 @@ export default function AllNewsPage({
                     src={article.img_link}
                     alt={article.title}
                     height={200}
-                    width={100}
+                    width={200}
                     className='w-1/2 h-28 object-contain rounded-md'
                   />
                 </CardContent>

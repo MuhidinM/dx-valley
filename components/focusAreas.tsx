@@ -22,7 +22,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
             <div className='w-20 h-1 bg-coopOrange'></div>
           </div>
         </div>
-        <ul className='tabs flex  flex-row w-full md:w-5/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-10 justify-center lg:gap-12 px-5 '>
+        <ul className='tabs flex  flex-row w-full md:w-5/5 h-auto md:h-12 mx-auto mt-6 mb-4 md:mt-10 justify-center lg:gap-12 px-4 '>
           {items?.map((item, index) => (
             <li
               key={index}
@@ -52,8 +52,8 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
                 className='w-full md:w-2/5 rounded-lg'
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
                 alt={"image"}
-                height={200}
-                width={100}
+                height={300}
+                width={400}
               />
               <div className='text-left md:text-left ml-10 space-y-3'>
                 <h3 className='text-lg md:text-l font-bold'>{item.title}</h3>
