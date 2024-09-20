@@ -6,14 +6,14 @@ export const MenuItemFetch = async ()=>{
 
     const data = res.data;
     const menuItems = data.data.map(item => ({
-        trigger: item.attributes?.trigger,
+        trigger: item.trigger,
         highlight: {
-            href: item.attributes.highlight?.href || '',
-            title: item.attributes.highlight?.title || '',
-            description: item.attributes.highlight?.description,
-            img: item.attributes.highlight.img.data?.attributes.formats.medium.url || '',
+            href: item.highlight?.href || '',
+            title: item.highlight?.title || '',
+            description: item.highlight?.description,
+            img: item.highlight.img.formats.medium.url || '',
         },
-        links: item.attributes?.highlight?.links?.map(link => ({
+        links: item.highlight?.links?.map(link => ({
             href: link?.href || '',
             title: link?.title || '',
             description: link?.description || '',
