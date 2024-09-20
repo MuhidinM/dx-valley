@@ -5,7 +5,7 @@ import { title } from "process";
 
 export const OrgItemFetch = async () => {
   const res = await axios.get<OrgResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/organization?populate=cards.img,proposal`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/organization?populate=cards.img&populate=proposal`
   );
 
   const data = res.data.data;
@@ -20,7 +20,7 @@ export const OrgItemFetch = async () => {
           title: card?.link?.title,
           href: card?.link?.href,
         },
-        img: card.img.data?.url || "",
+        img: card.img?.url || "",
       })) || {},
     proposal: {
       title: data.proposal.title || "",

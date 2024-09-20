@@ -1,10 +1,9 @@
-import { overview } from "@/constants";
 import { OrgResponse } from "@/types/strapi-types";
 import axios from "axios";
 
 export const StakeHolderItemFetch = async () => {
   const res = await axios.get<OrgResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/stakeholder?populate=cards.link,cards.img,proposal`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/stakeholder?populate=cards.link&populate=cards.img&populate=proposal`
   );
 
   const data = res.data.data;
@@ -18,7 +17,7 @@ export const StakeHolderItemFetch = async () => {
           title: card?.link?.title,
           href: card?.link?.href,
         },
-        img: card.img.data?.url || "",
+        img: card.img?.url || "",
       })) || {},
     proposal: {
       title: data.proposal.title || "",

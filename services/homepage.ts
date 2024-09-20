@@ -90,6 +90,6 @@ export const HomepageItemFetch = async () => {
         })) || [],
     },
   };
-  // console.log("homepage-items: ", homepageItems)
+  console.log("homepage-items: ", homepageItems);
   return homepageItems;
 };

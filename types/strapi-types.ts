@@ -159,10 +159,8 @@ export interface TrainingData {
 export interface TrainingResponse {
   data: {
     id: number;
-    attributes: {
-      cards: Card[];
-      proposal: CallProposalLink;
-    };
+    cards: Card[];
+    proposal: CallProposalLink;
   };
 }
 
@@ -175,11 +173,9 @@ export interface OrgData {
 export interface OrgResponse {
   data: {
     id: number;
-    attributes: {
-      overview: string;
-      cards: Card[];
-      proposal: CallProposalLink;
-    };
+    overview: string;
+    cards: Card[];
+    proposal: CallProposalLink;
   };
 }
 
@@ -219,9 +215,7 @@ export interface ShowCaseData {
 export interface ShowCaseResponse {
   data: {
     id: number;
-    attributes: {
-      incubated: Incubated[];
-    };
+    incubated: Incubated[];
   }[];
 }
 
@@ -274,14 +268,12 @@ export interface InnovationData {
 export interface InnovationResponse {
   data: {
     id: number;
-    attributes: {
-      intro: CardNoLink;
-      companies: CardNoLink[];
-      howeworks: CardNoLink[];
-      gallery: CardNoLink[];
-      connect: Address;
-      proposal: CallProposalLink;
-    };
+    intro: CardNoLink;
+    companies: CardNoLink[];
+    howeworks: CardNoLink[];
+    gallery: CardNoLink[];
+    connect: Address;
+    proposal: CallProposalLink;
   };
 }
 
