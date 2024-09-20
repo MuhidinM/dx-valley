@@ -376,9 +376,7 @@ export interface GalleryData {
 export interface GalleryResponse {
   data: {
     id: number;
-    attributes: {
-      type: string;
-      gallery: CardNoLink;
-    };
+    type: string;
+    gallery: CardNoLink;
   }[];
 }
