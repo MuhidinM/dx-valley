@@ -9,11 +9,11 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "10.1.151.64",
+        hostname: process.env.NEXT_PUBLIC_STRAPI_IP_64,
       },
       {
         protocol: "https",
-        hostname: "10.101.200.124",
+        hostname: process.env.NEXT_PUBLIC_STRAPI_IP,
       },
     ],
   },
