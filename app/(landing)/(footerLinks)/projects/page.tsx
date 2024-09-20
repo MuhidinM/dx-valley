@@ -27,7 +27,7 @@ const Page = () => {
     return <SkeletonLoaderAboutInnovationPage />;
   }
   return (
-    <div className='mt-16'>
+    <div className='mt-5 lg:my-0 md:my-0 mx-3'>
       <Card className='contest-title'>
         <CardHeader>
           <CardTitle>Projects</CardTitle>
@@ -39,12 +39,14 @@ const Page = () => {
             <CardComponent
               key={indx}
               svg={
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img ?? ""}`}
+                <img
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                    item?.img ?? " "
+                  }`}
                   alt='Image Left Not Found'
-                  width={400}
-                  height={400}
-                  className='h-28'
+                  width={200}
+                  height={200}
+                  className='h-24'
                 />
               }
               title={item.title}

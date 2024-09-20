@@ -215,6 +215,7 @@ export default function OrganizationRegistrationForm() {
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl '>
         <CardHeader>
+          {" "}
           <CardTitle className='text-2xl font-bold '>
             <span className='flex justify-center text-3xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
@@ -223,6 +224,35 @@ export default function OrganizationRegistrationForm() {
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
+          {" "}
+          <div className='mb-8 '>
+            <div className='flex justify-between items-center'>
+              {steps.map((step, index) => (
+                <div key={step.id} className='flex flex-col items-center'>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      index <= currentStep
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
+                    }`}>
+                    {index < currentStep ? (
+                      <Check className='w-4 h-4' />
+                    ) : (
+                      index + 1
+                    )}
+                  </div>
+                  <span className='text-xs mt-1'>{step.title}</span>
+                </div>
+              ))}
+            </div>
+            <div className='h-2 bg-secondary mt-2 rounded-full'>
+              <div
+                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
+                style={{
+                  width: `${((currentStep + 1) / steps.length) * 100}%`,
+                }}></div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <AnimatePresence mode='wait'>

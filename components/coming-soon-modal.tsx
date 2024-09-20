@@ -81,7 +81,7 @@ export default function ComingSoonModal() {
             We Are Coming Soon!
           </motion.h3>
           <Image
-            src={"/image/dxvalleymainlogo.png"}
+            src={"/image/dxvalleylogo1.png"}
             alt='dxvalley logo'
             width={500} // adjust the width as needed
             height={200}

@@ -63,14 +63,12 @@ export default function RootLayout({
         className={cn(
           "min-h-screen font-sans antialiased bg-slate-50 text-black dark:text-white dark:bg-gray-900",
           fontSans.variable
-        )}
-      >
+        )}>
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
+          attribute='class'
+          defaultTheme='system'
           enableSystem
-          disableTransitionOnChange
-        >
+          disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
