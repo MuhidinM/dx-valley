@@ -11,7 +11,7 @@ export const GalleryItemFetch = async () => {
     type: item.type || "",
     title: item.gallery.title,
     description: item.gallery.description,
-    img: item.gallery.img.data?.url || "",
+    img: item.gallery.img?.url || "",
   }));
 
   return galleryItems;

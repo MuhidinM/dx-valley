@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const HomepageItemFetch = async () => {
   const res = await axios.get<HomePageResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/homepage?populate=slider.img,slider.link,stats.img,delivered.img,delivered.link,update.img,update.events,connect,vision,videos,news,proposal,joinus.buttons`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/homepage?populate=slider.img&populate=slider.link&populate=stats.img&populate=delivered.img&populate=delivered.link&populate=update.img&populate=update.events&populate=connect&populate=vision&populate=videos&populate=news&populate=proposal&populate=joinus.buttons`
   );
 
   const data = res.data.data;
@@ -17,13 +17,13 @@ export const HomepageItemFetch = async () => {
           title: elmnt.link?.title,
           href: elmnt.link?.href,
         },
-        img: elmnt.img.data?.url || "",
+        img: elmnt.img?.url || "",
       })) || [],
     stats:
       data?.stats?.map((elmnt) => ({
         title: elmnt.title,
         description: elmnt.description,
-        img: elmnt.img.data?.url || "",
+        img: elmnt.img?.url || "",
       })) || [],
     delivered:
       data?.delivered?.map((elmnt) => ({
@@ -33,14 +33,14 @@ export const HomepageItemFetch = async () => {
           title: elmnt?.link?.title,
           href: elmnt?.link?.href,
         },
-        img: elmnt.img.data?.url || "",
+        img: elmnt.img?.url || "",
       })) || [],
     update:
       data?.update?.map((elmnt) => ({
         title: elmnt.title,
         description: elmnt.description,
         link: elmnt.link || "",
-        img: elmnt.img.data?.url || "",
+        img: elmnt.img?.url || "",
         events:
           elmnt.events?.map((elmnt) => ({
             title: elmnt.title,
