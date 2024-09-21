@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
           <p style="text-align: center;">
       <img src='cid:unique@dxvalleylogo1.png' alt="Dxvalley" style="height: 100px;">
     </p>
-          <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <table role="presentation" style="width: 100%; max-width:100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <tr>
               <td style="padding: 48px 24px; text-align: center;">
                 <h1 style="margin: 0 0 24px; font-size: 24px; font-weight: bold; color: #333333;">We've Received Your Message</h1>
