@@ -95,7 +95,7 @@ export const CardComponent: React.FC<SectionProps> = ({
           </ReactMarkdown>
         </div>
         <div className='mt-auto'>
-          {href === " " ? (
+          {href == "" ? (
             null
           ): <Link href={href}>
               <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>

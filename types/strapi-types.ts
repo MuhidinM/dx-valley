@@ -261,7 +261,7 @@ export interface InnovationData {
   intro: CardNoLinkData;
   companies: CardNoLinkData[];
   howeworks: CardNoLinkData[];
-  gallery: CardNoLinkData[];
+  gallery: CardData[];
   connect: Address;
   proposal: CallProposalLink;
 }
@@ -271,7 +271,7 @@ export interface InnovationResponse {
     intro: CardNoLink;
     companies: CardNoLink[];
     howeworks: CardNoLink[];
-    gallery: CardNoLink[];
+    gallery: Card[];
     connect: Address;
     proposal: CallProposalLink;
   };
