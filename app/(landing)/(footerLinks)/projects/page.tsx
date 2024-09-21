@@ -7,7 +7,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { InnovationData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -50,9 +49,9 @@ const Page = () => {
                 />
               }
               title={item.title}
-              buttonText={"Visit Site"}
+              buttonText={item.link.title}
               description={item.description}
-              href={" "}
+              href={item.link.href}
             />
           );
         })}

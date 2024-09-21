@@ -82,9 +82,9 @@ const Page = () => {
                 />
               }
               title={item.title}
-              buttonText={"Visit Site"}
+              buttonText={item.link.title}
               description={item.description}
-              href={" "}
+              href={item.link.href}
             />
           );
         })}

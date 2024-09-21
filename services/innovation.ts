@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const InnovationItemFetch = async () => {
   const res = await axios.get<InnovationResponse>(
-    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/innovation?populate=intro.img&populate=companies.img&populate=howeworks.img&populate=gallery.img&populate=connect&populate=proposal`
+    `${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}/api/innovation?populate=intro.img&populate=companies.img&populate=howeworks.img&populate=gallery.img&populate=gallery.link&populate=connect&populate=proposal`
   );
 
   const data = res.data.data;
@@ -30,6 +30,10 @@ export const InnovationItemFetch = async () => {
         title: elmnt.title,
         description: elmnt.description,
         img: elmnt.img?.url || "",
+        link: {
+          title: elmnt?.link?.title || "",
+          href: elmnt?.link?.href || "",
+        },
       })) || [],
     connect: {
       description: data.connect.description,
