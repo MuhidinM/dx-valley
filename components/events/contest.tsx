@@ -46,7 +46,7 @@ export default function ContestsPage() {
 
       {(Events.length && // here was   Events.length > 0 &&
         Events.map((event) => <Countdown key={event?.id} event={event} />)) || (
-        <div className='col-span-full text-center py-10'>
+        <div className='col-span-full text-center py-10 lg:min-h-80 md:min-h-72'>
           <p className='text-lg font-semibold'>No Event Available.</p>
         </div>
       )}
