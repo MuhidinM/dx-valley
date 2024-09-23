@@ -34,9 +34,9 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-  //  if (!innovationItems) {
-  //    return <SkeletonLoaderAboutInnovationPage />;
-  //  }
+   if (!innovationItems) {
+     return <SkeletonLoaderAboutInnovationPage />;
+   }
 
   return (
     <div className="space-y-8 mb-8 justify-center">

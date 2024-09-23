@@ -33,6 +33,13 @@ const Page = () => {
 
     fetchHomepageItems();
   }, []);
+
+
+
+  
+   if (!homepageItems) {
+     return <SkeletonLoader />;
+   }
   return (
     <div>
       {/* landingpage for large and medium screens */}

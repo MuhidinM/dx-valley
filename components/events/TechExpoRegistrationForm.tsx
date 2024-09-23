@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { toast, Toaster } from "sonner";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -41,12 +41,42 @@ const TechExpoRegistrationForm: React.FC = () => {
     companyName: "",
     jobTitle: "",
     participantType: "",
-    eventId: eventId,
+    eventId: eventId || "",
   });
 
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // On component mount, load saved form data from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
+
+      console.log("saved form data this: 1", savedFormData);
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
+        localStorage.setItem("savedFormData", JSON.stringify(savedFormData));
+      }
+
+      // To check if 'testKey' is persisted after refresh
+      const testKey = localStorage.getItem("formData");
+      if (testKey) {
+        console.log("testKey:", testKey); // Optional check for testKey
+      }
+    }
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const temp = {
+      ...formData,
+      [e.target.name]: e.target.value,
+    };
+    localStorage.setItem("formData", JSON.stringify(temp));
+    setFormData(temp);
+  };
 
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
@@ -65,8 +95,11 @@ const TechExpoRegistrationForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!validateForm()) return;
 
     try {
@@ -124,6 +157,15 @@ const TechExpoRegistrationForm: React.FC = () => {
         description: "Please try again.",
       });
     }
+  };
+
+  const handleValueChange = (name: string) => (value: string) => {
+    const temp = {
+      ...formData,
+      [name]: value, // Dynamically update the specific field in formData
+    };
+    localStorage.setItem("formData", JSON.stringify(temp));
+    setFormData(temp);
   };
 
   const handleNext = (e: React.FormEvent) => {
@@ -208,10 +250,12 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='firstName'>First Name</Label>
                   <Input
                     id='firstName'
+                    name='firstName'
                     value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
+                    // onChange={(e) =>
+                    //   setFormData({ ...formData, firstName: e.target.value })
+                    // }
+                    onChange={handleChange}
                     placeholder='e.g., Jane'
                   />
                   {errors.firstName && (
@@ -224,10 +268,13 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='lastName'>Last Name</Label>
                   <Input
                     id='lastName'
+                    name='lastName'
                     value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
+                    // onChange={(e) =>
+                    //   setFormData({ ...formData, lastName: e.target.value })
+                    // }
+
+                    onChange={handleChange}
                     placeholder='e.g., Smith'
                   />
                   {errors.lastName && (
@@ -241,10 +288,9 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Input
                     id='email'
                     type='email'
+                    name='email'
                     value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
+                    onChange={handleChange}
                     placeholder='e.g., jane@example.com'
                   />
                   {errors.email && (
@@ -255,10 +301,9 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='phoneNumber'>Phone Number</Label>
                   <Input
                     id='phoneNumber'
+                    name='phoneNumber'
                     value={formData.phoneNumber}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phoneNumber: e.target.value })
-                    }
+                    onChange={handleChange}
                     placeholder='e.g., +251123456789 or 0123456789'
                   />
                   {errors.phoneNumber && (
@@ -271,10 +316,9 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='companyName'>Company/Organization Name</Label>
                   <Input
                     id='companyName'
+                    name='companyName'
                     value={formData.companyName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, companyName: e.target.value })
-                    }
+                    onChange={handleChange}
                     placeholder='e.g., Tech Innovators Inc.'
                   />
                 </div>
@@ -282,10 +326,9 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='jobTitle'>Job Title</Label>
                   <Input
                     id='jobTitle'
+                    name='jobTitle'
                     value={formData.jobTitle}
-                    onChange={(e) =>
-                      setFormData({ ...formData, jobTitle: e.target.value })
-                    }
+                    onChange={handleChange}
                     placeholder='e.g., Software Engineer'
                   />
                 </div>
@@ -293,6 +336,7 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <Label htmlFor='participantType'>Type of Participant</Label>
                   <Select
                     value={formData.participantType}
+                    name='participantType'
                     onValueChange={(value) =>
                       setFormData({ ...formData, participantType: value })
                     }>
