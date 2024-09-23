@@ -67,14 +67,105 @@ export default function ContestRegistrationForm() {
     eventId: eventId || "",
   });
 
+  // On component mount, load saved form data from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
+
+      console.log("saved form data this:", savedFormData);
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
+           localStorage.setItem(
+             "formData savedFormData",
+             JSON.stringify(savedFormData)
+           );
+      }
+
+      // To check if 'testKey' is persisted after refresh
+      const testKey = localStorage.getItem("formData");
+      if (testKey) {
+        console.log("testKey:", testKey); // Optional check for testKey
+      }
+    }
+  }, []);
+
+  // Save form data to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("formData", JSON.stringify(formData));
+
+      // To check if formData is saved in localStorage
+      console.log("FormData saved:", localStorage.getItem("formData"));
+    }
+  }, [formData]);
+
+  // useEffect(() => {
+  //   const savedData = localStorage.getItem("formData");
+  //   if (savedData) {
+  //     setFormData(JSON.parse(savedData));
+  //   }
+  // }, []);
+
+  // Submission success logic, if alert is success, set submission state
   useEffect(() => {
     if (alert && alert.type === "success") {
       const timer = setTimeout(() => {
         setIsSubmitted(true);
+
+        // Optional: Add some test data to localStorage
+        localStorage.setItem("testKey", JSON.stringify(formData));
+        console.log("TestKey saved:", localStorage.getItem("testKey"));
       }, 2000);
+
       return () => clearTimeout(timer);
     }
   }, [alert]);
+
+  // Load form data from localStorage on component mount
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const savedFormData = localStorage.getItem("formData");
+  //     if (savedFormData) {
+  //       setFormData(JSON.parse(savedFormData));
+  //     }
+  //   }
+  // // To check if the data persists after refresh
+  // console.log(localStorage.getItem("testKey"));
+
+  // }, []);
+
+  // // Save form data to localStorage whenever it changes
+
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     localStorage.setItem("formData", JSON.stringify(formData));
+
+  //     // To check if formData is saved in localStorage
+  //     console.log(localStorage.getItem("formData"));
+  //   }
+  // }, [formData]);
+
+  // // Submission success logic, if alert is success, set submission state
+  // useEffect(() => {
+  //   if (alert && alert.type === "success") {
+  //     const timer = setTimeout(() => {
+  //       setIsSubmitted(true);
+  //     }, 2000);
+  //     // To manually set some test data
+  //     localStorage.setItem("testKey", JSON.stringify({ name: "Test" }));
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [alert]);
+
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
