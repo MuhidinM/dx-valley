@@ -43,6 +43,7 @@ const Page = () => {
   return (
     <div>
       {/* landingpage for large and medium screens */}
+
       <div className='lg:block md:block hidden'>
         <div className=' grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5'>
           <div className='lg:col-span-2  flex flex-col justify-between'>
