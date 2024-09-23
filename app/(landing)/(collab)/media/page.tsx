@@ -8,7 +8,11 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
+import {
+  SkeletonLoaderCollabForm,
+  SkeletonPageColloab,
+} from "@/components/SkeletonLoader";
+import { MultiStepFormComponent } from "@/components/multi-step-form";
 
 const Page = () => {
   const [mediaItems, setmediaItems] = useState<OrgData>();
@@ -17,25 +21,24 @@ const Page = () => {
     const fetchmediaItems = async () => {
       const data = await MediaItemFetch();
       setmediaItems(data);
-    }; 
+    };
 
     fetchmediaItems();
   }, []);
 
- if (!mediaItems) {
-   return <SkeletonPageColloab />;
- }
-  
+  if (!mediaItems) {
+    return <SkeletonPageColloab />;
+  }
+
   return (
     <div>
- 
       {mediaItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -51,7 +54,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
+                alt="Image Left Not Found"
                 width={500}
                 height={800}
               />
@@ -65,11 +68,12 @@ const Page = () => {
         );
       })}
       <CTA
-        title={mediaItems?.proposal.title   || " "}
-        buttonText={mediaItems?.proposal.button_name  || " "}
+        title={mediaItems?.proposal.title || " "}
+        buttonText={mediaItems?.proposal.button_name || " "}
         href={mediaItems?.proposal.href || " "}
         description={mediaItems?.proposal.description || " "}
       />
+      <MultiStepFormComponent />
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
         <CollabForm />
