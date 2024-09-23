@@ -37,6 +37,11 @@ const Page = () => {
     threshold: 0.2, // How much of the component should be visible to trigger (20% of the element in view)
     triggerOnce: true, // Only trigger once
   });
+
+  
+   if (!incubationItems) {
+     return <SkeletonLoaderAboutPage />;
+   }
   return (
     <div className="space-y-8 mb-8 justify-center">
       <SectionRight
