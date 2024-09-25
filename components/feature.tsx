@@ -20,7 +20,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
           setHasPlayed(true); // Set to true when animation starts
           const interval = setInterval(() => {
             setTimer((prev) => prev + 10);
-          }, 10);
+          }, 20);
           return () => clearInterval(interval); // Clean up interval when component is out of view
         }
       } else {

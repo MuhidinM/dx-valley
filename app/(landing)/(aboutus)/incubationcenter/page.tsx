@@ -18,6 +18,7 @@ import { useInView } from "react-intersection-observer"; // Install this hook us
 
 import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
 import A2DxV from "@/components/A2DxV";
+import { MultiStepFormComponent } from "@/components/multi-step-form";
 
 const Page = () => {
   const [incubationItems, setIncubationItems] = useState<IncubationData | null>(
@@ -43,14 +44,14 @@ const Page = () => {
      return <SkeletonLoaderAboutPage />;
    }
   return (
-    <div className="space-y-8 mb-8 justify-center">
+    <div className='space-y-8 mb-4 justify-center'>
       <SectionRight
         svg={
           <img
             src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
               incubationItems?.intro?.img ?? ""
             }`}
-            alt="Image Left Not Found"
+            alt='Image Left Not Found'
             width={500}
             height={800}
           />
@@ -60,13 +61,19 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/incubationcenter"}
       />
-      <div className="items-center align-middle lg:px-16 md:px-14 px-3">
+      <div className='items-center align-middle lg:px-16 md:px-14 px-3'>
         <A2DxV />
       </div>
       <div ref={featureRef}>
         {featureInView && (
-          <Feature focus={incubationItems?.incubation_process || []} />
+          <div className='mb-28'>
+            <Feature focus={incubationItems?.incubation_process || []} />
+          </div>
         )}
+      </div>
+
+      <div className='items-center align-middle lg:px-36 md:px-20 px-3'>
+        <MultiStepFormComponent />
       </div>
 
       <FocusAreas items={incubationItems?.focus || []} />
