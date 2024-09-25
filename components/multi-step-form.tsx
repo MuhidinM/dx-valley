@@ -143,64 +143,73 @@ export function MultiStepFormComponent() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-
       <section className='dark:bg-gray-950 rounded-b-lg bg-white'>
         <div className='container px-1 py-14 mx-auto flex flex-col flex-wrap  items-center justify-center md:flex-col md:space-y-5 md:justify-between'>
           <h2 className='text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl  dark:text-white'>
-            You want know your Delivery VS Discover?
+            Deliverer or Discoverer? Find out which one you are!
           </h2>
           <div className='mt-6 lg:mt-2 mb-4'>
-
             <DialogTrigger asChild>
-              <Button variant="outline" className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12 text-white hover:text-white'>Explore</Button>
+              <Button
+                variant='outline'
+                className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12 text-white hover:text-white'>
+                {/* Explore */}
+                Discover Here!
+              </Button>
             </DialogTrigger>
           </div>
           <div>
             {" "}
-            <div
-              className='prose text-gray-700 px-10 flex items-center justify-center'
-            >
-              Source: Dyer, Gregersen, Christensen, The Innovator&apos;s Dilemma
+            <div className='prose text-gray-700 px-10 flex items-center justify-center'>
+              Source: Dyer, Gregersen, and Christensen,{" "}
+              <span className="italic font-semibold"> The Innovator&apos;s Dilemma</span>
             </div>
           </div>
         </div>
       </section>
-      <DialogTrigger asChild>
+      {/* <DialogTrigger asChild>
         <Button variant="outline">Open Multi-Step Form</Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-[1000px]">
+      </DialogTrigger> */}
+      <DialogContent className='max-w-[1000px]'>
         <DialogHeader>
           <DialogTitle>Multi-Step Form - Step {currentStep}</DialogTitle>
         </DialogHeader>
         {currentStep < 5 ? (
-          <div className="grid gap-10 py-4">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-xs text-red-500">Strongly Disagree</span>
-              <div className="w-1/2 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full"></div>
-              <span className="text-xs text-green-500">Strongly Agree</span>
+          <div className='grid gap-10 py-4'>
+            <div className='flex justify-between items-center mb-4'>
+              <span className='text-xs text-red-500'>Strongly Disagree</span>
+              <div className='w-1/2 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full'></div>
+              <span className='text-xs text-green-500'>Strongly Agree</span>
             </div>
             {questions[currentStep - 1].map((question, questionIndex) => (
-              <div key={questionIndex} className="space-y-4">
-                <div className="flex justify-between items-center  ">
+              <div key={questionIndex} className='space-y-4'>
+                <div className='flex justify-between items-center  '>
                   <Label
                     htmlFor={`question-${questionIndex + 1}`}
-                    className="font-bold text-md min-w-[700px]"
-                  >
+                    className='font-bold text-md min-w-[700px]'>
                     {question}
                   </Label>
-                  <div className="space-y-2 w-full items-center">
+                  <div className='space-y-2 w-full items-center'>
                     <ColorfulSlider
                       id={`question-${questionIndex + 1}`}
                       min={1}
                       max={5}
                       step={1}
                       value={[formData[currentStep]?.[questionIndex + 1] || 3]}
-                      onValueChange={(value) => handleSliderChange(currentStep, questionIndex + 1, value)}
-                      className="w-full"
+                      onValueChange={(value) =>
+                        handleSliderChange(
+                          currentStep,
+                          questionIndex + 1,
+                          value
+                        )
+                      }
+                      className='w-full'
                     />
-                    <div className="flex justify-between px-2">
+                    <div className='flex justify-between px-2'>
                       {[1, 2, 3, 4, 5].map((value) => (
-                        <span key={value} className="text-xs">{value}</span>
+                        <span key={value} className='text-xs'>
+                          {value}
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -213,54 +222,53 @@ export function MultiStepFormComponent() {
             ))}
           </div>
         ) : (
-          <div className="pt-4 text-center bg-yellow-600">
-            <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
-            <p className="text-lg mb-2">
-              You have completed the Discovery and Delivery form. Thank you for your
-              participation!
+          <div className='pt-4 text-center bg-yellow-600'>
+            <h2 className='text-2xl font-bold mb-2'>Congratulations!</h2>
+            <p className='text-lg mb-2'>
+              You have completed the Discovery and Delivery form. Thank you for
+              your participation!
             </p>
-            <div className="space-y-2 mb-2">
-              <div className="flex gap-2 justify-center items-center">
-                <p className="font-semibold">Your Results:</p>
+            <div className='space-y-2 mb-2'>
+              <div className='flex gap-2 justify-center items-center'>
+                <p className='font-semibold'>Your Results:</p>
                 <p>Sum of odd-numbered questions: {oddSum}</p>
                 <p>Sum of even-numbered questions: {evenSum}</p>
               </div>
             </div>
-            <div className="w-full h-[500px]">
-              <ResponsiveContainer width="100%" height="100%">
+            <div className='w-full h-[500px]'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <ScatterChart
                   margin={{
                     top: 20,
                     right: 20,
                     bottom: 20,
                     left: 20,
-                  }}
-                >
+                  }}>
                   <CartesianGrid />
                   <XAxis
-                    type="number"
-                    dataKey="x"
-                    name="Odd Sum"
+                    type='number'
+                    dataKey='x'
+                    name='Odd Sum'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
                     label={{ value: "Odd Sum", position: "bottom" }}
                   />
                   <YAxis
-                    type="number"
-                    dataKey="y"
-                    name="Even Sum"
+                    type='number'
+                    dataKey='y'
+                    name='Even Sum'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
                     label={{ value: "Even Sum", angle: -90, position: "left" }}
                   />
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                  <Scatter name="Result" data={chartData} fill="#8884d8" />
+                  <Scatter name='Result' data={chartData} fill='#8884d8' />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
           </div>
         )}
-        <div className="flex justify-between mt-2">
+        <div className='flex justify-between mt-2'>
           <Button onClick={handlePrevious} disabled={currentStep === 1}>
             Previous
           </Button>
@@ -272,5 +280,5 @@ export function MultiStepFormComponent() {
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

@@ -73,7 +73,7 @@ const Page = () => {
         href={mediaItems?.proposal.href || " "}
         description={mediaItems?.proposal.description || " "}
       />
-      <MultiStepFormComponent />
+
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
       <div id="collab-form">
         <CollabForm />
