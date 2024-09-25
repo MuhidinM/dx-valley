@@ -35,16 +35,8 @@ const Page = () => {
     console.log("showcases - log: ", showcaseItems);
   });
 
-  if (!showcaseItems) {
-    return <SkeletonLoader />;
-  }
-
   // if (!showcaseItems) {
-  //   return (
-  //     <div className='col-span-full text-center py-10 lg:min-h-80 md:min-h-72'>
-  //       <p className='text-lg font-semibold h-fit'>No Incubated Product Available Yet.</p>
-  //     </div>
-  //   );
+  //   return <SkeletonLoader />;
   // }
 
   return (
