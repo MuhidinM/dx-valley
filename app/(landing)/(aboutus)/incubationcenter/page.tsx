@@ -66,7 +66,7 @@ const Page = () => {
       </div>
       <div ref={featureRef}>
         {featureInView && (
-          <div className='mb-28'>
+          <div className='lg:mb-28'>
             <Feature focus={incubationItems?.incubation_process || []} />
           </div>
         )}

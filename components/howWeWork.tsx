@@ -10,7 +10,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
   return (
     <div className='container flex mx-auto items-center justify-center'>
       <section className='relative py-2 lg:py-2 '>
-        <div className='container mx-auto py-2'>
+        <div className=' mx-auto py-2'>
           <div className='text-center'>
             <h2 className='text-4xl font-bold'>
               <span className='text-coopBlue'>How</span> We Work
