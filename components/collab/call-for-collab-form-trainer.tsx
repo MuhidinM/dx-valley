@@ -146,7 +146,7 @@ export default function TrainerRegistrationForm() {
   const handleSubmit = async () => {
     if (validateStep()) {
       try {
-        const response = await fetch("/api/trainer", {
+        const response = await fetch("/newapi/trainer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -175,134 +175,138 @@ export default function TrainerRegistrationForm() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
-      <Toaster position='top-right' richColors />
-      <Card className='w-full max-w-2xl'>
+    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+      <Toaster position="top-right" richColors />
+      <Card className="w-full max-w-2xl">
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center'>
+          <CardTitle className="text-2xl font-bold text-center">
             {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
-            <span className='flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            <span className="flex justify-center text-2xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
               Trainer Registration Form
             </span>
-            <div className='flex justify-center'>
-              <div className='w-20 h-1 bg-coopOrange'></div>
+            <div className="flex justify-center">
+              <div className="w-20 h-1 bg-coopOrange"></div>
             </div>
           </CardTitle>
-          <div className='mb-8 '>
-            <div className='flex justify-between items-center'>
+          <div className="mb-8 ">
+            <div className="flex justify-between items-center">
               {steps.map((step, index) => (
-                <div key={step.id} className='flex flex-col items-center'>
+                <div key={step.id} className="flex flex-col items-center">
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground"
-                    }`}>
+                    }`}
+                  >
                     {index < currentStep ? (
-                      <Check className='w-4 h-4' />
+                      <Check className="w-4 h-4" />
                     ) : (
                       index + 1
                     )}
                   </div>
-                  <span className='text-xs mt-1'>{step.title}</span>
+                  <span className="text-xs mt-1">{step.title}</span>
                 </div>
               ))}
             </div>
-            <div className='h-2 bg-secondary mt-2 rounded-full'>
+            <div className="h-2 bg-secondary mt-2 rounded-full">
               <div
-                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
+                className="h-full bg-primary rounded-full transition-all duration-300 ease-in-out"
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}></div>
+                }}
+              ></div>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <AnimatePresence mode='wait'>
+          <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}>
+              transition={{ duration: 0.2 }}
+            >
               {currentStep === 0 && (
-                <div className='space-y-4'>
-                  <div className='flex gap-4 flex-col lg:flex-row'>
-                    <div className='flex-1'>
-                      <Label htmlFor='firstName'>First Name</Label>
+                <div className="space-y-4">
+                  <div className="flex gap-4 flex-col lg:flex-row">
+                    <div className="flex-1">
+                      <Label htmlFor="firstName">First Name</Label>
                       <Input
-                        id='firstName'
+                        id="firstName"
                         value={formData.firstName}
                         onChange={(e) =>
                           handleChange("firstName", e.target.value)
                         }
-                        placeholder='Enter your first name'
+                        placeholder="Enter your first name"
                       />
                       {errors.firstName && (
-                        <p className='text-red-500 text-sm'>
+                        <p className="text-red-500 text-sm">
                           {errors.firstName}
                         </p>
                       )}
                     </div>
-                    <div className='flex-1'>
-                      <Label htmlFor='lastName'>Last Name</Label>
+                    <div className="flex-1">
+                      <Label htmlFor="lastName">Last Name</Label>
                       <Input
-                        id='lastName'
+                        id="lastName"
                         value={formData.lastName}
                         onChange={(e) =>
                           handleChange("lastName", e.target.value)
                         }
-                        placeholder='Enter your last name'
+                        placeholder="Enter your last name"
                       />
                       {errors.lastName && (
-                        <p className='text-red-500 text-sm'>
+                        <p className="text-red-500 text-sm">
                           {errors.lastName}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className='flex gap-4 flex-col lg:flex-row'>
-                    <div className='flex-1'>
-                      <Label htmlFor='email'>Email</Label>
+                  <div className="flex gap-4 flex-col lg:flex-row">
+                    <div className="flex-1">
+                      <Label htmlFor="email">Email</Label>
                       <Input
-                        id='email'
-                        type='email'
+                        id="email"
+                        type="email"
                         value={formData.email}
                         onChange={(e) => handleChange("email", e.target.value)}
-                        placeholder='Enter your email'
+                        placeholder="Enter your email"
                       />
                       {errors.email && (
-                        <p className='text-red-500 text-sm'>{errors.email}</p>
+                        <p className="text-red-500 text-sm">{errors.email}</p>
                       )}
                     </div>
-                    <div className='flex-1'>
-                      <Label htmlFor='phoneNumberOne'>Phone Number</Label>
+                    <div className="flex-1">
+                      <Label htmlFor="phoneNumberOne">Phone Number</Label>
                       <Input
-                        id='phoneNumberOne'
-                        type='tel'
+                        id="phoneNumberOne"
+                        type="tel"
                         value={formData.phoneNumberOne}
                         onChange={(e) =>
                           handleChange("phoneNumberOne", e.target.value)
                         }
-                        placeholder='Enter your phone number'
+                        placeholder="Enter your phone number"
                       />
                       {errors.phoneNumberOne && (
-                        <p className='text-red-500 text-sm'>
+                        <p className="text-red-500 text-sm">
                           {errors.phoneNumberOne}
                         </p>
                       )}
                     </div>
                   </div>
 
-                  <div className='flex gap-4'>
-                    <div className='flex-1'>
-                      <Label htmlFor='profession'>Profession</Label>
+                  <div className="flex gap-4">
+                    <div className="flex-1">
+                      <Label htmlFor="profession">Profession</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
-                            variant='outline'
-                            className='w-full text-left'>
+                            variant="outline"
+                            className="w-full text-left"
+                          >
                             {formData.profession || "Select Profession"}
                           </Button>
                         </DropdownMenuTrigger>
@@ -312,26 +316,28 @@ export default function TrainerRegistrationForm() {
                               key={option}
                               onCheckedChange={() =>
                                 handleDropdownChange("profession", option)
-                              }>
+                              }
+                            >
                               {option}
                             </DropdownMenuCheckboxItem>
                           ))}
                         </DropdownMenuContent>
                       </DropdownMenu>
                       {errors.profession && (
-                        <p className='text-red-500 text-sm'>
+                        <p className="text-red-500 text-sm">
                           {errors.profession}
                         </p>
                       )}
                     </div>
 
-                    <div className='flex-1 flex-col lg:flex-row'>
-                      <Label htmlFor='schedule'>Schedule</Label>
+                    <div className="flex-1 flex-col lg:flex-row">
+                      <Label htmlFor="schedule">Schedule</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
-                            variant='outline'
-                            className='w-full text-left'>
+                            variant="outline"
+                            className="w-full text-left"
+                          >
                             {formData.schedule || "Select Schedule"}
                           </Button>
                         </DropdownMenuTrigger>
@@ -341,7 +347,8 @@ export default function TrainerRegistrationForm() {
                               key={value}
                               onCheckedChange={() =>
                                 handleDropdownChange("schedule", value)
-                              }>
+                              }
+                            >
                               {description}
                             </DropdownMenuCheckboxItem>
                           ))}
@@ -350,14 +357,15 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className='flex gap-4 flex-col lg:flex-row'>
-                    <div className='flex-1'>
-                      <Label htmlFor='expertise'>Expertise</Label>
+                  <div className="flex gap-4 flex-col lg:flex-row">
+                    <div className="flex-1">
+                      <Label htmlFor="expertise">Expertise</Label>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button
-                            variant='outline'
-                            className='w-full text-left'>
+                            variant="outline"
+                            className="w-full text-left"
+                          >
                             {formData.expertise || "Select Expertise"}
                           </Button>
                         </DropdownMenuTrigger>
@@ -367,7 +375,8 @@ export default function TrainerRegistrationForm() {
                               key={option}
                               onCheckedChange={() =>
                                 handleDropdownChange("expertise", option)
-                              }>
+                              }
+                            >
                               {option}
                             </DropdownMenuCheckboxItem>
                           ))}
@@ -375,19 +384,19 @@ export default function TrainerRegistrationForm() {
                       </DropdownMenu>
                     </div>
 
-                    <div className='flex-1'>
-                      <Label htmlFor='country'>City</Label>
+                    <div className="flex-1">
+                      <Label htmlFor="country">City</Label>
 
                       <Input
-                        id='city'
+                        id="city"
                         value={formData.city}
                         onChange={(e) => handleChange("city", e.target.value)}
-                        placeholder='Enter your city'
+                        placeholder="Enter your city"
                       />
                     </div>
                   </div>
 
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* <div>
                       <Label htmlFor='state'>State</Label>
                       <Input
@@ -409,52 +418,52 @@ export default function TrainerRegistrationForm() {
                   </div>
 
                   <div>
-                    <Label htmlFor='motivation'>Description</Label>
+                    <Label htmlFor="motivation">Description</Label>
                     <Textarea
-                      id='motivation'
+                      id="motivation"
                       value={formData.motivation}
                       onChange={(e) =>
                         handleChange("motivation", e.target.value)
                       }
-                      placeholder='Tell us about yourself'
+                      placeholder="Tell us about yourself"
                     />
                   </div>
                 </div>
               )}
 
               {currentStep === 1 && (
-                <div className='space-y-2'>
+                <div className="space-y-2">
                   {/* Confirm Details */}
-                  <div className='text-sm'>
-                    <p className='p-3'>
+                  <div className="text-sm">
+                    <p className="p-3">
                       {/* <strong>Title:</strong> {formData.title} */}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>First Name:</strong> {formData.firstName}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Last Name:</strong> {formData.lastName}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Email:</strong> {formData.email}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Phone Number:</strong> {formData.phoneNumberOne}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>City:</strong> {formData.country}
                     </p>
 
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Expertise:</strong> {formData.expertise}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Profession:</strong> {formData.profession}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Schedule:</strong> {formData.schedule}
                     </p>
-                    <p className='p-3'>
+                    <p className="p-3">
                       <strong>Description:</strong> {formData.motivation}
                     </p>
                   </div>
@@ -463,19 +472,19 @@ export default function TrainerRegistrationForm() {
             </motion.div>
           </AnimatePresence>
 
-          <div className='flex justify-between mt-8'>
+          <div className="flex justify-between mt-8">
             {currentStep > 0 && (
-              <Button variant='outline' onClick={handlePrevious}>
-                <ChevronLeft className='mr-2' /> Previous
+              <Button variant="outline" onClick={handlePrevious}>
+                <ChevronLeft className="mr-2" /> Previous
               </Button>
             )}
             {currentStep < steps.length - 1 ? (
               <Button onClick={handleNext}>
-                Next <ChevronRight className='ml-2' />
+                Next <ChevronRight className="ml-2" />
               </Button>
             ) : (
               <Button onClick={handleSubmit}>
-                Submit <Check className='ml-2' />
+                Submit <Check className="ml-2" />
               </Button>
             )}
           </div>
