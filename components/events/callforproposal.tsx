@@ -18,7 +18,7 @@ export default function Callforproposal() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("/api/event");
+        const response = await fetch("/newapi/event");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -49,7 +49,6 @@ export default function Callforproposal() {
     (event) => event.category === "call for proposal"
   );
 
-
   // if (!callForProposalEvents) {
   //   return (
   //     <div className='col-span-full text-center py-10 min-h-full'>
@@ -57,9 +56,9 @@ export default function Callforproposal() {
   //     </div>
   //   );
   // }
-  
+
   return (
-    <div className='container w-full my-16 '>
+    <div className="container w-full my-16 ">
       {callForProposalEvents?.length > 0 ? (
         callForProposalEvents.map((event, index) => (
           <div key={event.id}>
@@ -71,29 +70,30 @@ export default function Callforproposal() {
               }
             />
             <Card>
-              <CardHeader className=' flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
-                <CardTitle className='text-lg lg:text-3xl sm:text-lg'>
+              <CardHeader className=" flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4">
+                <CardTitle className="text-lg lg:text-3xl sm:text-lg">
                   Call for Start Up Proposal
                 </CardTitle>
-                <div className='h-full align-middle'>
-                  <p className='text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none'>
+                <div className="h-full align-middle">
+                  <p className="text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none">
                     {timeLeft[event?.id] || "Calculating..."}
                   </p>
                 </div>
               </CardHeader>
 
-              <CardContent className='ailgn-center justify-around items-center'>
-                <p className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'>
+              <CardContent className="ailgn-center justify-around items-center">
+                <p className="mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400">
                   {event.description}
                 </p>
 
                 <Button
-                  className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
+                  className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover"
                   onClick={() => {
                     let formRoute = "/incubationform";
                     const eventId = event.id.toString();
                     router.push(`${formRoute}?eventId=${eventId}`);
-                  }}>
+                  }}
+                >
                   Apply
                 </Button>
               </CardContent>
@@ -101,8 +101,8 @@ export default function Callforproposal() {
           </div>
         ))
       ) : (
-        <div className='col-span-full text-center py-10 lg:min-h-80 md:min-h-72'>
-          <p className='text-lg font-semibold h-fit'>No Call Available.</p>
+        <div className="col-span-full text-center py-10 lg:min-h-80 md:min-h-72">
+          <p className="text-lg font-semibold h-fit">No Call Available.</p>
         </div>
       )}
     </div>

@@ -20,7 +20,7 @@ const ContactUs = ({ address }: { address: Address }) => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const response = await fetch("/api/contactus", {
+    const response = await fetch("/newapi/contactus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

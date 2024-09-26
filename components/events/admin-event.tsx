@@ -49,7 +49,7 @@ export default function AdminEvent() {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    const response = await fetch("/api/event", {
+    const response = await fetch("/newapi/event", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,35 +78,35 @@ export default function AdminEvent() {
   };
 
   return (
-    <Card className=' w-[500px]'>
+    <Card className=" w-[500px]">
       <CardHeader>
         <CardTitle>Event</CardTitle>
         <CardDescription>Description</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit}>
-          <div className='grid w-full items-center gap-4'>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='name'>Name</Label>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Name</Label>
               <Input
-                type='text'
-                placeholder='Event Name'
+                type="text"
+                placeholder="Event Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='name'>Description</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Description</Label>
               <Textarea
-                placeholder='Event Description'
+                placeholder="Event Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='name'>Target date</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="name">Target date</Label>
 
               <Popover>
                 <PopoverTrigger asChild>
@@ -115,8 +115,9 @@ export default function AdminEvent() {
                     className={cn(
                       "w-[450px] justify-start text-left font-normal",
                       !targetDate && "text-muted-foreground"
-                    )}>
-                    <CalendarIcon className='mr-2 h-4 w-4' />
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
                     {targetDate ? (
                       format(targetDate, "PPP")
                     ) : (
@@ -124,9 +125,9 @@ export default function AdminEvent() {
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className='w-auto p-0'>
+                <PopoverContent className="w-auto p-0">
                   <Calendar
-                    mode='single'
+                    mode="single"
                     selected={targetDate}
                     onSelect={(date) => setTargetDate(date || undefined)}
                     initialFocus
@@ -134,23 +135,23 @@ export default function AdminEvent() {
                 </PopoverContent>
               </Popover>
             </div>
-            <div className='flex flex-col space-y-1.5'>
-              <Label htmlFor='framework'>Event Catagory</Label>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="framework">Event Catagory</Label>
               <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger id='framework'>
-                  <SelectValue placeholder='Select' />
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
                 </SelectTrigger>
-                <SelectContent position='popper'>
-                  <SelectItem value='contest'>Contest</SelectItem>
-                  <SelectItem value='tech expo'>Tech Expo</SelectItem>
-                  <SelectItem value='call for proposal'>
+                <SelectContent position="popper">
+                  <SelectItem value="contest">Contest</SelectItem>
+                  <SelectItem value="tech expo">Tech Expo</SelectItem>
+                  <SelectItem value="call for proposal">
                     Call for Proposal
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
-          <Button className='admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500'>
+          <Button className="admin-event-btn bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-amber-500">
             Create event
           </Button>
         </form>
