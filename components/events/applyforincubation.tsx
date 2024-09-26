@@ -44,6 +44,7 @@ const steps = [
   { id: "founder", title: "Founder Info" },
   { id: "idea", title: "Your Idea" },
 ];
+  // const [nameTaken, setNameTaken] = useState(false);
 
 // const startupNameSuggestions = [
 //   "TechNova",
@@ -1667,6 +1668,7 @@ interface Errors {
 }
 
 const ApplyForIncubation = () => {
+    const [nameTaken, setNameTaken] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
     startupName: "",
@@ -1941,15 +1943,38 @@ const ApplyForIncubation = () => {
     setShowConfetti(true);
   };
 
-  const generateStartupName = () => {
-    const randomIndex = Math.floor(
-      Math.random() * startupNameSuggestions.length
-    );
-    setFormData((prev) => ({
-      ...prev,
-      startupName: startupNameSuggestions[randomIndex],
-    }));
-  };
+
+
+    const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
+
+    const generateStartupName = () => {
+      const randomIndex = Math.floor(
+        Math.random() * startupNameSuggestions.length
+      );
+      const generatedName = startupNameSuggestions[randomIndex];
+
+      // Check if the name is already taken
+      if (takenNames.includes(generatedName)) {
+        setNameTaken(true);
+      } else {
+        setNameTaken(false);
+        setFormData((prev) => ({
+          ...prev,
+          startupName: generatedName,
+        }));
+      }
+    };
+
+
+  // const generateStartupName = () => {
+  //   const randomIndex = Math.floor(
+  //     Math.random() * startupNameSuggestions.length
+  //   );
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     startupName: startupNameSuggestions[randomIndex],
+  //   }));
+  // };
 
   if (submitSuccess) {
     return (
@@ -1986,10 +2011,11 @@ const ApplyForIncubation = () => {
               {steps.map((step, index) => (
                 <div key={step.id} className='flex flex-col items-center'>
                   <div
-                    className={`rounded-full h-8 w-8 flex items-center justify-center ${index <= currentStep
+                    className={`rounded-full h-8 w-8 flex items-center justify-center ${
+                      index <= currentStep
                         ? "bg-[#00adef] text-white"
                         : "bg-gray-200 text-gray-600"
-                      }`}>
+                    }`}>
                     {index + 1}
                   </div>
                   <div className='text-xs mt-2'>{step.title}</div>
@@ -2017,10 +2043,14 @@ const ApplyForIncubation = () => {
                           handleChange("startupName", e.target.value)
                         }
                       />
-                      <Button type='button' onClick={generateStartupName}>
+                      {/* <Button type='button' onClick={generateStartupName}>
                         Generate
+                      </Button> */}
+                      <Button type='button' onClick={generateStartupName}>
+                        {"Generate"}
                       </Button>
                     </div>
+                      <span>{nameTaken === true ? "Name is taken" : null}</span>
                     {errors.startupName && (
                       <p className='text-sm text-red-500'>
                         {errors.startupName}
@@ -2131,10 +2161,12 @@ const ApplyForIncubation = () => {
                         {errors.founderNames.map((error, index) => (
                           <p key={index} className='text-sm text-red-500'>
                             {error.firstName &&
-                              `Founder ${index + 1} first name: ${error.firstName
+                              `Founder ${index + 1} first name: ${
+                                error.firstName
                               }`}
                             {error.lastName &&
-                              `Founder ${index + 1} last name: ${error.lastName
+                              `Founder ${index + 1} last name: ${
+                                error.lastName
                               }`}
                           </p>
                         ))}

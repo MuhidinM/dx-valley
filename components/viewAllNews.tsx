@@ -222,9 +222,9 @@ export default function AllNewsPage({
         <div className='mb-8'>
           {/* <h2 className='text-2xl font-bold mb-4'>All News</h2> */}
           <ScrollArea>
-            <h1 className='text-3xl font-bold mb-6 mt-6'>Latest News</h1>
+            <h1 className='text-3xl font-bold my-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
-              <Card key={index} onClick={() => handleArticleClick(article)}>
+              <Card key={index} onClick={() => handleArticleClick(article)} className="mb-4">
                 <CardHeader>
                   <CardTitle className='text-lg'>{article.title}</CardTitle>
 
