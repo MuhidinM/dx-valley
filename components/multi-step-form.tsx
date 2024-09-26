@@ -189,7 +189,7 @@ export function MultiStepFormComponent() {
                 <div className='lg:flex justify-between items-center gap-10    '>
                   <Label
                     htmlFor={`question-${questionIndex + 1}`}
-                    className='font-bold flex flex-wrap pb-3 text-md lg:min-w-[700px] '>
+                    className='lg:font-bold md:font-bold text-sm flex flex-wrap lg:pb-3 pb-1 lg:text-md md:text-md lg:min-w-[700px] xs:text-sm '>
                     {question}
                   </Label>
                   <div className='space-y-2 w-full items-center '>
@@ -238,7 +238,7 @@ export function MultiStepFormComponent() {
                 <p>Sum of even-numbered questions: {evenSum}</p>
               </div>
             </div>
-            <div className='w-full h-[500px]'>
+            <div className='w-full lg:h-[500px] h-1/2'>
               <ResponsiveContainer width='100%' height='100%'>
                 <ScatterChart
                   margin={{
