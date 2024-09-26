@@ -29,7 +29,6 @@ const Page = () => {
   }
   return (
     <div>
-    \
       {stakeHolderItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft

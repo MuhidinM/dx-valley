@@ -99,7 +99,7 @@ export default function PhotoGallery() {
         <div
           className='fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50'
           onClick={closeModal}>
-          <div className='relative max-w-5xl w-full h-full' {...handlers}>
+          <div className='lg:relative max-w-5xl w-full lg:h-full h-3/6' {...handlers}>
             <Button
               className='absolute top-4 right-4 z-10'
               size='icon'
@@ -111,7 +111,7 @@ export default function PhotoGallery() {
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${filteredItems[selectedImage].img}`}
               alt={filteredItems[selectedImage].title}
-              className=' min-w-full'
+              className='min-w-full'
               onClick={(e) => e.stopPropagation()}
             />
             <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black'>

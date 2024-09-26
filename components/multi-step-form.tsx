@@ -162,7 +162,10 @@ export function MultiStepFormComponent() {
             {" "}
             <div className='prose text-gray-700 px-10 flex items-center justify-center'>
               Source: Dyer, Gregersen, and Christensen,{" "}
-              <span className="italic font-semibold"> The Innovator&apos;s Dilemma</span>
+              <span className='italic font-semibold'>
+                {" "}
+                The Innovator&apos;s Dilemma
+              </span>
             </div>
           </div>
         </div>
@@ -170,26 +173,26 @@ export function MultiStepFormComponent() {
       {/* <DialogTrigger asChild>
         <Button variant="outline">Open Multi-Step Form</Button>
       </DialogTrigger> */}
-      <DialogContent className='max-w-[1000px]'>
+      <DialogContent className='lg:max-w-[1000px]'>
         <DialogHeader>
           <DialogTitle>Multi-Step Form - Step {currentStep}</DialogTitle>
         </DialogHeader>
         {currentStep < 5 ? (
-          <div className='grid gap-10 py-4'>
+          <div className='lg:grid lg:gap-10 py-4 '>
             <div className='flex justify-between items-center mb-4'>
               <span className='text-xs text-red-500'>Strongly Disagree</span>
               <div className='w-1/2 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full'></div>
               <span className='text-xs text-green-500'>Strongly Agree</span>
             </div>
             {questions[currentStep - 1].map((question, questionIndex) => (
-              <div key={questionIndex} className='space-y-4'>
-                <div className='flex justify-between items-center  '>
+              <div key={questionIndex} className='space-y-4  pb-3'>
+                <div className='lg:flex justify-between items-center gap-10    '>
                   <Label
                     htmlFor={`question-${questionIndex + 1}`}
-                    className='font-bold text-md min-w-[700px]'>
+                    className='font-bold flex flex-wrap pb-3 text-md lg:min-w-[700px] '>
                     {question}
                   </Label>
-                  <div className='space-y-2 w-full items-center'>
+                  <div className='space-y-2 w-full items-center '>
                     <ColorfulSlider
                       id={`question-${questionIndex + 1}`}
                       min={1}
@@ -222,7 +225,7 @@ export function MultiStepFormComponent() {
             ))}
           </div>
         ) : (
-          <div className='pt-4 text-center bg-yellow-600'>
+          <div className='pt-4 text-center '>
             <h2 className='text-2xl font-bold mb-2'>Congratulations!</h2>
             <p className='text-lg mb-2'>
               You have completed the Discovery and Delivery form. Thank you for
