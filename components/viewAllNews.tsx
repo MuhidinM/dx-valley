@@ -100,7 +100,7 @@ export default function AllNewsPage({
   }, [handleNextSlide, selectedArticle, isHovered]);
 
   return (
-    <div className='container my-10 mx-auto p-4'>
+    <div className='lg:container my-10 mx-auto p-4'>
       {selectedArticle ? (
         <>
           {/* Selected news content */}
@@ -224,7 +224,7 @@ export default function AllNewsPage({
           <ScrollArea>
             <h1 className='text-3xl font-bold my-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
-              <Card key={index} onClick={() => handleArticleClick(article)} className="mb-4">
+              <Card key={index} onClick={() => handleArticleClick(article)} className="mb-4 hover:pointer">
                 <CardHeader>
                   <CardTitle className='text-lg'>{article.title}</CardTitle>
 
