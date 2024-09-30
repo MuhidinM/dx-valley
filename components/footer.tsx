@@ -38,10 +38,12 @@ const Footer = () => {
         const data = await response.json();
         if (data.message === "User already subscribed") {
           toast.error("You are already subscribed!");
+          setEmail("");
         } else {
           toast.error("Failed to subscribe!", {
             description: "Please try again later.",
           });
+          setEmail("");
         }
       }
     } catch (error) {
@@ -49,6 +51,7 @@ const Footer = () => {
       toast.error("An unexpected error occurred", {
         description: "Please try again later.",
       });
+      setEmail("");
     }
   };
 

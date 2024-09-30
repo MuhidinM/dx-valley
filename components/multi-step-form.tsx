@@ -150,7 +150,6 @@ export function MultiStepFormComponent() {
       });
     });
     return { oddSum, evenSum };
-    
   }, [formData]);
 
   const chartData = [{ x: oddSum, y: evenSum }];
@@ -242,11 +241,11 @@ export function MultiStepFormComponent() {
             <div className="space-y-2 mb-2">
               <div className="flex gap-2 justify-center items-center">
                 <p className="font-semibold">Your Results:</p>
-                <p>Sum of odd-numbered questions: {oddSum}</p>
-                <p>Sum of even-numbered questions: {evenSum}</p>
+                <p>Discovery: {oddSum}</p>
+                <p>Delivery: {evenSum}</p>
               </div>
             </div>
-            <div className="w-full lg:h-[500px] h-1/2">
+            <div className="lg:h-[600px] h-1/2">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart
                   margin={{
@@ -260,18 +259,18 @@ export function MultiStepFormComponent() {
                   <XAxis
                     type="number"
                     dataKey="x"
-                    name="Odd Sum"
+                    name="Discovery"
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
-                    label={{ value: "Odd Sum", position: "bottom" }}
+                    label={{ value: "Discovery", position: "bottom" }}
                   />
                   <YAxis
                     type="number"
                     dataKey="y"
-                    name="Even Sum"
+                    name="Delivery"
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
-                    label={{ value: "Even Sum", angle: -90, position: "left" }}
+                    label={{ value: "Delivery", angle: -90, position: "left" }}
                   />
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                   <Scatter name="Result" data={chartData} fill="#8884d8" />
