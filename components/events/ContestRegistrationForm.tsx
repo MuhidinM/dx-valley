@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { toast, Toaster } from "sonner";
+import SubmissionSuccess from "../submissionSuccess";
 
 const steps = [
   { id: "team-info", title: "Team Information" },
@@ -141,7 +142,7 @@ export default function ContestRegistrationForm() {
       teamMembers: Array(numberOfMembers)
         .fill(null)
         .map((_, index) =>
-          index < formData.teamMembers.length
+          index < formData.teamMembers?.length
             ? formData.teamMembers[index]
             : { firstName: "", lastName: "", email: "", phoneNumber: "" }
         ),
@@ -197,30 +198,6 @@ export default function ContestRegistrationForm() {
         }),
       });
 
-      //     if (response.ok) {
-      //       setAlert({
-      //         type: "success",
-      //         message:
-      //         (  "Registration successful! Your details have been submitted successfully.").toString(),
-      //       });
-      //     } else {
-      //       const errorData = await response.json();
-      //       setAlert({
-      //         type: "error",
-      //         message: (
-      //           errorData.error || "An error occurred during registration."
-      //         ).toString(),
-      //       });
-      //     }
-      //   } catch (error) {
-      //     console.error("Error registering contest:", error);
-      //     setAlert({
-      //       type: "error",
-      //       message: "An error occurred. Please try again.",
-      //     });
-      //   }
-      // };
-
       if (response.ok) {
         setIsSubmitted(true);
         toast.success("Registration successful!", {
@@ -261,8 +238,11 @@ export default function ContestRegistrationForm() {
 
   if (isSubmitted) {
     return (
-      <div className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'>
-        <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
+      <div
+        className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '
+        //  className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'
+      >
+        {/* <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
           <CheckCircle2 className='w-16 h-16 text-green-500 mx-auto mb-4' />
           <h2 className='text-2xl font-bold text-center mb-4'>
             Registration Successful!
@@ -276,7 +256,14 @@ export default function ContestRegistrationForm() {
             onClick={() => (window.location.href = "/")}>
             Return to Home
           </Button>
-        </div>
+        </div> */}
+        <SubmissionSuccess
+          title={"Submission Successful!"}
+          icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+          desc={
+            " Thank you for registering. Your details have been submitted  successfully."
+          }
+        />
       </div>
     );
   }
@@ -405,7 +392,7 @@ export default function ContestRegistrationForm() {
                   />
                 </div>
               </div>
-              {formData.teamMembers.map((member, index) => (
+              {formData.teamMembers?.map((member, index) => (
                 <div key={index} className='space-y-2'>
                   <h4 className='font-semibold'>Team Member {index + 1}</h4>
                   <div className='grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-4'>

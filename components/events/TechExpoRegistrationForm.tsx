@@ -17,6 +17,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import Link from "next/link";
+import SubmissionSuccess from "../submissionSuccess";
+import { CheckCircle2 } from "lucide-react";
 
 interface FormData {
   firstName: string;
@@ -186,20 +188,47 @@ const TechExpoRegistrationForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900  p-4'>
-        <Card className='w-full max-w-md'>
-          <CardHeader>
-            <CardTitle className='text-center'>Submission Successful</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className='text-center mb-4'>
-              Thank you for registering for the Tech Expo!
-            </p>
-            <Link href='/'>
-              <Button className='mt-8'>Go Back to Home</Button>
-            </Link>
-          </CardContent>
-        </Card>
+      // <div className='min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900  p-4'>
+      //   <Card className='w-full max-w-md'>
+      //     <CardHeader>
+      //       <CardTitle className='text-center'>Submission Successful</CardTitle>
+      //     </CardHeader>
+      //     <CardContent>
+      //       <p className='text-center mb-4'>
+      //         Thank you for registering for the Tech Expo!
+      //       </p>
+      //       <Link href='/'>
+      //         <Button className='mt-8'>Go Back to Home</Button>
+      //       </Link>
+      //     </CardContent>
+      //   </Card>
+      // </div>
+      <div
+        className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '
+        //  className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'
+      >
+        {/* <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
+          <CheckCircle2 className='w-16 h-16 text-green-500 mx-auto mb-4' />
+          <h2 className='text-2xl font-bold text-center mb-4'>
+            Registration Successful!
+          </h2>
+          <p className='text-center text-gray-600'>
+            Thank you for registering. Your details have been submitted
+            successfully.
+          </p>
+          <Button
+            className='w-full mt-6'
+            onClick={() => (window.location.href = "/")}>
+            Return to Home
+          </Button>
+        </div> */}
+        <SubmissionSuccess
+          title={"Submission Successful!"}
+          icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+          desc={
+            "Thank you for registering. Your details have been submitted successfully."
+          }
+        />
       </div>
     );
   }

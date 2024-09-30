@@ -22,9 +22,11 @@ const Page = () => {
 
     fetchInnovationItems();
   }, []);
+
   if (!innovationItems) {
     return <SkeletonLoaderAboutInnovationPage />;
   }
+  
   return (
     <div className='mt-5 lg:my-0 md:my-0 mx-3'>
       <Card className='contest-title'>
