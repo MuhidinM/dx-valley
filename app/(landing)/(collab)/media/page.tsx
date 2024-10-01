@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import CollabForm from "@/components/collab/call-for-collab-form-media";
@@ -38,7 +40,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -54,7 +56,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -75,7 +77,7 @@ const Page = () => {
       />
 
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
-      <div id="collab-form">
+      <div id='collab-form'>
         <CollabForm />
       </div>
     </div>

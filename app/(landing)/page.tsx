@@ -1,6 +1,5 @@
 /** @format */
 "use client";
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import ContactUs from "@/components/landing/contactus";
 import CTA from "@/components/cta";
@@ -38,11 +37,14 @@ const Page = () => {
   if (!homepageItems) {
     return <SkeletonLoader />;
   }
+
   return (
     <div>
-      <div className="lg:block md:block hidden">
-        <div className=" grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5">
-          <div className="lg:col-span-2  flex flex-col justify-between">
+      <ComingSoonModal />
+      {/* landingpage for large and medium screens */}
+      <div className='lg:block md:block hidden'>
+        <div className=' grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5'>
+          <div className='lg:col-span-2  flex flex-col justify-between'>
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}
@@ -110,12 +112,11 @@ const Page = () => {
         <ProductsBeam products={homepageItems?.delivered || []} />
         <ContactUs address={homepageItems?.connect as Address} />
       </div>
-
       {/* landingpage for mobile */}
-
       <div className="lg:hidden md:hidden block">
         <div className=" grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5">
           <div className="lg:col-span-2  flex flex-col justify-between">
+
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}

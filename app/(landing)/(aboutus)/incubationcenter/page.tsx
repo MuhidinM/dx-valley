@@ -1,4 +1,5 @@
 "use client";
+
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
 import Offer from "@/components/landing/offer";
@@ -6,6 +7,7 @@ import { SectionRight } from "@/components/section";
 import { IncubationItemFetch } from "@/services/incubation";
 import { IncubationData } from "@/types/strapi-types";
 import React, { useEffect, useState } from "react";
+
 import { useInView } from "react-intersection-observer"; // Install this hook using 'npm install react-intersection-observer'
 
 import { SkeletonLoaderAboutPage } from "@/components/SkeletonLoader";
@@ -42,7 +44,7 @@ const Page = () => {
             src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
               incubationItems?.intro?.img ?? ""
             }`}
-            alt="Image Left Not Found"
+            alt='Image Not Found'
             width={500}
             height={800}
           />

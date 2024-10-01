@@ -5,8 +5,6 @@
 import { useEffect, useState } from "react";
 import Countdown from "@/components/events/countdown";
 import { Event } from "@/types/types";
-// import { Button } from "react-day-picker";
-import { Button } from "../ui/button";
 
 export default function ContestsPage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -36,14 +34,8 @@ export default function ContestsPage() {
   );
   console.log(Events.length, "is the event length");
 
-  // if (!Events.length) {
-  //   return <p className='text-lg font-semibold'>No Event Available.</p>;
-  // }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-3 gap-6  h-fit mb-10">
-      {/* rest of the code remains the same */}
-
       {(Events.length && // here was   Events.length > 0 &&
         Events.map((event) => <Countdown key={event?.id} event={event} />)) || (
         <div className="col-span-full text-center py-10 lg:min-h-80 md:min-h-72">
