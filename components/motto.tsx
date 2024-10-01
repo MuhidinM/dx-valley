@@ -37,7 +37,7 @@ export default function Motto() {
   }, []);
 
   return (
-    <div ref={mottoRef} className='py-2 px-4 max-w-xl mx-auto '>
+    <div ref={mottoRef} className='max-w-xl mx-auto '>
       <motion.h2
         className='text-3xl lg:text-5xl md:text-4xl  font-extrabold text-center leading-tight'
         initial={{ opacity: 0, y: 20 }}

@@ -27,7 +27,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
   };
 
   return (
-    <div className="relative lg:h-[520px]  h-[350px]   overflow-hidden">
+    <div className="relative lg:h-[500px] h-[350px] overflow-hidden">
       {hero.map((img, index) => (
         <div
           key={index}
@@ -41,7 +41,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
           }}
         />
       ))}
-      <div className="absolute inset-0 bg-black bg-opacity-70" />
+      <div className="absolute inset-0 bg-black bg-opacity-60" />
       <div className="absolute inset-0 flex flex-col justify-end text-white p-8 md:p-16 max-w-2xl">
         <h1 className="lg:text-5xl md:text-4xl text-xl font-bold mb-2">
           {mottos[currentIndex] || " "}
