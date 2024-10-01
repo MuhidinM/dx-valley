@@ -42,7 +42,7 @@ export default function Stats({ items }: { items: CardNoLinkData[] }) {
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-gray-800 rounded-xl shadow-lg"
+              className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-950 rounded-xl shadow-xl"
             >
               <div>
                 <img
