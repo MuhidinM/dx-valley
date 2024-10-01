@@ -212,76 +212,73 @@ export default function OrganizationRegistrationForm() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-background lg:p-10 md:p-10 p-6">
-      <Toaster position="top-right" richColors />
-      <Card className="w-full max-w-2xl ">
+    <div className='flex items-center justify-center bg-background lg:p-10 md:p-10 p-6'>
+      <Toaster position='top-right' richColors />
+      <Card className='w-full max-w-2xl '>
         <CardHeader>
           {" "}
-          <CardTitle className="text-2xl font-bold ">
-            <span className="flex justify-center text-3xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
+          <CardTitle className='text-2xl font-bold '>
+            <span className='flex justify-center text-xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+            <div className='flex justify-center mb-5'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>{" "}
-          <div className="mb-8 ">
-            <div className="flex justify-between items-center">
+          <div className='mb-8 '>
+            <div className='flex justify-between items-center'>
               {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
+                <div key={step.id} className='flex flex-col items-center'>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground"
-                    }`}
-                  >
+                    }`}>
                     {index < currentStep ? (
-                      <Check className="w-4 h-4" />
+                      <Check className='w-4 h-4' />
                     ) : (
                       index + 1
                     )}
                   </div>
-                  <span className="text-xs mt-1">{step.title}</span>
+                  <span className='text-xs mt-1'>{step.title}</span>
                 </div>
               ))}
             </div>
-            <div className="h-2 bg-secondary mt-2 rounded-full">
+            <div className='h-2 bg-secondary mt-2 rounded-full'>
               <div
-                className="h-full bg-primary rounded-full transition-all duration-300 ease-in-out"
+                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}
-              ></div>
+                }}></div>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode='wait'>
             <motion.div
               key={currentStep}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}
-            >
+              transition={{ duration: 0.2 }}>
               {currentStep === 0 && (
-                <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <div className="flex-1">
-                      <Label htmlFor="organizationName">
+                <div className='space-y-4'>
+                  <div className='flex gap-4'>
+                    <div className='flex-1'>
+                      <Label htmlFor='organizationName'>
                         Organization Name
                       </Label>
                       <Input
-                        id="organizationName"
+                        id='organizationName'
                         value={formData.organizationName}
                         onChange={(e) =>
                           handleChange("organizationName", e.target.value)
                         }
-                        placeholder="Enter Organization name"
+                        placeholder='Enter Organization name'
                       />
                       {errors.organizationName && (
-                        <p className="text-red-500 text-sm">
+                        <p className='text-red-500 text-sm'>
                           {errors.organizationName}
                         </p>
                       )}
@@ -289,47 +286,47 @@ export default function OrganizationRegistrationForm() {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor='email'>Email</Label>
                     <Input
-                      id="email"
-                      type="email"
+                      id='email'
+                      type='email'
                       value={formData.email}
                       onChange={(e) => handleChange("email", e.target.value)}
-                      placeholder="Enter your email"
+                      placeholder='Enter your email'
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-sm">{errors.email}</p>
+                      <p className='text-red-500 text-sm'>{errors.email}</p>
                     )}
                   </div>
 
                   <div>
-                    <Label htmlFor="phoneNumberOne">Phone</Label>
+                    <Label htmlFor='phoneNumberOne'>Phone</Label>
                     <Input
-                      id="phoneNumberOne"
-                      type="tel"
+                      id='phoneNumberOne'
+                      type='tel'
                       value={formData.phoneNumberOne}
                       onChange={(e) =>
                         handleChange("phoneNumberOne", e.target.value)
                       }
-                      placeholder="Enter your primary phone number"
+                      placeholder='Enter your primary phone number'
                     />
                     {errors.phoneNumberOne && (
-                      <p className="text-red-500 text-sm">
+                      <p className='text-red-500 text-sm'>
                         {errors.phoneNumberOne}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor='city'>City</Label>
                     <Input
-                      id="city"
+                      id='city'
                       value={formData.city}
                       onChange={(e) => handleChange("city", e.target.value)}
-                      placeholder="Enter your city"
+                      placeholder='Enter your city'
                     />
                     {errors.city && (
-                      <p className="text-red-500 text-sm">{errors.city}</p>
+                      <p className='text-red-500 text-sm'>{errors.city}</p>
                     )}
                   </div>
                 </div>
@@ -337,57 +334,56 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 1 && (
                 <div>
-                  <div className="space-y-4">
-                    <Label htmlFor="focusArea">Focus Area</Label>
+                  <div className='space-y-4'>
+                    <Label htmlFor='focusArea'>Focus Area</Label>
                     <MultiSelectDropdown
                       options={focusAreaOptions}
                       selectedOptions={formData.focusArea}
                       onOptionChange={(option) =>
                         handleCheckboxChange("focusArea", option)
                       }
-                      placeholder="Select focus areas"
+                      placeholder='Select focus areas'
                     />
                     {errors.focusArea && (
-                      <p className="text-red-500 text-sm">{errors.focusArea}</p>
+                      <p className='text-red-500 text-sm'>{errors.focusArea}</p>
                     )}
 
-                    <Label htmlFor="interestedArea">Interest Area</Label>
+                    <Label htmlFor='interestedArea'>Interest Area</Label>
                     <MultiSelectDropdown
                       options={interestOptions}
                       selectedOptions={formData.interestedArea}
                       onOptionChange={(option) =>
                         handleCheckboxChange("interestedArea", option)
                       }
-                      placeholder="Select areas of interest"
+                      placeholder='Select areas of interest'
                     />
                     {errors.interestedArea && (
-                      <p className="text-red-500 text-sm">
+                      <p className='text-red-500 text-sm'>
                         {errors.interestedArea}
                       </p>
                     )}
 
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="organizationType">
+                    <div className='flex flex-col gap-2'>
+                      <Label htmlFor='organizationType'>
                         Organization Type
                       </Label>
                       <RadioGroup
-                        className="m-4 mt gap-2"
+                        className='m-4 mt gap-2'
                         onValueChange={handleRadioChange}
-                        defaultValue={formData.organizationType}
-                      >
+                        defaultValue={formData.organizationType}>
                         {organizationTypeOptions.map((option) => (
                           <div key={option}>
                             <RadioGroupItem
                               value={option}
                               id={option}
-                              className="mr-2"
+                              className='mr-2'
                             />
                             <Label htmlFor={option}>{option}</Label>
                           </div>
                         ))}
                       </RadioGroup>
                       {errors.organizationType && (
-                        <p className="text-red-500 text-sm">
+                        <p className='text-red-500 text-sm'>
                           {errors.organizationType}
                         </p>
                       )}
@@ -398,35 +394,35 @@ export default function OrganizationRegistrationForm() {
 
               {currentStep === 2 && (
                 <div>
-                  <h2 className="text-xl mb-4 text-center font-semibold">
+                  <h2 className='text-xl mb-4 text-center font-semibold'>
                     Confirm your details
                   </h2>
                   {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
 
-                  <div className="space-y-2">
+                  <div className='space-y-2'>
                     {/* Confirm Details */}
-                    <div className="text-sm">
-                      <p className="p-3">
+                    <div className='text-sm'>
+                      <p className='p-3'>
                         <strong>Organization Name</strong>{" "}
                         {formData.organizationName}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Email:</strong> {formData.email}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Phone:</strong> {formData.phoneNumberOne}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>From:</strong> {formData.city}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Focus on:</strong> {formData.focusArea}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Want to:</strong> {formData.interestedArea}
                       </p>
 
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Organization Type:</strong>{" "}
                         {formData.organizationType}
                       </p>
@@ -435,24 +431,23 @@ export default function OrganizationRegistrationForm() {
                 </div>
               )}
 
-              <div className="flex justify-between mt-4">
+              <div className='flex justify-between mt-4'>
                 <Button
-                  variant="secondary"
+                  variant='secondary'
                   onClick={handlePrevious}
-                  disabled={currentStep === 0}
-                >
-                  <ChevronLeft className="mr-2 h-4 w-4" />
+                  disabled={currentStep === 0}>
+                  <ChevronLeft className='mr-2 h-4 w-4' />
                   Previous
                 </Button>
                 {currentStep === steps.length - 1 ? (
                   <Button onClick={handleSubmit}>
-                    <Check className="mr-2 h-4 w-4" />
+                    <Check className='mr-2 h-4 w-4' />
                     Submit
                   </Button>
                 ) : (
                   <Button onClick={handleNext}>
                     Next
-                    <ChevronRight className="ml-2 h-4 w-4" />
+                    <ChevronRight className='ml-2 h-4 w-4' />
                   </Button>
                 )}
               </div>

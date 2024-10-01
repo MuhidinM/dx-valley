@@ -75,7 +75,7 @@ export default function PhotoGallery() {
   });
 
   return (
-    <div className='container mx-auto py-10'>
+    <div className='lg:container mx-auto py-10 px-5'>
       <div className='mb-8'>
         <Select onValueChange={setFilter} defaultValue='all'>
           <SelectTrigger className='w-[180px]'>
