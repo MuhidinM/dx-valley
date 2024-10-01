@@ -3,50 +3,45 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-// import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
 import { toast, Toaster } from "sonner";
-// import { description } from "@/app/admin/dashboard/page";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-const handleSubmit = async (e: { preventDefault: () => void }) => {
-  e.preventDefault();
 
-  try {
-    const response = await fetch("/newapi/subscriber", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (response.ok) {
-      const data = await response.json();
+    try {
+      const response = await fetch("/newapi/subscriber", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      // Ensure that 'data.subscribed' is properly handled
-      if (data.subscribed === true) {
-        // User was not subscribed before, and now successfully subscribed
-        toast.success(data.message3 || "Subscribed Successfully!");
-        setEmail("");
+      const data = await response.json(); // Parse the response only once
 
-      } else if (data.subscribed === false) {
-        // User is already subscribed
-        toast.error(data.message2 || "Already subscribed!");
+      if (response.ok) {
+        if (data.subscribed) {
+          // Successful subscription
+          toast.success(data.message3 || "Subscribed Successfully!");
+        } else {
+          // Already subscribed
+          toast.error(data.message2 || "Already subscribed!");
+        }
       } else {
-        const data = await response.json();
+        
         if (data.message === "User already subscribed") {
           toast.error("You are already subscribed!");
-          setEmail("");
         } else {
           toast.error("Failed to subscribe!", {
             description: "Please try again later.",
           });
-          setEmail("");
         }
       }
     } catch (error) {
@@ -54,11 +49,10 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
       toast.error("An unexpected error occurred", {
         description: "Please try again later.",
       });
-      setEmail("");
-  }
-  setEmail("");
-};
-
+    } finally {
+      setEmail(""); // Clear the form input in all cases
+    }
+  };
 
   const [FooterItems, setFooterItems] = useState<FooterData>();
 
@@ -84,12 +78,6 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
                   <span className='mx-2 text-gray-800 font-bold'>
                     D <span className='text-coopOrange'> X </span>VALLEY
                   </span>
-                  {/* <img
-                    src={"/image/dxvalleylogo1.png"}
-                    alt='dxvalley logo'
-                    width={200} // adjust the width as needed
-                    className='mx-auto mb-4 '
-                  /> */}
                 </h6>
                 <p className='text-white'>{FooterItems?.description}</p>
               </div>
@@ -103,18 +91,13 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
                           <Label htmlFor='email' className='text-white'>
                             Get the latest News and More.
                           </Label>
-                          {/* <Input
-                            type='email'
-                            placeholder='Email'
-                            onChange={(e) => setEmail(e.target.value)}
-                            className='text-black dark:text-white'
-                          /> */}
                         </div>
                         <div className='sm:ml-1 flex gap-2'>
                           <Input
                             type='email'
                             placeholder='Email'
                             required
+                            value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
                           />
@@ -201,13 +184,13 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
           </div>
         </div>
 
-        <div className='py-6 md:py-8 text-center sm:text-center  md:text-center'>
+        <div className='py-6 md:py-8 text-center sm:text-center md:text-center'>
           <div className='space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0'>
             <Link href='/' className='flex items-center justify-center'>
               <span className='text-xl font-semibold'>
                 D <span className='text-orange-500'>X</span> VALLEY
               </span>
-                         </Link>
+            </Link>
 
             <p className='text-sm'>
               © {new Date().getFullYear()}{" "}
