@@ -36,7 +36,7 @@ import {
 import Confetti from "react-confetti";
 import SubmissionSuccess from "../submissionSuccess";
 import { ChangeEvent, FormEvent, MouseEvent, useState, useRef } from "react";
-import { string } from "zod";
+
 import { toast } from "sonner"; // Import the toast function
 import { Toaster } from "sonner";
 const steps = [
