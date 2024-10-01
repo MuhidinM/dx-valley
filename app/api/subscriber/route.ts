@@ -38,7 +38,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     // Return success response here after adding to database
     const successResponse = NextResponse.json({
       message3: "Subscribed Successfully",
-      subscribed: true,
+      subscribed: false,
       subscribedData: newSubscriber,
     });
 
