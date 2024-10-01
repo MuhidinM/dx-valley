@@ -1,16 +1,12 @@
-/** @format */
-
 "use client";
 
 import { Feature } from "@/components/feature";
 import FocusAreas from "@/components/focusAreas";
 import Offer from "@/components/landing/offer";
-
 import { SectionRight } from "@/components/section";
 import { IncubationItemFetch } from "@/services/incubation";
 import { IncubationData } from "@/types/strapi-types";
-
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useInView } from "react-intersection-observer"; // Install this hook using 'npm install react-intersection-observer'
 
@@ -33,15 +29,15 @@ const Page = () => {
   }, []);
 
   const { ref: featureRef, inView: featureInView } = useInView({
-    threshold: 0.2, // How much of the component should be visible to trigger (20% of the element in view)
-    triggerOnce: true, // Only trigger once
+    threshold: 0.2,
+    triggerOnce: true,
   });
 
   if (!incubationItems) {
     return <SkeletonLoaderAboutPage />;
   }
   return (
-    <div className='space-y-8 mb-4 justify-center'>
+    <div className="space-y-8 mb-4 justify-center">
       <SectionRight
         svg={
           <img
@@ -58,18 +54,18 @@ const Page = () => {
         buttonText={"hidden"}
         href={"/incubationcenter"}
       />
-      <div className='items-center align-middle lg:px-16 md:px-14 px-3'>
+      <div className="items-center align-middle lg:px-16 md:px-14 px-3">
         <A2DxV />
       </div>
       <div ref={featureRef}>
         {featureInView && (
-          <div className='lg:mb-28'>
+          <div className="lg:mb-28">
             <Feature focus={incubationItems?.incubation_process || []} />
           </div>
         )}
       </div>
 
-      <div className='items-center align-middle lg:px-36 md:px-20 px-3'>
+      <div className="items-center align-middle lg:px-36 md:px-20 px-3">
         <MultiStepFormComponent />
       </div>
 

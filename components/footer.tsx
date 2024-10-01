@@ -38,27 +38,24 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
         // User is already subscribed
         toast.error(data.message2 || "Already subscribed!");
       } else {
-        // Handle unexpected cases where subscribed status is undefined or null
-        toast.error("An error occurred. Please try again.");
+        const data = await response.json();
+        if (data.message === "User already subscribed") {
+          toast.error("You are already subscribed!");
+          setEmail("");
+        } else {
+          toast.error("Failed to subscribe!", {
+            description: "Please try again later.",
+          });
+          setEmail("");
+        }
       }
-    } else {
-      const data = await response.json();
-      if (data.message === "User already subscribed") {
-        toast.error("You are already subscribed!");
-      } else {
-        toast.error("Failed to subscribe!", {
-          description: "Please try again later.",
-        });
-      }
-    }
-  } catch (error) {
-    console.error("Subscription error:", error);
-    toast.error("An unexpected error occurred", {
-      description: "Please try again later.",
-    });
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast.error("An unexpected error occurred", {
+        description: "Please try again later.",
+      });
+      setEmail("");
   }
-
-  // Reset the email input after submission (optional)
   setEmail("");
 };
 

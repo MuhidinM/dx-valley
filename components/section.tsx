@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "./ui/button";
 import { SectionProps } from "@/types/general";
@@ -81,27 +80,27 @@ export const CardComponent: React.FC<SectionProps> = ({
   href,
 }) => {
   return (
-    <div className='bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col h-full'>
-      {svg && <div className='p-6 flex items-center justify-center'>{svg}</div>}
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+      {svg && <div className="p-6 flex items-center justify-center">{svg}</div>}
 
-      <div className='flex flex-col flex-1 p-6'>
-        <h2 className='mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white'>
+      <div className="flex flex-col flex-1 p-6">
+        <h2 className="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
           {title}
         </h2>
-        <div className='prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
+        <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {description?.toString()}
             {/* {description} */}
           </ReactMarkdown>
         </div>
-        <div className='mt-auto'>
-          {href == "" ? (
-            null
-          ): <Link href={href}>
-              <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>
+        <div className="mt-auto">
+          {href == "" ? null : (
+            <Link href={href}>
+              <Button className="bg-[#0f172a] w-full hover:bg-gray-700">
                 {buttonText}
               </Button>
-            </Link>}
+            </Link>
+          )}
         </div>
       </div>
     </div>
