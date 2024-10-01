@@ -42,18 +42,18 @@ const Page = () => {
     <div>
       <ComingSoonModal />
       {/* landingpage for large and medium screens */}
-      <div className='lg:block md:block hidden'>
-        <div className=' grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5'>
-          <div className='lg:col-span-2  flex flex-col justify-between'>
+      <div className="lg:block md:block hidden">
+        <div className=" grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5">
+          <div className="lg:col-span-2  flex flex-col justify-between">
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}
           </div>
           <div className="lg:col-span-1 flex flex-col">
-            <div className="mt-auto lg:block md:block hidden">
+            <div className="lg:block md:block hidden">
               <Motto />
             </div>
-            <div className="mt-auto">
+            <div className="">
               <NewsList news={homepageItems?.news || []} />
             </div>
           </div>
@@ -116,7 +116,6 @@ const Page = () => {
       <div className="lg:hidden md:hidden block">
         <div className=" grid grid-cols-1 lg:grid-cols-3   gap-6 mt-5">
           <div className="lg:col-span-2  flex flex-col justify-between">
-
             {homepageItems?.slider && (
               <SlidingHero hero={homepageItems?.slider} />
             )}
