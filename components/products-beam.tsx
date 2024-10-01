@@ -53,22 +53,20 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
 
   return (
     <div
-      className="relative rounded-lg border bg-background p-10 grid lg:grid-cols-2 gap-4 sm:grid-cols-1"
-      ref={containerRef}
-    >
-      <div className="flex  flex-col max-w-lg justify-between ">
-        <div className="flex flex-row items-center justify-between">
+      className='relative rounded-lg border bg-background p-10 grid lg:grid-cols-2 md:grid-cols-2 gap-4 grid-cols-1'
+      ref={containerRef}>
+      <div className='flex  flex-col max-w-lg justify-between '>
+        <div className='flex flex-row items-center justify-between'>
           <Circle
             ref={div1Ref}
             onClick={() => setActiveTag(3)}
             name={""}
-            className="dark:bg-gray-200"
-          >
+            className='dark:bg-gray-200'>
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[3]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
             />
@@ -78,40 +76,39 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[1]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
 
-        <div className="flex flex-row items-center justify-between">
+        <div className='flex flex-row items-center justify-between'>
           <Circle ref={div2Ref} onClick={() => setActiveTag(2)} name={""}>
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[2]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
           <Circle
             ref={div4Ref}
-            className="w-24 h-24 xs:w-12 xs:h-12"
+            className='w-24 h-24 xs:w-12 xs:h-12'
             onClick={() => setActiveTag(0)}
-            name={""}
-          >
+            name={""}>
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[0]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
           <Circle ref={div6Ref} onClick={() => setActiveTag(4)} name={""}>
@@ -119,24 +116,24 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[4]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
 
-        <div className="flex flex-row items-center justify-between">
+        <div className='flex flex-row items-center justify-between'>
           <Circle ref={div3Ref} onClick={() => setActiveTag(5)} name={""}>
             <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[5]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
           <Circle ref={div7Ref} onClick={() => setActiveTag(6)} name={""}>
@@ -144,33 +141,32 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                 products[6]?.img ?? ""
               }`}
-              alt=""
+              alt=''
               width={200}
               height={100}
-              className="dark:bg-gray-200"
+              className='dark:bg-gray-200'
             />
           </Circle>
         </div>
       </div>
 
-      <div className="border-l-2 px-6 flex flex-col justify-between mt-10 md:mt-0">
+      <div className='border-l-2 px-6 flex flex-col justify-between mt-10 md:mt-0'>
         <div>
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className='text-2xl font-bold mb-4'>
             {products[activeTag]?.title ?? ""}
           </h2>
 
-          <div className="prose mb-4 ">
+          <div className='prose mb-4 '>
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              className={"prose dark:prose-invert"}
-            >
+              className={"prose dark:prose-invert"}>
               {products[activeTag]?.description ?? ""}
             </ReactMarkdown>
           </div>
         </div>
-        <div className="flex gap-8">
+        <div className='flex gap-8'>
           {products[activeTag]?.link?.href && (
-            <Link href={products[activeTag].link.href} target="_blank">
+            <Link href={products[activeTag].link.href} target='_blank'>
               <Button>
                 Visit Site <ArrowRight />
               </Button>

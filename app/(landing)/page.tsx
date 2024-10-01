@@ -100,11 +100,11 @@ const Page = () => {
 
         <br />
         <div className="text-center">
-          <h2 className="text-4xl  lg:text-4xl sm:text-wrap md:text-wrap  font-bold">
+          <div className="text-2xl lg:text-4xl text-wrap md:text-wrap  font-bold">
             <span className="text-coopBlue">Breakthroughs</span> We&apos;ve
             Delivered
-          </h2>
-          <div className="flex justify-center mt-2  mb-5">
+          </div>
+          <div className="flex justify-center mt-2  lg:mb-5">
             <div className="w-36 h-1 bg-coopOrange"></div>
           </div>
         </div>
