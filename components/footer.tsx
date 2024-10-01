@@ -1,53 +1,58 @@
 /** @format */
 "use client";
+
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-// import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
 import { toast, Toaster } from "sonner";
-// import { description } from "@/app/admin/dashboard/page";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-const handleSubmit = async (e: { preventDefault: () => void }) => {
-  e.preventDefault();
+  const [FooterItems, setFooterItems] = useState<FooterData>();
 
-  try {
-    const response = await fetch("/newapi/subscriber", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
+  // Submit handler for subscribing via email
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-    if (response.ok) {
-      const data = await response.json();
+    try {
+      const response = await fetch("/newapi/subscriber", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      // Ensure that 'data.subscribed' is properly handled
-      if (data.subscribed === true) {
-        // User was not subscribed before, and now successfully subscribed
-        toast.success(data.message3 || "Subscribed Successfully!");
-        setEmail("");
-
-      } else if (data.subscribed === false) {
-        // User is already subscribed
-        toast.error(data.message2 || "Already subscribed!");
-      } else {
+      if (response.ok) {
         const data = await response.json();
-        if (data.message === "User already subscribed") {
-          toast.error("You are already subscribed!");
+
+        if (data.subscribed === true) {
+          // Successfully subscribed
+          toast.success(data.message3 || "Subscribed Successfully!");
           setEmail("");
+        } else if (data.subscribed === false) {
+          // Already subscribed
+          toast.error(data.message2 || "Already subscribed!");
         } else {
-          toast.error("Failed to subscribe!", {
-            description: "Please try again later.",
-          });
-          setEmail("");
+          if (data.message === "User already subscribed") {
+            toast.error("You are already subscribed!");
+            setEmail("");
+          } else {
+            toast.error("Failed to subscribe!", {
+              description: "Please try again later.",
+            });
+            setEmail("");
+          }
         }
+      } else {
+        toast.error("Failed to subscribe!", {
+          description: "Please try again later.",
+        });
+        setEmail("");
       }
     } catch (error) {
       console.error("Subscription error:", error);
@@ -55,13 +60,10 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
         description: "Please try again later.",
       });
       setEmail("");
-  }
-  setEmail("");
-};
+    }
+  };
 
-
-  const [FooterItems, setFooterItems] = useState<FooterData>();
-
+  // Fetch footer items from the API
   useEffect(() => {
     const fetchMenuItems = async () => {
       const data = await FooterItemFetch();
@@ -72,54 +74,43 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
   }, []);
 
   return (
-    <footer className='bg-coopBlue text-white font-sans'>
-      <Toaster position='top-right' richColors />
-      <div className='mx-auto max-w-screen-xl px-4'>
-        <div className='border-b border-gray-100 py-6 md:py-8 lg:py-12'>
-          <div className='lg:flex lg:gap-8 lg:items-start'>
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1 p-6'>
+    <footer className="bg-coopBlue text-white font-sans">
+      <Toaster position="top-right" richColors />
+      <div className="mx-auto max-w-screen-xl px-4">
+        <div className="border-b border-gray-100 py-6 md:py-8 lg:py-12">
+          <div className="lg:flex lg:gap-8 lg:items-start">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1 p-6">
               <div>
-                <h6 className='mb-4 text-xl font-extrabold'>
+                <h6 className="mb-4 text-xl font-extrabold">
                   {FooterItems?.title}
-                  <span className='mx-2 text-gray-800 font-bold'>
-                    D <span className='text-coopOrange'> X </span>VALLEY
+                  <span className="mx-2 text-gray-800 font-bold">
+                    D <span className="text-coopOrange"> X </span>VALLEY
                   </span>
-                  {/* <img
-                    src={"/image/dxvalleylogo1.png"}
-                    alt='dxvalley logo'
-                    width={200} // adjust the width as needed
-                    className='mx-auto mb-4 '
-                  /> */}
                 </h6>
-                <p className='text-white'>{FooterItems?.description}</p>
+                <p className="text-white">{FooterItems?.description}</p>
               </div>
 
-              <div className='flex justify-end'>
-                <div className='w-full md:max-w-md lg:max-w-lg'>
-                  <div className='space-y-2 p-2'>
+              <div className="flex justify-end">
+                <div className="w-full md:max-w-md lg:max-w-lg">
+                  <div className="space-y-2 p-2">
                     <form onSubmit={handleSubmit}>
-                      <div className='space-y-4 sm:flex flex-col '>
-                        <div className='w-auto flex-grow space-y-2'>
-                          <Label htmlFor='email' className='text-white'>
+                      <div className="space-y-4 sm:flex flex-col ">
+                        <div className="w-auto flex-grow space-y-2">
+                          <Label htmlFor="email" className="text-white">
                             Get the latest News and More.
                           </Label>
-                          {/* <Input
-                            type='email'
-                            placeholder='Email'
-                            onChange={(e) => setEmail(e.target.value)}
-                            className='text-black dark:text-white'
-                          /> */}
                         </div>
-                        <div className='sm:ml-1 flex gap-2'>
+                        <div className="sm:ml-1 flex gap-2">
                           <Input
-                            type='email'
-                            placeholder='Email'
+                            type="email"
+                            placeholder="Email"
                             required
                             onChange={(e) => setEmail(e.target.value)}
-                            className='text-black dark:text-white'
+                            value={email}
+                            className="text-black dark:text-white"
                           />
-                          <Button className='bg-coopOrange hover:bg-black'>
-                            <span className='text-white '>SUBSCRIBE</span>
+                          <Button className="bg-coopOrange hover:bg-black">
+                            <span className="text-white">SUBSCRIBE</span>
                           </Button>
                         </div>
                       </div>
@@ -130,16 +121,17 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
             </div>
           </div>
 
-          <div className='grid grid-cols-2 gap-6 sm:grid-cols-4 mt-8 text-sm'>
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 mt-8 text-sm">
             {FooterItems?.divisions && (
               <div>
-                <h6 className='mb-4 text-xl font-extrabold'>Divisions</h6>
-                <ul className='space-y-3'>
+                <h6 className="mb-4 text-xl font-extrabold">Divisions</h6>
+                <ul className="space-y-3">
                   {FooterItems?.divisions.map((divisionItem) => (
                     <li key={divisionItem.href}>
                       <Link
                         href={divisionItem.href}
-                        className='text-gray-200 hover:text-gray-300'>
+                        className="text-gray-200 hover:text-gray-300"
+                      >
                         {divisionItem.link}
                       </Link>
                     </li>
@@ -150,13 +142,14 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
 
             {FooterItems?.collaboration && (
               <div>
-                <h6 className='mb-4 text-xl font-extrabold'>Collaboration</h6>
-                <ul className='space-y-3'>
+                <h6 className="mb-4 text-xl font-extrabold">Collaboration</h6>
+                <ul className="space-y-3">
                   {FooterItems?.collaboration.map((collaborationItem) => (
                     <li key={collaborationItem.href}>
                       <Link
                         href={collaborationItem.href}
-                        className='text-gray-200 hover:text-gray-300'>
+                        className="text-gray-200 hover:text-gray-300"
+                      >
                         {collaborationItem.link}
                       </Link>
                     </li>
@@ -167,13 +160,14 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
 
             {FooterItems?.events && (
               <div>
-                <h6 className='mb-4 text-xl font-extrabold'>Events</h6>
-                <ul className='space-y-3'>
+                <h6 className="mb-4 text-xl font-extrabold">Events</h6>
+                <ul className="space-y-3">
                   {FooterItems?.events.map((eventItem) => (
                     <li key={eventItem.href}>
                       <Link
                         href={eventItem.href}
-                        className='text-gray-200 hover:text-gray-300'>
+                        className="text-gray-200 hover:text-gray-300"
+                      >
                         {eventItem.link}
                       </Link>
                     </li>
@@ -184,13 +178,14 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
 
             {FooterItems?.otherlinks && (
               <div>
-                <h6 className='mb-4 text-xl font-extrabold'>Other Links</h6>
-                <ul className='space-y-3'>
+                <h6 className="mb-4 text-xl font-extrabold">Other Links</h6>
+                <ul className="space-y-3">
                   {FooterItems?.otherlinks.map((otherLinksItem) => (
                     <li key={otherLinksItem.href}>
                       <Link
                         href={otherLinksItem.href}
-                        className='text-gray-200 hover:text-gray-300'>
+                        className="text-gray-200 hover:text-gray-300"
+                      >
                         {otherLinksItem.link}
                       </Link>
                     </li>
@@ -201,19 +196,20 @@ const handleSubmit = async (e: { preventDefault: () => void }) => {
           </div>
         </div>
 
-        <div className='py-6 md:py-8 text-center sm:text-center  md:text-center'>
-          <div className='space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0'>
-            <Link href='/' className='flex items-center justify-center'>
-              <span className='text-xl font-semibold'>
-                D <span className='text-orange-500'>X</span> VALLEY
+        <div className="py-6 md:py-8 text-center sm:text-center md:text-center">
+          <div className="space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0">
+            <Link href="/" className="flex items-center justify-center">
+              <span className="text-xl font-semibold">
+                D <span className="text-orange-500">X</span> VALLEY
               </span>
-                         </Link>
+            </Link>
 
-            <p className='text-sm'>
+            <p className="text-sm">
               © {new Date().getFullYear()}{" "}
               <Link
-                href='https://coopbankoromia.com.et/'
-                className='hover:underline'>
+                href="https://coopbankoromia.com.et/"
+                className="hover:underline"
+              >
                 Cooperative Bank of Oromia
               </Link>
               Inc. All rights reserved.
