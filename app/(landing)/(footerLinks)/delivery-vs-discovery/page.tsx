@@ -1,6 +1,5 @@
 /** @format */
 
-import ComingSoonComp from "@/components/comingSoonComp";
 import { MultiStepFormComponent } from "@/components/multi-step-form";
 import React from "react";
 const Page: React.FC = () => {

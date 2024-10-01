@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 
 import Callforproposal from "@/components/events/callforproposal";

@@ -10,7 +10,10 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { StakeHolderItemFetch } from "@/services/stakeholders";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
+import {
+  SkeletonLoaderCollabForm,
+  SkeletonPageColloab,
+} from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [stakeHolderItems, setStakeHolderItems] = useState<OrgData>();
@@ -65,7 +68,7 @@ const Page = () => {
         );
       })}
       <CTA
-        title={stakeHolderItems?.proposal.title || " " }
+        title={stakeHolderItems?.proposal.title || " "}
         buttonText={stakeHolderItems?.proposal.button_name || " "}
         href={stakeHolderItems?.proposal.href || " "}
         description={stakeHolderItems?.proposal.description || " "}

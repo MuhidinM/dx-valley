@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-const LAUNCH_DATE = new Date("2024-09-19T14:26:00");
+const LAUNCH_DATE = new Date("2024-09-28T14:05:00");
 
 interface TimeLeft {
   days: number;

@@ -63,7 +63,7 @@ const Page = () => {
           />
         );
       })}
-      <div className="mx-2 p-3">
+      <div className='mx-2 p-3'>
         <CTA
           title={orgItems?.proposal.title || " "}
           buttonText={orgItems?.proposal.button_name || " "}

@@ -7,7 +7,6 @@ import { SectionRight, SectionLeft } from "@/components/section";
 import { TrainingItemFetch } from "@/services/training";
 import React, { useEffect, useState } from "react";
 import { TrainingData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderTrainingPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -34,7 +33,7 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -50,7 +49,7 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
