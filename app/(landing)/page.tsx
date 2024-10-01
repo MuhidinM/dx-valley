@@ -83,12 +83,12 @@ const Page = () => {
             <VideosList video={homepageItems?.videos || []} />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-5">
           <div className="lg:col-span-2 m-3 space-y-4">
+            <MultiStepFormComponent />
             <CardContainer update={homepageItems?.update || []} />
           </div>
           <div className="lg:col-span-1 m-2">
-            <MultiStepFormComponent />
             {homepageItems?.joinus && (
               <CTAComponent JoinUs={homepageItems.joinus} />
             )}
