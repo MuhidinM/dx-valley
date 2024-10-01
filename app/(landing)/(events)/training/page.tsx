@@ -62,12 +62,14 @@ const Page = () => {
           />
         );
       })}
-      <CTA
-        title={trainingItems.proposal.title}
-        buttonText={trainingItems.proposal.button_name}
-        href={trainingItems.proposal.href}
-        description={trainingItems.proposal.description}
-      />
+      <div className=" lg:container my-3 mx-3">
+        <CTA
+          title={trainingItems.proposal.title}
+          buttonText={trainingItems.proposal.button_name}
+          href={trainingItems.proposal.href}
+          description={trainingItems.proposal.description}
+        />
+      </div>
     </div>
   );
 };
