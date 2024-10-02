@@ -103,7 +103,7 @@ export default function PhotoGallery() {
           <SelectContent>
             <SelectItem value='all'>All</SelectItem>
             <SelectItem value='innovation'>Innovation Hub</SelectItem>
-            <SelectItem value='incubation'>Incubation Lab</SelectItem>
+            <SelectItem value='incubation'>Incubation Center</SelectItem>
           </SelectContent>
         </Select>
       </div>
