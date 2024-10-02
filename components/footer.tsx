@@ -79,7 +79,7 @@ const Footer = () => {
       <div className="mx-auto max-w-screen-xl px-4">
         <div className="border-b border-gray-100 py-6 md:py-8 lg:py-12">
           <div className="lg:flex lg:gap-8 lg:items-start">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1 p-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1">
               <div>
                 <h6 className="mb-4 text-xl font-extrabold">
                   {FooterItems?.title}
