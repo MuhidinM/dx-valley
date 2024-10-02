@@ -71,7 +71,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
             <button
               key={item.title}
               type="button"
-              className="w-full"
+              className="w-full "
               onClick={() => {
                 setFeatureOpen(index);
                 setTimer(0);
@@ -102,7 +102,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
                 }`}
                 alt={item.title}
                 className={cn(
-                  "rounded-lg absolute w-full object-cover transition-all duration-300 h-[500px] transform-gpu",
+                  "rounded-lg absolute w-full object-cover transition-all duration-300 h-[900px] transform-gpu",
                   featureOpen === index ? "scale-100" : "scale-70",
                   featureOpen > index ? "translate-y-full" : ""
                 )}
@@ -134,33 +134,29 @@ function TextComponent({
       className={cn(
         "transition-colors rounded-lg transform-gpu",
         isOpen ? "bg-coopBlue/10" : "saturate-0 opacity-50"
-      )}
-    >
-      <div className="w-full p-4 flex gap-4 items-center">
+      )}>
+      <div className='w-full p-4 flex gap-4 items-center'>
         <p
           className={cn(
             "inline-flex size-8 rounded-md items-center justify-center text-coopBlue bg-coopBlue/20"
-          )}
-        >
+          )}>
           {number}
         </p>
         <h2
           className={cn(
             "text-xl font-medium dark:text-gray-200 text-gray-800 text-left"
-          )}
-        >
+          )}>
           {title}
         </h2>
       </div>
       <div
         className={cn(
           "overflow-hidden transition-all duration-500 text-left dark:text-gray-400 text-gray-600 w-full transform-gpu",
-          isOpen ? " max-h-64" : "max-h-0"
-        )}
-      >
-        <p className="p-4 text-lg">{content}</p>
-        <div className="w-full pb-4 px-4">
-          <div className="h-1 relative rounded-full w-full overflow-hidden">
+          isOpen ? " max-h-full" : "max-h-0"
+        )}>
+        <p className='p-4 text-lg'>{content}</p>
+        <div className='w-full pb-4 px-4'>
+          <div className='h-2 relative rounded-full w-full overflow-hidden'>
             <div
               className={cn("absolute top-0 left-0 h-1 bg-coopBlue")}
               style={{ width: `${loadingWidthPercent}%` }}
