@@ -182,39 +182,17 @@ export default function AllNewsPage({
             </div>
             <button
               onClick={handlePrevSlide}
-              className='absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md'
+              className='absolute left-0 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md'
               aria-label='Previous slide'>
               <ChevronLeft className='h-6 w-6' />
             </button>
             <button
               onClick={handleNextSlide}
-              className='absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md'
+              className='absolute right-0 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md'
               aria-label='Next slide'>
               <ChevronRight className='h-6 w-6' />
             </button>
           </div>
-          {/* <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {sortedNewsArticles.map((article) => (
-              <Card
-                key={article.title}
-                className='cursor-pointer hover:shadow-lg transition-shadow duration-300'
-                onClick={() => handleArticleClick(article)}>
-                <CardHeader>
-                  <CardTitle className='text-lg'>{article.title}</CardTitle>
-                  <p className='text-sm text-muted-foreground'>
-                    {new Date(article.date).toLocaleDateString()}
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <img
-                    src={article.img_link}
-                    alt={article.title}
-                    className='w-full h-48 object-cover rounded-md'
-                  />
-                </CardContent>
-              </Card>
-            ))}
-          </div> */}
         </>
       ) : (
         /* News all list */
@@ -224,7 +202,10 @@ export default function AllNewsPage({
           <ScrollArea>
             <h1 className='text-3xl font-bold my-6'>Latest News</h1>
             {sortedNewsArticles.map((article, index) => (
-              <Card key={index} onClick={() => handleArticleClick(article)} className="mb-4 hover:pointer">
+              <Card
+                key={index}
+                onClick={() => handleArticleClick(article)}
+                className='mb-4 hover:pointer'>
                 <CardHeader>
                   <CardTitle className='text-lg'>{article.title}</CardTitle>
 
