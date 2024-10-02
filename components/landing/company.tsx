@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import { CardNoLinkData } from "@/types/strapi-types";
-import Image from "next/image";
 import Header from "@/components/header";
 
 const Companies = ({ img }: { img: JSX.Element }) => {
@@ -39,8 +38,6 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                       item?.img ?? ""
                     }`}
-                    height={100}
-                    width={100}
                     alt={item.title}
                   />
                 }

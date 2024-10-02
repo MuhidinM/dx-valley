@@ -26,15 +26,16 @@ const Page = () => {
   if (!innovationItems) {
     return <SkeletonLoaderAboutInnovationPage />;
   }
-  
+
   return (
-    <div className='mt-5 lg:my-0 md:my-0 mx-3'>
-      <Card className='contest-title'>
+    <div className="mt-5 lg:my-0 md:my-0 mx-3">
+      <Card className="contest-title">
         <CardHeader>
           <CardTitle>Projects</CardTitle>
         </CardHeader>
       </Card>
-      <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6 lg:my-14'>
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6 lg:my-14">
+
         {innovationItems?.gallery.map((item, indx) => {
           return (
             <CardComponent
@@ -44,10 +45,8 @@ const Page = () => {
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                     item?.img ?? " "
                   }`}
-                  alt='Image Left Not Found'
-                  width={200}
-                  height={200}
-                  className='h-24'
+                  alt="Image Left Not Found"
+                  className="h-24"
                 />
               }
               title={item.title}
