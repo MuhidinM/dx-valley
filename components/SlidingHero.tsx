@@ -27,7 +27,7 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
   };
 
   return (
-    <div className="relative lg:h-[500px] h-[350px] overflow-hidden">
+    <div className="relative lg:h-[525px] h-[350px] overflow-hidden">
       {hero.map((img, index) => (
         <div
           key={index}

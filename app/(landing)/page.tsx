@@ -50,7 +50,7 @@ const Page = () => {
             )}
           </div>
           <div className="lg:col-span-1 flex flex-col">
-            <div className="lg:block md:block hidden">
+            <div className="lg:block md:block hidden mb-6">
               <Motto />
             </div>
             <div className="">

@@ -51,6 +51,7 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
                   </span>
                   <a
                     href={article.link}
+                    target='_blank'
                     className='text-sm text-primary hover:underline block italic'>
                     <span className='font-semibold'>{article.title}</span>
                   </a>
