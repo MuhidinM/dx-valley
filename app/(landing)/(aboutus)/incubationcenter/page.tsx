@@ -45,8 +45,6 @@ const Page = () => {
               incubationItems?.intro?.img ?? ""
             }`}
             alt='Image Not Found'
-            width={500}
-            height={800}
           />
         }
         title={incubationItems?.intro.title ?? " "}
@@ -65,7 +63,7 @@ const Page = () => {
         )}
       </div>
 
-      <div className="items-center align-middle lg:px-36 md:px-20 px-3">
+      <div className="">
         <MultiStepFormComponent />
       </div>
 

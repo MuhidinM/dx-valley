@@ -33,32 +33,26 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
-                width={500}
-                height={800}
+                alt="Image Left Not Found"
               />
             }
             key={indx}
             title={cards.title}
             href={cards.link.href}
             description={cards.description}
-            buttonText={cards.link.title}
           />
         ) : (
           <SectionRight
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt='Image Left Not Found'
-                width={500}
-                height={800}
+                alt="Image Left Not Found"
               />
             }
             key={indx}
             title={cards.title}
             href={cards.link.href}
             description={cards.description}
-            buttonText={cards.link.title}
           />
         );
       })}
