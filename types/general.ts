@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { CardNoLinkData } from "./strapi-types";
 
 export interface SectionProps {
-  svg: ReactNode;
+  svg?: React.ReactNode;
   title: string;
-  description: ReactNode;
+  description: string;
   buttonText?: string;
-  href: string;
+  href?: string;
 }
 
 export interface objectivesItems {
@@ -15,7 +15,7 @@ export interface objectivesItems {
 }
 
 export interface objectivesProps {
- items: objectivesItems[];
+  items: objectivesItems[];
 }
 export interface focusAreaItems {
   image: string;
@@ -24,22 +24,19 @@ export interface focusAreaItems {
   contentDesc: string;
 }
 export interface focusAreaProps {
-    items: CardNoLinkData[];
+  items: CardNoLinkData[];
 }
 export interface ctaProps {
   title: string;
   buttonText?: string;
   href: string;
-  description?: string
-
+  description?: string;
 }
 
-
-export interface submissonSuccess{
+export interface submissonSuccess {
   title: string;
   // icon: SVGSVGElement;
   desc: string;
-
 }
 export interface CardProps {
   img: ReactNode;
@@ -62,4 +59,3 @@ export type StatsProps = {
 // export type SectionProps = {
 //   button: String
 // }
-
