@@ -102,7 +102,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
                 }`}
                 alt={item.title}
                 className={cn(
-                  "rounded-lg absolute w-full object-cover transition-all duration-300 h-[900px] transform-gpu",
+                  "rounded-lg absolute w-full object-cover transition-all duration-300 h-[500px] transform-gpu",
                   featureOpen === index ? "scale-100" : "scale-70",
                   featureOpen > index ? "translate-y-full" : ""
                 )}
@@ -152,7 +152,7 @@ function TextComponent({
       <div
         className={cn(
           "overflow-hidden transition-all duration-500 text-left dark:text-gray-400 text-gray-600 w-full transform-gpu",
-          isOpen ? " max-h-full" : "max-h-0"
+          isOpen ? " max-h-80" : "max-h-0"
         )}>
         <p className='p-4 text-lg'>{content}</p>
         <div className='w-full pb-4 px-4'>
