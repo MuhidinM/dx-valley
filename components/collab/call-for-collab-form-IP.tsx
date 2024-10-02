@@ -190,141 +190,138 @@ export default function IndependentRegistrationForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background p-4 ">
-      <Toaster position="top-right" richColors />
-      <Card className="w-full max-w-2xl  min-h-[700px]">
+    <div className='flex items-center justify-center min-h-screen bg-background p-4 '>
+      <Toaster position='top-right' richColors />
+      <Card className='w-full max-w-2xl  min-h-[700px]'>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className='text-2xl lg:text-3xl md:text-3xl font-bold text-center'>
             {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
-            <span className="flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white">
-              Individual Registration Form
+            <span className='flex justify-center text-xl lg:text-2xl md:text-2  xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Partner Registration Form
             </span>
-            <div className="flex justify-center">
-              <div className="w-20 h-1 bg-coopOrange"></div>
+            <div className='flex justify-center'>
+              <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="mb-8 ">
-            <div className="flex justify-between items-center">
+          <div className='mb-8 '>
+            <div className='flex justify-between items-center'>
               {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
+                <div key={step.id} className='flex flex-col items-center'>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-primary text-primary-foreground"
                         : "bg-secondary text-secondary-foreground"
-                    }`}
-                  >
+                    }`}>
                     {index < currentStep ? (
-                      <Check className="w-4 h-4" />
+                      <Check className='w-4 h-4' />
                     ) : (
                       index + 1
                     )}
                   </div>
-                  <span className="text-xs mt-1">{step.title}</span>
+                  <span className='text-xs mt-1'>{step.title}</span>
                 </div>
               ))}
             </div>
-            <div className="h-2 bg-secondary mt-2 rounded-full">
+            <div className='h-2 bg-secondary mt-2 rounded-full'>
               <div
-                className="h-full bg-primary rounded-full transition-all duration-300 ease-in-out"
+                className='h-full bg-primary rounded-full transition-all duration-300 ease-in-out'
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}
-              ></div>
+                }}></div>
             </div>
           </div>
 
-          <div className="">
-            <AnimatePresence mode="wait">
+          <div className=''>
+            <AnimatePresence mode='wait'>
               <motion.div
                 key={currentStep}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-              >
+                transition={{ duration: 0.2 }}>
                 {currentStep === 0 && (
-                  <div className="space-y-4">
+                  <div className='space-y-4'>
                     {/* Form fields */}
-                    <div className="flex flex-col lg:flex-row gap-4">
-                      <div className="flex-1">
-                        <Label htmlFor="firstName">First Name</Label>
+                    <div className='flex flex-col lg:flex-row gap-4'>
+                      <div className='flex-1'>
+                        <Label htmlFor='firstName'>First Name</Label>
                         <Input
-                          id="firstName"
+                          id='firstName'
                           value={formData.firstName}
                           onChange={(e) =>
                             handleChange("firstName", e.target.value)
                           }
-                          placeholder="Enter your first name"
+                          placeholder='Enter your first name'
                         />
                         {errors.firstName && (
-                          <p className="text-red-500 text-sm">
+                          <p className='text-red-500 text-sm'>
                             {errors.firstName}
                           </p>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <Label htmlFor="lastName">Last Name</Label>
+                      <div className='flex-1'>
+                        <Label htmlFor='lastName'>Last Name</Label>
                         <Input
-                          id="lastName"
+                          id='lastName'
                           value={formData.lastName}
                           onChange={(e) =>
                             handleChange("lastName", e.target.value)
                           }
-                          placeholder="Enter your last name"
+                          placeholder='Enter your last name'
                         />
                         {errors.lastName && (
-                          <p className="text-red-500 text-sm">
+                          <p className='text-red-500 text-sm'>
                             {errors.lastName}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex gap-4 flex-col lg:flex-row">
-                      <div className="flex-1">
-                        <Label htmlFor="email">Email</Label>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
+                      <div className='flex-1'>
+                        <Label htmlFor='email'>Email</Label>
                         <Input
-                          id="email"
-                          type="email"
+                          id='email'
+                          type='email'
                           value={formData.email}
                           onChange={(e) =>
                             handleChange("email", e.target.value)
                           }
-                          placeholder="Enter your email"
+                          placeholder='Enter your email'
                         />
                         {errors.email && (
-                          <p className="text-red-500 text-sm">{errors.email}</p>
+                          <p className='text-red-500 text-sm'>{errors.email}</p>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <Label htmlFor="phoneNumberOne">Phone</Label>
+                      <div className='flex-1'>
+                        <Label htmlFor='phoneNumberOne'>Phone</Label>
                         <Input
-                          id="phoneNumberOne"
-                          type="tel"
+                          id='phoneNumberOne'
+                          type='tel'
                           value={formData.phoneNumberOne}
                           onChange={(e) =>
                             handleChange("phoneNumberOne", e.target.value)
                           }
-                          placeholder="Enter your phone number"
+                          placeholder='Enter your phone number'
                         />
                         {errors.phoneNumberOne && (
-                          <p className="text-red-500 text-sm">
+                          <p className='text-red-500 text-sm'>
                             {errors.phoneNumberOne}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex-1">
-                      <Label htmlFor="country">City</Label>
+                    <div className='flex-1'>
+                      <Label htmlFor='country'>City</Label>
                       <Input
-                        id="city"
+                        id='city'
                         value={formData.city}
                         onChange={(e) => handleChange("city", e.target.value)}
-                        placeholder="Enter your city"
+                        placeholder='Enter your city'
                       />
                     </div>
 
@@ -349,48 +346,48 @@ export default function IndependentRegistrationForm() {
                       </div>
                     </div> */}
 
-                    <div className="flex gap-4 flex-col lg:flex-row">
-                      <div className="flex-1">
-                        <Label className="mb-2 block">Focus Area</Label>
+                    <div className='flex gap-4 flex-col lg:flex-row'>
+                      <div className='flex-1'>
+                        <Label className='mb-2 block'>Focus Area</Label>
                         <MultiSelectDropdown
                           options={focusAreaOptions}
                           selectedOptions={formData.focusArea}
                           onOptionChange={(option) =>
                             handleCheckboxChange("focusArea", option)
                           }
-                          placeholder="Select focus area"
+                          placeholder='Select focus area'
                         />
                       </div>
 
-                      <div className="flex-1">
-                        <Label className="mb-2 block">Interest Area</Label>
+                      <div className='flex-1'>
+                        <Label className='mb-2 block'>Interest Area</Label>
                         <MultiSelectDropdown
                           options={interestOptions}
                           selectedOptions={formData.interestedArea}
                           onOptionChange={(option) =>
                             handleCheckboxChange("interestedArea", option)
                           }
-                          placeholder="Select interest area"
+                          placeholder='Select interest area'
                         />
                       </div>
                     </div>
 
-                    <div className="flex-col lg:flex-row">
-                      <Label className="mb-2 block">Motivation</Label>
+                    <div className='flex-col lg:flex-row'>
+                      <Label className='mb-2 block'>Motivation</Label>
                       <Textarea
-                        id="motivation"
+                        id='motivation'
                         value={formData.motivation}
                         onChange={(e) =>
                           handleChange("motivation", e.target.value)
                         }
-                        placeholder="What motivates you to work with us"
+                        placeholder='What motivates you to work with us'
                       />
                     </div>
                   </div>
                 )}
 
                 {currentStep === 1 && (
-                  <div className="space-y-2">
+                  <div className='space-y-2'>
                     {/* Confirm Details */}
 
                     {/* <h2 className='text-xl font-semibold text-center'>Confirm Details</h2>
@@ -399,20 +396,20 @@ export default function IndependentRegistrationForm() {
                       Please confirm that all your details are correct.
                     </p> */}
 
-                    <div className="text-sm">
-                      <p className="p-3">
+                    <div className='text-sm'>
+                      <p className='p-3'>
                         <strong>First Name:</strong> {formData.firstName}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Second Name:</strong> {formData.lastName}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Email:</strong> {formData.email}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Phone Number:</strong> {formData.phoneNumberOne}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>City:</strong> {formData.city}
                       </p>
                       {/* <p className='p-3'>
@@ -421,15 +418,15 @@ export default function IndependentRegistrationForm() {
                       <p className='p-3'>
                         <strong>City:</strong> {formData.city}
                       </p> */}
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Focus Areas:</strong>{" "}
                         {formData.focusArea.join(", ")}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Interest Areas:</strong>{" "}
                         {formData.interestedArea.join(", ")}
                       </p>
-                      <p className="p-3">
+                      <p className='p-3'>
                         <strong>Motivation:</strong> {formData.motivation}
                       </p>
                     </div>
@@ -439,23 +436,23 @@ export default function IndependentRegistrationForm() {
             </AnimatePresence>
           </div>
 
-          <div className="flex justify-between mt-8 self-end align-bottom">
+          <div className='flex justify-between mt-8 self-end align-bottom'>
             {currentStep > 0 && (
-              <Button variant="outline" onClick={handlePrevious}>
-                <ChevronLeft className="mr-2 h-4 w-4" />
+              <Button variant='outline' onClick={handlePrevious}>
+                <ChevronLeft className='mr-2 h-4 w-4' />
                 Previous
               </Button>
             )}
             {currentStep < steps.length - 1 && (
               <Button onClick={handleNext}>
                 Next
-                <ChevronRight className="ml-2 h-4 w-4" />
+                <ChevronRight className='ml-2 h-4 w-4' />
               </Button>
             )}
             {currentStep === steps.length - 1 && (
-              <Button onClick={handleSubmit} className="w-24">
+              <Button onClick={handleSubmit} className='w-24'>
                 Submit
-                <Check className="ml-2 h-4 w-4" />
+                <Check className='ml-2 h-4 w-4' />
               </Button>
             )}
           </div>
