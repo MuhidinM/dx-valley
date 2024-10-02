@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { Address, InnovationData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
 import Link from "next/link";
 import { Globe } from "lucide-react";
