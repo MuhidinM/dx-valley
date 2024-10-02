@@ -34,7 +34,8 @@ const Page = () => {
           <CardTitle>Projects</CardTitle>
         </CardHeader>
       </Card>
-      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6  my-14">
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6 lg:my-14">
+
         {innovationItems?.gallery.map((item, indx) => {
           return (
             <CardComponent

@@ -99,7 +99,7 @@ const Page = () => {
             <span className="text-coopBlue">Breakthroughs</span> We&apos;ve
             Delivered
           </h2>
-          <div className="flex justify-center mt-2  mb-16">
+          <div className="flex justify-center mt-2  mb-5">
             <div className="w-36 h-1 bg-coopOrange"></div>
           </div>
         </div>
