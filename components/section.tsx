@@ -88,34 +88,41 @@ export const CardComponent: React.FC<SectionProps> = ({
   href,
 }) => {
   const truncatedDescription =
-    description.length > 100
-      ? description.substring(0, 100) + "..."
+    description.length > 200
+      ? description.substring(0, 200) + "..."
       : description;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
-      {svg && <div className="p-6 flex items-center justify-center">{svg}</div>}
+    <div className='bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col h-full'>
+      {svg && <div className='p-6 flex items-center justify-center'>{svg}</div>}
 
-      <div className="flex flex-col flex-1 p-6">
-        <h2 className="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+      <div className='flex flex-col flex-1 p-6'>
+        <h2 className='mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white'>
           {title}
         </h2>
-        <div className="prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400">
+        <div className='prose mb-6 font-light text-gray-900 md:text-lg dark:text-gray-400'>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {truncatedDescription}
           </ReactMarkdown>
         </div>
 
-        {!href && description.length > 100 && (
+        {!href && description.length > 200 && (
           <Dialog>
             <DialogTrigger>
-              <Button className="bg-[#0f172a] w-full hover:bg-gray-700">
-                Read More
-              </Button>
+              <div className='grid grid-cols-2 gap-32'>
+                <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>
+                  Read More
+                </Button>
+              </div>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>{title}</DialogTitle>
+                {svg && (
+                  <div className='p-6 flex items-center justify-center'>
+                    {svg}
+                  </div>
+                )}
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {description}
                 </ReactMarkdown>
@@ -124,26 +131,37 @@ export const CardComponent: React.FC<SectionProps> = ({
           </Dialog>
         )}
         {href && (
-          <div className="grid grid-cols-2 gap-2">
-            {description.length > 100 && (
+          <div className='grid grid-cols-2 gap-28'>
+            {description.length > 200 && (
               <Dialog>
                 <DialogTrigger>
-                  <Button className="bg-[#0f172a] w-full hover:bg-gray-700">
+                  <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>
                     Read More
                   </Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
+                    {svg && (
+                      <div className='p-6 flex items-center justify-center'>
+                        {svg}
+                      </div>
+                    )}
+
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {description}
                     </ReactMarkdown>
                   </DialogHeader>
+                  <Link href={href} target='_blank'>
+                    <Button className='bg-[#0f172a] w-full mt-5 hover:bg-gray-700'>
+                      {buttonText || "Learn More"}
+                    </Button>
+                  </Link>
                 </DialogContent>
               </Dialog>
             )}
-            <Link href={href}>
-              <Button className="bg-[#0f172a] w-full hover:bg-gray-700">
+            <Link href={href} target='_blank'>
+              <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>
                 {buttonText || "Learn More"}
               </Button>
             </Link>

@@ -100,7 +100,7 @@ export default function AllNewsPage({
   }, [handleNextSlide, selectedArticle, isHovered]);
 
   return (
-    <div className='lg:container my-10 mx-auto p-4'>
+    <div className='lg:container lg:my-5 mx-auto p-4'>
       {selectedArticle ? (
         <>
           {/* Selected news content */}
