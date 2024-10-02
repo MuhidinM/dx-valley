@@ -28,7 +28,7 @@ const Page = () => {
   }
 
   return (
-    <div className="mt-5 lg:my-0 md:my-0 mx-3">
+    <div className="mt-5 lg:mt-0 md:mt-0 mx-3">
       <Card className="contest-title">
         <CardHeader>
           <CardTitle>Projects</CardTitle>
