@@ -159,7 +159,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
           <div className='prose mb-4 '>
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              className={"prose dark:prose-invert"}>
+              className='prose dark:prose-invert lg:text-left text-justify '>
               {products[activeTag]?.description ?? ""}
             </ReactMarkdown>
           </div>
