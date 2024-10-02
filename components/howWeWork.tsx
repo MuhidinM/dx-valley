@@ -8,7 +8,7 @@ import remarkGfm from "remark-gfm";
 
 const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
   return (
-    <div className="flex mx-auto items-center justify-center">
+    <div className="lg:px-0 px-12 flex mx-auto items-center justify-center">
       <section className="relative py-2 lg:py-2 ">
         <div className=" mx-auto py-2">
           <div className="text-center">
