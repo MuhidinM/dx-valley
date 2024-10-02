@@ -18,10 +18,6 @@ import ComingSoonModal from "@/components/coming-soon-modal";
 import VideosList from "@/components/video";
 import NewsList from "@/components/News";
 import { MultiStepFormComponent } from "@/components/multi-step-form";
-{
-  /* <link rel='icon' href='/DX.ico' sizes='any' />; */
-}
-
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData>();
 
@@ -41,7 +37,6 @@ const Page = () => {
   return (
     <div>
       <ComingSoonModal />
-      {/* landingpage for large and medium screens */}
       <div className="lg:block md:block hidden">
         <div className=" grid grid-cols-1 lg:grid-cols-3 gap-6 mt-5">
           <div className="lg:col-span-2 flex flex-col justify-between">
@@ -50,7 +45,7 @@ const Page = () => {
             )}
           </div>
           <div className="lg:col-span-1 flex flex-col">
-            <div className="lg:block md:block hidden mb-6">
+            <div className="lg:block md:block hidden mb-4">
               <Motto />
             </div>
             <div className="">

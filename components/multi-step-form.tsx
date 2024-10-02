@@ -157,7 +157,7 @@ export function MultiStepFormComponent() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <section className="dark:bg-gray-950 bg-white rounded-b-lg py-12">
-        <div className="px-4 sm:container sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0">
+        <div className="px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0">
           {/* Heading */}
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800 dark:text-white">
             Deliverer or Discoverer? Find out which one you are!
