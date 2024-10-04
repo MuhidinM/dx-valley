@@ -54,7 +54,7 @@ export const Card: React.FC<CardProps> = ({
 
         {/* Button, always visible */}
         {buttonText && buttonText !== "hidden" && (
-          <Link href={href}>
+          <Link href={href || ""}>
             <Button className='bg-coopBlue hover:bg-coopBlueHover text-lg  py-3 px-6 rounded-lg transition-colors duration-300 mt-6'>
               {buttonText}
             </Button>
