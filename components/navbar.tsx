@@ -6,7 +6,6 @@ import { Menu } from "@/components/menu";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./modeToggle";
-import { MenuIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useScroll from "./useScroll"; //Custom Hook for scroll
 import MobileMenu from "./mobileMenu";
