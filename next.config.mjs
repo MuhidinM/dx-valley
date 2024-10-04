@@ -1,7 +1,11 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @format
+ * @type {import('next').NextConfig}
+ */
+
 const nextConfig = {
+  // output: "export",
   images: {
-    //domains: ['10.1.151.64'],  // added to allow image fetch from strapi
     remotePatterns: [
       {
         protocol: "https",
@@ -16,6 +20,14 @@ const nextConfig = {
         hostname: process.env.NEXT_PUBLIC_STRAPI_IP,
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/newapi/:path*", // custom path you want
+        destination: "/api/:path*", // points to the actual /api endpoint
+      },
+    ];
   },
 };
 

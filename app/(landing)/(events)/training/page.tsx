@@ -7,7 +7,6 @@ import { SectionRight, SectionLeft } from "@/components/section";
 import { TrainingItemFetch } from "@/services/training";
 import React, { useEffect, useState } from "react";
 import { TrainingData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderTrainingPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -34,16 +33,13 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
-                width={500}
-                height={800}
+                alt="Training Image"
               />
             }
             key={indx}
             title={cards.title}
             href={cards.link.href}
             description={cards.description}
-            buttonText={cards.link.title}
           />
         ) : (
           <SectionRight
@@ -51,24 +47,23 @@ const Page = () => {
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
                 alt="Image Left Not Found"
-                width={500}
-                height={800}
               />
             }
             key={indx}
             title={cards.title}
             href={cards.link.href}
             description={cards.description}
-            buttonText={cards.link.title}
           />
         );
       })}
-      <CTA
-        title={trainingItems.proposal.title}
-        buttonText={trainingItems.proposal.button_name}
-        href={trainingItems.proposal.href}
-        description={trainingItems.proposal.description}
-      />
+      <div className=" lg:container my-3 mx-3">
+        <CTA
+          title={trainingItems.proposal.title}
+          buttonText={trainingItems.proposal.button_name}
+          href={trainingItems.proposal.href}
+          description={trainingItems.proposal.description}
+        />
+      </div>
     </div>
   );
 };

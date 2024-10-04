@@ -1,10 +1,4 @@
-/** @format */
-
-import Confetti from "react-confetti";
 import { Button } from "./ui/button";
-import { CheckCircle2 } from "lucide-react";
-import router from "next/router";
-import { submissonSuccess } from "@/types/general";
 import Link from "next/link";
 
 interface SubmissionSuccessProps {

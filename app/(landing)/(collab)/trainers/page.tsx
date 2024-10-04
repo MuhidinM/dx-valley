@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import CollabForm from "@/components/collab/call-for-collab-form-trainer";
@@ -9,7 +11,10 @@ import CollabObjectives from "@/components/CollabObjectives";
 import { OrgData } from "@/types/strapi-types";
 import { TrainerItemFetch } from "@/services/trainers";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
+import {
+  SkeletonLoaderCollabForm,
+  SkeletonPageColloab,
+} from "@/components/SkeletonLoader";
 
 const Page = () => {
   const [trainersItems, setTrainersItems] = useState<OrgData>();
@@ -23,13 +28,12 @@ const Page = () => {
     fetchTrainersItems();
   }, []);
 
- if (!trainersItems) {
-   return <SkeletonPageColloab />;
- }
+  if (!trainersItems) {
+    return <SkeletonPageColloab />;
+  }
 
   return (
     <div>
-    
       {trainersItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
@@ -66,7 +70,7 @@ const Page = () => {
         );
       })}
       <CTA
-        title={trainersItems?.proposal.title  || " "}
+        title={trainersItems?.proposal.title || " "}
         buttonText={trainersItems?.proposal.button_name || " "}
         href={trainersItems?.proposal.href || " "}
         description={trainersItems?.proposal.description || " "}

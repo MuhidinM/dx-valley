@@ -55,11 +55,11 @@ const MultiSelectDropdown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='w-full justify-between'>
+        <Button variant="outline" className="w-full justify-between">
           {selectedOptions.length > 0
             ? selectedOptions.join(", ")
             : placeholder}
-          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <ChevronRight className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -69,7 +69,8 @@ const MultiSelectDropdown = ({
             checked={selectedOptions.includes(option)}
             onCheckedChange={(checked) => {
               if (checked) onOptionChange(option);
-            }}>
+            }}
+          >
             {option}
           </DropdownMenuCheckboxItem>
         ))}
@@ -186,7 +187,7 @@ export default function OrganizationRegistrationForm() {
   const handleSubmit = async () => {
     if (validateStep()) {
       try {
-        const response = await fetch("/api/organization", {
+        const response = await fetch("/newapi/organization", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -217,14 +218,13 @@ export default function OrganizationRegistrationForm() {
         <CardHeader>
           {" "}
           <CardTitle className='text-2xl font-bold '>
-            <span className='flex justify-center text-3xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+            <span className='flex justify-center text-xl md:xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
               Organization Registration Form
             </span>
-            <div className='flex justify-center'>
+            <div className='flex justify-center mb-5'>
               <div className='w-20 h-1 bg-coopOrange'></div>
             </div>
-          </CardTitle>
-          {" "}
+          </CardTitle>{" "}
           <div className='mb-8 '>
             <div className='flex justify-between items-center'>
               {steps.map((step, index) => (

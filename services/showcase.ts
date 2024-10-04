@@ -1,4 +1,4 @@
-import { overview } from "@/constants";
+
 import { ShowCaseResponse } from "@/types/strapi-types";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ export const ShowCaseItemFetch = async () => {
   );
 
   const data = res.data.data;
-  const showCaseItems = data[0].incubated.map((item) => ({
+  const showCaseItems = data[0]?.incubated.map((item) => ({
     projectName: item.projectName,
     small_description: item.small_description,
     long_description: item.long_description,

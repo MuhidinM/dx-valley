@@ -1,23 +1,25 @@
 /** @format */
 "use client";
+
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
-// import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { FooterItemFetch } from "@/services/footer";
 import { FooterData } from "@/types/strapi-types";
 import { toast, Toaster } from "sonner";
-// import { description } from "@/app/admin/dashboard/page";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [FooterItems, setFooterItems] = useState<FooterData>();
+
+  // Submit handler for subscribing via email
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/subscriber", {
+      const response = await fetch("/newapi/subscriber", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,43 +29,48 @@ const Footer = () => {
 
       if (response.ok) {
         const data = await response.json();
-        if (!data.subscribed) {
-          toast.error(data.message2 || "Already subscribed!");
+
+        if (
+          data.subscribed === false &&
+          data.message3 === "Subscribed Successfully"
+        ) {
+          // Successfully subscribed
+          toast.success("Subscribed Successfully!");
+          setEmail("");
+        } else if (
+          data.subscribed === true &&
+          data.message2 === "User already subscribed"
+        ) {
+          // Already subscribed
+          toast.error("Already subscribed!");
           setEmail("");
         } else {
-          toast.success(data.message3 || "Subscribed successfully!");
-          setEmail("");
+          if (data.message2 === "User already subscribed") {
+            toast.error("You are already subscribed!");
+            setEmail("");
+          } else {
+            toast.error("Failed to subscribe!", {
+              description: "Please try again later.",
+            });
+            setEmail("");
+          }
         }
       } else {
-        const data = await response.json();
-        if (data.message === "User already subscribed") {
-          toast.error("You are already subscribed!");
-        } else {
-          toast.error("Failed to subscribe!", {
-            description: "Please try again later.",
-          });
-        }
+        toast.error("Failed to subscribe!", {
+          description: "Please try again later.",
+        });
+        setEmail("");
       }
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("An unexpected error occurred", {
         description: "Please try again later.",
       });
+      setEmail("");
     }
   };
 
-  //   if (response.ok) {
-  //     toast.success("Subscribed successfully!");
-  //     setEmail("");
-  //   } else {
-  //     toast.error("Failed to subscribe!", {
-
-  //      description:""});
-  //     }
-  //   }
-  // };
-  const [FooterItems, setFooterItems] = useState<FooterData>();
-
+  // Fetch footer items from the API
   useEffect(() => {
     const fetchMenuItems = async () => {
       const data = await FooterItemFetch();
@@ -74,24 +81,18 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className='bg-coopBlue text-white font-sans'>
-      <Toaster position='top-right' richColors />
-      <div className='mx-auto max-w-screen-xl px-4'>
-        <div className='border-b border-gray-100 py-6 md:py-8 lg:py-12'>
-          <div className='lg:flex lg:gap-8 lg:items-start'>
-            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1 p-6'>
+    <footer className="bg-coopBlue text-white font-sans">
+      <Toaster position="top-right" richColors />
+      <div className="mx-auto max-w-screen-xl px-4">
+        <div className="border-b border-gray-100 py-6 md:py-8 lg:py-12">
+          <div className="lg:flex lg:gap-8 lg:items-start">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:flex-1">
               <div>
                 <h6 className='mb-4 text-xl font-extrabold'>
                   {FooterItems?.title}
                   <span className='mx-2 text-gray-800 font-bold'>
                     D <span className='text-coopOrange'> X </span>VALLEY
                   </span>
-                  {/* <img
-                    src={"/image/dxvalleylogo1.png"}
-                    alt='dxvalley logo'
-                    width={200} // adjust the width as needed
-                    className='mx-auto mb-4 '
-                  /> */}
                 </h6>
                 <p className='text-white'>{FooterItems?.description}</p>
               </div>
@@ -105,22 +106,18 @@ const Footer = () => {
                           <Label htmlFor='email' className='text-white'>
                             Get the latest News and More.
                           </Label>
-                          {/* <Input
-                            type='email'
-                            placeholder='Email'
-                            onChange={(e) => setEmail(e.target.value)}
-                            className='text-black dark:text-white'
-                          /> */}
                         </div>
                         <div className='sm:ml-1 flex gap-2'>
                           <Input
                             type='email'
                             placeholder='Email'
+                            required
+                            value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className='text-black dark:text-white'
                           />
                           <Button className='bg-coopOrange hover:bg-black'>
-                            <span className='text-white '> SUBSCRIBE</span>
+                            <span className='text-white'>SUBSCRIBE</span>
                           </Button>
                         </div>
                       </div>
@@ -202,18 +199,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='py-6 md:py-8 text-center sm:text-center  md:text-center'>
+        <div className='py-6 md:py-8 text-center sm:text-center md:text-center'>
           <div className='space-y-4 xl:flex xl:items-center xl:justify-between xl:space-y-0'>
             <Link href='/' className='flex items-center justify-center'>
               <span className='text-xl font-semibold'>
                 D <span className='text-orange-500'>X</span> VALLEY
               </span>
-              {/* <img
-                src={"/image/dxvalleylogo1.png"}
-                alt='dxvalley logo'
-                width={200} // adjust the width as needed
-                className='mx-auto mb-4 '
-              /> */}
             </Link>
 
             <p className='text-sm'>

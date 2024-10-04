@@ -269,7 +269,7 @@ export default function InternshipForm() {
           stepErrors.interestAreas =
             "At least one area of interest must be selected";
         }
-     
+
         if (!formData.documents || formData.documents.length === 0) {
           stepErrors.documents = "At least one document is required";
         }
@@ -333,7 +333,7 @@ export default function InternshipForm() {
 
     try {
       // Send the data to the server or API
-      const response = await fetch("/api/internship", {
+      const response = await fetch("/newapi/internship", {
         method: "POST",
         body: formValues,
       });
@@ -356,11 +356,11 @@ export default function InternshipForm() {
 
   if (isSubmitted) {
     return (
-      <div className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '>
+      <div className=" bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 ">
         <div>
           <SubmissionSuccess
             title={"Submission Successful!"}
-            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
+            icon={<CheckCircle2 className="w-8 h-8 text-green" />}
             desc={
               "Application submitted successfully. We will get back to you shortly."
             }
@@ -377,7 +377,7 @@ export default function InternshipForm() {
           <CardTitle>Internship Application</CardTitle>
           <CardDescription>
             Apply for an internship and be empowered by the mentorship and
-            support of the dynamic DX Valley family.
+            support of the dynamic DxValley family.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -618,7 +618,7 @@ export default function InternshipForm() {
                 {/* Interest Areas */}
                 <div className='space-y-2'>
                   <Label>Areas of Interest</Label>
-                  <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
+                  <div className='grid grid-cols-2 md:grid-cols-2 gap-5 mb-2'>
                     {interestAreaOptions.map((interest) => (
                       <div
                         key={interest}
@@ -645,37 +645,41 @@ export default function InternshipForm() {
                 </div>
 
                 {/* Other Interests */}
+
+                <div className='grid md:grid-cols-2 grid-cols-1 md:gap-6 gap-3'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='otherInterests'>
+                      Other Areas of Interest
+                    </Label>
+                    <Input
+                      id='otherInterests'
+                      name='otherInterests'
+                      value={formData.otherInterests}
+                      onChange={(e) =>
+                        handleChange("otherInterests", e.target.value)
+                      }
+                      placeholder='Enter any other areas of interest not listed above'
+                    />
+                  </div>
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='lastName'>Portfolio URL</Label>
+                    <Input
+                      id='portfolio'
+                      name='portfolio url'
+                      value={formData.portfolio}
+                      onChange={(e) =>
+                        handleChange("portfolio", e.target.value)
+                      }
+                      placeholder='http://yourportfolio.com'
+                      required
+                    />
+                    {errors.portfolio && (
+                      <p className='text-sm text-red-500'>{errors.portfolio}</p>
+                    )}
+                  </div>
+                </div>
                 <div className='space-y-2'>
-                  <Label htmlFor='otherInterests'>
-                    Other Areas of Interest
-                  </Label>
-                  <Input
-                    id='otherInterests'
-                    name='otherInterests'
-                    value={formData.otherInterests}
-                    onChange={(e) =>
-                      handleChange("otherInterests", e.target.value)
-                    }
-                    placeholder='Enter any other areas of interest not listed above'
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Portfolio</Label>
-                  <Input
-                    id="portfolio"
-                    name="portfolio"
-                    value={formData.portfolio}
-                    onChange={(e) => handleChange("portfolio", e.target.value)}
-                    placeholder="http://yourportfolio.com"
-                    required
-                  />
-                  {errors.portfolio && (
-                    <p className="text-sm text-red-500">{errors.portfolio}</p>
-                  )}
-                </div>
-                <div className="space-y-2">
-
                   <Label>Upload Request Letter from your university</Label>
                   <Input
                     type='file'
@@ -719,42 +723,12 @@ export default function InternshipForm() {
                   onClick={handleSubmit}
                   className='ml-auto bg-coopBlue'>
                   Submit Application
-                  {/* {isSubmitting ? "Submitting..." : "Submit Application"} */}
+               
                 </Button>
               )}
             </div>
           </form>
-          {/* <Dialog open={isSubmitting} onOpenChange={setIsSubmitting}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Confirm Submission</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to submit your application? Please
-                  review all information before confirming.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <Button
-                  variant="outline"
-                  onClick={() => setIsSubmitting(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={() => {
-                    //   document.querySelector("form")?.requestSubmit();
-                    //   setIsSubmitting(false); // Reset isSubmitting state to false
-                    setIsSubmitted(true);
-                  }}
-                >
-                  {!isSubmitting ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  {!isSubmitting ? "Submitting..." : "Confirm Submission"}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog> */}
+          
         </CardContent>
       </Card>
     </div>

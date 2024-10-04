@@ -17,10 +17,9 @@ const Page = () => {
 
     fetchHomepageItems();
   }, []);
-  // console.log("news article news homepage page", homepageItems?.news);
+
   return (
     <div>
-      {" "}
       <AllNewsPage newsArticles={homepageItems?.news || []} />{" "}
     </div>
   );

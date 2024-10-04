@@ -26,8 +26,7 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
                 <img
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
-                  width={200}
-                  height={100}
+            
                   className='rounded-lg w-full h-56'
                 />
               </div>
@@ -51,6 +50,7 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
                   </span>
                   <a
                     href={article.link}
+                    target='_blank'
                     className='text-sm text-primary hover:underline block italic'>
                     <span className='font-semibold'>{article.title}</span>
                   </a>

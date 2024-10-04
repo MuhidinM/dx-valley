@@ -163,7 +163,7 @@ export default function MediaRegistrationForm() {
   const handleSubmit = async () => {
     if (validateStep()) {
       try {
-        const response = await fetch("/api/media", {
+        const response = await fetch("/newapi/media", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
