@@ -1,4 +1,4 @@
-import { overview } from "@/constants";
+
 import { IncubationResponse } from "@/types/strapi-types";
 import axios from "axios";
 
