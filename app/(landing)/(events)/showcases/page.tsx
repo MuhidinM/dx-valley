@@ -16,7 +16,6 @@ import Image from "next/image";
 import { Popup } from "@/components/popup";
 import { ShowCaseData } from "@/types/strapi-types";
 import { ShowCaseItemFetch } from "@/services/showcase";
-import { getImageUrl } from "@/lib/utils";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
 
 const Page = () => {

@@ -354,6 +354,19 @@ export interface HomePageResponse {
     proposal: CallProposalLink;
   };
 }
+// interface Social 
+export interface Social {
+  is_visible: boolean;
+  url: string;
+  media: string;
+}
+
+export interface SocialResponse {
+  data: {
+    id: number;
+    socials: Social[]
+  }[];
+}
 
 // interface for gallery
 export interface GalleryData {
