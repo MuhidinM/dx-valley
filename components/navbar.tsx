@@ -16,9 +16,9 @@ const Navbar = () => {
   const router = useRouter();
   const scroll = useScroll();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setIsMenuOpen(!isMenuOpen);
+  // };
 
   return (
     <header>
