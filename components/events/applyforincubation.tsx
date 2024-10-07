@@ -1927,7 +1927,7 @@ const ApplyForIncubation = () => {
         });
         console.log("call for proposal error on submission");
       }
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.error("Error submitting form", error);
     }

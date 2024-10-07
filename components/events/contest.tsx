@@ -16,7 +16,7 @@ export default function ContestsPage() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setEvents(data);
-          console.log("event data", data);
+          // console.log("event data", data);
         } else {
           console.error("Expected an array but received:", data);
           setEvents([]);
@@ -32,7 +32,7 @@ export default function ContestsPage() {
   const Events = events.filter(
     (event) => event.category !== "call for proposal"
   );
-  console.log(Events.length, "is the event length");
+  // console.log(Events.length, "is the event length");
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-3 gap-6  h-fit mb-10">
