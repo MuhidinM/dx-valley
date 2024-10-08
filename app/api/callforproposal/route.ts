@@ -240,8 +240,8 @@ export async function POST(req: Request): Promise<NextResponse> {
           { status: 400 }
         );
       }
-      // Exclude directory separators
-      sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+    // Exclude directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
       // Validate the video file extension
       const allowedVideoExtensions = [".mp4", ".mov", ".avi", ".mkv"];
       const videoFileExtension = path.extname(sanitizedFileName).toLowerCase();

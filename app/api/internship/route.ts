@@ -224,7 +224,8 @@ export async function POST(req: Request): Promise<NextResponse> {
               { status: 400 }
             );
           }
-
+          // Exclude directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
           const fileExtension = path.extname(sanitizedFileName).toLowerCase();
           const allowedExtensions = [".pdf", ".doc", ".docx"];
 
