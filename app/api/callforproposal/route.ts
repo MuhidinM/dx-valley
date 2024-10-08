@@ -55,7 +55,6 @@ const removeTempFile = (file: File) => {
   }
 };
 
-
 // Convert Web Stream to Node.js Readable and extend it with IncomingMessage properties
 async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
   const stream = new ReadableIncoming(req);
@@ -95,8 +94,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const email = fields.email?.toString();
     const phone = fields.phone?.toString();
     const idea = fields.idea?.toString();
-const foundersname = fields.founderNames?.toString();
-    
+    const foundersname = fields.founderNames?.toString();
 
     const sanitizedStartupName = validator.trim(startupName || "");
     const sanitizedStage = validator.trim(stage || "");
@@ -111,7 +109,7 @@ const foundersname = fields.founderNames?.toString();
       !sanitizedStage ||
       !sanitizedEmail ||
       !sanitizedPhone ||
-      !sanitizedIdea      
+      !sanitizedIdea
     ) {
       return NextResponse.json(
         {
@@ -189,6 +187,8 @@ const foundersname = fields.founderNames?.toString();
               { status: 400 }
             );
           }
+          // Exclude directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
 
           const fileExtension = path.extname(sanitizedFileName).toLowerCase();
           const allowedExtensions = [".pdf", ".doc", ".docx"];
@@ -240,7 +240,8 @@ const foundersname = fields.founderNames?.toString();
           { status: 400 }
         );
       }
-
+      // Exclude directory separators
+      sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
       // Validate the video file extension
       const allowedVideoExtensions = [".mp4", ".mov", ".avi", ".mkv"];
       const videoFileExtension = path.extname(sanitizedFileName).toLowerCase();
