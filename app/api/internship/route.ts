@@ -1,3 +1,5 @@
+/** @format */
+
 import fs from "fs";
 import path from "path";
 import { IncomingForm, File, Fields, Files } from "formidable";
@@ -5,7 +7,7 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
-
+import validator from "validator"; // For additional validation
 const prisma = new PrismaClient();
 
 interface SavedFile {
@@ -29,10 +31,28 @@ class ReadableIncoming extends Readable {
 const parseForm = (
   req: IncomingMessage
 ): Promise<{ fields: Fields; files: Files }> => {
+  const allowedExtensions = [".pdf", ".doc", ".docx"];
+  const uploadDir = path.join(process.cwd(), "/public/intern");
+
   const form = new IncomingForm({
     multiples: true,
-    uploadDir: path.join(process.cwd(), "/public/docs"),
+    uploadDir: uploadDir,
     keepExtensions: true,
+  });
+
+  // Custom file validation before saving
+  form.on("fileBegin", (name, file) => {
+    const fileExtension = path
+      .extname(file.originalFilename || "")
+      .toLowerCase();
+
+    // If file type is not allowed, emit an error and stop processing
+    if (!allowedExtensions.includes(fileExtension)) {
+      console.error(`Invalid file type for ${file.originalFilename}`);
+
+      // Emit an error and stop file processing
+      // form.emit("error", new Error(`Invalid file type: ${fileExtension}`));
+    }
   });
 
   return new Promise((resolve, reject) => {
@@ -41,6 +61,13 @@ const parseForm = (
       resolve({ fields, files });
     });
   });
+};
+
+// Function to remove the temporary file created by formidable
+const removeTempFile = (file: File) => {
+  if (fs.existsSync(file.filepath)) {
+    fs.unlinkSync(file.filepath); // Deletes the file from the temp directory
+  }
 };
 
 async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
@@ -62,6 +89,13 @@ async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
   return stream as any;
 }
 
+const checkIfEmailExists = async (email: string) => {
+  const existingEmail = await prisma.contactInfo.findUnique({
+    where: { email: email },
+  });
+  return existingEmail !== null;
+};
+
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     const nodeReadableStream = await convertToNodeReadable(req);
@@ -76,14 +110,17 @@ export async function POST(req: Request): Promise<NextResponse> {
       return field;
     };
 
-    const firstName = getFirstValue(fields.firstName)?.toString() || "";
-    const lastName = getFirstValue(fields.lastName)?.toString() || "";
-    const email = getFirstValue(fields.email)?.toString() || "";
-    const phone = getFirstValue(fields.phone)?.toString() || "";
-    const gender = getFirstValue(fields.gender)?.toString() || "";
-    const aboutYourself = getFirstValue(fields.aboutYourself)?.toString() || "";
-    const university = getFirstValue(fields.university)?.toString() || "";
-    const department = getFirstValue(fields.department)?.toString() || "";
+    // Input field sanitization and validation
+    const firstName = validator.trim(getFirstValue(fields.firstName) || "");
+    const lastName = validator.trim(getFirstValue(fields.lastName) || "");
+    const email = validator.trim(getFirstValue(fields.email) || "");
+    const phone = validator.trim(getFirstValue(fields.phone) || "");
+    const gender = validator.trim(getFirstValue(fields.gender) || "");
+    const aboutYourself = validator.trim(
+      getFirstValue(fields.aboutYourself) || ""
+    );
+    const university = validator.trim(getFirstValue(fields.university) || "");
+    const department = validator.trim(getFirstValue(fields.department) || "");
     const year = parseInt(getFirstValue(fields.year) || "0", 10);
     const internshipStart = new Date(
       getFirstValue(fields.internshipStart) || Date.now()
@@ -95,18 +132,65 @@ export async function POST(req: Request): Promise<NextResponse> {
       ? fields.interestAreas
       : [getFirstValue(fields.interestAreas)?.toString()];
 
-    const otherInterests =
-      getFirstValue(fields.otherInterests)?.toString() || "";
-    const portfolio = getFirstValue(fields.portfolio)?.toString() || "";
-    const linkedin = getFirstValue(fields.linkedin)?.toString() || "";
+    const otherInterests = validator.trim(
+      getFirstValue(fields.otherInterests) || ""
+    );
+    const portfolio = validator.trim(getFirstValue(fields.portfolio) || "");
+    const linkedin = validator.trim(getFirstValue(fields.linkedin) || "");
 
-    if (!firstName || !lastName || !email || !phone) {
-      return NextResponse.json({
-        error: "Required fields are missing.",
-        status: 400,
-      });
+    // Input validation
+    if (!firstName || firstName.length > 100) {
+      return NextResponse.json(
+        { error: "First name must be less than 100 characters" },
+        { status: 400 }
+      );
     }
 
+    if (!lastName || lastName.length > 100) {
+      return NextResponse.json(
+        { error: "Last name must be less than 100 characters" },
+        { status: 400 }
+      );
+    }
+
+    if (!validator.isEmail(email)) {
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+
+    if (!validator.isMobilePhone(phone)) {
+      return NextResponse.json(
+        { error: "Invalid phone number" },
+        { status: 400 }
+      );
+    }
+
+    if (portfolio && !validator.isURL(portfolio)) {
+      return NextResponse.json(
+        { error: "Invalid portfolio URL" },
+        { status: 400 }
+      );
+    }
+
+    if (linkedin && !validator.isURL(linkedin)) {
+      return NextResponse.json(
+        { error: "Invalid LinkedIn URL" },
+        { status: 400 }
+      );
+    }
+
+    // Check if email is already registered
+    const emailExists = await checkIfEmailExists(email);
+    if (emailExists) {
+      return NextResponse.json(
+        { error: "Email is already registered." },
+        { status: 409 } // Conflict status for existing resource
+      );
+    }
+
+    // If validation passes, proceed with saving to the database
     const savedFiles: SavedFile[] = [];
     const uploadDir = path.join(process.cwd(), "/public/intern");
 
@@ -124,14 +208,43 @@ export async function POST(req: Request): Promise<NextResponse> {
 
       for (const key of docKeys) {
         const fileOrFiles = files[key];
-        const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles]; // Wrap single file as array
+        const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
         for (const file of docs) {
+          if (!file?.newFilename) {
+            continue;
+          }
+
+          let sanitizedFileName = path.basename((file as File).newFilename!);
+          sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+
+          if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+            return NextResponse.json(
+              { error: "Invalid file name. Only one period is allowed." },
+              { status: 400 }
+            );
+          }
+
+          const fileExtension = path.extname(sanitizedFileName).toLowerCase();
+          const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+          if (!allowedExtensions.includes(fileExtension)) {
+            removeTempFile(file as File); // Remove invalid file
+
+            return NextResponse.json(
+              {
+                error: "Invalid file type. Only PDF and DOC files are allowed.",
+              },
+              { status: 400 }
+            );
+          }
+
           const newFilePath = path.join(uploadDir, (file as File).newFilename!);
           fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
           savedFiles.push({
             name: (file as File).originalFilename || "",
-            path: `/intern/${(file as File).newFilename}`, // Save relative path
+            path: `/intern/${sanitizedFileName}`, // Save relative path
           });
         }
       }
@@ -177,13 +290,13 @@ export async function POST(req: Request): Promise<NextResponse> {
         portfolioLink: portfolio,
         linkedinProfile: linkedin,
         documents: {
-          connect: savedDocuments.map((doc) => ({ id: doc.id })),
+          connect: savedDocuments.map((doc) => ({ id: doc.id })), // Connect saved documents
         },
         contactInfo: {
-          connect: { id: contactInfo.id },
+          connect: { id: contactInfo.id }, // Connect contact info
         },
         personalInfo: {
-          connect: { id: personalInfo.id },
+          connect: { id: personalInfo.id }, // Connect personal info
         },
       },
     });
@@ -195,9 +308,9 @@ export async function POST(req: Request): Promise<NextResponse> {
     });
   } catch (error) {
     console.error("Error processing form:", error);
-    return NextResponse.json({
-      error: "Error processing form data",
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: "Error processing form data" },
+      { status: 500 }
+    );
   }
 }

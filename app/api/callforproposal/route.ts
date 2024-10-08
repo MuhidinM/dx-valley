@@ -31,9 +31,6 @@ class ReadableIncoming extends Readable {
   }
 }
 
-
-
-
 // Helper function to parse form data
 const parseForm = (
   req: IncomingMessage
@@ -51,6 +48,13 @@ const parseForm = (
     });
   });
 };
+
+const removeTempFile = (file: File) => {
+  if (fs.existsSync(file.filepath)) {
+    fs.unlinkSync(file.filepath); // Deletes the file from the temp directory
+  }
+};
+
 
 // Convert Web Stream to Node.js Readable and extend it with IncomingMessage properties
 async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
@@ -72,6 +76,12 @@ async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
 
   return stream as any;
 }
+const checkIfEmailExists = async (email: string) => {
+  const existingEmail = await prisma.contactInfo.findUnique({
+    where: { email: email },
+  });
+  return existingEmail !== null;
+};
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
@@ -112,34 +122,122 @@ export async function POST(req: Request): Promise<NextResponse> {
         // Check if it's an array of files or a single file
         const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
-        for (const file of docs) {
-          const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-          fs.renameSync((file as File).filepath, newFilePath);
-          savedFiles.push({
-            name: (file as File).originalFilename || "",
-            path: `/docs/${(file as File).newFilename}`,
-          });
-        }
+        // for (const file of docs) {
+        //   const newFilePath = path.join(uploadDir, (file as File).newFilename!);
+        //   fs.renameSync((file as File).filepath, newFilePath);
+        //   savedFiles.push({
+        //     name: (file as File).originalFilename || "",
+        //     path: `/docs/${(file as File).newFilename}`,
+        //   });
+        // }
+
+
+
+          for (const file of docs) {
+            if (!file?.newFilename) {
+              // File was rejected in the fileBegin phase, skip it
+              continue;
+            }
+
+            // Sanitize filename and ensure it's safe
+            let sanitizedFileName = path.basename((file as File).newFilename!);
+            sanitizedFileName = sanitizedFileName.replace(
+              /[^a-zA-Z0-9._-]/g,
+              ""
+            );
+
+            if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+              return NextResponse.json(
+                { error: "Invalid file name. Only one period is allowed." },
+                { status: 400 }
+              );
+            }
+
+            const fileExtension = path.extname(sanitizedFileName).toLowerCase();
+            const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+            if (!allowedExtensions.includes(fileExtension)) {
+               removeTempFile(file as File); // Remove invalid file
+
+              return NextResponse.json(
+                {
+                  error:
+                    "Invalid file type. Only PDF and DOC files are allowed.",
+                },
+                { status: 400 }
+              );
+            }
+
+            const newFilePath = path.join(
+              uploadDir,
+              (file as File).newFilename!
+            );
+            fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
+            savedFiles.push({
+              name: (file as File).originalFilename || "",
+              path: `/intern/${sanitizedFileName}`, // Save relative path
+            });
+          }
       }
     }
 
-    // Handle uploaded video
-    let videoFile: SavedFile | null = null;
-    if (files.video) {
-      const video = Array.isArray(files.video) ? files.video[0] : files.video;
-      const videoFilePath = path.join(uploadDir, (video as File).newFilename!);
-      fs.renameSync((video as File).filepath, videoFilePath);
-      videoFile = {
-        name: (video as File).originalFilename || "",
-        path: `/docs/${(video as File).newFilename}`,
-      };
-    }
-
-
-
-
-
     
+    // Handle uploaded video
+let videoFile: SavedFile | null = null;
+
+if (files.video) {
+  const video = Array.isArray(files.video) ? files.video[0] : files.video;
+
+  if (!video.newFilename) {
+    // File was rejected in the fileBegin phase, skip it
+    return NextResponse.json(
+      { error: "Invalid video file provided." },
+      { status: 400 }
+    );
+  }
+
+  // Sanitize the video filename
+  let sanitizedFileName = path.basename((video as File).newFilename!);
+  sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+
+  // Ensure the filename contains only one period (for the extension)
+  if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+    return NextResponse.json(
+      { error: "Invalid video file name. Only one period is allowed." },
+      { status: 400 }
+    );
+  }
+
+  // Validate the video file extension
+  const allowedVideoExtensions = [".mp4", ".mov", ".avi", ".mkv"];
+  const videoFileExtension = path.extname(sanitizedFileName).toLowerCase();
+
+  if (!allowedVideoExtensions.includes(videoFileExtension)) {
+    removeTempFile(video as File); // Remove invalid video file
+    return NextResponse.json(
+      {
+        error: `Invalid video file type. Only the following types are allowed: ${allowedVideoExtensions.join(
+          ", "
+        )}`,
+      },
+      { status: 400 }
+    );
+  }
+
+  // Define the new path for the video
+  const videoFilePath = path.join(uploadDir, sanitizedFileName);
+
+  // Move video file to upload directory
+  fs.renameSync((video as File).filepath, videoFilePath);
+
+  // Save video file info
+  videoFile = {
+    name: (video as File).originalFilename || "",
+    path: `/docs/${sanitizedFileName}`, // Use sanitized file name
+  };
+}
+
     const docPromises = savedFiles.map(async (file) => {
       return await prisma.documentInfo.create({
         data: {
@@ -148,6 +246,24 @@ export async function POST(req: Request): Promise<NextResponse> {
         },
       });
     });
+
+    //  const email = getFirstValue(fields.email)?.toString() || "";
+
+     if (!email) {
+       return NextResponse.json(
+         { error: "Email is required." },
+         { status: 400 }
+       );
+     }
+
+     // Check if email is already registered
+     const emailExists = await checkIfEmailExists(email);
+     if (emailExists) {
+       return NextResponse.json(
+         { error: "Email is already registered." },
+         { status: 409 } // Conflict status for existing resource
+       );
+     }
 
     const savedDocuments = await Promise.all(docPromises);
 
