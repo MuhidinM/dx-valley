@@ -1895,7 +1895,7 @@ const ApplyForIncubation = () => {
     });
 
     try {
-      const response = await fetch("/api/callforproposal", {
+      const response = await fetch("/newapi/callforproposal", {
         method: "POST",
         body: formValues, // No need to set Content-Type, the browser does it automatically
       });
@@ -2241,7 +2241,7 @@ const ApplyForIncubation = () => {
                       id='documents'
                       type='file'
                       multiple
-                      accept='.pdf,.doc,.docx,.txt'
+                      accept='.pdf,.doc,.docx'
                       onChange={(e) => handleFileChange(e, "document")}
                       ref={documentInputRef}
                     />
