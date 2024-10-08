@@ -113,7 +113,15 @@ export default function MobileMenu() {
             {/* <p>Dx Valley, All Right Rserverd</p> */}
           </div>
           <footer className='text-gray-900 py-4 text-center'>
-            <p>© {new Date().getFullYear()} , Cooperative Bank of Oromia, All Rights Reserved</p>
+            <p>
+              © {new Date().getFullYear()}{" "}
+              <Link
+                href='https://coopbankoromia.com.et/'
+                className='hover:underline'>
+                Cooperative Bank of Oromia.
+              </Link>{" "}
+              All Rights Reserved
+            </p>
           </footer>
         </SheetContent>
       </Sheet>

@@ -24,7 +24,7 @@ export function Popup({ details }: { details: ShowCaseData }) {
           Read More
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[800px] rounded-lg'>
+      <DialogContent className='max-w-[800px] rounded-lg'>
         {/* <DialogHeader></DialogHeader> */}
         <div className='grid grid-cols-1 gap-4'>
           <div className='text-sm md:text-lg'>
@@ -42,24 +42,15 @@ export function Popup({ details }: { details: ShowCaseData }) {
                   })}
                 </p>
               </div>
-              <div className=''>
-                <p className='font-bold'>Published</p>
-                <p>
-                  {new Date(details.published).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </p>
-              </div>
             </div>
           </div>
-          <div className=''>
-            <Image
+          <div className='item-center justify-center align-middle'>
+            <img
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${details.img_2}`}
-              width={400}
+              width={500}
               height={400}
               alt='incubation'
+              // className=' w-1/2 h-64'
             />
           </div>
         </div>

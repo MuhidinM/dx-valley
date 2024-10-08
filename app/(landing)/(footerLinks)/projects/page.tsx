@@ -7,7 +7,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { InnovationData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
 
 const Page = () => {
@@ -23,34 +22,37 @@ const Page = () => {
 
     fetchInnovationItems();
   }, []);
+
   if (!innovationItems) {
     return <SkeletonLoaderAboutInnovationPage />;
   }
+
   return (
-    <div className='mt-16'>
-      <Card className='contest-title'>
+    <div className="mt-5 lg:mt-0 md:mt-0 mx-3">
+      <Card className="contest-title">
         <CardHeader>
           <CardTitle>Projects</CardTitle>
         </CardHeader>
       </Card>
-      <div className='grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6  my-14'>
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-6 lg:my-14">
+
         {innovationItems?.gallery.map((item, indx) => {
           return (
             <CardComponent
               key={indx}
               svg={
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img ?? ""}`}
-                  alt='Image Left Not Found'
-                  width={400}
-                  height={400}
-                  className='h-28'
+                <img
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
+                    item?.img ?? " "
+                  }`}
+                  alt="Image Left Not Found"
+                  className="h-24"
                 />
               }
               title={item.title}
-              buttonText={"Visit Site"}
+              buttonText={item.link.title}
               description={item.description}
-              href={" "}
+              href={item.link.href}
             />
           );
         })}

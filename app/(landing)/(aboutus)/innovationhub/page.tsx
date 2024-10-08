@@ -4,21 +4,17 @@
 
 import { CardComponent } from "@/components/section";
 import CTA from "@/components/cta";
-import Header from "@/components/header";
 import HowWeWorkSection from "@/components/howWeWork";
 import { SlidingCompanies } from "@/components/landing/company";
 import ContactUs from "@/components/landing/contactus";
 import { SectionLeft } from "@/components/section";
 import { Button } from "@/components/ui/button";
-
 import React, { useEffect, useState } from "react";
 import { InnovationItemFetch } from "@/services/innovation";
 import { Address, InnovationData } from "@/types/strapi-types";
-import Image from "next/image";
 import { SkeletonLoaderAboutInnovationPage } from "@/components/SkeletonLoader";
-
 import Link from "next/link";
-import { Globe, ShoppingBag } from "lucide-react";
+import { Globe } from "lucide-react";
 
 const Page = () => {
   const [innovationItems, setInnovationItems] = useState<InnovationData | null>(
@@ -34,15 +30,15 @@ const Page = () => {
     fetchInnovationItems();
   }, []);
 
-  //  if (!innovationItems) {
-  //    return <SkeletonLoaderAboutInnovationPage />;
-  //  }
+  if (!innovationItems) {
+    return <SkeletonLoaderAboutInnovationPage />;
+  }
 
   return (
     <div className="space-y-8 mb-8 justify-center">
       <SectionLeft
         svg={
-          <Image
+          <img
             src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
               innovationItems?.intro?.img ?? ""
             }`}
@@ -71,20 +67,18 @@ const Page = () => {
             <CardComponent
               key={indx}
               svg={
-                <Image
+                <img
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                     item.img ?? ""
                   }`}
                   alt="Image Left Not Found"
-                  width={200}
-                  height={200}
                   className="h-24"
                 />
               }
               title={item.title}
-              buttonText={"Visit Site"}
+              buttonText={item.link.title}
               description={item.description}
-              href={" "}
+              href={item.link.href}
             />
           );
         })}

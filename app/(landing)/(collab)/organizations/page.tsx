@@ -34,7 +34,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -50,7 +50,7 @@ const Page = () => {
             svg={
               <Image
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
                 width={500}
                 height={800}
               />
@@ -63,15 +63,17 @@ const Page = () => {
           />
         );
       })}
-      <CTA
-        title={orgItems?.proposal.title || " "}
-        buttonText={orgItems?.proposal.button_name || " "}
-        href={orgItems?.proposal.href || " "}
-        description={orgItems?.proposal.description || " "}
-      />
+      <div className='mx-2 p-3'>
+        <CTA
+          title={orgItems?.proposal.title || " "}
+          buttonText={orgItems?.proposal.button_name || " "}
+          href={orgItems?.proposal.href || " "}
+          description={orgItems?.proposal.description || " "}
+        />
+      </div>
 
       <ProfessionalOverview overview={orgItems?.overview || ""} />
-      <div id="collab-form">
+      <div id='collab-form'>
         <CollabForm />
       </div>
     </div>

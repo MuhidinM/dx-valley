@@ -53,11 +53,11 @@ const MultiSelectDropdown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='w-full justify-between'>
+        <Button variant="outline" className="w-full justify-between">
           {selectedOptions.length > 0
             ? selectedOptions.join(", ")
             : placeholder}
-          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <ChevronRight className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -67,7 +67,8 @@ const MultiSelectDropdown = ({
             checked={selectedOptions.includes(option)}
             onCheckedChange={(checked) => {
               if (checked) onOptionChange(option);
-            }}>
+            }}
+          >
             {option}
           </DropdownMenuCheckboxItem>
         ))}
@@ -158,7 +159,7 @@ export default function IndependentRegistrationForm() {
   const handleSubmit = async () => {
     if (validateStep()) {
       try {
-        const response = await fetch("/api/independentpartner", {
+        const response = await fetch("/newapi/independentpartner", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -193,10 +194,10 @@ export default function IndependentRegistrationForm() {
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl  min-h-[700px]'>
         <CardHeader>
-          <CardTitle className='text-2xl font-bold text-center'>
+          <CardTitle className='text-2xl lg:text-3xl md:text-3xl font-bold text-center'>
             {/* <span className='flex justify-center text-3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'> */}
-            <span className='flex justify-center text-xl lg:3xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
-              Individual Registration Form
+            <span className='flex justify-center text-xl lg:text-2xl md:text-2  xl tracking-tight mb-2 font-bold leading-tight underline-offset-auto dark:text-white'>
+              Partner Registration Form
             </span>
             <div className='flex justify-center'>
               <div className='w-20 h-1 bg-coopOrange'></div>

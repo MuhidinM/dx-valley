@@ -26,7 +26,7 @@ const Offer = ({ features }: { features: CardNoLinkData[] }) => {
             </div>
           </div>
         </div>
-        <div className='grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-4 p-4'>
+        <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4'>
           {features.map((item, index) => (
             <article
               key={index}

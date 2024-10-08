@@ -34,27 +34,23 @@ export default function Stats({ items }: { items: CardNoLinkData[] }) {
 
   return (
     <section
-      className="dark:bg-gray-900 max-w-screen-xl md:w-full "
-      ref={statsRef}
-    >
-      <div className="max-w-screen-xl md:w-full px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
-        <dl className="grid gap-8 mx-auto text-gray-900 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 dark:text-white">
+      className='dark:bg-gray-900 max-w-screen-xl md:w-full  '
+      ref={statsRef}>
+      <div className='max-w-screen-xl md:w-full px-4 py-8 mx-auto text-center lg:py-16 lg:px-6 '>
+        <dl className='lg:grid lg:gap-8 gap-4 mx-auto text-gray-900 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 dark:text-white'>
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-gray-800 rounded-xl shadow-lg"
-            >
+              className='flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-950 rounded-xl shadow-4xl'>
               <div>
-                <Image
-                  alt=""
-                  width={60}
-                  height={0}
-                  src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
-                  className="pb-6"
+                <img
+                  alt=''
+                          src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
+                  className='pb-6  lg:w-[60px] w-[50px]'
                 />
                 {/* <div className="w-60 h-60">{item.img}</div> */}
               </div>
-              <dt className="mb-3 text-4xl font-bold text-gray-900 dark:text-white">
+              <dt className='mb-3 lg:text-4xl text-2xl font-bold text-gray-900 dark:text-white'>
                 {inView ? (
                   <CountUp
                     start={0}
@@ -66,7 +62,7 @@ export default function Stats({ items }: { items: CardNoLinkData[] }) {
                   0
                 )}
               </dt>
-              <dd className="text-2xl font-extrabold text-gray-700 dark:text-gray-300 ">
+              <dd className='lg:text-2xl text-xl font-extrabold text-gray-700 dark:text-gray-300 '>
                 {item.title}
               </dd>
             </div>

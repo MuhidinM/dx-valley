@@ -20,14 +20,14 @@ export async function POST(req: Request): Promise<NextResponse> {
   try {
     // Parse the JSON body
     const data = await req.json();
-    console.log(
-      "Received data:",
-      data,
-      "teamMembers:",
-      data?.teamMembers[0]?.personalInfo,
-      "teamMembers:",
-      data?.teamMembers[0]?.contactInfo
-    );
+    // console.log(
+    //   "Received data:",
+    //   data,
+    //   "teamMembers:",
+    //   data?.teamMembers[0]?.personalInfo,
+    //   "teamMembers:",
+    //   data?.teamMembers[0]?.contactInfo
+    // );
 
     const {
       teamLeader,

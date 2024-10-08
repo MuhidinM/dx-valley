@@ -5,9 +5,8 @@ import React, { useEffect, useState } from "react";
 import { Event } from "@/types/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Countdown from "./countdown";
 import { useRouter } from "next/navigation";
-// import { Router} from "next/router"
+import CountDownCallForProposal from "./countDownCallForProposal";
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -15,10 +14,11 @@ export default function Callforproposal() {
 
   const router = useRouter();
 
+  // Fetch events data
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("/api/event");
+        const response = await fetch("/newapi/event");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -36,50 +36,61 @@ export default function Callforproposal() {
     };
 
     fetchEvents();
-  }, []); // Only run once, on moun
+  }, []);
 
+  // Update the time left for a specific event
   const handleTimeLeftCalculated = (id: string, calculatedTimeLeft: string) => {
     setTimeLeft((prev) => ({
       ...prev,
-      [id]: calculatedTimeLeft,
+      [id]: calculatedTimeLeft, // Dynamically store time left for each event by its ID
     }));
   };
 
+  // Filter events to only show "call for proposal"
   const callForProposalEvents = events.filter(
     (event) => event.category === "call for proposal"
   );
-  if (!callForProposalEvents) {
-    return (
-      <div className='col-span-full text-center py-10 min-h-full'>
-        <p className='text-lg font-semibold h-fit'>Not Available.</p>
-      </div>
-    );
-  }
+
   return (
-    <div className='container w-full my-16 h-full'>
-      {callForProposalEvents?.length > 0
-        ? callForProposalEvents.map((event, index) => (
+    <div className='lg:container w-full lg:my-16 my-8 px-4'>
+      {callForProposalEvents.length > 0 ? (
+        callForProposalEvents.map((event) => {
+          const timeLeftForEvent = timeLeft[event.id]; // Get time left for this event
+
+          console.log("Time left for event", event.id, ":", timeLeftForEvent);
+
+          // If the timeLeft is undefined or "00h 00m 00s", skip rendering the event
+       
+          if (timeLeftForEvent === "00h 00m 00s") {
+            return null;
+          }
+
+          return (
             <div key={event.id}>
-              <Countdown
+              {/* Countdown Component */}
+              <CountDownCallForProposal
                 event={event}
-                renderUI={false}
+                renderUI={false} // Disable Countdown's internal UI
                 onTimeLeftCalculated={(calculatedTimeLeft) =>
-                  handleTimeLeftCalculated(event?.id, calculatedTimeLeft)
+                  handleTimeLeftCalculated(event.id, calculatedTimeLeft)
                 }
               />
+
+              {/* Event Card */}
               <Card>
-                <CardHeader className=' flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
+                <CardHeader className='flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
                   <CardTitle className='text-lg lg:text-3xl sm:text-lg'>
                     Call for Start Up Proposal
                   </CardTitle>
                   <div className='h-full align-middle'>
                     <p className='text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none'>
-                      {timeLeft[event?.id] || "Calculating..."}
+                      {/* Show time left or "Calculating..." if it's still loading */}
+                      {timeLeftForEvent || "Calculating..."}
                     </p>
                   </div>
                 </CardHeader>
 
-                <CardContent className='ailgn-center justify-around items-center'>
+                <CardContent className='align-center justify-around items-center'>
                   <p className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'>
                     {event.description}
                   </p>
@@ -87,21 +98,21 @@ export default function Callforproposal() {
                   <Button
                     className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
                     onClick={() => {
-                      let formRoute = "/incubationform";
-                      const eventId = event.id.toString();
-                      router.push(`${formRoute}?eventId=${eventId}`);
+                      const formRoute = "/incubationform";
+                      router.push(`${formRoute}?eventId=${event.id}`);
                     }}>
                     Apply
                   </Button>
                 </CardContent>
               </Card>
             </div>
-          ))
-        : 
-        <div className='col-span-full text-center py-10 min-h-full'>
-            <p className='text-lg font-semibold h-fit'>No Call Available.</p>
-          </div>
-          }
+          );
+        })
+      ) : (
+        <div className='col-span-full text-center py-10 lg:min-h-80 md:min-h-72'>
+          <p className='text-lg font-semibold h-fit'>No Call Available.</p>
+        </div>
+      )}
     </div>
   );
 }

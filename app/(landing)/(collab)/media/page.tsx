@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import CollabForm from "@/components/collab/call-for-collab-form-media";
@@ -8,7 +10,11 @@ import ProfessionalOverview from "@/components/ProfessionalOverview";
 import { OrgData } from "@/types/strapi-types";
 import { MediaItemFetch } from "@/services/media";
 import Image from "next/image";
-import { SkeletonLoaderCollabForm, SkeletonPageColloab } from "@/components/SkeletonLoader";
+import {
+  SkeletonLoaderCollabForm,
+  SkeletonPageColloab,
+} from "@/components/SkeletonLoader";
+import { MultiStepFormComponent } from "@/components/multi-step-form";
 
 const Page = () => {
   const [mediaItems, setmediaItems] = useState<OrgData>();
@@ -17,18 +23,17 @@ const Page = () => {
     const fetchmediaItems = async () => {
       const data = await MediaItemFetch();
       setmediaItems(data);
-    }; 
+    };
 
     fetchmediaItems();
   }, []);
 
- if (!mediaItems) {
-   return <SkeletonPageColloab />;
- }
-  
+  if (!mediaItems) {
+    return <SkeletonPageColloab />;
+  }
+
   return (
     <div>
- 
       {mediaItems?.cards.map((cards, indx) => {
         return indx % 2 ? (
           <SectionLeft
@@ -65,13 +70,14 @@ const Page = () => {
         );
       })}
       <CTA
-        title={mediaItems?.proposal.title   || " "}
-        buttonText={mediaItems?.proposal.button_name  || " "}
+        title={mediaItems?.proposal.title || " "}
+        buttonText={mediaItems?.proposal.button_name || " "}
         href={mediaItems?.proposal.href || " "}
         description={mediaItems?.proposal.description || " "}
       />
+
       <ProfessionalOverview overview={mediaItems?.overview || ""} />
-      <div id="collab-form">
+      <div id='collab-form'>
         <CollabForm />
       </div>
     </div>

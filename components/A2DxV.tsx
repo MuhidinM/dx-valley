@@ -95,7 +95,7 @@ export default function A2DxV() {
         >
           <div className="flex items-center justify-between">
             <h1 className="lg:text-3xl md:text-3xl text-xl font-bold text-gray-800 dark:text-gray-300">
-              DxValley&apos;s Incubation Lab
+              DxValley&apos;s Incubation Center
             </h1>
             <motion.div
               className="text-2xl font-bold"
