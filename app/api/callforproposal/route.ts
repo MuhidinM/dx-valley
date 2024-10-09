@@ -209,7 +209,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
           savedFiles.push({
             name: (file as File).originalFilename || "",
-            path: `/intern/${sanitizedFileName}`, // Save relative path
+            path: `/docs/${sanitizedFileName}`, // Save relative path
           });
         }
       }
@@ -241,7 +241,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         );
       }
     // Exclude directory separators
-          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, " ");
       // Validate the video file extension
       const allowedVideoExtensions = [".mp4", ".mov", ".avi", ".mkv"];
       const videoFileExtension = path.extname(sanitizedFileName).toLowerCase();

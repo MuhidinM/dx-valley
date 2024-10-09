@@ -215,17 +215,34 @@ export async function POST(req: Request): Promise<NextResponse> {
             continue;
           }
 
-          let sanitizedFileName = path.basename((file as File).newFilename!);
-          sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+         let sanitizedFileName = path.basename((file as File).newFilename!);
 
-          if ((sanitizedFileName.match(/\./g) || []).length > 1) {
-            return NextResponse.json(
-              { error: "Invalid file name. Only one period is allowed." },
-              { status: 400 }
-            );
-          }
-          // Exclude directory separators
-          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+         // Step 1: Log the original file name for debugging
+         console.log("Original file name:", file?.originalFilename);
+
+         // Step 2: Remove unwanted characters (including #, %, *, etc.)
+         sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+
+         // Step 3: Log the intermediate sanitized file name
+         console.log("After removing unwanted characters:", sanitizedFileName);
+
+         // Step 4: Check for multiple periods
+         if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+           return NextResponse.json(
+             { error: "Invalid file name. Only one period is allowed." },
+             { status: 400 }
+           );
+         }
+
+         // Step 5: Remove any potential directory separators
+         sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+
+         // Step 6: Log the sanitized file name before final output
+         console.log("Final sanitized file name:", sanitizedFileName);
+
+         // Step 7: Optionally trim whitespace
+         sanitizedFileName = sanitizedFileName.trim();
+
           const fileExtension = path.extname(sanitizedFileName).toLowerCase();
           const allowedExtensions = [".pdf", ".doc", ".docx"];
 
