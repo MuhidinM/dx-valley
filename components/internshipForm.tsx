@@ -199,16 +199,28 @@ export default function InternshipForm() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       
-     if (event.target.files) {
-      const newFiles = Array.from(event.target.files || [])
-      setFormData((prev) => ({
-        ...prev,
-        documents: [...prev.documents, ...newFiles],
-      }));
+   if (event.target.files) {
+     const newFiles = Array.from(event.target.files || []);
 
-      
-    }
+     // Filter out files larger than 5MB (5 * 1024 * 1024 bytes)
+     const validFiles = newFiles.filter((file) => file.size <= 5 * 1024 * 1024);
+
+     if (validFiles.length !== newFiles.length) {
+       // Optionally, you can alert the user or display a message for invalid files
+       toast.error("Some files were too large (over 5MB) and have been excluded.");
+
+     }
+
+
+     // Update state with valid files
+     setFormData((prev) => ({
+       ...prev,
+       documents: [...prev.documents, ...validFiles],
+     }));
+   }
+
   };
+
 
   const removeFile = (index: number) => {
    setFormData((prev) => ({
