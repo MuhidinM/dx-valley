@@ -1735,20 +1735,20 @@ const ApplyForIncubation = () => {
   ) => {
     const files = Array.from(event.target.files || []);
     if (type === "video") {
-      if (files[0] && files[0].size > 100 * 1024 * 1024) {
+      if (files[0] && files[0].size > 50 * 1024 * 1024) {
         setErrors((prev) => ({
           ...prev,
-          video: "Video file size must be less than 100MB",
+          video: "Video file size must be less than 50MB",
         }));
         return;
       }
       setFormData((prev) => ({ ...prev, video: files[0] || null }));
     } else if (type === "document") {
-      const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024);
+      const validFiles = files.filter((file) => file.size <= 2 * 1024 * 1024);
       if (validFiles.length < files.length) {
         setErrors((prev) => ({
           ...prev,
-          documents: "Some documents exceeded 10MB limit and were not added",
+          documents: "Some documents exceeded 2MB limit and were not added",
         }));
       }
       setFormData((prev) => ({
@@ -1895,7 +1895,7 @@ const ApplyForIncubation = () => {
     });
 
     try {
-      const response = await fetch("/api/callforproposal", {
+      const response = await fetch("/newapi/callforproposal", {
         method: "POST",
         body: formValues, // No need to set Content-Type, the browser does it automatically
       });
@@ -2205,7 +2205,7 @@ const ApplyForIncubation = () => {
                 <div className='space-y-4'>
                   <div className='space-y-2'>
                     <Label htmlFor='video'>
-                      Video Pitch (Optional, Max 100MB)
+                      Video Pitch (Optional, Max 50MB)
                     </Label>
                     <div className='flex items-center space-x-2'>
                       <Input
@@ -2235,13 +2235,13 @@ const ApplyForIncubation = () => {
                   </div>
                   <div className='space-y-2'>
                     <Label htmlFor='documents'>
-                      Documents (Optional, Max 10MB each)
+                      Documents (Optional, Max 2MB each)
                     </Label>
                     <Input
                       id='documents'
                       type='file'
                       multiple
-                      accept='.pdf,.doc,.docx,.txt'
+                      accept='.pdf,.doc,.docx'
                       onChange={(e) => handleFileChange(e, "document")}
                       ref={documentInputRef}
                     />

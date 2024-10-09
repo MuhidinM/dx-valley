@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
-
+import validator from "validator";
 interface SavedFile {
   name: string;
   path: string;
@@ -31,9 +31,6 @@ class ReadableIncoming extends Readable {
   }
 }
 
-
-
-
 // Helper function to parse form data
 const parseForm = (
   req: IncomingMessage
@@ -50,6 +47,12 @@ const parseForm = (
       resolve({ fields, files });
     });
   });
+};
+
+const removeTempFile = (file: File) => {
+  if (fs.existsSync(file.filepath)) {
+    fs.unlinkSync(file.filepath); // Deletes the file from the temp directory
+  }
 };
 
 // Convert Web Stream to Node.js Readable and extend it with IncomingMessage properties
@@ -72,6 +75,12 @@ async function convertToNodeReadable(req: Request): Promise<IncomingMessage> {
 
   return stream as any;
 }
+const checkIfEmailExists = async (email: string) => {
+  const existingEmail = await prisma.contactInfo.findUnique({
+    where: { email: email },
+  });
+  return existingEmail !== null;
+};
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
@@ -85,13 +94,54 @@ export async function POST(req: Request): Promise<NextResponse> {
     const email = fields.email?.toString();
     const phone = fields.phone?.toString();
     const idea = fields.idea?.toString();
+    const foundersname = fields.founderNames?.toString();
 
-    if (!startupName || !stage || !email || !phone || !idea) {
-      return NextResponse.json({
-        error: "Required fields are missing.",
-        status: 400,
-      });
+    const sanitizedStartupName = validator.trim(startupName || "");
+    const sanitizedStage = validator.trim(stage || "");
+    const sanitizedEmail = validator.trim(email || "");
+    const sanitizedPhone = validator.trim(phone || "");
+    const sanitizedIdea = validator.trim(idea || "");
+    const sanitizedFoundersName = validator.trim(foundersname || "");
+
+    // Validate required fields
+    if (
+      !sanitizedStartupName ||
+      !sanitizedStage ||
+      !sanitizedEmail ||
+      !sanitizedPhone ||
+      !sanitizedIdea
+    ) {
+      return NextResponse.json(
+        {
+          error: "Required fields are missing.",
+          status: 400,
+        },
+        { status: 400 }
+      );
     }
+
+    // Additional validation
+    if (!validator.isEmail(sanitizedEmail)) {
+      return NextResponse.json(
+        {
+          error: "Invalid email format.",
+          status: 400,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!validator.isMobilePhone(sanitizedPhone)) {
+      return NextResponse.json(
+        {
+          error: "Invalid phone number format.",
+          status: 400,
+        },
+        { status: 400 }
+      );
+    }
+
+    // If all validations pass, continue with your logic here...
 
     const savedFiles: SavedFile[] = [];
     const uploadDir = path.join(process.cwd(), "/public/docs");
@@ -112,12 +162,54 @@ export async function POST(req: Request): Promise<NextResponse> {
         // Check if it's an array of files or a single file
         const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
+        // for (const file of docs) {
+        //   const newFilePath = path.join(uploadDir, (file as File).newFilename!);
+        //   fs.renameSync((file as File).filepath, newFilePath);
+        //   savedFiles.push({
+        //     name: (file as File).originalFilename || "",
+        //     path: `/docs/${(file as File).newFilename}`,
+        //   });
+        // }
+
         for (const file of docs) {
+          if (!file?.newFilename) {
+            // File was rejected in the fileBegin phase, skip it
+            continue;
+          }
+
+          // Sanitize filename and ensure it's safe
+          let sanitizedFileName = path.basename((file as File).newFilename!);
+          sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+
+          if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+            return NextResponse.json(
+              { error: "Invalid file name. Only one period is allowed." },
+              { status: 400 }
+            );
+          }
+          // Exclude directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+
+          const fileExtension = path.extname(sanitizedFileName).toLowerCase();
+          const allowedExtensions = [".pdf", ".doc", ".docx"];
+
+          if (!allowedExtensions.includes(fileExtension)) {
+            removeTempFile(file as File); // Remove invalid file
+
+            return NextResponse.json(
+              {
+                error: "Invalid file type. Only PDF and DOC files are allowed.",
+              },
+              { status: 400 }
+            );
+          }
+
           const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-          fs.renameSync((file as File).filepath, newFilePath);
+          fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
           savedFiles.push({
             name: (file as File).originalFilename || "",
-            path: `/docs/${(file as File).newFilename}`,
+            path: `/docs/${sanitizedFileName}`, // Save relative path
           });
         }
       }
@@ -125,21 +217,60 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     // Handle uploaded video
     let videoFile: SavedFile | null = null;
+
     if (files.video) {
       const video = Array.isArray(files.video) ? files.video[0] : files.video;
-      const videoFilePath = path.join(uploadDir, (video as File).newFilename!);
+
+      if (!video.newFilename) {
+        // File was rejected in the fileBegin phase, skip it
+        return NextResponse.json(
+          { error: "Invalid video file provided." },
+          { status: 400 }
+        );
+      }
+
+      // Sanitize the video filename
+      let sanitizedFileName = path.basename((video as File).newFilename!);
+      sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+
+      // Ensure the filename contains only one period (for the extension)
+      if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+        return NextResponse.json(
+          { error: "Invalid video file name. Only one period is allowed." },
+          { status: 400 }
+        );
+      }
+    // Exclude directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, " ");
+      // Validate the video file extension
+      const allowedVideoExtensions = [".mp4", ".mov", ".avi", ".mkv"];
+      const videoFileExtension = path.extname(sanitizedFileName).toLowerCase();
+
+      if (!allowedVideoExtensions.includes(videoFileExtension)) {
+        removeTempFile(video as File); // Remove invalid video file
+        return NextResponse.json(
+          {
+            error: `Invalid video file type. Only the following types are allowed: ${allowedVideoExtensions.join(
+              ", "
+            )}`,
+          },
+          { status: 400 }
+        );
+      }
+
+      // Define the new path for the video
+      const videoFilePath = path.join(uploadDir, sanitizedFileName);
+
+      // Move video file to upload directory
       fs.renameSync((video as File).filepath, videoFilePath);
+
+      // Save video file info
       videoFile = {
         name: (video as File).originalFilename || "",
-        path: `/docs/${(video as File).newFilename}`,
+        path: `/docs/${sanitizedFileName}`, // Use sanitized file name
       };
     }
 
-
-
-
-
-    
     const docPromises = savedFiles.map(async (file) => {
       return await prisma.documentInfo.create({
         data: {
@@ -148,6 +279,24 @@ export async function POST(req: Request): Promise<NextResponse> {
         },
       });
     });
+
+    //  const email = getFirstValue(fields.email)?.toString() || "";
+
+    if (!email) {
+      return NextResponse.json(
+        { error: "Email is required." },
+        { status: 400 }
+      );
+    }
+
+    // Check if email is already registered
+    const emailExists = await checkIfEmailExists(email);
+    if (emailExists) {
+      return NextResponse.json(
+        { error: "Email is already registered." },
+        { status: 409 } // Conflict status for existing resource
+      );
+    }
 
     const savedDocuments = await Promise.all(docPromises);
 
@@ -188,7 +337,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const startupContactinfo = await prisma.contactInfo.create({
       data: {
         email: email,
-        phoneNumberOne: phone,
+        phoneNumberOne: phone || "",
       },
     });
 
@@ -202,9 +351,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       // videoId?: number;
       video?: { connect: { id: number }[] };
     } = {
-      startupName: startupName,
-      stage: stage,
-      ideaDescription: idea,
+      startupName: startupName || "",
+      stage: stage || "",
+      ideaDescription: idea || "",
       documents: {
         connect: savedDocuments.map((doc) => ({ id: doc.id })),
       },

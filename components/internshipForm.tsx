@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -155,6 +155,7 @@ export default function InternshipForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+ const documentInputRef = useRef<HTMLInputElement | null>(null);
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -196,27 +197,37 @@ export default function InternshipForm() {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const newFiles = Array.from(e.target.files).map((file) =>
-        Object.assign(file, { preview: URL.createObjectURL(file) })
-      );
-      setFormData((prev) => ({
-        ...prev,
-        documents: [...prev.documents, ...newFiles],
-      }));
-    }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      
+   if (event.target.files) {
+     const newFiles = Array.from(event.target.files || []);
+
+     // Filter out files larger than 5MB (5 * 1024 * 1024 bytes)
+     const validFiles = newFiles.filter((file) => file.size <= 5 * 1024 * 1024);
+
+     if (validFiles.length !== newFiles.length) {
+       // Optionally, you can alert the user or display a message for invalid files
+       toast.error("Some files were too large (over 5MB) and have been excluded.");
+
+     }
+
+
+     // Update state with valid files
+     setFormData((prev) => ({
+       ...prev,
+       documents: [...prev.documents, ...validFiles],
+     }));
+   }
+
   };
+
 
   const removeFile = (index: number) => {
-    setDocuments((prev) => {
-      const newDocs = [...prev];
-      URL.revokeObjectURL(newDocs[index].preview as string);
-      newDocs.splice(index, 1);
-      return newDocs;
-    });
+   setFormData((prev) => ({
+     ...prev,
+     documents: prev.documents.filter((_, i) => i !== index),
+   }));
   };
-
   //validation
 
   const validateStep = (step: number): Errors => {
@@ -295,7 +306,7 @@ export default function InternshipForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    // setIsSubmitting(true);
 
     const stepErrors = validateStep(step);
 
@@ -331,25 +342,59 @@ export default function InternshipForm() {
       formValues.append("interestAreas", area);
     });
 
-    try {
-      // Send the data to the server or API
-      const response = await fetch("/newapi/internship", {
-        method: "POST",
-        body: formValues,
-      });
+    // try {
+    //   // Send the data to the server or API
+    //   const response = await fetch("/newapi/internship", {
+    //      method: "POST",
+    //      body: formValues,
+    //     // headers: {
+    //     //   "Content-Type": "application/json",
+    //     // },
+    //     // body: JSON.stringify(formData),
+    //   });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit application");
+    //   if (!response.ok) {
+    //     throw new Error("Failed to submit application");
+    //   }
+
+    //   // Handle successful submission
+    //   setIsSubmitted(true);
+    //   setIsSubmitting(false);
+    // } catch (error) {
+    //   console.error(error);
+    //   setIsSubmitting(false);
+    // }
+
+
+      try {
+        const response = await fetch("/newapi/internship", {
+          method: "POST",
+          body: formValues, // No need to set Content-Type, the browser does it automatically
+        });
+
+        const result = await response.json();
+        if (response.status === 200) {
+          setIsSubmitted(true);
+          toast.success("Registration successful!", {
+            description: "Your details have been submitted successfully.",
+          });
+       console.log("Internship form was successfully submitted");
+        } else {
+          toast.error("Registration failed", {
+            description: result?.error
+          });
+            setIsSubmitted(false);
+          console.log("Internship form error on submission");
+        }
+        // console.log(result);
+      } catch (error) {
+        console.error("Error submitting form", error);
+          setIsSubmitted(false);
       }
-
-      // Handle successful submission
-      setIsSubmitted(true);
-      setIsSubmitting(false);
-    } catch (error) {
-      console.error(error);
-      setIsSubmitting(false);
-    }
   };
+
+
+
 
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 4));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
@@ -686,19 +731,25 @@ export default function InternshipForm() {
                     multiple
                     accept='.pdf,.doc,.docx'
                     onChange={handleFileChange}
+                    ref={documentInputRef}
                   />
                   {errors.documents && (
                     <p className='text-sm text-red-500'>{errors.documents}</p>
                   )}
 
                   <ul>
-                    {documents.map((file, index) => (
-                      <li key={index} className='flex items-center space-x-2'>
-                        <span>{file.name}</span>
-                        <button type='button' onClick={() => removeFile(index)}>
-                          Remove
-                        </button>
-                      </li>
+                    {formData.documents.map((doc, index) => (
+                      <div
+                        key={index}
+                        className='flex items-center justify-between'>
+                        <span>{doc.name}</span>
+                        <Button
+                          type='button'
+                          variant='ghost'
+                          onClick={() => removeFile(index)}>
+                          <X className='h-4 w-4' />
+                        </Button>
+                      </div>
                     ))}
                   </ul>
                 </div>
@@ -723,12 +774,10 @@ export default function InternshipForm() {
                   onClick={handleSubmit}
                   className='ml-auto bg-coopBlue'>
                   Submit Application
-               
                 </Button>
               )}
             </div>
           </form>
-          
         </CardContent>
       </Card>
     </div>
