@@ -1925,7 +1925,7 @@ const ApplyForIncubation = () => {
           description:
             result?.error || "An error occurred during registration.",
         });
-        console.log("call for proposal error on submission");
+        // console.log("call for proposal error on submission");
       }
       // console.log(result);
     } catch (error) {

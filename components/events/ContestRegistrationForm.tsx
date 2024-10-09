@@ -73,7 +73,7 @@ export default function ContestRegistrationForm() {
     if (typeof window !== "undefined") {
       const savedFormData = localStorage.getItem("formData");
 
-      console.log("saved form data this: 1", savedFormData);
+      // console.log("saved form data this: 1", savedFormData);
       if (savedFormData) {
         setFormData(JSON.parse(savedFormData));
         localStorage.setItem(
@@ -85,7 +85,7 @@ export default function ContestRegistrationForm() {
       // To check if 'testKey' is persisted after refresh
       const testKey = localStorage.getItem("formData");
       if (testKey) {
-        console.log("testKey:", testKey); // Optional check for testKey
+        // console.log("testKey:", testKey); // Optional check for testKey
       }
     }
   }, []);
@@ -100,7 +100,7 @@ export default function ContestRegistrationForm() {
 
         // Optional: Add some test data to localStorage
         localStorage.setItem("testKey", JSON.stringify(formData));
-        console.log("TestKey saved:", localStorage.getItem("testKey"));
+        // console.log("TestKey saved:", localStorage.getItem("testKey"));
       }, 2000);
 
       return () => clearTimeout(timer);
@@ -160,7 +160,7 @@ export default function ContestRegistrationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/contest", {
+      const response = await fetch("/newapi/contest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

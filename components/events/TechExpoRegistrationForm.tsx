@@ -55,7 +55,7 @@ const TechExpoRegistrationForm: React.FC = () => {
     if (typeof window !== "undefined") {
       const savedFormData = localStorage.getItem("formData");
 
-      console.log("saved form data this: 1", savedFormData);
+      // console.log("saved form data this: 1", savedFormData);
       if (savedFormData) {
         setFormData(JSON.parse(savedFormData));
         localStorage.setItem("savedFormData", JSON.stringify(savedFormData));
@@ -64,7 +64,7 @@ const TechExpoRegistrationForm: React.FC = () => {
       // To check if 'testKey' is persisted after refresh
       const testKey = localStorage.getItem("formData");
       if (testKey) {
-        console.log("testKey:", testKey); // Optional check for testKey
+        // console.log("testKey:", testKey); // Optional check for testKey
       }
     }
   }, []);
@@ -105,7 +105,7 @@ const TechExpoRegistrationForm: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/techexpo", {
+      const response = await fetch("/newapi/techexpo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -3,11 +3,9 @@ import "./globals.css";
 
 import { Inter as FontSans, Inter } from "next/font/google";
 
+import "@/lib/silenceConsole";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import Footer from "@/components/footer";
-import Socials from "@/components/socials";
-import Navbar from "@/components/navbar";
 import Script from "next/script";
 
 const fontSans = FontSans({
@@ -16,22 +14,15 @@ const fontSans = FontSans({
 });
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
-
-{/* <link rel='icon' href='/DX.ico' sizes='any' />; */}
-
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   adjustFontFallback: false,
 });
 
-
 export const metadata: Metadata = {
   title: "DX-Valley",
   description: "Powered By Coop Bank",
-  // icons: {
-  //   icon: "/favicon.ico",
-  // },
 };
 
 export default function RootLayout({
@@ -63,12 +54,14 @@ export default function RootLayout({
         className={cn(
           "min-h-screen font-sans antialiased bg-slate-50 text-black dark:text-white dark:bg-gray-900",
           fontSans.variable
-        )}>
+        )}
+      >
         <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
+          attribute="class"
+          defaultTheme="system"
           enableSystem
-          disableTransitionOnChange>
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>

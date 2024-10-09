@@ -116,7 +116,7 @@ async function sendConfirmationEmail(email: string) {
 
   try {
     await transporter.sendMail(mailOptionsToUser);
-    console.log("Confirmation email sent to:", email);
+    // console.log("Confirmation email sent to:", email);
   } catch (error) {
     console.error("Error sending email:", error);
   }
