@@ -46,7 +46,7 @@ export default function AllNewsPage({
     setSliderIndex(0);
   };
 
-  console.log("newArticles", sortedNewsArticles);
+  // console.log("newArticles", sortedNewsArticles);
 
   const handleCloseArticle = () => {
     setSelectedArticle(null);

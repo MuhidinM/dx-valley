@@ -378,13 +378,13 @@ export default function InternshipForm() {
           toast.success("Registration successful!", {
             description: "Your details have been submitted successfully.",
           });
-       console.log("Internship form was successfully submitted");
+      //  console.log("Internship form was successfully submitted");
         } else {
           toast.error("Registration failed", {
             description: result?.error
           });
             setIsSubmitted(false);
-          console.log("Internship form error on submission");
+          // console.log("Internship form error on submission");
         }
         // console.log(result);
       } catch (error) {

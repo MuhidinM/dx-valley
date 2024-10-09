@@ -130,7 +130,7 @@ export function MultiStepFormComponent() {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", formData);
+    // console.log("Form submitted:", formData);
     setOpen(false);
     setCurrentStep(1);
     setFormData({});

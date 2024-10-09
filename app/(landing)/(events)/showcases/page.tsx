@@ -31,7 +31,7 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    console.log("showcases - log: ", showcaseItems);
+    // console.log("showcases - log: ", showcaseItems);
   });
 
   // if (!showcaseItems) {
