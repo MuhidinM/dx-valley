@@ -160,7 +160,7 @@ export default function ContestRegistrationForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/contest", {
+      const response = await fetch("/newapi/contest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

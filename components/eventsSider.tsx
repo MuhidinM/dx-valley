@@ -20,7 +20,7 @@ export default function EventsSider() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("/api/event");
+        const response = await fetch("/newapi/event");
         const data = await response.json();
         if (Array.isArray(data)) {
           setEvents(data);

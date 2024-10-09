@@ -105,7 +105,7 @@ const TechExpoRegistrationForm: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/techexpo", {
+      const response = await fetch("/newapi/techexpo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
