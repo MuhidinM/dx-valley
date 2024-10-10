@@ -44,7 +44,7 @@ const steps = [
   { id: "founder", title: "Founder Info" },
   { id: "idea", title: "Your Idea" },
 ];
-  // const [nameTaken, setNameTaken] = useState(false);
+// const [nameTaken, setNameTaken] = useState(false);
 
 // const startupNameSuggestions = [
 //   "TechNova",
@@ -70,7 +70,7 @@ const startupNameSuggestions = [
   "EcoSphere",
   "CyberForge",
   "BioSync",
-   "NexusWave",
+  "NexusWave",
   "ZenithSpark",
   "PixelPioneer",
   "EcoSphere",
@@ -1668,7 +1668,7 @@ interface Errors {
 }
 
 const ApplyForIncubation = () => {
-    const [nameTaken, setNameTaken] = useState(false);
+  const [nameTaken, setNameTaken] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
     startupName: "",
@@ -1771,30 +1771,6 @@ const ApplyForIncubation = () => {
       documents: prev.documents.filter((_, i) => i !== index),
     }));
   };
-
-  // const validateStep = (step: number): Errors => {
-  //   let stepErrors: Errors = {};
-  //   switch (step) {
-  //     case 0:
-  //       if (!formData.startupName.trim())
-  //         stepErrors.startupName = "Startup name is required";
-  //       if (!formData.stage) stepErrors.stage = "Current stage is required";
-  //       break;
-  //     case 1:
-  //       if (formData.founderNames.some((name) => !name.trim()))
-  //         stepErrors.founderNames = "All founder names are required";
-  //       if (!formData.email.trim()) stepErrors.email = "Email is required";
-  //       else if (!/\S+@\S+\.\S+/.test(formData.email))
-  //         stepErrors.email = "Email is invalid";
-  //       if (!formData.phone.trim())
-  //         stepErrors.phone = "Phone number is required";
-  //       break;
-  //     case 2:
-  //       if (!formData.idea.trim()) stepErrors.idea = "Startup idea is required";
-  //       break;
-  //   }
-  //   return stepErrors;
-  // };
   const validateStep = (step: number): Errors => {
     let stepErrors: Errors = {};
 
@@ -1943,28 +1919,25 @@ const ApplyForIncubation = () => {
     setShowConfetti(true);
   };
 
+  const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
 
+  const generateStartupName = () => {
+    const randomIndex = Math.floor(
+      Math.random() * startupNameSuggestions.length
+    );
+    const generatedName = startupNameSuggestions[randomIndex];
 
-    const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
-
-    const generateStartupName = () => {
-      const randomIndex = Math.floor(
-        Math.random() * startupNameSuggestions.length
-      );
-      const generatedName = startupNameSuggestions[randomIndex];
-
-      // Check if the name is already taken
-      if (takenNames.includes(generatedName)) {
-        setNameTaken(true);
-      } else {
-        setNameTaken(false);
-        setFormData((prev) => ({
-          ...prev,
-          startupName: generatedName,
-        }));
-      }
-    };
-
+    // Check if the name is already taken
+    if (takenNames.includes(generatedName)) {
+      setNameTaken(true);
+    } else {
+      setNameTaken(false);
+      setFormData((prev) => ({
+        ...prev,
+        startupName: generatedName,
+      }));
+    }
+  };
 
   // const generateStartupName = () => {
   //   const randomIndex = Math.floor(
@@ -2050,7 +2023,7 @@ const ApplyForIncubation = () => {
                         {"Generate"}
                       </Button>
                     </div>
-                      <span>{nameTaken === true ? "Name is taken" : null}</span>
+                    <span>{nameTaken === true ? "Name is taken" : null}</span>
                     {errors.startupName && (
                       <p className='text-sm text-red-500'>
                         {errors.startupName}

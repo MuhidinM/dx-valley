@@ -45,6 +45,10 @@ const TechExpoRegistrationForm: React.FC = () => {
     participantType: "",
     eventId: eventId || "",
   });
+const [alert, setAlert] = useState<{
+  type: "success" | "error";
+  message: string;
+} | null>(null);
 
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -58,7 +62,10 @@ const TechExpoRegistrationForm: React.FC = () => {
       // console.log("saved form data this: 1", savedFormData);
       if (savedFormData) {
         setFormData(JSON.parse(savedFormData));
-        localStorage.setItem("savedFormData", JSON.stringify(savedFormData));
+        localStorage.setItem(
+          "formData savedFormData",
+          JSON.stringify(savedFormData)
+        );
       }
 
       // To check if 'testKey' is persisted after refresh
@@ -68,6 +75,35 @@ const TechExpoRegistrationForm: React.FC = () => {
       }
     }
   }, []);
+
+  // Submission success logic, if alert is success, set submission state
+  useEffect(() => {
+    if (alert && alert?.type === "success") {
+      const timer = setTimeout(() => {
+        setIsSubmitted(true);
+
+        // Optional: Add some test data to localStorage
+        localStorage.setItem("testKey", JSON.stringify(formData));
+        // console.log("TestKey saved:", localStorage.getItem("testKey"));
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [alert]);
+  
+//   const handleChange = (
+//     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+//   ) => {
+//  const temp = {
+//    ...formData,
+//    [e.target.name]: e.target.value,
+//  };
+//  localStorage.setItem("formData", JSON.stringify(temp));
+//  setFormData(temp);
+//   };
+
+
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -79,6 +115,7 @@ const TechExpoRegistrationForm: React.FC = () => {
     localStorage.setItem("formData", JSON.stringify(temp));
     setFormData(temp);
   };
+
 
   const validateForm = () => {
     const newErrors: Partial<FormData> = {};
@@ -96,8 +133,6 @@ const TechExpoRegistrationForm: React.FC = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
