@@ -31,31 +31,69 @@ class ReadableIncoming extends Readable {
 const parseForm = (
   req: IncomingMessage
 ): Promise<{ fields: Fields; files: Files }> => {
-  const allowedExtensions = [".pdf", ".doc", ".docx"];
+  const allowedExtensions = [".pdf"];
   const uploadDir = path.join(process.cwd(), "/public/intern");
 
   const form = new IncomingForm({
     multiples: true,
-    uploadDir: uploadDir,
+    // uploadDir: uploadDir,
     keepExtensions: true,
   });
 
-  // Custom file validation before saving
-  form.on("fileBegin", (name, file) => {
-    const fileExtension = path
-      .extname(file.originalFilename || "")
-      .toLowerCase();
+  // // Custom file validation before saving
+  // form.on("fileBegin", (name, file) => {
+  //   const fileExtension = path
+  //     .extname(file.originalFilename || "")
+  //     .toLowerCase();
 
-    // If file type is not allowed, emit an error and stop processing
-    if (!allowedExtensions.includes(fileExtension)) {
-      console.error(`Invalid file type for ${file.originalFilename}`);
+  //   // If file type is not allowed, emit an error and stop processing
+  //   if (!allowedExtensions.includes(fileExtension)) {
+  //     console.error(`Invalid file type for ${file.originalFilename}`);
 
-      // Emit an error and stop file processing
-      // form.emit("error", new Error(`Invalid file type: ${fileExtension}`));
-    }
-  });
+  //     // Emit an error and stop file processing
+  //     // form.emit("error", new Error(`Invalid file type: ${fileExtension}`));
+  //   }
+  // });
 
   return new Promise((resolve, reject) => {
+    form.on("fileBegin", (name, file) => {
+      const fileExtension = path
+        .extname(file.originalFilename || "")
+        .toLowerCase();
+
+      // Check for allowed file extensions
+      if (!allowedExtensions.includes(fileExtension)) {
+        console.error(`Invalid file type for ${file.originalFilename}`);
+        return reject(new Error(`Invalid file type: ${fileExtension}`));
+      }
+
+      // Sanitize the filename
+      let sanitizedFileName = path.basename(file.originalFilename || "");
+      sanitizedFileName = sanitizedFileName
+        .replace(/[^a-zA-Z0-9._-]/g, "")
+        .trim();
+
+      // Check for multiple periods
+      if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+        console.error(
+          `Invalid file name (multiple periods) for ${file.originalFilename}`
+        );
+        return reject(
+          new Error("Invalid file name. Only one period is allowed.")
+        );
+      }
+
+      // Remove potential directory separators
+      if (/[\/\\]/.test(sanitizedFileName)) {
+        console.error(
+          `Invalid file name (directory separators) for ${file.originalFilename}`
+        );
+        return reject(
+          new Error("Invalid file name. Directory separators are not allowed.")
+        );
+      }
+    });
+
     form.parse(req, (err, fields, files) => {
       if (err) return reject(err);
       resolve({ fields, files });
@@ -191,12 +229,13 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     // If validation passes, proceed with saving to the database
-    const savedFiles: SavedFile[] = [];
+    // const savedFiles: SavedFile[] = [];
     const uploadDir = path.join(process.cwd(), "/public/intern");
 
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
+    const savedFiles: SavedFile[] = [];
 
     if (
       files &&
@@ -215,36 +254,36 @@ export async function POST(req: Request): Promise<NextResponse> {
             continue;
           }
 
-         let sanitizedFileName = path.basename((file as File).newFilename!);
+          let sanitizedFileName = path.basename((file as File).newFilename!);
 
-         // Step 1: Log the original file name for debugging
-         console.log("Original file name:", file?.originalFilename);
+          // Step 1: Log the original file name for debugging
+          console.log("Original file name:", file?.originalFilename);
 
-         // Step 2: Remove unwanted characters (including #, %, *, etc.)
-         sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
+          // Step 2: Remove unwanted characters (including #, %, *, etc.)
+          sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
 
-         // Step 3: Log the intermediate sanitized file name
-         console.log("After removing unwanted characters:", sanitizedFileName);
+          // Step 3: Log the intermediate sanitized file name
+          console.log("After removing unwanted characters:", sanitizedFileName);
 
-         // Step 4: Check for multiple periods
-         if ((sanitizedFileName.match(/\./g) || []).length > 1) {
-           return NextResponse.json(
-             { error: "Invalid file name. Only one period is allowed." },
-             { status: 400 }
-           );
-         }
+          // Step 4: Check for multiple periods
+          if ((sanitizedFileName.match(/\./g) || []).length > 1) {
+            return NextResponse.json(
+              { error: "Invalid file name. Only one period is allowed." },
+              { status: 400 }
+            );
+          }
 
-         // Step 5: Remove any potential directory separators
-         sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
+          // Step 5: Remove any potential directory separators
+          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
 
-         // Step 6: Log the sanitized file name before final output
-         console.log("Final sanitized file name:", sanitizedFileName);
+          // Step 6: Log the sanitized file name before final output
+          console.log("Final sanitized file name:", sanitizedFileName);
 
-         // Step 7: Optionally trim whitespace
-         sanitizedFileName = sanitizedFileName.trim();
+          // Step 7: Optionally trim whitespace
+          sanitizedFileName = sanitizedFileName.trim();
 
           const fileExtension = path.extname(sanitizedFileName).toLowerCase();
-          const allowedExtensions = [".pdf", ".doc", ".docx"];
+          const allowedExtensions = [".pdf"];
 
           if (!allowedExtensions.includes(fileExtension)) {
             removeTempFile(file as File); // Remove invalid file
@@ -326,9 +365,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     });
   } catch (error) {
     console.error("Error processing form:", error);
-    return NextResponse.json(
-      { error: "Error processing form data" },
-      { status: 500 }
-    );
+    const errorMessage =
+      (error as Error).message || "Error processing form data";
+    return NextResponse.json({ error: errorMessage }, { status: 400 });
   }
+}
+function reject(arg0: Error): void {
+  throw new Error("Function not implemented.");
 }
