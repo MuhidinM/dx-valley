@@ -37,7 +37,7 @@ const parseForm = (
 ): Promise<{ fields: Fields; files: Files }> => {
   const form = new IncomingForm({
     multiples: true, // Allow multiple files
-    uploadDir: path.join(process.cwd(), "/public/docs"), // Directory to upload files
+    // uploadDir: path.join(process.cwd(), "/public/docs"), // Directory to upload files
     keepExtensions: true, // Keep file extensions
   });
 
@@ -83,7 +83,6 @@ const checkIfEmailExists = async (email: string) => {
 };
 
 export async function POST(req: Request): Promise<NextResponse> {
-
   const host = req.headers.get("host") || ""; // Ensure we get the header properly
 
   // Check if the host is '169.254.169.254' and return a 403 response
