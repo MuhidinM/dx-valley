@@ -169,16 +169,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         // Check if it's an array of files or a single file
         const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
-        // for (const file of docs) {
-        //   const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-        //   fs.renameSync((file as File).filepath, newFilePath);
-        //   savedFiles.push({
-        //     name: (file as File).originalFilename || "",
-        //     path: `/docs/${(file as File).newFilename}`,
-        //   });
-        // }
-
-        for (const file of docs) {
+          for (const file of docs) {
           if (!file?.newFilename) {
             // File was rejected in the fileBegin phase, skip it
             continue;

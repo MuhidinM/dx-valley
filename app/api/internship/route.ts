@@ -40,20 +40,6 @@ const parseForm = (
     keepExtensions: true,
   });
 
-  // // Custom file validation before saving
-  // form.on("fileBegin", (name, file) => {
-  //   const fileExtension = path
-  //     .extname(file.originalFilename || "")
-  //     .toLowerCase();
-
-  //   // If file type is not allowed, emit an error and stop processing
-  //   if (!allowedExtensions.includes(fileExtension)) {
-  //     console.error(`Invalid file type for ${file.originalFilename}`);
-
-  //     // Emit an error and stop file processing
-  //     // form.emit("error", new Error(`Invalid file type: ${fileExtension}`));
-  //   }
-  // });
 
   return new Promise((resolve, reject) => {
     form.on("fileBegin", (name, file) => {
@@ -237,7 +223,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     // If validation passes, proceed with saving to the database
-    // const savedFiles: SavedFile[] = [];
+   
     const uploadDir = path.join(process.cwd(), "/public/intern");
 
     if (!fs.existsSync(uploadDir)) {
