@@ -64,7 +64,7 @@ const parseForm = (
       // Check for allowed file extensions
       if (!allowedExtensions.includes(fileExtension)) {
         console.error(`Invalid file type for ${file.originalFilename}`);
-        return reject(new Error(`Invalid file type: ${fileExtension}`));
+        return reject(new Error(`Invalid file type: ${fileExtension} . Only PDF is allowed`));
       }
 
       // Sanitize the filename
@@ -262,54 +262,12 @@ export async function POST(req: Request): Promise<NextResponse> {
             continue;
           }
 
-          let sanitizedFileName = path.basename((file as File).newFilename!);
-
-         // Step 1: Log the original file name for debugging
-        //  console.log("Original file name:", file?.originalFilename);
-
-          // Step 2: Remove unwanted characters (including #, %, *, etc.)
-          sanitizedFileName = sanitizedFileName.replace(/[^a-zA-Z0-9._-]/g, "");
-
-         // Step 3: Log the intermediate sanitized file name
-        //  console.log("After removing unwanted characters:", sanitizedFileName);
-
-          // Step 4: Check for multiple periods
-          if ((sanitizedFileName.match(/\./g) || []).length > 1) {
-            return NextResponse.json(
-              { error: "Invalid file name. Only one period is allowed." },
-              { status: 400 }
-            );
-          }
-
-          // Step 5: Remove any potential directory separators
-          sanitizedFileName = sanitizedFileName.replace(/[/\*%#\\]/g, "");
-
-         // Step 6: Log the sanitized file name before final output
-        //  console.log("Final sanitized file name:", sanitizedFileName);
-
-          // Step 7: Optionally trim whitespace
-          sanitizedFileName = sanitizedFileName.trim();
-
-          const fileExtension = path.extname(sanitizedFileName).toLowerCase();
-          const allowedExtensions = [".pdf"];
-
-          if (!allowedExtensions.includes(fileExtension)) {
-            removeTempFile(file as File); // Remove invalid file
-
-            return NextResponse.json(
-              {
-                error: "Invalid file type. Only PDF and DOC files are allowed.",
-              },
-              { status: 400 }
-            );
-          }
-
           const newFilePath = path.join(uploadDir, (file as File).newFilename!);
           fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
 
           savedFiles.push({
             name: (file as File).originalFilename || "",
-            path: `/intern/${sanitizedFileName}`, // Save relative path
+            path: `/intern/${path.basename((file as File).newFilename!)}`, // Save relative path
           });
         }
       }
