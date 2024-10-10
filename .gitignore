@@ -41,3 +41,7 @@ next-env.d.ts
 # Prisma files to ignore
 prisma/migrations/
 
+#documents in public
+
+public/docs
+public/intern
