@@ -17,6 +17,14 @@ interface TeamMember {
 }
 
 export async function POST(req: Request): Promise<NextResponse> {
+
+    const host = req.headers.get("host") || ""; // Ensure we get the header properly
+
+    // Check if the host is '169.254.169.254' and return a 403 response
+    if (host === "169.254.169.254") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
   try {
     // Parse the JSON body
     const data = await req.json();

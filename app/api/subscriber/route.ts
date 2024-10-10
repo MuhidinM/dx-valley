@@ -7,6 +7,13 @@ import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
+    const host = req.headers.get("host") || ""; // Ensure we get the header properly
+
+    // Check if the host is '169.254.169.254' and return a 403 response
+    if (host === "169.254.169.254") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
   try {
     const { email } = await req.json();
 
@@ -116,7 +123,7 @@ async function sendConfirmationEmail(email: string) {
 
   try {
     await transporter.sendMail(mailOptionsToUser);
-    console.log("Confirmation email sent to:", email);
+    // console.log("Confirmation email sent to:", email);
   } catch (error) {
     console.error("Error sending email:", error);
   }
