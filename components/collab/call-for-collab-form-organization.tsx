@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast, Toaster } from "sonner";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Textarea } from "../ui/textarea";
 
 const steps = [
   { id: "organization", title: "Organization Info" },
@@ -39,6 +40,7 @@ type FormData = {
   email: string;
   phoneNumberOne: string;
   addressType: string;
+  motivation: string;
 };
 
 const MultiSelectDropdown = ({
@@ -93,6 +95,7 @@ export default function OrganizationRegistrationForm() {
     email: "",
     phoneNumberOne: "",
     addressType: "",
+    motivation: "",
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -329,6 +332,19 @@ export default function OrganizationRegistrationForm() {
                       <p className='text-red-500 text-sm'>{errors.city}</p>
                     )}
                   </div>
+                  <div>
+                    <Label htmlFor='motivation'>
+                      Motivation For Collaboration
+                    </Label>
+                    <Textarea
+                      id='motivation'
+                      value={formData.motivation}
+                      onChange={(e) =>
+                        handleChange("motivation", e.target.value)
+                      }
+                      placeholder='Tell us about yourself'
+                    />
+                  </div>
                 </div>
               )}
 
@@ -425,6 +441,9 @@ export default function OrganizationRegistrationForm() {
                       <p className='p-3'>
                         <strong>Organization Type:</strong>{" "}
                         {formData.organizationType}
+                      </p>
+                      <p className='p-3'>
+                        <strong>Motivation:</strong> {formData.motivation}
                       </p>
                     </div>
                   </div>
