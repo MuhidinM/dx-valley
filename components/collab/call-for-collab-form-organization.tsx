@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,22 +57,21 @@ const MultiSelectDropdown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="w-full justify-between">
-          {selectedOptions.length > 0
+        <Button variant='outline' className='w-full justify-between'>
+          {selectedOptions?.length > 0
             ? selectedOptions.join(", ")
             : placeholder}
-          <ChevronRight className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronRight className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {options.map((option) => (
           <DropdownMenuCheckboxItem
             key={option}
-            checked={selectedOptions.includes(option)}
+            checked={selectedOptions?.includes(option)}
             onCheckedChange={(checked) => {
               if (checked) onOptionChange(option);
-            }}
-          >
+            }}>
             {option}
           </DropdownMenuCheckboxItem>
         ))}
@@ -85,7 +84,7 @@ export default function OrganizationRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     organizationName: "",
-    industry: "",
+    industry: " industry ",
     focusArea: [],
     interestedArea: [],
     organizationType: "",
@@ -102,19 +101,52 @@ export default function OrganizationRegistrationForm() {
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => {
-      const updatedValues = (prev[name] as string[]).includes(value)
-        ? (prev[name] as string[]).filter((item) => item !== value)
-        : [...(prev[name] as string[]), value];
+      const prevValues = Array.isArray(prev[name])
+        ? (prev[name] as string[])
+        : [];
+
+      // Toggle value in array
+      const updatedValues = prevValues.includes(value)
+        ? prevValues.filter((item) => item !== value) // Remove value if already selected
+        : [...prevValues, value]; // Add value if not selected
+
       return { ...prev, [name]: updatedValues };
     });
   };
 
-  const handleChange = (name: keyof FormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+  // On component mount, load saved form data from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
 
-  const handleDropdownChange = (name: keyof FormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+      // console.log("saved form data this: 1", savedFormData);
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
+        localStorage.setItem(
+          "formData savedFormData",
+          JSON.stringify(savedFormData)
+        );
+      }
+
+      // To check if 'testKey' is persisted after refresh
+      const testKey = localStorage.getItem("formData");
+      if (testKey) {
+        // console.log("testKey:", testKey); // Optional check for testKey
+      }
+    }
+  }, []);
+
+  const handleChange = (name: keyof FormData, value: string) => {
+    const temp = {
+      ...formData,
+      [name]: value,
+    };
+    localStorage.setItem("formData", JSON.stringify(temp));
+    setFormData(temp);
   };
 
   const handleRadioChange = (value: string) => {
@@ -201,6 +233,20 @@ export default function OrganizationRegistrationForm() {
         if (response.ok) {
           const result = await response.json();
           toast.success("Organization registered successfully!");
+          setFormData({
+            organizationName: "",
+            industry: " industry ",
+            focusArea: [],
+            interestedArea: [],
+            organizationType: "",
+            city: "",
+            state: "",
+            country: "",
+            email: "",
+            phoneNumberOne: "",
+            addressType: "",
+            motivation: "",
+          });
         } else {
           const errorData = await response.json();
           // Display the error message received from the server, if available

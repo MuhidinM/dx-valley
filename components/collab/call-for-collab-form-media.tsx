@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,7 +57,7 @@ const MultiSelectDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="w-full justify-between">
-          {selectedOptions.length > 0
+          {selectedOptions?.length > 0
             ? selectedOptions.join(", ")
             : placeholder}
           <ChevronRight className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -67,7 +67,7 @@ const MultiSelectDropdown = ({
         {options.map((option) => (
           <DropdownMenuCheckboxItem
             key={option}
-            checked={selectedOptions.includes(option)}
+            checked={selectedOptions?.includes(option)}
             onCheckedChange={(checked) => {
               if (checked) {
                 onOptionChange(option);
@@ -113,9 +113,43 @@ export default function MediaRegistrationForm() {
     });
   };
 
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+  // On component mount, load saved form data from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedFormData = localStorage.getItem("formData");
+
+      // console.log("saved form data this: 1", savedFormData);
+      if (savedFormData) {
+        setFormData(JSON.parse(savedFormData));
+        localStorage.setItem(
+          "formData savedFormData",
+          JSON.stringify(savedFormData)
+        );
+      }
+
+      // To check if 'testKey' is persisted after refresh
+      const testKey = localStorage.getItem("formData");
+      if (testKey) {
+        // console.log("testKey:", testKey); // Optional check for testKey
+      }
+    }
+  }, []);
+
   const handleChange = (name: keyof FormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const temp = {
+      ...formData,
+      [name]: value,
+    };
+    localStorage.setItem("formData", JSON.stringify(temp));
+    setFormData(temp);
   };
+  // const handleChange = (name: keyof FormData, value: string) => {
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
@@ -175,6 +209,17 @@ export default function MediaRegistrationForm() {
         if (response.ok) {
           toast.success("Registration successful!", {
             description: "Your details have been submitted successfully.",
+          });
+          setFormData({
+            mediaName: "",
+            description: "",
+            platform: [],
+            genre: [],
+            city: "",
+            state: "",
+            country: "",
+            email: "",
+            phoneNumberOne: "",
           });
         } else {
           toast.error("Registration failed", {
