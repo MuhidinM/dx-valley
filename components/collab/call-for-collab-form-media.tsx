@@ -336,7 +336,7 @@ export default function MediaRegistrationForm() {
                   </div>
 
                   <div className="">
-                    <Label className="mb-2 block">Description</Label>
+                    <Label className="mb-2 block">Motivation For Collaboration</Label>
                     <Textarea
                       id="description"
                       value={formData.description}
@@ -387,7 +387,7 @@ export default function MediaRegistrationForm() {
                       {formData.genre.join(", ")}
                     </p>
                     <p className="p-3">
-                      <strong>Description:</strong> {formData.description}
+                      <strong>Motivation For Collaboration:</strong> {formData.description}
                     </p>
                   </div>
                 </div>

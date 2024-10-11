@@ -37,6 +37,7 @@ type FormData = {
   country: string;
   email: string;
   phoneNumberOne: string;
+
 };
 
 const MultiSelectDropdown = ({
@@ -90,7 +91,8 @@ export default function IndependentRegistrationForm() {
     country: "",
     email: "",
     phoneNumberOne: "",
-  });
+     });
+
 
   const handleCheckboxChange = (name: keyof FormData, value: string) => {
     setFormData((prev) => {
@@ -324,28 +326,6 @@ export default function IndependentRegistrationForm() {
                         placeholder='Enter your city'
                       />
                     </div>
-
-                    {/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                      <div>
-                        <Label htmlFor='state'>State</Label>
-                        <Input
-                          id='state'
-                          value={formData.state}
-                          onChange={(e) => handleChange('state', e.target.value)}
-                          placeholder='Enter your state'
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor='city'>City</Label>
-                        <Input
-                          id='city'
-                          value={formData.city}
-                          onChange={(e) => handleChange('city', e.target.value)}
-                          placeholder='Enter your city'
-                        />
-                      </div>
-                    </div> */}
-
                     <div className='flex gap-4 flex-col lg:flex-row'>
                       <div className='flex-1'>
                         <Label className='mb-2 block'>Focus Area</Label>
@@ -373,7 +353,7 @@ export default function IndependentRegistrationForm() {
                     </div>
 
                     <div className='flex-col lg:flex-row'>
-                      <Label className='mb-2 block'>Motivation</Label>
+                      <Label className='mb-2 block'>Motivation for Collaboration</Label>
                       <Textarea
                         id='motivation'
                         value={formData.motivation}
@@ -412,13 +392,7 @@ export default function IndependentRegistrationForm() {
                       <p className='p-3'>
                         <strong>City:</strong> {formData.city}
                       </p>
-                      {/* <p className='p-3'>
-                        <strong>State:</strong> {formData.state}
-                      </p>
-                      <p className='p-3'>
-                        <strong>City:</strong> {formData.city}
-                      </p> */}
-                      <p className='p-3'>
+                    <p className='p-3'>
                         <strong>Focus Areas:</strong>{" "}
                         {formData.focusArea.join(", ")}
                       </p>
