@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import CountDownCallForProposal from "./countDownCallForProposal";
+import DOMPurify from "dompurify";
 
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -60,7 +61,6 @@ export default function Callforproposal() {
           console.log("Time left for event", event.id, ":", timeLeftForEvent);
 
           // If the timeLeft is undefined or "00h 00m 00s", skip rendering the event
-       
           if (timeLeftForEvent === "00h 00m 00s") {
             return null;
           }
@@ -90,10 +90,35 @@ export default function Callforproposal() {
                   </div>
                 </CardHeader>
 
+                {/* Sanitized description content */}
                 <CardContent className='align-center justify-around items-center'>
-                  <p className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'>
-                    {event.description}
-                  </p>
+                  <div
+                    className='mb-6 font-light text-gray-500 md:text-lg h-4/5 justify-around items-center dark:text-gray-400'
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(event.description, {
+                        ALLOWED_TAGS: [
+                          "b",
+                          "i",
+                          "em",
+                          "strong",
+                          "u",
+                          "p",
+                          "br",
+                          "span",
+                          "h1",
+                          "h2",
+                          "h3",
+                          "h4",
+                          "h5",
+                          "h6",
+                          "ul",
+                          "ol",
+                          "li",
+                          "div",
+                        ],
+                      }),
+                    }}
+                  />
 
                   <Button
                     className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
