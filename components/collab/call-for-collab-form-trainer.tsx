@@ -396,28 +396,7 @@ export default function TrainerRegistrationForm() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* <div>
-                      <Label htmlFor='state'>State</Label>
-                      <Input
-                        id='state'
-                        value={formData.state}
-                        onChange={(e) => handleChange("state", e.target.value)}
-                        placeholder='Enter your state'
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor='city'>City</Label>
-                      <Input
-                        id='city'
-                        value={formData.city}
-                        onChange={(e) => handleChange("city", e.target.value)}
-                        placeholder='Enter your city'
-                      />
-                    </div> */}
-                  </div>
-
-                  <div>
+                       <div>
                     <Label htmlFor="motivation">Description</Label>
                     <Textarea
                       id="motivation"
@@ -451,7 +430,7 @@ export default function TrainerRegistrationForm() {
                       <strong>Phone Number:</strong> {formData.phoneNumberOne}
                     </p>
                     <p className="p-3">
-                      <strong>City:</strong> {formData.country}
+                      <strong>City:</strong> {formData.city}
                     </p>
 
                     <p className="p-3">
