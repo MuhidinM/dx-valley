@@ -1,12 +1,11 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner"; // Import the toast function
-import { Toaster } from "sonner"; // Ensure this is imported
+import { toast, Toaster } from "sonner"; // Import the toast function
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
@@ -105,9 +104,67 @@ export default function IndependentRegistrationForm() {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleChange = (name: keyof FormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+
+     const [alert, setAlert] = useState<{
+       type: "success" | "error";
+       message: string;
+     } | null>(null);
+     // On component mount, load saved form data from localStorage
+     useEffect(() => {
+       if (typeof window !== "undefined") {
+         const savedFormData = localStorage.getItem("formData");
+
+         // console.log("saved form data this: 1", savedFormData);
+         if (savedFormData) {
+           setFormData(JSON.parse(savedFormData));
+           localStorage.setItem(
+             "formData savedFormData",
+             JSON.stringify(savedFormData)
+           );
+         }
+
+         // To check if 'testKey' is persisted after refresh
+         const testKey = localStorage.getItem("formData");
+         if (testKey) {
+           // console.log("testKey:", testKey); // Optional check for testKey
+         }
+       }
+     }, []);
+
+     // Submission success logic, if alert is success, set submission state
+     useEffect(() => {
+       if (alert && alert?.type === "success") {
+         const timer = setTimeout(() => {
+           // Optional: Add some test data to localStorage
+           localStorage.setItem("testKey", JSON.stringify(formData));
+           // console.log("TestKey saved:", localStorage.getItem("testKey"));
+         }, 2000);
+
+         return () => clearTimeout(timer);
+       }
+     }, [alert]);
+
+     const handleChange = (name: keyof FormData, value: string) => {
+       // Update the formData state
+       setFormData((prevState) => {
+         const updatedFormData = {
+           ...prevState,
+           [name]: value,
+         };
+
+         // Synchronize the updated formData with localStorage
+         localStorage.setItem("formData", JSON.stringify(updatedFormData));
+
+         return updatedFormData; // Return the updated state
+       });
+     };
+
+
+
+
+  // const handleChange = (name: keyof FormData, value: string) => {
+  //   setFormData((prev) => ({ ...prev, [name]: value }));
+  // };
 
   const validateStep = () => {
     const newErrors: { [key: string]: string } = {};
@@ -173,6 +230,18 @@ export default function IndependentRegistrationForm() {
         if (response.ok) {
           toast.success("Registration successful!", {
             description: "Your details have been submitted successfully.",
+          });
+          setFormData({
+            firstName: "",
+            lastName: "",
+            motivation: "",
+            focusArea: [],
+            interestedArea: [],
+            city: "",
+            state: "",
+            country: "",
+            email: "",
+            phoneNumberOne: "",
           });
           handleNext();
         } else {
