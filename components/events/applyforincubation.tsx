@@ -1782,6 +1782,9 @@ const ApplyForIncubation = () => {
         if (!formData.stage) {
           stepErrors.stage = "Current stage is required";
         }
+        if (nameTaken) {
+          stepErrors.startupName = "Name already taken";
+        }
         break;
 
       case 1:
@@ -1818,8 +1821,13 @@ const ApplyForIncubation = () => {
           stepErrors.idea = "Startup idea is required";
         }
         break;
-    }
 
+      // case 3:
+      //  if(nameTaken) {
+      //   stepErrors.startupName = "Name already taken";
+      //  }
+      //  break;
+    }
     return stepErrors;
   };
 
@@ -1846,6 +1854,43 @@ const ApplyForIncubation = () => {
   //   }
   //   setShowConfirmDialog(true);
   // };
+
+  const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
+
+  // Function to check if the startup name is already taken
+  const isNameTaken = (newName: string) => {
+    return takenNames.includes(newName);
+  };
+
+  const generateStartupName = () => {
+    const randomIndex = Math.floor(
+      Math.random() * startupNameSuggestions.length
+    );
+    const generatedName = startupNameSuggestions[randomIndex];
+
+  
+    
+
+    // Use the external function to check if the name is taken
+    if (isNameTaken(generatedName)) {
+      console.log("the name is this:", generatedName);
+      setNameTaken(true);
+    } else {
+      setNameTaken(false);
+      setFormData((prev) => ({
+        ...prev,
+        startupName: generatedName,
+      }));
+    }
+
+    console.log(
+      "Name taken?",
+      nameTaken,
+      "isNameTaken(generatedName):",
+      isNameTaken(generatedName)
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -1878,9 +1923,9 @@ const ApplyForIncubation = () => {
 
       const result = await response.json();
       if (response.ok) {
-        // toast.success("Registration successful!", {
-        //   description: "Your details have been submitted successfully.",
-        // });
+        toast.success("Registration successful!", {
+          description: "Your details have been submitted successfully.",
+        });
         setSubmitSuccess(true);
         setShowConfetti(true);
         //   <SubmissionSuccess
@@ -1917,26 +1962,6 @@ const ApplyForIncubation = () => {
     setIsSubmitting(false);
     setSubmitSuccess(true);
     setShowConfetti(true);
-  };
-
-  const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
-
-  const generateStartupName = () => {
-    const randomIndex = Math.floor(
-      Math.random() * startupNameSuggestions.length
-    );
-    const generatedName = startupNameSuggestions[randomIndex];
-
-    // Check if the name is already taken
-    if (takenNames.includes(generatedName)) {
-      setNameTaken(true);
-    } else {
-      setNameTaken(false);
-      setFormData((prev) => ({
-        ...prev,
-        startupName: generatedName,
-      }));
-    }
   };
 
   // const generateStartupName = () => {
@@ -2012,18 +2037,27 @@ const ApplyForIncubation = () => {
                         id='startupName'
                         placeholder='Enter your startup name'
                         value={formData.startupName}
-                        onChange={(e) =>
-                          handleChange("startupName", e.target.value)
-                        }
+                        onChange={(e) => {
+                          const newName = e.target.value;
+                          handleChange("startupName", newName);
+
+                          // Check if the new name is taken
+                          if (isNameTaken(newName)) {
+                            setNameTaken(true);
+                          } else {
+                            setNameTaken(false);
+                          }
+                        }}
                       />
-                      {/* <Button type='button' onClick={generateStartupName}>
-                        Generate
-                      </Button> */}
                       <Button type='button' onClick={generateStartupName}>
                         {"Generate"}
                       </Button>
                     </div>
-                    <span>{nameTaken === true ? "Name is taken" : null}</span>
+
+                    {/* Show message if name is taken */}
+                    <span className='text-sm text-red-500'>{nameTaken ? "Name is already taken" : null}</span>
+
+                    {/* Show any validation errors */}
                     {errors.startupName && (
                       <p className='text-sm text-red-500'>
                         {errors.startupName}
@@ -2053,6 +2087,7 @@ const ApplyForIncubation = () => {
                   </div>
                 </div>
               )}
+
               {currentStep === 1 && (
                 <div className='space-y-4'>
                   {formData.founderNames.map((founder, index) => (
@@ -2267,7 +2302,11 @@ const ApplyForIncubation = () => {
             Previous
           </Button>
           {currentStep < steps.length - 1 ? (
-            <Button onClick={handleNext}>Next</Button>
+            <Button
+              disabled={nameTaken === true || !formData.startupName}
+              onClick={handleNext}>
+              Next
+            </Button>
           ) : (
             <Button onClick={handleSubmit} disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Submit Application"}
