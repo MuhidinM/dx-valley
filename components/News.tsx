@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export default function NewsList({ news }: { news: News[] }) {
   const sortedNews = [...news].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   const latestNews = sortedNews.slice(0, 3);
 
