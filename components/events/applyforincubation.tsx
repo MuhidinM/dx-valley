@@ -44,20 +44,7 @@ const steps = [
   { id: "founder", title: "Founder Info" },
   { id: "idea", title: "Your Idea" },
 ];
-// const [nameTaken, setNameTaken] = useState(false);
-
-// const startupNameSuggestions = [
-//   "TechNova",
-//   "InnoVenture",
-//   "FuturePulse",
-//   "QuantumLeap",
-//   "NexusWave",
-//   "ZenithSpark",
-//   "PixelPioneer",
-//   "EcoSphere",
-//   "CyberForge",
-//   "BioSync",
-// ];
+//  const [data, setData] = useState<StartupsData[]>([]);
 
 const startupNameSuggestions = [
   "TechNova",
@@ -1873,7 +1860,7 @@ const ApplyForIncubation = () => {
 
     // Use the external function to check if the name is taken
     if (isNameTaken(generatedName)) {
-      console.log("the name is this:", generatedName);
+     
       setNameTaken(true);
     } else {
       setNameTaken(false);
@@ -1882,13 +1869,6 @@ const ApplyForIncubation = () => {
         startupName: generatedName,
       }));
     }
-
-    console.log(
-      "Name taken?",
-      nameTaken,
-      "isNameTaken(generatedName):",
-      isNameTaken(generatedName)
-    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -1936,9 +1916,7 @@ const ApplyForIncubation = () => {
         //     }
         //   />
 
-        // console.log("call for proposal submitted successfully");
-
-        // setTimeout(() => {
+       // setTimeout(() => {
         //   window.location.reload();
         // }, 100000);
       } else {
