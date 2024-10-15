@@ -211,8 +211,9 @@ const Footer = () => {
               © {new Date().getFullYear()}{" "}
               <Link
                 href='https://coopbankoromia.com.et/'
-                className='hover:underline'>
-                Cooperative Bank of Oromia
+                className='hover:underline'
+                target="_blank">
+                Cooperative Bank of Oromia {" "}
               </Link>
               Inc. All rights reserved.
             </p>

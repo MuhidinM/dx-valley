@@ -15,7 +15,7 @@ import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { UpdateData } from "@/types/strapi-types";
 
-export default function cardContainer({ update }: { update: UpdateData[] }) {
+export default function CardContainer({ update }: { update: UpdateData[] }) {
   return (
     <section className=''>
       <div className='grid gap-2 md:grid-cols-2'>
@@ -26,7 +26,6 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
                 <img
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
-            
                   className='rounded-lg w-full h-56'
                 />
               </div>
@@ -38,24 +37,29 @@ export default function cardContainer({ update }: { update: UpdateData[] }) {
               </CardDescription>
             </CardHeader>
             <CardContent className='flex-grow'>
-              {card.events.map((article, index) => (
-                <div key={index} className='bg-muted p-4 rounded-lg mb-2'>
-                  <span className='text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2'>
-                    <Calendar className='ml-2 h-4 w-4' />
-                    {new Date(article.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-                  <a
-                    href={article.link}
-                    target='_blank'
-                    className='text-sm text-primary hover:underline block italic'>
-                    <span className='font-semibold'>{article.title}</span>
-                  </a>
-                </div>
-              ))}
+              {card.events
+                .sort(
+                  (a, b) =>
+                    new Date(b.date).getTime() - new Date(a.date).getTime()
+                ) // Sort events by latest date first
+                .map((article, index) => (
+                  <div key={index} className='bg-muted p-4 rounded-lg mb-2'>
+                    <span className='text-muted-foreground ml-0 text-xs flex flex-row gap-2 my-2'>
+                      <Calendar className='ml-2 h-4 w-4' />
+                      {new Date(article.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                    <a
+                      href={article.link}
+                      target='_blank'
+                      className='text-sm text-primary hover:underline block italic'>
+                      <span className='font-semibold'>{article.title}</span>
+                    </a>
+                  </div>
+                ))}
             </CardContent>
             <CardFooter>
               <Button asChild className='w-full dark:bg-gray-800'>
