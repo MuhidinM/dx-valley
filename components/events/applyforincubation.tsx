@@ -2118,12 +2118,13 @@ const ApplyForIncubation = () => {
               {currentStep === 1 && (
                 <div className='space-y-4'>
                   {formData.founderNames.map((founder, index) => (
-                    <div key={index} className='space-y-2'>
-                      <Label htmlFor={`founderName-${index}`}>
-                        Founder&apos;s Name
-                      </Label>
-                      <div className='flex space-x-2'>
-                        {/* <Input
+                   
+                      <div key={index} className='space-y-2'>
+                        <Label htmlFor={`founderName-${index}`}>
+                          Founder&apos;s Name
+                        </Label>
+                        <div className='lg:flex lg:space-x-2 md:flex md:space-x-2  md:space-y-0 lg:space-y-0 space-y-2 '>
+                          {/* <Input
                         id={`founderFirstName-${index}`}
                         placeholder="Enter first name"
                         value={founder.firstName}
@@ -2139,45 +2140,46 @@ const ApplyForIncubation = () => {
                           handleChange("lastName", e.target.value, index)
                         }
                       /> */}
-                        <Input
-                          id={`founderFirstName-${index}`}
-                          placeholder='Enter first name'
-                          value={founder.firstName}
-                          onChange={
-                            (e) =>
-                              handleChange(
-                                "founderNames",
-                                e.target.value,
-                                index,
-                                "firstName"
-                              ) // Pass "founderNames" as the name and "firstName" as subField
-                          }
-                        />
-                        <Input
-                          id={`founderLastName-${index}`}
-                          placeholder='Enter last name'
-                          value={founder.lastName}
-                          onChange={
-                            (e) =>
-                              handleChange(
-                                "founderNames",
-                                e.target.value,
-                                index,
-                                "lastName"
-                              ) // Pass "founderNames" as the name and "lastName" as subField
-                          }
-                        />
+                          <Input
+                            id={`founderFirstName-${index}`}
+                            placeholder='Enter first name'
+                            value={founder.firstName}
+                            onChange={
+                              (e) =>
+                                handleChange(
+                                  "founderNames",
+                                  e.target.value,
+                                  index,
+                                  "firstName"
+                                ) // Pass "founderNames" as the name and "firstName" as subField
+                            }
+                          />
+                          <Input
+                            id={`founderLastName-${index}`}
+                            placeholder='Enter last name'
+                            value={founder.lastName}
+                            onChange={
+                              (e) =>
+                                handleChange(
+                                  "founderNames",
+                                  e.target.value,
+                                  index,
+                                  "lastName"
+                                ) // Pass "founderNames" as the name and "lastName" as subField
+                            }
+                          />
 
-                        {index > 0 && (
-                          <Button
-                            type='button'
-                            variant='outline'
-                            onClick={() => handleRemoveFounder(index)}>
-                            <X className='h-4 w-4' />
-                          </Button>
-                        )}
+                          {index > 0 && (
+                            <Button
+                              type='button'
+                              variant='outline'
+                              onClick={() => handleRemoveFounder(index)}>
+                              <X className='h-4 w-4' />
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                 
                   ))}
 
                   <Button
