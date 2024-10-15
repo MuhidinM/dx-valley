@@ -39,10 +39,11 @@ import { ChangeEvent, FormEvent, MouseEvent, useState, useRef } from "react";
 
 import { toast } from "sonner"; // Import the toast function
 import { Toaster } from "sonner";
+import { RadioGroup } from "@radix-ui/react-dropdown-menu";
 const steps = [
   { id: "startup", title: "Startup Info" },
   { id: "founder", title: "Founder Info" },
-  { id: "idea", title: "Your Idea" },
+  { id: "idea", title: "Additional Info" },
 ];
 //  const [data, setData] = useState<StartupsData[]>([]);
 
@@ -2033,7 +2034,9 @@ const ApplyForIncubation = () => {
                     </div>
 
                     {/* Show message if name is taken */}
-                    <span className='text-sm text-red-500'>{nameTaken ? "Name is already taken" : null}</span>
+                    <span className='text-sm text-red-500'>
+                      {nameTaken ? "Name is already taken" : null}
+                    </span>
 
                     {/* Show any validation errors */}
                     {errors.startupName && (
@@ -2061,6 +2064,57 @@ const ApplyForIncubation = () => {
                     </Select>
                     {errors.stage && (
                       <p className='text-sm text-red-500'>{errors.stage}</p>
+                    )}
+                  </div>
+
+                  {/* Bussiness Sector */}
+                  {/* <div className='flex flex-col gap-2'>
+                    <Label htmlFor='organizationType'>Bussiness Sector</Label>
+                    <RadioGroup
+                      className='m-4 mt gap-2'
+                      // onValueChange={handleRadioChange}
+                      // defaultValue={formData.organizationType}>
+                      {organizationTypeOptions.map((option) => (
+                        <div key={option}>
+                          <RadioGroupItem
+                            value={option}
+                            id={option}
+                            className='mr-2'
+                          />
+                          <Label htmlFor={option}>{option}</Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                    {errors.organizationType && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.organizationType}
+                      </p>
+                    )}
+                  </div> */}
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>Potential Customers</Label>
+                    <Textarea
+                      id='idea'
+                      placeholder='Who are your Potential Customers?'
+                      value={formData.idea}
+                      onChange={(e) => handleChange("idea", e.target.value)}
+                      rows={5}
+                    />
+                    {errors.idea && (
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
+                    )}
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>Startup Idea</Label>
+                    <Textarea
+                      id='idea'
+                      placeholder='Describe your startup idea'
+                      value={formData.idea}
+                      onChange={(e) => handleChange("idea", e.target.value)}
+                      rows={5}
+                    />
+                    {errors.idea && (
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
                     )}
                   </div>
                 </div>
@@ -2159,6 +2213,30 @@ const ApplyForIncubation = () => {
                       </div>
                     )}
 
+                  {/* sex */}
+                  {/* <div className='flex flex-col gap-2'>
+                    <Label htmlFor='organizationType'>Organization Type</Label>
+                    <RadioGroup
+                      className='m-4 mt gap-2'
+                      // onValueChange={handleRadioChange}
+                      // defaultValue={formData.organizationType}>
+                      {organizationTypeOptions.map((option) => (
+                        <div key={option}>
+                          <RadioGroupItem
+                            value={option}
+                            id={option}
+                            className='mr-2'
+                          />
+                          <Label htmlFor={option}>{option}</Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                    {errors.organizationType && (
+                      <p className='text-red-500 text-sm'>
+                        {errors.organizationType}
+                      </p>
+                    )}
+                  </div> */}
                   <div className='space-y-2'>
                     <Label htmlFor='email'>Email</Label>
                     <Input
@@ -2183,6 +2261,100 @@ const ApplyForIncubation = () => {
                     />
                     {errors.phone && (
                       <p className='text-sm text-red-500'>{errors.phone}</p>
+                    )}
+                  </div>
+
+                  {/* Age */}
+                  <div className='space-y-2'>
+                    <Label htmlFor='Age'>Age (Applicants)</Label>
+                    <Input
+                      id='phone'
+                      type='number'
+                      placeholder='Enter your phone number'
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                    />
+                    {errors.phone && (
+                      <p className='text-sm text-red-500'>{errors.phone}</p>
+                    )}
+                  </div>
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='Age'>How many members are in your startup?</Label>
+                    <Input
+                      id='phone'
+                      type='number'
+                      placeholder='Enter your phone number'
+                      value={formData.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                    />
+                    {errors.phone && (
+                      <p className='text-sm text-red-500'>{errors.phone}</p>
+                    )}
+                  </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Address</Label>
+                    <Select
+                      onValueChange={(value) => handleChange("stage", value)}
+                      value={formData.stage}>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select Region' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
+                          Early Revenue
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.stage && (
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
+                    )}
+                  </div>
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Level of Education</Label>
+                    <Select
+                      onValueChange={(value) => handleChange("stage", value)}
+                      value={formData.stage}>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select your current stage' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
+                          Early Revenue
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.stage && (
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
+                    )}
+                  </div>
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Employment Status </Label>
+                    <Select
+                      onValueChange={(value) => handleChange("stage", value)}
+                      value={formData.stage}>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select your current stage' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
+                          Early Revenue
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.stage && (
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
                     )}
                   </div>
                 </div>
@@ -2255,10 +2427,28 @@ const ApplyForIncubation = () => {
                     )}
                   </div>
                   <div className='space-y-2'>
-                    <Label htmlFor='idea'>Startup Idea</Label>
+                    <Label htmlFor='idea'>
+                      Where do you see ur self in 5 years?
+                    </Label>
                     <Textarea
                       id='idea'
-                      placeholder='Describe your startup idea'
+                      placeholder='Share your thoughts'
+                      value={formData.idea}
+                      onChange={(e) => handleChange("idea", e.target.value)}
+                      rows={5}
+                    />
+                    {errors.idea && (
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
+                    )}
+                  </div>
+
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>
+                      What do you plan to gain from this training?
+                    </Label>
+                    <Textarea
+                      id='idea'
+                      placeholder='Share your thoughts'
                       value={formData.idea}
                       onChange={(e) => handleChange("idea", e.target.value)}
                       rows={5}
