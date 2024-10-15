@@ -1810,12 +1810,7 @@ const ApplyForIncubation = () => {
         }
         break;
 
-      // case 3:
-      //  if(nameTaken) {
-      //   stepErrors.startupName = "Name already taken";
-      //  }
-      //  break;
-    }
+     }
     return stepErrors;
   };
 
@@ -2123,12 +2118,13 @@ const ApplyForIncubation = () => {
               {currentStep === 1 && (
                 <div className='space-y-4'>
                   {formData.founderNames.map((founder, index) => (
-                    <div key={index} className='space-y-2'>
-                      <Label htmlFor={`founderName-${index}`}>
-                        Founder&apos;s Name
-                      </Label>
-                      <div className='flex space-x-2'>
-                        {/* <Input
+                   
+                      <div key={index} className='space-y-2'>
+                        <Label htmlFor={`founderName-${index}`}>
+                          Founder&apos;s Name
+                        </Label>
+                        <div className='lg:flex lg:space-x-2 md:flex md:space-x-2  md:space-y-0 lg:space-y-0 space-y-2 '>
+                          {/* <Input
                         id={`founderFirstName-${index}`}
                         placeholder="Enter first name"
                         value={founder.firstName}
@@ -2144,45 +2140,46 @@ const ApplyForIncubation = () => {
                           handleChange("lastName", e.target.value, index)
                         }
                       /> */}
-                        <Input
-                          id={`founderFirstName-${index}`}
-                          placeholder='Enter first name'
-                          value={founder.firstName}
-                          onChange={
-                            (e) =>
-                              handleChange(
-                                "founderNames",
-                                e.target.value,
-                                index,
-                                "firstName"
-                              ) // Pass "founderNames" as the name and "firstName" as subField
-                          }
-                        />
-                        <Input
-                          id={`founderLastName-${index}`}
-                          placeholder='Enter last name'
-                          value={founder.lastName}
-                          onChange={
-                            (e) =>
-                              handleChange(
-                                "founderNames",
-                                e.target.value,
-                                index,
-                                "lastName"
-                              ) // Pass "founderNames" as the name and "lastName" as subField
-                          }
-                        />
+                          <Input
+                            id={`founderFirstName-${index}`}
+                            placeholder='Enter first name'
+                            value={founder.firstName}
+                            onChange={
+                              (e) =>
+                                handleChange(
+                                  "founderNames",
+                                  e.target.value,
+                                  index,
+                                  "firstName"
+                                ) // Pass "founderNames" as the name and "firstName" as subField
+                            }
+                          />
+                          <Input
+                            id={`founderLastName-${index}`}
+                            placeholder='Enter last name'
+                            value={founder.lastName}
+                            onChange={
+                              (e) =>
+                                handleChange(
+                                  "founderNames",
+                                  e.target.value,
+                                  index,
+                                  "lastName"
+                                ) // Pass "founderNames" as the name and "lastName" as subField
+                            }
+                          />
 
-                        {index > 0 && (
-                          <Button
-                            type='button'
-                            variant='outline'
-                            onClick={() => handleRemoveFounder(index)}>
-                            <X className='h-4 w-4' />
-                          </Button>
-                        )}
+                          {index > 0 && (
+                            <Button
+                              type='button'
+                              variant='outline'
+                              onClick={() => handleRemoveFounder(index)}>
+                              <X className='h-4 w-4' />
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                 
                   ))}
 
                   <Button
@@ -2237,125 +2234,129 @@ const ApplyForIncubation = () => {
                       </p>
                     )}
                   </div> */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='email'>Email</Label>
-                    <Input
-                      id='email'
-                      type='email'
-                      placeholder='Enter your email'
-                      value={formData.email}
-                      onChange={(e) => handleChange("email", e.target.value)}
-                    />
-                    {errors?.email && (
-                      <p className='text-sm text-red-500'>{errors.email}</p>
-                    )}
-                  </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='phone'>Phone Number</Label>
-                    <Input
-                      id='phone'
-                      type='tel'
-                      placeholder='Enter your phone number'
-                      value={formData.phone}
-                      onChange={(e) => handleChange("phone", e.target.value)}
-                    />
-                    {errors.phone && (
-                      <p className='text-sm text-red-500'>{errors.phone}</p>
-                    )}
-                  </div>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div className='space-y-2'>
+                      <Label htmlFor='email'>Email</Label>
+                      <Input
+                        id='email'
+                        type='email'
+                        placeholder='Enter your email'
+                        value={formData.email}
+                        onChange={(e) => handleChange("email", e.target.value)}
+                      />
+                      {errors?.email && (
+                        <p className='text-sm text-red-500'>{errors.email}</p>
+                      )}
+                    </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='phone'>Phone Number</Label>
+                      <Input
+                        id='phone'
+                        type='tel'
+                        placeholder='Enter your phone number'
+                        value={formData.phone}
+                        onChange={(e) => handleChange("phone", e.target.value)}
+                      />
+                      {errors.phone && (
+                        <p className='text-sm text-red-500'>{errors.phone}</p>
+                      )}
+                    </div>
 
-                  {/* Age */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='Age'>Age (Applicants)</Label>
-                    <Input
-                      id='phone'
-                      type='number'
-                      placeholder='Enter your phone number'
-                      value={formData.phone}
-                      onChange={(e) => handleChange("phone", e.target.value)}
-                    />
-                    {errors.phone && (
-                      <p className='text-sm text-red-500'>{errors.phone}</p>
-                    )}
-                  </div>
+                    {/* Age */}
+                    <div className='space-y-2'>
+                      <Label htmlFor='Age'>Age (Applicants)</Label>
+                      <Input
+                        id='phone'
+                        type='number'
+                        placeholder='Enter your phone number'
+                        value={formData.phone}
+                        onChange={(e) => handleChange("phone", e.target.value)}
+                      />
+                      {errors.phone && (
+                        <p className='text-sm text-red-500'>{errors.phone}</p>
+                      )}
+                    </div>
 
-                  <div className='space-y-2'>
-                    <Label htmlFor='Age'>How many members are in your startup?</Label>
-                    <Input
-                      id='phone'
-                      type='number'
-                      placeholder='Enter your phone number'
-                      value={formData.phone}
-                      onChange={(e) => handleChange("phone", e.target.value)}
-                    />
-                    {errors.phone && (
-                      <p className='text-sm text-red-500'>{errors.phone}</p>
-                    )}
-                  </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='stage'>Address</Label>
-                    <Select
-                      onValueChange={(value) => handleChange("stage", value)}
-                      value={formData.stage}>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select Region' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='idea'>Idea</SelectItem>
-                        <SelectItem value='prototype'>Prototype</SelectItem>
-                        <SelectItem value='mvp'>MVP</SelectItem>
-                        <SelectItem value='early-revenue'>
-                          Early Revenue
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.stage && (
-                      <p className='text-sm text-red-500'>{errors.stage}</p>
-                    )}
-                  </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='Age'>
+                        How many members are in your startup?
+                      </Label>
+                      <Input
+                        id='phone'
+                        type='number'
+                        placeholder='Enter your phone number'
+                        value={formData.phone}
+                        onChange={(e) => handleChange("phone", e.target.value)}
+                      />
+                      {errors.phone && (
+                        <p className='text-sm text-red-500'>{errors.phone}</p>
+                      )}
+                    </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='stage'>Address</Label>
+                      <Select
+                        onValueChange={(value) => handleChange("stage", value)}
+                        value={formData.stage}>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select Region' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value='idea'>Idea</SelectItem>
+                          <SelectItem value='prototype'>Prototype</SelectItem>
+                          <SelectItem value='mvp'>MVP</SelectItem>
+                          <SelectItem value='early-revenue'>
+                            Early Revenue
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.stage && (
+                        <p className='text-sm text-red-500'>{errors.stage}</p>
+                      )}
+                    </div>
 
-                  <div className='space-y-2'>
-                    <Label htmlFor='stage'>Level of Education</Label>
-                    <Select
-                      onValueChange={(value) => handleChange("stage", value)}
-                      value={formData.stage}>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select your current stage' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='idea'>Idea</SelectItem>
-                        <SelectItem value='prototype'>Prototype</SelectItem>
-                        <SelectItem value='mvp'>MVP</SelectItem>
-                        <SelectItem value='early-revenue'>
-                          Early Revenue
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.stage && (
-                      <p className='text-sm text-red-500'>{errors.stage}</p>
-                    )}
-                  </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='stage'>Level of Education</Label>
+                      <Select
+                        onValueChange={(value) => handleChange("stage", value)}
+                        value={formData.stage}>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select your current stage' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value='idea'>Idea</SelectItem>
+                          <SelectItem value='prototype'>Prototype</SelectItem>
+                          <SelectItem value='mvp'>MVP</SelectItem>
+                          <SelectItem value='early-revenue'>
+                            Early Revenue
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.stage && (
+                        <p className='text-sm text-red-500'>{errors.stage}</p>
+                      )}
+                    </div>
 
-                  <div className='space-y-2'>
-                    <Label htmlFor='stage'>Employment Status </Label>
-                    <Select
-                      onValueChange={(value) => handleChange("stage", value)}
-                      value={formData.stage}>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select your current stage' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value='idea'>Idea</SelectItem>
-                        <SelectItem value='prototype'>Prototype</SelectItem>
-                        <SelectItem value='mvp'>MVP</SelectItem>
-                        <SelectItem value='early-revenue'>
-                          Early Revenue
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.stage && (
-                      <p className='text-sm text-red-500'>{errors.stage}</p>
-                    )}
+                    <div className='space-y-2'>
+                      <Label htmlFor='stage'>Employment Status </Label>
+                      <Select
+                        onValueChange={(value) => handleChange("stage", value)}
+                        value={formData.stage}>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Select your current stage' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value='idea'>Idea</SelectItem>
+                          <SelectItem value='prototype'>Prototype</SelectItem>
+                          <SelectItem value='mvp'>MVP</SelectItem>
+                          <SelectItem value='early-revenue'>
+                            Early Revenue
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.stage && (
+                        <p className='text-sm text-red-500'>{errors.stage}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
