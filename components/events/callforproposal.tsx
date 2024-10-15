@@ -58,11 +58,7 @@ export default function Callforproposal() {
     <div className="lg:container w-full lg:my-16 my-8 px-4">
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => {
-          const timeLeftForEvent = timeLeft[event.id]; // Get time left for this event
-
-          console.log("Time left for event", event.id, ":", timeLeftForEvent);
-
-          // If the timeLeft is undefined or "00h 00m 00s", skip rendering the event
+          const timeLeftForEvent = timeLeft[event.id];
 
           if (timeLeftForEvent === "00h 00m 00s") {
             return null;
@@ -82,9 +78,7 @@ export default function Callforproposal() {
               {/* Event Card */}
               <Card>
                 <CardHeader className="flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4">
-                  <CardTitle className="text-lg lg:text-3xl sm:text-lg">
-                    Call for Start Up Proposal
-                  </CardTitle>
+                  <div className=""></div>
                   <div className="h-full align-middle">
                     <p className="text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none">
                       {/* Show time left or "Calculating..." if it's still loading */}
@@ -93,22 +87,22 @@ export default function Callforproposal() {
                   </div>
                 </CardHeader>
 
-                <CardContent className="align-center justify-around items-center">
-                  <p className="prose mb-6 text-gray-500 md:text-lg h-4/5 dark:text-gray-400">
+                <CardContent className="align-center justify-around items-center w-full">
+                  <div className="prose w-full mx-auto items-center justify-center mb-6 text-gray-500 md:text-lg dark:text-gray-400">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {event.description}
                     </ReactMarkdown>
-                  </p>
 
-                  <Button
-                    className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover"
-                    onClick={() => {
-                      const formRoute = "/incubationform";
-                      router.push(`${formRoute}?eventId=${event.id}`);
-                    }}
-                  >
-                    Apply
-                  </Button>
+                    <Button
+                      className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover"
+                      onClick={() => {
+                        const formRoute = "/incubationform";
+                        router.push(`${formRoute}?eventId=${event.id}`);
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
