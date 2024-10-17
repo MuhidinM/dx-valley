@@ -101,6 +101,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const email = fields.email?.toString();
     const phone = fields.phone?.toString();
     const idea = fields.idea?.toString();
+    const state = fields.state?.toString();
     const foundersname = fields.founderNames?.toString();
 
     const sanitizedStartupName = validator.trim(startupName || "");
@@ -169,7 +170,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         // Check if it's an array of files or a single file
         const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
-          for (const file of docs) {
+        for (const file of docs) {
           if (!file?.newFilename) {
             // File was rejected in the fileBegin phase, skip it
             continue;
@@ -303,7 +304,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     const founderNames: any[] = [];
 
     Object.keys(fields).forEach((key) => {
-      const match = key.match(/founderNames\[(\d+)\]\[(firstName|lastName)\]/);
+      // const match = key.match(/founderNames\[(\d+)\]\[(firstName|lastName)\]/);
+      const match = key.match(
+        /founderNames\[(\d+)\]\[(firstName|lastName|gender|age|levelOfEducation)\]/
+      );
+
       if (match) {
         const index = parseInt(match[1], 10);
         const fieldName = match[2];
@@ -323,6 +328,9 @@ export async function POST(req: Request): Promise<NextResponse> {
           data: {
             firstName: member.firstName,
             lastName: member.lastName,
+            gender: member.gender,
+            age: member.age ? parseInt(member.age, 10) : null,
+            levelOfEducation: member.levelOfEducation,
           },
         });
 
@@ -338,6 +346,11 @@ export async function POST(req: Request): Promise<NextResponse> {
         phoneNumberOne: phone || "",
       },
     });
+    const startupAddress = await prisma.addressInfo.create({
+      data: {
+        state: state,
+      },
+    });
 
     let applicationData: {
       startupName: string;
@@ -345,6 +358,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       ideaDescription: string;
       documents: { connect: { id: number }[] };
       contactInfo: { connect: { id: number } };
+      addressInfo: { connect: { id: number } };
       personalInfo?: { connect: { id: number }[] };
       // videoId?: number;
       video?: { connect: { id: number }[] };
@@ -357,6 +371,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
       contactInfo: {
         connect: { id: startupContactinfo.id },
+      },
+      addressInfo: {
+        connect: { id: startupAddress.id },
       },
     };
 
