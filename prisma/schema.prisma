@@ -105,7 +105,17 @@ model TeamMember {
   teammemberpersonalInfo Int          @unique
   personalInfo           PersonalInfo @relation(fields: [teammemberpersonalInfo], references: [id])
 }
+model founderTeamMember {
+  id          Int           @id @default(autoincrement())
 
+  // Foreign key to the contestParticipant
+  founderTeamId Int
+  founderTeam   startupInfo @relation(fields: [founderTeamId], references: [id])
+
+  // relation with personalInfo
+  teammemberpersonalInfo Int          @unique
+  personalInfo           PersonalInfo @relation(fields: [teammemberpersonalInfo], references: [id])
+}
 model expoParticipant {
   id              Int      @id @default(autoincrement())
   companyName     String?
@@ -229,10 +239,10 @@ model ContactInfo {
 
 model AddressInfo {
   id          Int      @id @default(autoincrement())
-  city        String
-  state       String
-  country     String
-  addressType String // e.g., "Residential", "Business"
+  city        String?
+  state       String?
+  country     String?
+  addressType String? // e.g., "Residential", "Business"
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -243,6 +253,9 @@ model AddressInfo {
   organizationInfo   OrganizationInfo? @relation(fields: [organizationInfoId], references: [id]) // One-to-Many: Links to OrganizationInfo
   MediaInfoId        Int?
   MediaInfo          MediaInfo?        @relation(fields: [MediaInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+  startupInfoId        Int?
+  startupInfo        startupInfo?        @relation(fields: [startupInfoId], references: [id]) // Many-to-One: Links to OrganizationInfo
+
 }
 
 model OrganizationInfo {
@@ -269,6 +282,8 @@ model PersonalInfo {
   firstName String
   lastName  String
   gender String?
+  age     Int?
+  levelOfEducation String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -285,6 +300,9 @@ model PersonalInfo {
 
   //relation with team members
   teamMembers TeamMember?
+
+  //relation to founder team member
+  founderTeamMembers founderTeamMember?
 
   //relation with expo team members
   expoteamMembers expoMembers?
@@ -304,13 +322,16 @@ model PersonalInfo {
 }
 model startupInfo {
   id         Int      @id @default(autoincrement())
-  startupName String
+  startupName String  @unique
   stage      String
   ideaDescription String?
+  status Boolean?
 
   //relation with video
   // videoId Int? @unique
   // VideoInfo   VideoInfo? @relation(fields: [videoId], references: [id])
+
+  members founderTeamMember[]
   
   video VideoInfo[]
   documents  DocumentInfo[] // Relation to the documents
@@ -318,6 +339,9 @@ model startupInfo {
 
   //relation with personal info
   personalInfo PersonalInfo[]
+
+  //relation with address
+  addressInfo  AddressInfo[]
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -421,6 +445,7 @@ model internsInfo {
   otherInterests    String?  
   portfolioLink     String?
   linkedinProfile   String?
+  status Boolean?
 
   documents  DocumentInfo[] 
 
