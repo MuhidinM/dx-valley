@@ -81,6 +81,13 @@ const checkIfEmailExists = async (email: string) => {
   });
   return existingEmail !== null;
 };
+const checkIfStartupNameExists = async (startupName: string) => {
+  const existingStartup = await prisma.startupInfo.findUnique({
+    where: { startupName: startupName },
+  });
+
+  return existingStartup !== null; // Returns true if a startup with the name exists, false otherwise
+};
 
 export async function POST(req: Request): Promise<NextResponse> {
   const host = req.headers.get("host") || ""; // Ensure we get the header properly
@@ -293,6 +300,14 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (emailExists) {
       return NextResponse.json(
         { error: "Email is already registered." },
+        { status: 409 } // Conflict status for existing resource
+      );
+    }
+    // Check if startup name is already registered
+    const nameExists = await checkIfStartupNameExists(startupName as string);
+    if (nameExists) {
+      return NextResponse.json(
+        { error: `The startup name "${startupName}" is already taken.` },
         { status: 409 } // Conflict status for existing resource
       );
     }

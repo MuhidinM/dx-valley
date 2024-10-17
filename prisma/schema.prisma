@@ -322,7 +322,7 @@ model PersonalInfo {
 }
 model startupInfo {
   id         Int      @id @default(autoincrement())
-  startupName String
+  startupName String  @unique
   stage      String
   ideaDescription String?
   status Boolean?
