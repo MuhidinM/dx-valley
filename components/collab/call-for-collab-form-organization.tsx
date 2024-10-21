@@ -84,7 +84,7 @@ export default function OrganizationRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     organizationName: "",
-    industry: " industry ",
+    industry: "industry ",
     focusArea: [],
     interestedArea: [],
     organizationType: "",
@@ -149,6 +149,7 @@ export default function OrganizationRegistrationForm() {
     setFormData((prevData) => ({
       ...prevData,
       organizationType: value,
+      industry: "industry",
     }));
   };
 
@@ -190,10 +191,10 @@ export default function OrganizationRegistrationForm() {
         newErrors.city = "City must be at least 4 characters";
       }
     } else if (currentStep === 1) {
-      if (!formData.focusArea.length) {
+      if (!formData.focusArea?.length) {
         newErrors.focusArea = "At least one focus area is required.";
       }
-      if (!formData.interestedArea.length) {
+      if (!formData.interestedArea?.length) {
         newErrors.interestedArea = "At least one interest area is required.";
       }
       if (!formData.organizationType) {
