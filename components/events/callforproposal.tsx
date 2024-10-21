@@ -77,29 +77,30 @@ export default function Callforproposal() {
 
               {/* Event Card */}
               <Card>
-                <CardHeader className="flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4">
-                  <div className=""></div>
-                  <div className="h-full align-middle">
-                    <p className="text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none">
+                <CardHeader className='flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
+                  <div className='text-2xl lg:text-3xl lg:ml-32 font-bold'>
+                    Call For Statup Proposal
+                  </div>
+                  <div className='h-full align-middle'>
+                    <p className='text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none'>
                       {/* Show time left or "Calculating..." if it's still loading */}
                       {timeLeftForEvent || "Calculating..."}
                     </p>
                   </div>
                 </CardHeader>
 
-                <CardContent className="align-center justify-around items-center w-full">
-                  <div className="prose w-full mx-auto items-center justify-center mb-6 text-gray-500 md:text-lg dark:text-gray-400">
+                <CardContent className='align-center justify-around items-center w-full'>
+                  <div className='prose w-full mx-auto items-center justify-center mb-6 text-gray-500 md:text-lg dark:text-gray-400'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {event.description}
                     </ReactMarkdown>
 
                     <Button
-                      className="bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover"
+                      className='bg-coopBlue text-white font-bold cursor-pointer px-6 py-2 hover:bg-coopBlueHover'
                       onClick={() => {
                         const formRoute = "/incubationform";
                         router.push(`${formRoute}?eventId=${event.id}`);
-                      }}
-                    >
+                      }}>
                       Apply
                     </Button>
                   </div>

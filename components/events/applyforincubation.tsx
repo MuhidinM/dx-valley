@@ -1883,19 +1883,23 @@ const ApplyForIncubation = () => {
     );
     const generatedName = startupNameSuggestions[randomIndex];
 
+       setFormData((prev) => ({
+         ...prev,
+         startupName: generatedName,
+       }));
     // Use the external function to check if the name is taken
     // if (isNameTaken(generatedName)) {
     //   setNameTaken(true);
     // } else {
     //   //  setNameTaken(false);
-    //   setFormData((prev) => ({
-    //     ...prev,
-    //     startupName: generatedName,
-    //   }));
+      // setFormData((prev) => ({
+      //   ...prev,
+      //   startupName: generatedName,
+      // }));
     // }
   };
 
-   let isNameTaken = false; 
+  let isNameTaken = false;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1932,7 +1936,7 @@ const ApplyForIncubation = () => {
       formValues.append(`documents[${index}]`, doc);
     });
 
-       
+     
 
     try {
       const response = await fetch("/newapi/callforproposal", {

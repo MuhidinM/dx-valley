@@ -54,7 +54,7 @@ const MultiSelectDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="w-full justify-between">
-          {selectedOptions.length > 0
+          {selectedOptions?.length > 0
             ? selectedOptions.join(", ")
             : placeholder}
           <ChevronRight className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -64,7 +64,7 @@ const MultiSelectDropdown = ({
         {options.map((option) => (
           <DropdownMenuCheckboxItem
             key={option}
-            checked={selectedOptions.includes(option)}
+            checked={selectedOptions?.includes(option)}
             onCheckedChange={(checked) => {
               if (checked) onOptionChange(option);
             }}
@@ -93,14 +93,19 @@ export default function IndependentRegistrationForm() {
      });
 
 
-  const handleCheckboxChange = (name: keyof FormData, value: string) => {
-    setFormData((prev) => {
-      const updatedValues = (prev[name] as string[]).includes(value)
-        ? (prev[name] as string[]).filter((item) => item !== value)
-        : [...(prev[name] as string[]), value];
-      return { ...prev, [name]: updatedValues };
-    });
-  };
+const handleCheckboxChange = (name: keyof FormData, value: string) => {
+  setFormData((prev) => {
+    // Ensure prev[name] is always an array before attempting to iterate over it
+    const existingValues = Array.isArray(prev[name]) ? prev[name] : [];
+
+    const updatedValues = existingValues.includes(value)
+      ? existingValues.filter((item) => item !== value) // Remove the value if it exists
+      : [...existingValues, value]; // Add the value if it's not there
+
+    return { ...prev, [name]: updatedValues };
+  });
+};
+
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -463,11 +468,11 @@ export default function IndependentRegistrationForm() {
                       </p>
                     <p className='p-3'>
                         <strong>Focus Areas:</strong>{" "}
-                        {formData.focusArea.join(", ")}
+                        {formData?.focusArea?.join(", ")}
                       </p>
                       <p className='p-3'>
                         <strong>Interest Areas:</strong>{" "}
-                        {formData.interestedArea.join(", ")}
+                        {formData.interestedArea?.join(", ")}
                       </p>
                       <p className='p-3'>
                         <strong>Motivation:</strong> {formData.motivation}
