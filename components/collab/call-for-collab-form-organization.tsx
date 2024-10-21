@@ -114,10 +114,6 @@ export default function OrganizationRegistrationForm() {
     });
   };
 
-  const [alert, setAlert] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
   // On component mount, load saved form data from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -231,8 +227,7 @@ export default function OrganizationRegistrationForm() {
         });
 
         if (response.ok) {
-          const result = await response.json();
-          toast.success("Organization registered successfully!");
+               toast.success("Organization registered successfully!");
           setFormData({
             organizationName: "",
             industry: " industry ",

@@ -1784,12 +1784,13 @@ const ApplyForIncubation = () => {
         if (!formData.startupName.trim()) {
           stepErrors.startupName = "Startup name is required";
         }
+          if (nameTaken) {
+            stepErrors.startupName = "Startup name is already taken";
+          }
         if (!formData.stage) {
           stepErrors.stage = "Current stage is required";
         }
-        if (nameTaken) {
-          stepErrors.startupName = "Name already taken";
-        }
+       
         break;
 
       case 1:
@@ -1869,12 +1870,12 @@ const ApplyForIncubation = () => {
   //   setShowConfirmDialog(true);
   // };
 
-  const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
+  // const takenNames = ["TechNova", "QuantumLeap"]; // Example list of taken names
 
-  // Function to check if the startup name is already taken
-  const isNameTaken = (newName: string) => {
-    return takenNames.includes(newName);
-  };
+  // // Function to check if the startup name is already taken
+  // const isNameTaken = (newName: string) => {
+  //   return takenNames.includes(newName);
+  // };
 
   const generateStartupName = () => {
     const randomIndex = Math.floor(
@@ -1883,16 +1884,18 @@ const ApplyForIncubation = () => {
     const generatedName = startupNameSuggestions[randomIndex];
 
     // Use the external function to check if the name is taken
-    if (isNameTaken(generatedName)) {
-      setNameTaken(true);
-    } else {
-      setNameTaken(false);
-      setFormData((prev) => ({
-        ...prev,
-        startupName: generatedName,
-      }));
-    }
+    // if (isNameTaken(generatedName)) {
+    //   setNameTaken(true);
+    // } else {
+    //   //  setNameTaken(false);
+    //   setFormData((prev) => ({
+    //     ...prev,
+    //     startupName: generatedName,
+    //   }));
+    // }
   };
+
+   let isNameTaken = false; 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1929,6 +1932,8 @@ const ApplyForIncubation = () => {
       formValues.append(`documents[${index}]`, doc);
     });
 
+       
+
     try {
       const response = await fetch("/newapi/callforproposal", {
         method: "POST",
@@ -1936,6 +1941,18 @@ const ApplyForIncubation = () => {
       });
 
       const result = await response.json();
+        isNameTaken = result?.nameExists;
+        
+      if (isNameTaken) {
+        setNameTaken(true);
+        setErrors((prev) => ({
+          ...prev,
+          startupName: "Name already taken",
+        }));
+        return;
+      }
+
+      console.log("console log for nameExists check just the result", result);
       if (response.ok) {
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
@@ -1957,7 +1974,12 @@ const ApplyForIncubation = () => {
         toast.error("Registration failed", {
           description:
             result?.error || "An error occurred during registration.",
-        });
+          });
+              setErrors((prev) => ({
+                ...prev,
+                startupName: result?.error,
+              }));
+          
         // console.log("call for proposal error on submission");
       }
       // console.log(result);
@@ -2056,12 +2078,14 @@ const ApplyForIncubation = () => {
                           handleChange("startupName", newName);
 
                           // Check if the new name is taken
-                          if (isNameTaken(newName)) {
-                            setNameTaken(true);
-                          } else {
-                            setNameTaken(false);
-                          }
-                        }}
+                          // if (isNameTaken(newName)) {
+                          //   setNameTaken(true);
+                          // } 
+                          // else {
+                          //   setNameTaken(false);
+                          // }
+                            
+                         }}
                       />
                       <Button type="button" onClick={generateStartupName}>
                         {"Generate"}
