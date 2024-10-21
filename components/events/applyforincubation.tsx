@@ -1807,7 +1807,10 @@ const ApplyForIncubation = () => {
             }
             if (!founder.age || isNaN(Number(founder.age))) {
               errors.age = "Age is required and must be a valid number";
+            } else if (founder.age < 18 || founder.age > 50) {
+              errors.age = "Age must be between 18 and 50";
             }
+
             if (!founder.levelOfEducation.trim()) {
               errors.levelOfEducation = "level of education is required";
             }
@@ -1829,7 +1832,7 @@ const ApplyForIncubation = () => {
           stepErrors.phone = "Phone number is required";
         }
         if (!formData.state.trim()) {
-          stepErrors.state = "stae is required";
+          stepErrors.state = "stage is required";
         }
         break;
 
