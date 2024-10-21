@@ -113,10 +113,7 @@ export default function MediaRegistrationForm() {
     });
   };
 
-  const [alert, setAlert] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
+
   // On component mount, load saved form data from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
