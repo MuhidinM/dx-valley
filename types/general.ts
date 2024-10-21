@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React,{ ReactNode } from "react";
 import { CardNoLinkData } from "./strapi-types";
 
 export interface SectionProps {
