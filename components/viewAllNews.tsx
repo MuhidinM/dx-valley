@@ -37,7 +37,7 @@ export default function AllNewsPage({
 
   const sortedNewsArticles: any[] = useMemo(() => {
     return newsArticles.sort((a, b) => {
-      return new Date(a.date).getTime() - new Date(b.date).getTime();
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
   }, [newsArticles]); //use memo code
 

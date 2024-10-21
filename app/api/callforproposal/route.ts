@@ -81,6 +81,13 @@ const checkIfEmailExists = async (email: string) => {
   });
   return existingEmail !== null;
 };
+const checkIfStartupNameExists = async (startupName: string) => {
+  const existingStartup = await prisma.startupInfo.findUnique({
+    where: { startupName: startupName },
+  });
+
+  return existingStartup !== null; // Returns true if a startup with the name exists, false otherwise
+};
 
 export async function POST(req: Request): Promise<NextResponse> {
   const host = req.headers.get("host") || ""; // Ensure we get the header properly
@@ -101,6 +108,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const email = fields.email?.toString();
     const phone = fields.phone?.toString();
     const idea = fields.idea?.toString();
+    const state = fields.state?.toString();
     const foundersname = fields.founderNames?.toString();
 
     const sanitizedStartupName = validator.trim(startupName || "");
@@ -169,7 +177,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         // Check if it's an array of files or a single file
         const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
 
-          for (const file of docs) {
+        for (const file of docs) {
           if (!file?.newFilename) {
             // File was rejected in the fileBegin phase, skip it
             continue;
@@ -295,6 +303,14 @@ export async function POST(req: Request): Promise<NextResponse> {
         { status: 409 } // Conflict status for existing resource
       );
     }
+    // Check if startup name is already registered
+    const nameExists = await checkIfStartupNameExists(startupName as string);
+    if (nameExists) {
+      return NextResponse.json(
+        { error: `The startup name "${startupName}" is already taken.` },
+        { status: 409 } // Conflict status for existing resource
+      );
+    }
 
     const savedDocuments = await Promise.all(docPromises);
 
@@ -303,7 +319,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     const founderNames: any[] = [];
 
     Object.keys(fields).forEach((key) => {
-      const match = key.match(/founderNames\[(\d+)\]\[(firstName|lastName)\]/);
+      // const match = key.match(/founderNames\[(\d+)\]\[(firstName|lastName)\]/);
+      const match = key.match(
+        /founderNames\[(\d+)\]\[(firstName|lastName|gender|age|levelOfEducation)\]/
+      );
+
       if (match) {
         const index = parseInt(match[1], 10);
         const fieldName = match[2];
@@ -323,6 +343,9 @@ export async function POST(req: Request): Promise<NextResponse> {
           data: {
             firstName: member.firstName,
             lastName: member.lastName,
+            gender: member.gender,
+            age: member.age ? parseInt(member.age, 10) : null,
+            levelOfEducation: member.levelOfEducation,
           },
         });
 
@@ -338,6 +361,11 @@ export async function POST(req: Request): Promise<NextResponse> {
         phoneNumberOne: phone || "",
       },
     });
+    const startupAddress = await prisma.addressInfo.create({
+      data: {
+        state: state,
+      },
+    });
 
     let applicationData: {
       startupName: string;
@@ -345,6 +373,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       ideaDescription: string;
       documents: { connect: { id: number }[] };
       contactInfo: { connect: { id: number } };
+      addressInfo: { connect: { id: number } };
       personalInfo?: { connect: { id: number }[] };
       // videoId?: number;
       video?: { connect: { id: number }[] };
@@ -357,6 +386,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
       contactInfo: {
         connect: { id: startupContactinfo.id },
+      },
+      addressInfo: {
+        connect: { id: startupAddress.id },
       },
     };
 

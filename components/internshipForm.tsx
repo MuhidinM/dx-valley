@@ -129,7 +129,7 @@ interface Errors {
 interface FormData {
   firstName: string;
   lastName: string;
-  gender: string;
+  gender:string;
   email: string;
   phone: string;
   aboutYourself: string;
@@ -230,15 +230,21 @@ const handleChange = (name: keyof FormData, value: string) => {
     return updatedFormData; // Return the updated state
   });
 };
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = e.target;
-    setFormData((prevState) => {
-      const updatedInterests = checked
-        ? [...prevState.interestAreas, value]
-        : prevState.interestAreas.filter((interest) => interest !== value);
-      return { ...prevState, [name]: updatedInterests };
-    });
-  };
+const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const { name, value, checked } = e.target;
+
+  setFormData((prevState) => {
+    // Ensure interestAreas is an array
+    const interestAreas = prevState.interestAreas || [];
+
+    const updatedInterests = checked
+      ? [...interestAreas, value]
+      : interestAreas.filter((interest) => interest !== value);
+
+    return { ...prevState, [name]: updatedInterests };
+  });
+};
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -257,10 +263,11 @@ const handleChange = (name: keyof FormData, value: string) => {
       }
 
       // Update state with valid files
-      setFormData((prev) => ({
-        ...prev,
-        documents: [...prev.documents, ...validFiles],
-      }));
+   setFormData((prev) => ({
+     ...prev,
+     documents: [...(prev.documents || []), ...validFiles], // Ensure documents is an array
+   }));
+
     }
   };
 
@@ -277,10 +284,10 @@ const handleChange = (name: keyof FormData, value: string) => {
 
     switch (step) {
       case 1: // Step 1: Personal Information
-        if (!formData.firstName.trim()) {
+        if (!formData.firstName?.trim()) {
           stepErrors.firstName = "First name is required";
         }
-        if (!formData.lastName.trim()) {
+        if (!formData.lastName?.trim()) {
           stepErrors.lastName = "Last name is required";
         }
         if (!formData.email.trim()) {
@@ -288,42 +295,42 @@ const handleChange = (name: keyof FormData, value: string) => {
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
           stepErrors.email = "Email is invalid";
         }
-        if (!formData.phone.trim()) {
+        if (!formData.phone?.trim()) {
           stepErrors.phone = "Phone number is required";
         }
-        if (!formData.gender.trim()) {
+        if (!formData.gender?.trim()) {
           stepErrors.gender = "Gender is required";
         }
-        if (!formData.aboutYourself.trim()) {
+        if (!formData.aboutYourself?.trim()) {
           stepErrors.aboutYourself = "Information about yourself is required";
         }
         break;
 
       case 2: // Step 2: Education
-        if (!formData.university.trim()) {
+        if (!formData.university?.trim()) {
           stepErrors.university = "University is required";
         }
-        if (!formData.department.trim()) {
+        if (!formData.department?.trim()) {
           stepErrors.department = "Department is required";
         }
-        if (!formData.year.trim()) {
+        if (!formData.year?.trim()) {
           stepErrors.year = "Year of study is required";
         }
         break;
 
       case 3: // Step 3: Internship Details
-        if (!formData.internshipStart.trim()) {
+        if (!formData.internshipStart?.trim()) {
           stepErrors.internshipStart = "Internship start date is required";
         }
-        if (!formData.internshipEnd.trim()) {
+        if (!formData.internshipEnd?.trim()) {
           stepErrors.internshipEnd = "Internship end date is required";
         }
-        if (formData.interestAreas.length === 0) {
+        if (formData.interestAreas?.length === 0) {
           stepErrors.interestAreas =
             "At least one area of interest must be selected";
         }
 
-        if (!formData.documents || formData.documents.length === 0) {
+        if (!formData.documents || formData.documents?.length === 0) {
           stepErrors.documents = "At least one document is required";
         }
         break;
@@ -374,13 +381,13 @@ const handleChange = (name: keyof FormData, value: string) => {
     formValues.append("internshipEnd", formData.internshipEnd);
     formValues.append("otherInterests", formData.otherInterests);
     formValues.append("portfolio", formData.portfolio);
-    formValues.append("linkedin", formData.linkedin);
+    // formValues.append("linkedin", formData.linkedin);
 
     formData.documents.forEach((doc, index) => {
       formValues.append(`documents[${index}]`, doc);
     });
 
-    formData.interestAreas.forEach((area) => {
+    formData.interestAreas?.forEach((area) => {
       formValues.append("interestAreas", area);
     });
 
@@ -559,6 +566,7 @@ const handleChange = (name: keyof FormData, value: string) => {
                     )}
                   </div>
                 </div>
+               
 
                 {/* About Yourself */}
                 <div className='space-y-2'>
@@ -711,7 +719,7 @@ const handleChange = (name: keyof FormData, value: string) => {
                           id={`interest-${interest}`}
                           name='interestAreas'
                           value={interest}
-                          checked={formData.interestAreas.includes(interest)}
+                          checked={formData.interestAreas?.includes(interest)}
                           onChange={handleCheckboxChange} // Make sure this is only for checkboxes
                         />
                         <Label htmlFor={`interest-${interest}`}>
@@ -776,7 +784,7 @@ const handleChange = (name: keyof FormData, value: string) => {
                   )}
 
                   <ul>
-                    {formData.documents.map((doc, index) => (
+                    {formData.documents?.map((doc, index) => (
                       <div
                         key={index}
                         className='flex items-center justify-between'>
