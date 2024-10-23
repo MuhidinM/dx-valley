@@ -33,7 +33,7 @@ interface FormData {
 
 const TechExpoRegistrationForm: React.FC = () => {
   const searchParams = useSearchParams();
-  const eventId = searchParams.get("eventId") ?? "";
+  const eventId = searchParams.get("eventId") || "";
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -43,7 +43,7 @@ const TechExpoRegistrationForm: React.FC = () => {
     companyName: "",
     jobTitle: "",
     participantType: "",
-    eventId: eventId || "",
+    eventId: eventId,
   });
   
   const [currentStep, setCurrentStep] = useState<number>(0);
