@@ -504,7 +504,7 @@ const TechExpoRegistrationForm: React.FC = () => {
           {currentStep === 2 && (
             <form onSubmit={handleNext}>
               <div className="flex flex-col space-y-1.5">
-                <Label>Do you have a team?</Label>
+                <Label>Bringing a team? Tick here!</Label>
                 <Checkbox
                   checked={formData.haveATeam}
                   onCheckedChange={(checked) =>
@@ -515,7 +515,7 @@ const TechExpoRegistrationForm: React.FC = () => {
               {formData.haveATeam && (
                 <>
                   <div className="flex flex-col space-y-1.5">
-                    <Label>Team Members</Label>
+                    <Label>Your team info</Label>
                     {formData.teamMembers.map((member, index) => (
                       <div
                         key={index}
@@ -600,8 +600,8 @@ const TechExpoRegistrationForm: React.FC = () => {
                         </div>
                       </div>
                     ))}
-                    <Button type="button" onClick={addTeamMember}>
-                      Add Team Member
+                    <Button type="button" onClick={addTeamMember} className="">
+                      Add Another Member
                     </Button>
                   </div>
                 </>
