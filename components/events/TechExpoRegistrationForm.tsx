@@ -1,24 +1,34 @@
-/** @format */
-
 "use client";
-
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { toast, Toaster } from "sonner";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
-import Link from "next/link";
-import SubmissionSuccess from "../submissionSuccess";
-import { CheckCircle2 } from "lucide-react";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
+
+interface TeamMember {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
 
 interface FormData {
   firstName: string;
@@ -28,7 +38,15 @@ interface FormData {
   companyName: string;
   jobTitle: string;
   participantType: string;
+  setupRequirements: string;
+  presentationTitle: string;
+  presentationAbstract: string;
+  productName: string;
+  productDescription: string;
+  websiteUrl: string;
   eventId: string;
+  haveATeam: boolean;
+  teamMembers: TeamMember[];
 }
 
 const TechExpoRegistrationForm: React.FC = () => {
@@ -43,90 +61,48 @@ const TechExpoRegistrationForm: React.FC = () => {
     companyName: "",
     jobTitle: "",
     participantType: "",
+    setupRequirements: "",
+    presentationTitle: "",
+    presentationAbstract: "",
+    productName: "",
+    productDescription: "",
+    websiteUrl: "",
     eventId: eventId,
+    haveATeam: false,
+    teamMembers: [{ firstName: "", lastName: "", email: "", phoneNumber: "" }],
   });
-  
+
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  const [alert, setAlert] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
-  // On component mount, load saved form data from localStorage
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedFormData = localStorage.getItem("formData");
+  const [confirming, setConfirming] = useState<boolean>(false);
 
-      // console.log("saved form data this: 1", savedFormData);
-      if (savedFormData) {
-        setFormData(JSON.parse(savedFormData));
-        localStorage.setItem(
-          "formData savedFormData",
-          JSON.stringify(savedFormData)
-        );
-      }
-
-      // To check if 'testKey' is persisted after refresh
-      const testKey = localStorage.getItem("formData");
-      if (testKey) {
-        // console.log("testKey:", testKey); // Optional check for testKey
-      }
-    }
-  }, []);
-
-  // Submission success logic, if alert is success, set submission state
-  useEffect(() => {
-    if (alert && alert?.type === "success") {
-      const timer = setTimeout(() => {
-        setIsSubmitted(true);
-
-        // Optional: Add some test data to localStorage
-        localStorage.setItem("testKey", JSON.stringify(formData));
-        // console.log("TestKey saved:", localStorage.getItem("testKey"));
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
-  
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  const handleTeamMemberChange = (
+    index: number,
+    field: keyof TeamMember,
+    value: string
   ) => {
-    const temp = {
-      ...formData,
-      [e.target.name]: e.target.value,
+    const updatedTeamMembers = [...formData.teamMembers];
+    updatedTeamMembers[index] = {
+      ...updatedTeamMembers[index],
+      [field]: value,
     };
-    localStorage.setItem("formData", JSON.stringify(temp));
-    setFormData(temp);
+    setFormData({ ...formData, teamMembers: updatedTeamMembers });
   };
 
-
-  const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
-    if (formData.firstName.length < 2)
-      newErrors.firstName = "First name must be at least 2 characters";
-    if (formData.lastName.length < 2)
-      newErrors.lastName = "Last name must be at least 2 characters";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      newErrors.email = "Invalid email address";
-    if (!/^(\+251\d{9}|\d{10})$/.test(formData.phoneNumber))
-      newErrors.phoneNumber =
-        "Invalid phone number. Use +251 format or 10 digits";
-    if (!formData.participantType)
-      newErrors.participantType = "Please select a participant type";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const addTeamMember = () => {
+    setFormData({
+      ...formData,
+      teamMembers: [
+        ...formData.teamMembers,
+        { firstName: "", lastName: "", email: "", phoneNumber: "" },
+      ],
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
-
     try {
-      const response = await fetch("/newapi/techexpo", {
+      const response = await fetch("/api/techexpo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -142,18 +118,44 @@ const TechExpoRegistrationForm: React.FC = () => {
               phoneNumberOne: formData.phoneNumber,
             },
           },
+          haveATeam: formData.haveATeam,
+          teamMembers: formData.haveATeam
+            ? formData.teamMembers.map((member) => ({
+                personalInfo: {
+                  firstName: member.firstName,
+                  lastName: member.firstName,
+                },
+
+                contactInfo: {
+                  email: member.email,
+                  phoneNumberOne: member.phoneNumber,
+                },
+              }))
+            : [],
+          project: {
+            productName: formData.productName,
+            productDescription: formData.productDescription,
+            websiteUrl: formData.websiteUrl,
+          },
           companyName: formData.companyName,
           jobTitle: formData.jobTitle,
           participantType: formData.participantType,
+          setup: {
+            setupRequirements: formData.setupRequirements,
+          },
+          presentation: {
+            presentationTitle: formData.presentationTitle,
+            presentationAbstract: formData.presentationAbstract,
+          },
           eventId: formData.eventId,
+          // teamMembers: formData.haveATeam ? formData.teamMembers : [{ firstName: "", lastName: "", email: "", phoneNumber: "" },],
         }),
       });
 
       if (response.ok) {
-        setIsSubmitted(true);
+        // alert("Registration successful!");
         toast.success("Registration successful!", {
-          description:
-            "Your details have been submitted successfully.".toString(),
+          description: "Your details have been submitted successfully.",
         });
         setFormData({
           firstName: "",
@@ -163,271 +165,516 @@ const TechExpoRegistrationForm: React.FC = () => {
           companyName: "",
           jobTitle: "",
           participantType: "",
-          eventId: eventId,
+          setupRequirements: "",
+          presentationTitle: "",
+          presentationAbstract: "",
+          productName: "",
+          productDescription: "",
+          websiteUrl: "",
+          eventId: "",
+          haveATeam: false,
+          teamMembers: [
+            { firstName: "", lastName: "", email: "", phoneNumber: "" },
+          ],
         });
+        setCurrentStep(0);
       } else {
         const errorMessage = await response.json();
         console.error("Error:", errorMessage);
         toast.error("Registration failed", {
           description:
-            errorMessage?.error?.message ||
-            "An error occurred during registration.",
+            errorMessage?.error || "An error occurred during registration.",
         });
       }
     } catch (error) {
       console.error("Error registering:", error);
-      toast.error("An error occurred", {
-        description: "Please try again.",
-      });
-    }
-  };
-
-  const handleValueChange = (name: string) => (value: string) => {
-    const temp = {
-      ...formData,
-      [name]: value, // Dynamically update the specific field in formData
-    };
-    localStorage.setItem("formData", JSON.stringify(temp));
-    setFormData(temp);
-  };
-
-  const handleNext = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      setCurrentStep(1);
+      alert("An error occurred. Please try again.");
     }
   };
 
   const handleBack = () => {
-    setCurrentStep(0);
+    setConfirming(false);
+    setCurrentStep(currentStep - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep(currentStep - 1);
   };
 
   const steps = [
     { id: 0, title: "Personal Info" },
-    { id: 1, title: "Confirmation" },
+    {
+      id: 1,
+      title:
+        formData.participantType === "Exhibitor"
+          ? "Project Details"
+          : formData.participantType === "Speaker"
+          ? "Presentation Details"
+          : "",
+    },
+    {
+      id: 2,
+      title:
+        formData.participantType === "Exhibitor"
+          ? "Team Info"
+          : formData.participantType === "Speaker"
+          ? "Additional Info"
+          : "",
+    },
+    { id: 3, title: "Confirmation" },
   ];
 
-  if (isSubmitted) {
-    return (
-
-      <div
-        className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '
-        //  className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'
-      >
-               <SubmissionSuccess
-          title={"Submission Successful!"}
-          icon={<CheckCircle2 className='w-8 h-8 text-green' />}
-          desc={
-            "Thank you for registering. Your details have been submitted successfully."
-          }
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className='w-full flex items-center justify-center dark:bg-gray-900  bg-gray-100 p-4'>
-      <Toaster position='top-right' richColors />
-      <Card className='w-full max-w-2xl'>
+    <div>
+      <Toaster position="top-right" richColors />
+      <Card className="admin-event w-[900px]">
         <CardHeader>
-          <CardTitle className='text-center'>
+          <CardTitle className="text-center">
             Tech Expo Registration Form
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='mb-8'>
-            <h2 className='text-2xl font-bold mb-4'>
-              {steps[currentStep].title}
-            </h2>
-            <div className='flex justify-between mb-2'>
-              {steps.map((step, index) => (
-                <div
-                  key={step.id}
-                  className={`flex items-center ${
-                    index <= currentStep
-                      ? "text-gray-700 dark:text-gray-900"
-                      : "text-gray-800 dark:text-gray-950"
-                  }`}>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${
-                      index <= currentStep
-                        ? "bg-coopBlue text-white dark:text-gray-900"
-                        : "bg-gray-400 text-gray-300 dark:text-gray-900"
-                    }`}>
-                    {index + 1}
-                  </div>
-                  <span className='text-md dark:text-gray-300'>
-                    {step.title}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="mb-4 text-center">
+            {steps.map((step, index) => (
+              <span
+                key={step.id}
+                className={`mx-2 ${
+                  index <= currentStep ? "text-[#00ADEF]" : "text-gray-500"
+                }`}
+              >
+                {step.title}
+              </span>
+            ))}
           </div>
 
-          <form onSubmit={currentStep === 0 ? handleNext : handleSubmit}>
-            {currentStep === 0 && (
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                <div>
-                  <Label htmlFor='firstName'>First Name</Label>
+          {currentStep === 0 && (
+            <form onSubmit={handleNext}>
+              {/* <div className="grid w-full items-center gap-4"> */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="firstName">First Name</Label>
                   <Input
-                    id='firstName'
-                    name='firstName'
+                    type="text"
+                    placeholder="e.g., Jane Smith"
                     value={formData.firstName}
-                    // onChange={(e) =>
-                    //   setFormData({ ...formData, firstName: e.target.value })
-                    // }
-                    onChange={handleChange}
-                    placeholder='e.g., Jane'
+                    onChange={(e) =>
+                      setFormData({ ...formData, firstName: e.target.value })
+                    }
+                    required
                   />
-                  {errors.firstName && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {errors.firstName}
-                    </p>
-                  )}
                 </div>
-                <div>
-                  <Label htmlFor='lastName'>Last Name</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="lastName">Last Name</Label>
                   <Input
-                    id='lastName'
-                    name='lastName'
+                    type="text"
+                    placeholder="e.g., Smith"
                     value={formData.lastName}
-                    // onChange={(e) =>
-                    //   setFormData({ ...formData, lastName: e.target.value })
-                    // }
-
-                    onChange={handleChange}
-                    placeholder='e.g., Smith'
+                    onChange={(e) =>
+                      setFormData({ ...formData, lastName: e.target.value })
+                    }
+                    required
                   />
-                  {errors.lastName && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {errors.lastName}
-                    </p>
-                  )}
                 </div>
-                <div>
-                  <Label htmlFor='email'>Email Address</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="email">Email Address</Label>
                   <Input
-                    id='email'
-                    type='email'
-                    name='email'
+                    type="email"
+                    placeholder="e.g., janesmith@example.com"
                     value={formData.email}
-                    onChange={handleChange}
-                    placeholder='e.g., jane@example.com'
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    required
                   />
-                  {errors.email && (
-                    <p className='text-red-500 text-sm mt-1'>{errors.email}</p>
-                  )}
                 </div>
-                <div>
-                  <Label htmlFor='phoneNumber'>Phone Number</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="phoneNumber">Phone Number</Label>
                   <Input
-                    id='phoneNumber'
-                    name='phoneNumber'
+                    type="tel"
+                    placeholder="e.g., +1234567890"
                     value={formData.phoneNumber}
-                    onChange={handleChange}
-                    placeholder='e.g., +251123456789 or 0123456789'
+                    onChange={(e) =>
+                      setFormData({ ...formData, phoneNumber: e.target.value })
+                    }
+                    required
                   />
-                  {errors.phoneNumber && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {errors.phoneNumber}
-                    </p>
-                  )}
                 </div>
-                <div>
-                  <Label htmlFor='companyName'>Company/Organization Name</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="companyName">Company/Organization Name</Label>
                   <Input
-                    id='companyName'
-                    name='companyName'
+                    type="text"
+                    placeholder="e.g., Tech Innovators Inc."
                     value={formData.companyName}
-                    onChange={handleChange}
-                    placeholder='e.g., Tech Innovators Inc.'
+                    onChange={(e) =>
+                      setFormData({ ...formData, companyName: e.target.value })
+                    }
                   />
                 </div>
-                <div>
-                  <Label htmlFor='jobTitle'>Job Title</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="jobTitle">Job Title</Label>
                   <Input
-                    id='jobTitle'
-                    name='jobTitle'
+                    type="text"
+                    placeholder="e.g., Software Engineer"
                     value={formData.jobTitle}
-                    onChange={handleChange}
-                    placeholder='e.g., Software Engineer'
+                    onChange={(e) =>
+                      setFormData({ ...formData, jobTitle: e.target.value })
+                    }
                   />
                 </div>
-                <div className='md:col-span-2'>
-                  <Label htmlFor='participantType'>Type of Participant</Label>
+                <div className="flex flex-col space-y-1.5">
+                  <Label>Type of Participant</Label>
                   <Select
                     value={formData.participantType}
-                    name='participantType'
                     onValueChange={(value) =>
                       setFormData({ ...formData, participantType: value })
-                    }>
-                    <SelectTrigger id='participantType'>
-                      <SelectValue placeholder='Select participant type' />
+                    }
+                    required
+                  >
+                    <SelectTrigger id="participantType">
+                      <SelectValue placeholder="Select" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value='Exhibitor'>Exhibitor</SelectItem>
-                      <SelectItem value='Speaker'>Speaker</SelectItem>
-                      <SelectItem value='Attendee'>Attendee</SelectItem>
+                    <SelectContent position="popper">
+                      <SelectItem value="Exhibitor">Exhibitor</SelectItem>
+                      <SelectItem value="Speaker">Speaker</SelectItem>
+                      <SelectItem value="Attendee">Attendee</SelectItem>
                     </SelectContent>
                   </Select>
-                  {errors.participantType && (
-                    <p className='text-red-500 text-sm mt-1'>
-                      {errors.participantType}
-                    </p>
-                  )}
                 </div>
               </div>
-            )}
-
-            {currentStep === 1 && (
-              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 '>
-                <div>
-                  {/* <h3 className='font-semibold mb-2'>Personal Info</h3> */}
-                  <p>
-                    {" "}
-                    <strong> First Name:</strong> {formData.firstName}
-                  </p>
-                  <p>
-                    {" "}
-                    <strong>Last Name: </strong> {formData.lastName}
-                  </p>
-                  <p>
-                    {" "}
-                    <strong>Email:</strong> {formData.email}
-                  </p>
-                  <p>
-                    {" "}
-                    <strong>Phone Number: </strong>
-                    {formData.phoneNumber}
-                  </p>
-                  <p>
-                    {" "}
-                    <strong>Company/Organization Name: </strong>
-                    {formData.companyName}
-                  </p>
-                  <p>
-                    <strong>Job Title: </strong>
-                    {formData.jobTitle}
-                  </p>
-                  <p>
-                    <strong>Participant Type:</strong>{" "}
-                    {formData.participantType}
-                  </p>
-                </div>
+              <div className="flex justify-between mt-4">
+                <Button type="submit">Next</Button>
               </div>
-            )}
+            </form>
+          )}
 
-            <div className='flex justify-between mt-8'>
-              {currentStep > 0 && (
-                <Button type='button' onClick={handleBack} variant='outline'>
+          {currentStep === 1 && (
+            <form onSubmit={handleNext}>
+              {formData.participantType === "Attendee" && (
+                <>
+                  <div>
+                    <h2 className="text-xl font-bold mb-4">
+                      Review Your Details
+                    </h2>
+                    <div className="mb-4">
+                      <p>First Name: {formData.firstName}</p>
+                      <p>Last Name: {formData.lastName}</p>
+                      <p>Email: {formData.email}</p>
+                      <p>Phone Number: {formData.phoneNumber}</p>
+                      <p>Company/Organization Name: {formData.companyName}</p>
+                      <p>Job Title: {formData.jobTitle}</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-between mt-4">
+                    <Button type="button" onClick={handleBack}>
+                      Back
+                    </Button>
+                    <Button type="button" onClick={handleSubmit}>
+                      Confirm and Submit
+                    </Button>
+                  </div>
+                </>
+              )}
+              {formData.participantType === "Speaker" && (
+                <>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="presentationTitle">
+                        Presentation Title
+                      </Label>
+                      <Input
+                        type="text"
+                        placeholder="e.g., The Future of AI"
+                        value={formData.presentationTitle}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            presentationTitle: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="presentationAbstract">
+                        Presentation Abstract
+                      </Label>
+                      <Textarea
+                        placeholder="Provide a brief abstract of your presentation."
+                        value={formData.presentationAbstract}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            presentationAbstract: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between mt-4">
+                      <Button type="button" onClick={handlePrevious}>
+                        Back
+                      </Button>
+                      <Button type="submit">Next</Button>
+                    </div>
+                  </div>
+                </>
+              )}
+              {formData.participantType === "Exhibitor" && (
+                <>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="setupRequirements">
+                        Setup Requirements
+                      </Label>
+                      <Textarea
+                        placeholder="Specify any setup requirements for your booth."
+                        value={formData.setupRequirements}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            setupRequirements: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="productName">Product/Service Name</Label>
+                      <Input
+                        type="text"
+                        placeholder="e.g., AI Chatbot"
+                        value={formData.productName}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            productName: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="productDescription">
+                        Product/Service Description
+                      </Label>
+                      <Textarea
+                        placeholder="Provide a description of your product/service."
+                        value={formData.productDescription}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            productDescription: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="websiteUrl">Website URL</Label>
+                      <Input
+                        type="url"
+                        placeholder="e.g., https://www.yourcompany.com"
+                        value={formData.websiteUrl}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            websiteUrl: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between mt-4">
+                      <Button type="button" onClick={handlePrevious}>
+                        Back
+                      </Button>
+                      <Button type="submit">Next</Button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </form>
+          )}
+
+          {currentStep === 2 && (
+            <form onSubmit={handleNext}>
+              <div className="flex flex-col space-y-1.5">
+                <Label>Do you have a team?</Label>
+                <Checkbox
+                  checked={formData.haveATeam}
+                  onCheckedChange={(checked) =>
+                    setFormData({ ...formData, haveATeam: !!checked })
+                  }
+                />
+              </div>
+              {formData.haveATeam && (
+                <>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label>Team Members</Label>
+                    {formData.teamMembers.map((member, index) => (
+                      <div
+                        key={index}
+                        className="border p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+                      >
+                        {/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'> */}
+                        <div className="flex flex-col space-y-1.5">
+                          <Label htmlFor={`teamMemberFirstName${index}`}>
+                            First Name
+                          </Label>
+                          <Input
+                            type="text"
+                            id={`teamMemberFirstName${index}`}
+                            placeholder="e.g., John"
+                            value={member.firstName}
+                            onChange={(e) =>
+                              handleTeamMemberChange(
+                                index,
+                                "firstName",
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                          <Label htmlFor={`teamMemberLastName${index}`}>
+                            Last Name
+                          </Label>
+                          <Input
+                            type="text"
+                            id={`teamMemberLastName${index}`}
+                            placeholder="e.g., Doe"
+                            value={member.lastName}
+                            onChange={(e) =>
+                              handleTeamMemberChange(
+                                index,
+                                "lastName",
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                          <Label htmlFor={`teamMemberEmail${index}`}>
+                            Email
+                          </Label>
+                          <Input
+                            type="email"
+                            id={`teamMemberEmail${index}`}
+                            placeholder="e.g., john@example.com"
+                            value={member.email}
+                            onChange={(e) =>
+                              handleTeamMemberChange(
+                                index,
+                                "email",
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                        <div className="flex flex-col space-y-1.5">
+                          <Label htmlFor={`teamMemberPhone${index}`}>
+                            Phone Number
+                          </Label>
+                          <Input
+                            type="tel"
+                            id={`teamMemberPhone${index}`}
+                            placeholder="e.g., +1234567890"
+                            value={member.phoneNumber}
+                            onChange={(e) =>
+                              handleTeamMemberChange(
+                                index,
+                                "phoneNumber",
+                                e.target.value
+                              )
+                            }
+                            required
+                          />
+                        </div>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={addTeamMember}>
+                      Add Team Member
+                    </Button>
+                  </div>
+                </>
+              )}
+              <div className="flex justify-between mt-4">
+                <Button type="button" onClick={handlePrevious}>
                   Back
                 </Button>
-              )}
-              <Button type='submit'>
-                {currentStep === steps.length - 1 ? "Submit" : "Next"}
-              </Button>
+                <Button type="submit">Next</Button>
+              </div>
+            </form>
+          )}
+
+          {currentStep === 3 && (
+            <div>
+              <h2 className="text-xl font-bold mb-4">Review Your Details</h2>
+              <div className="mb-4">
+                <h3 className="font-semibold">Personal Info</h3>
+                <p>First Name: {formData.firstName}</p>
+                <p>Last Name: {formData.lastName}</p>
+                <p>Email: {formData.email}</p>
+                <p>Phone Number: {formData.phoneNumber}</p>
+                <p>Company/Organization Name: {formData.companyName}</p>
+                <p>Job Title: {formData.jobTitle}</p>
+              </div>
+              <div className="mb-4">
+                <h3 className="font-semibold">Project Details</h3>
+
+                {formData.participantType === "Speaker" && (
+                  <>
+                    <p>Presentation Title: {formData.presentationTitle}</p>
+                    <p>
+                      Presentation Abstract: {formData.presentationAbstract}
+                    </p>
+                  </>
+                )}
+                {formData.participantType === "Exhibitor" && (
+                  <>
+                    <p>Setup Requirements: {formData.setupRequirements}</p>
+                    <p>Product/Service Name: {formData.productName}</p>
+                    <p>
+                      Product/Service Description: {formData.productDescription}
+                    </p>
+                    <p>Website URL: {formData.websiteUrl}</p>
+                  </>
+                )}
+              </div>
+              <div className="mb-4">
+                {formData.haveATeam && (
+                  <>
+                    <h3 className="font-semibold">Team Members</h3>
+                    {formData.teamMembers.map((member, index) => (
+                      <div key={index}>
+                        <p>Team Member {index + 1}:</p>
+                        <p>First Name: {member.firstName}</p>
+                        <p>Last Name: {member.lastName}</p>
+                        <p>Email: {member.email}</p>
+                        <p>Phone Number: {member.phoneNumber}</p>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+              <div className="flex justify-between mt-4">
+                <Button type="button" onClick={handleBack}>
+                  Back
+                </Button>
+                <Button type="button" onClick={handleSubmit}>
+                  Confirm and Submit
+                </Button>
+              </div>
             </div>
-          </form>
+          )}
         </CardContent>
       </Card>
     </div>
