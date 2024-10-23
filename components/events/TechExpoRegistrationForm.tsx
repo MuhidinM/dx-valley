@@ -253,7 +253,8 @@ const TechExpoRegistrationForm: React.FC = () => {
 
           {currentStep === 0 && (
             <form onSubmit={handleNext}>
-              <div className="grid w-full items-center gap-4">
+              {/* <div className="grid w-full items-center gap-4"> */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="firstName">First Name</Label>
                   <Input
@@ -379,114 +380,121 @@ const TechExpoRegistrationForm: React.FC = () => {
               )}
               {formData.participantType === "Speaker" && (
                 <>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="presentationTitle">
-                      Presentation Title
-                    </Label>
-                    <Input
-                      type="text"
-                      placeholder="e.g., The Future of AI"
-                      value={formData.presentationTitle}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          presentationTitle: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="presentationAbstract">
-                      Presentation Abstract
-                    </Label>
-                    <Textarea
-                      placeholder="Provide a brief abstract of your presentation."
-                      value={formData.presentationAbstract}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          presentationAbstract: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex justify-between mt-4">
-                    <Button type="button" onClick={handlePrevious}>
-                      Back
-                    </Button>
-                    <Button type="submit">Next</Button>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="presentationTitle">
+                        Presentation Title
+                      </Label>
+                      <Input
+                        type="text"
+                        placeholder="e.g., The Future of AI"
+                        value={formData.presentationTitle}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            presentationTitle: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="presentationAbstract">
+                        Presentation Abstract
+                      </Label>
+                      <Textarea
+                        placeholder="Provide a brief abstract of your presentation."
+                        value={formData.presentationAbstract}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            presentationAbstract: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between mt-4">
+                      <Button type="button" onClick={handlePrevious}>
+                        Back
+                      </Button>
+                      <Button type="submit">Next</Button>
+                    </div>
                   </div>
                 </>
               )}
               {formData.participantType === "Exhibitor" && (
                 <>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="setupRequirements">
-                      Setup Requirements
-                    </Label>
-                    <Textarea
-                      placeholder="Specify any setup requirements for your booth."
-                      value={formData.setupRequirements}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          setupRequirements: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="setupRequirements">
+                        Setup Requirements
+                      </Label>
+                      <Textarea
+                        placeholder="Specify any setup requirements for your booth."
+                        value={formData.setupRequirements}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            setupRequirements: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
 
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="productName">Product/Service Name</Label>
-                    <Input
-                      type="text"
-                      placeholder="e.g., AI Chatbot"
-                      value={formData.productName}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          productName: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="productDescription">
-                      Product/Service Description
-                    </Label>
-                    <Textarea
-                      placeholder="Provide a description of your product/service."
-                      value={formData.productDescription}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          productDescription: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="websiteUrl">Website URL</Label>
-                    <Input
-                      type="url"
-                      placeholder="e.g., https://www.yourcompany.com"
-                      value={formData.websiteUrl}
-                      onChange={(e) =>
-                        setFormData({ ...formData, websiteUrl: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex justify-between mt-4">
-                    <Button type="button" onClick={handlePrevious}>
-                      Back
-                    </Button>
-                    <Button type="submit">Next</Button>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="productName">Product/Service Name</Label>
+                      <Input
+                        type="text"
+                        placeholder="e.g., AI Chatbot"
+                        value={formData.productName}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            productName: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="productDescription">
+                        Product/Service Description
+                      </Label>
+                      <Textarea
+                        placeholder="Provide a description of your product/service."
+                        value={formData.productDescription}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            productDescription: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="websiteUrl">Website URL</Label>
+                      <Input
+                        type="url"
+                        placeholder="e.g., https://www.yourcompany.com"
+                        value={formData.websiteUrl}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            websiteUrl: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-between mt-4">
+                      <Button type="button" onClick={handlePrevious}>
+                        Back
+                      </Button>
+                      <Button type="submit">Next</Button>
+                    </div>
                   </div>
                 </>
               )}
@@ -509,7 +517,11 @@ const TechExpoRegistrationForm: React.FC = () => {
                   <div className="flex flex-col space-y-1.5">
                     <Label>Team Members</Label>
                     {formData.teamMembers.map((member, index) => (
-                      <div key={index} className="border p-4 mb-4">
+                      <div
+                        key={index}
+                        className="border p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+                      >
+                        {/* <div className='grid grid-cols-1 md:grid-cols-2 gap-4'> */}
                         <div className="flex flex-col space-y-1.5">
                           <Label htmlFor={`teamMemberFirstName${index}`}>
                             First Name
