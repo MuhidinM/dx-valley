@@ -29,10 +29,9 @@ export default function ContestsPage() {
 
     fetchEvents();
   }, []);
-  const Events = events.filter(
-    (event) => event.category !== "call for proposal"
-  );
-  // console.log(Events.length, "is the event length");
+
+  const Events = events.filter((event) => event.category === "tech expo" || event.category === "contest");
+   console.log(Events.length, "is the event length");
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-3 gap-6  h-fit mb-10">

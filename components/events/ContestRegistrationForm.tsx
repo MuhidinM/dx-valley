@@ -44,13 +44,17 @@ interface FormData {
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
   const eventId = searchParams.get("eventId") || "";
-  // const eventId = 1;
+    // const eventId = "1";
+
+
+console.log( "eventId", eventId);
 
   const [currentStep, setCurrentStep] = useState(0);
   const [alert, setAlert] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
+  
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
@@ -65,7 +69,7 @@ export default function ContestRegistrationForm() {
     projectDescription: "",
     techStack: "",
     projectUrl: "",
-    eventId: eventId || "",
+    eventId: eventId,
   });
 
   // On component mount, load saved form data from localStorage
