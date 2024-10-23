@@ -1784,13 +1784,13 @@ const ApplyForIncubation = () => {
         if (!formData.startupName.trim()) {
           stepErrors.startupName = "Startup name is required";
         }
-          if (nameTaken) {
-            stepErrors.startupName = "Startup name is already taken";
-          }
+        if (nameTaken) {
+          stepErrors.startupName = "Startup name is already taken";
+        }
         if (!formData.stage) {
           stepErrors.stage = "Current stage is required";
         }
-       
+
         break;
 
       case 1:
@@ -1883,19 +1883,19 @@ const ApplyForIncubation = () => {
     );
     const generatedName = startupNameSuggestions[randomIndex];
 
-       setFormData((prev) => ({
-         ...prev,
-         startupName: generatedName,
-       }));
+    setFormData((prev) => ({
+      ...prev,
+      startupName: generatedName,
+    }));
     // Use the external function to check if the name is taken
     // if (isNameTaken(generatedName)) {
     //   setNameTaken(true);
     // } else {
     //   //  setNameTaken(false);
-      // setFormData((prev) => ({
-      //   ...prev,
-      //   startupName: generatedName,
-      // }));
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   startupName: generatedName,
+    // }));
     // }
   };
 
@@ -1936,8 +1936,6 @@ const ApplyForIncubation = () => {
       formValues.append(`documents[${index}]`, doc);
     });
 
-     
-
     try {
       const response = await fetch("/newapi/callforproposal", {
         method: "POST",
@@ -1945,8 +1943,8 @@ const ApplyForIncubation = () => {
       });
 
       const result = await response.json();
-        isNameTaken = result?.nameExists;
-        
+      isNameTaken = result?.nameExists;
+
       if (isNameTaken) {
         setNameTaken(true);
         setErrors((prev) => ({
@@ -1978,12 +1976,12 @@ const ApplyForIncubation = () => {
         toast.error("Registration failed", {
           description:
             result?.error || "An error occurred during registration.",
-          });
-              setErrors((prev) => ({
-                ...prev,
-                startupName: result?.error,
-              }));
-          
+        });
+        setErrors((prev) => ({
+          ...prev,
+          startupName: result?.error,
+        }));
+
         // console.log("call for proposal error on submission");
       }
       // console.log(result);
@@ -2014,12 +2012,12 @@ const ApplyForIncubation = () => {
 
   if (submitSuccess) {
     return (
-      <div className=" bg-gray-50 py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 ">
+      <div className=' bg-gray-50 py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '>
         <div>
           {showConfetti && <Confetti colors={["#00adef"]} />}
           <SubmissionSuccess
             title={" Submission Successful!"}
-            icon={<CheckCircle2 className="w-8 h-8 text-green" />}
+            icon={<CheckCircle2 className='w-8 h-8 text-green' />}
             desc={
               "Application submitted successfully. Good luck! Stay tuned for our email. We will get back to you shortly."
             }
@@ -2030,10 +2028,10 @@ const ApplyForIncubation = () => {
   }
 
   return (
-    <div className=" bg-gray-50 py-12  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 h-1/2">
-      <Card className="max-w-2xl mx-auto">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">
+    <div className=' bg-gray-50 py-12  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 h-1/2'>
+      <Card className='max-w-2xl mx-auto'>
+        <CardHeader className='space-y-1'>
+          <CardTitle className='text-2xl font-bold'>
             Apply for Startup Incubation
           </CardTitle>
           <CardDescription>
@@ -2042,40 +2040,38 @@ const ApplyForIncubation = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="mb-8">
-            <div className="flex justify-between">
+          <div className='mb-8'>
+            <div className='flex justify-between'>
               {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center">
+                <div key={step.id} className='flex flex-col items-center'>
                   <div
                     className={`rounded-full h-8 w-8 flex items-center justify-center ${
                       index <= currentStep
                         ? "bg-[#00adef] text-white"
                         : "bg-gray-200 text-gray-600"
-                    }`}
-                  >
+                    }`}>
                     {index + 1}
                   </div>
-                  <div className="text-xs mt-2">{step.title}</div>
+                  <div className='text-xs mt-2'>{step.title}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-4 h-2 bg-gray-200 rounded-full">
+            <div className='mt-4 h-2 bg-gray-200 rounded-full'>
               <div
-                className="h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out"
+                className='h-full bg-[#00adef] rounded-full transition-all duration-300 ease-in-out'
                 style={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
-                }}
-              ></div>
+                }}></div>
             </div>
             <form onSubmit={handleSubmit}>
               {currentStep === 0 && (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="startupName">Startup Name</Label>
-                    <div className="flex space-x-2">
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='startupName'>Startup Name</Label>
+                    <div className='flex space-x-2'>
                       <Input
-                        id="startupName"
-                        placeholder="Enter your startup name"
+                        id='startupName'
+                        placeholder='Enter your startup name'
                         value={formData.startupName}
                         onChange={(e) => {
                           const newName = e.target.value;
@@ -2084,81 +2080,79 @@ const ApplyForIncubation = () => {
                           // Check if the new name is taken
                           // if (isNameTaken(newName)) {
                           //   setNameTaken(true);
-                          // } 
+                          // }
                           // else {
                           //   setNameTaken(false);
                           // }
-                            
-                         }}
+                        }}
                       />
-                      <Button type="button" onClick={generateStartupName}>
+                      <Button type='button' onClick={generateStartupName}>
                         {"Generate"}
                       </Button>
                     </div>
 
                     {/* Show message if name is taken */}
-                    <span className="text-sm text-red-500">
+                    <span className='text-sm text-red-500'>
                       {nameTaken ? "Name is already taken" : null}
                     </span>
 
                     {/* Show any validation errors */}
                     {errors.startupName && (
-                      <p className="text-sm text-red-500">
+                      <p className='text-sm text-red-500'>
                         {errors.startupName}
                       </p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="stage">Current Stage</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='stage'>Current Stage</Label>
                     <Select
                       onValueChange={(value) => handleChange("stage", value)}
-                      value={formData.stage}
-                    >
+                      value={formData.stage}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your current stage" />
+                        <SelectValue placeholder='Select your current stage' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="idea">Idea</SelectItem>
-                        <SelectItem value="prototype">Prototype</SelectItem>
-                        <SelectItem value="mvp">MVP</SelectItem>
-                        <SelectItem value="early-revenue">
+                        <SelectItem value='idea'>Idea</SelectItem>
+                        <SelectItem value='prototype'>Prototype</SelectItem>
+                        <SelectItem value='mvp'>MVP</SelectItem>
+                        <SelectItem value='early-revenue'>
                           Early Revenue
                         </SelectItem>
                       </SelectContent>
                     </Select>
                     {errors.stage && (
-                      <p className="text-sm text-red-500">{errors.stage}</p>
+                      <p className='text-sm text-red-500'>{errors.stage}</p>
                     )}
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="idea">Startup Idea</Label>
+                  <div className='space-y-2'>
+                    <Label htmlFor='idea'>Startup Idea</Label>
                     <Textarea
-                      id="idea"
-                      placeholder="Describe your startup idea"
+                      id='idea'
+                      placeholder='Describe your startup idea'
                       value={formData.idea}
                       onChange={(e) => handleChange("idea", e.target.value)}
                       rows={5}
                     />
                     {errors.idea && (
-                      <p className="text-sm text-red-500">{errors.idea}</p>
+                      <p className='text-sm text-red-500'>{errors.idea}</p>
                     )}
                   </div>
                 </div>
               )}
 
               {currentStep === 1 && (
-                <div className="space-y-4">
+                <div className='space-y-4'>
                   {formData.founderNames.map((founder, index) => (
-                    <div key={index} className="space-y-2">
+                    <div key={index} className='space-y-2'>
                       <Label htmlFor={`founderName-${index}`}>
                         Founder Name
                       </Label>
-                      <div className="md:space-y-0 lg:space-y-4 space-y-2 ">
-                        <div className="flex lg:flex lg:space-x-2 md:flex md:space-x-2 ">
+                      <div className='md:space-y-0 lg:space-y-4 space-y-2 '>
+                        <div className='flex lg:flex lg:space-x-2 md:flex md:space-x-2 '>
                           <Input
                             id={`founderFirstName-${index}`}
-                            placeholder="Enter first name"
+                            placeholder='Enter first name'
                             value={founder.firstName}
                             onChange={
                               (e) =>
@@ -2173,7 +2167,7 @@ const ApplyForIncubation = () => {
 
                           <Input
                             id={`founderLastName-${index}`}
-                            placeholder="Enter last name"
+                            placeholder='Enter last name'
                             value={founder.lastName}
                             onChange={
                               (e) =>
@@ -2187,30 +2181,30 @@ const ApplyForIncubation = () => {
                           />
                         </div>
                         {errors?.founderNames && errors.founderNames[index] && (
-                          <div className="flex space-x-20">
+                          <div className='flex space-x-20'>
                             {errors.founderNames[index].firstName && (
-                              <p className="text-sm text-red-500">
+                              <p className='text-sm text-red-500'>
                                 Founder first name:{" "}
                                 {errors.founderNames[index].firstName}
                               </p>
                             )}
                             {errors.founderNames[index].lastName && (
-                              <p className="text-sm text-red-500">
+                              <p className='text-sm text-red-500'>
                                 Founder last name:{" "}
                                 {errors.founderNames[index].lastName}
                               </p>
                             )}
                           </div>
                         )}
-                        <div className="lg:flex lg:space-x-2 md:flex md:space-x-2 flex gap-6 width-full justify-between  ">
-                          <div className="space-y-2 w-full">
-                            <Label htmlFor="stage">Age</Label>
+                        <div className='lg:flex lg:space-x-2 md:flex md:space-x-2 flex gap-6 width-full justify-between  '>
+                          <div className='space-y-2 w-full'>
+                            <Label htmlFor='stage'>Age</Label>
                             <Input
                               id={`founderAge-${index}`}
-                              placeholder="Enter age"
-                              type="number"
-                              min="20"
-                              max="45"
+                              placeholder='Enter age'
+                              type='number'
+                              min='20'
+                              max='45'
                               value={founder.age ?? ""} // Ensure the value is not null
                               onChange={(e) =>
                                 handleChange(
@@ -2223,18 +2217,17 @@ const ApplyForIncubation = () => {
                             />
                             {errors?.founderNames &&
                               errors.founderNames[index]?.age && (
-                                <p className="text-sm text-red-500">
+                                <p className='text-sm text-red-500'>
                                   Founder age: {errors.founderNames[index].age}
                                 </p>
                               )}
                           </div>
 
                           {/* Gender */}
-                          <div className="space-y-2 w-full">
+                          <div className='space-y-2 w-full'>
                             <Label
                               htmlFor={`founderGender-${index}`}
-                              className="font-medium text-gray-700"
-                            >
+                              className='font-medium text-gray-700'>
                               Gender
                             </Label>
                             <Select
@@ -2250,16 +2243,16 @@ const ApplyForIncubation = () => {
                               // className="w-full"
                             >
                               <SelectTrigger>
-                                <SelectValue placeholder="Select gender" />
+                                <SelectValue placeholder='Select gender' />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="male">Male</SelectItem>
-                                <SelectItem value="female">Female</SelectItem>
+                                <SelectItem value='male'>Male</SelectItem>
+                                <SelectItem value='female'>Female</SelectItem>
                               </SelectContent>
                             </Select>
                             {errors?.founderNames &&
                               errors.founderNames[index]?.gender && (
-                                <p className="text-sm text-red-500">
+                                <p className='text-sm text-red-500'>
                                   Founder Gender:{" "}
                                   {errors.founderNames[index].gender}
                                 </p>
@@ -2268,8 +2261,8 @@ const ApplyForIncubation = () => {
                         </div>
 
                         {/* Education level dropdown */}
-                        <div className="space-y-2">
-                          <Label htmlFor="stage">Level of Education</Label>
+                        <div className='space-y-2'>
+                          <Label htmlFor='stage'>Level of Education</Label>
                           <Select
                             onValueChange={(value) =>
                               handleChange(
@@ -2279,24 +2272,23 @@ const ApplyForIncubation = () => {
                                 "levelOfEducation"
                               )
                             }
-                            value={founder.levelOfEducation}
-                          >
+                            value={founder.levelOfEducation}>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select your level of education" />
+                              <SelectValue placeholder='Select your level of education' />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="highschool">
+                              <SelectItem value='highschool'>
                                 High school or Diploma
                               </SelectItem>
-                              <SelectItem value="degree">
+                              <SelectItem value='degree'>
                                 Bachler degree
                               </SelectItem>
-                              <SelectItem value="higher">Higher</SelectItem>
+                              <SelectItem value='higher'>Higher</SelectItem>
                             </SelectContent>
                           </Select>
                           {errors?.founderNames &&
                             errors.founderNames[index]?.levelOfEducation && (
-                              <p className="text-sm text-red-500">
+                              <p className='text-sm text-red-500'>
                                 Founder level of education:{" "}
                                 {errors.founderNames[index].levelOfEducation}
                               </p>
@@ -2306,126 +2298,141 @@ const ApplyForIncubation = () => {
                     </div>
                   ))}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div className='space-y-2'>
+                      <Label htmlFor='email'>Email</Label>
                       <Input
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email"
+                        id='email'
+                        type='email'
+                        placeholder='Enter your email'
                         value={formData.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                       />
                       {errors?.email && (
-                        <p className="text-sm text-red-500">{errors.email}</p>
+                        <p className='text-sm text-red-500'>{errors.email}</p>
                       )}
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
+                    <div className='space-y-2'>
+                      <Label htmlFor='phone'>Phone Number</Label>
                       <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="Enter your phone number"
+                        id='phone'
+                        type='tel'
+                        placeholder='Enter your phone number'
                         value={formData.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                       />
                       {errors.phone && (
-                        <p className="text-sm text-red-500">{errors.phone}</p>
+                        <p className='text-sm text-red-500'>{errors.phone}</p>
                       )}
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="state">Address</Label>
+                    <div className='space-y-2'>
+                      <Label htmlFor='state'>Region Address</Label>
                       <Select
                         onValueChange={(value) => handleChange("state", value)}
-                        value={formData.state}
-                      >
+                        value={formData.state}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Region" />
+                          <SelectValue placeholder='Select Region' />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="oromia">Oromia</SelectItem>
-                          <SelectItem value="tigray">Tigray</SelectItem>
-                          <SelectItem value="amhara">Amahara</SelectItem>
-                          <SelectItem value="harar">Harar</SelectItem>
+                          <SelectItem value='addisababa'>
+                            Addis Ababa
+                          </SelectItem>
+                          <SelectItem value='diredawa'>Dire Dawa</SelectItem>
+                          <SelectItem value='oromia'>Oromia</SelectItem>
+                          <SelectItem value='tigray'>Tigray</SelectItem>
+                          <SelectItem value='amhara'> Amahara</SelectItem>
+                          <SelectItem value='harar'>Harar</SelectItem>
+                          <SelectItem value='somali'>Somali</SelectItem>
+
+                          <SelectItem value='afar'> Afar</SelectItem>
+                          <SelectItem value='gambela'>Gambela</SelectItem>
+                          <SelectItem value='sidama'>Sidama</SelectItem>
+                          <SelectItem value='benishangul'>
+                            {" "}
+                            Benishangul
+                          </SelectItem>
+                          <SelectItem value='SNNPR'>
+                            Southern Nations, Nationalities, and Peoples' Region
+                            (SNNPR)
+                          </SelectItem>
+                          <SelectItem value='southwestpeople'>
+                            South West Ethiopia Peoples' Region
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       {errors.state && (
-                        <p className="text-sm text-red-500">{errors.state}</p>
+                        <p className='text-sm text-red-500'>{errors.state}</p>
                       )}
                     </div>
                   </div>
                 </div>
               )}
               {currentStep === 2 && (
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="video">
+                <div className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='video'>
                       Video Pitch (Optional, Max 50MB)
                     </Label>
-                    <div className="flex items-center space-x-2">
+                    <div className='flex items-center space-x-2'>
                       <Input
-                        id="video"
-                        type="file"
-                        accept="video/*"
+                        id='video'
+                        type='file'
+                        accept='video/*'
                         onChange={(e) => handleFileChange(e, "video")}
                         ref={videoInputRef}
                       />
                       {formData.video && (
                         <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handleRemoveVideo}
-                        >
-                          <X className="h-4 w-4" />
+                          type='button'
+                          variant='outline'
+                          onClick={handleRemoveVideo}>
+                          <X className='h-4 w-4' />
                         </Button>
                       )}
                     </div>
                     {formData.video && (
-                      <p className="text-sm text-gray-500">
+                      <p className='text-sm text-gray-500'>
                         {formData.video.name}
                       </p>
                     )}
                     {errors.video && (
-                      <p className="text-sm text-red-500">{errors.video}</p>
+                      <p className='text-sm text-red-500'>{errors.video}</p>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="documents">
+                  <div className='space-y-2'>
+                    <Label htmlFor='documents'>
                       Documents (Optional, Max 2MB each)
                     </Label>
                     <Input
-                      id="documents"
-                      type="file"
+                      id='documents'
+                      type='file'
                       multiple
-                      accept=".pdf,.doc,.docx"
+                      accept='.pdf,.doc,.docx'
                       onChange={(e) => handleFileChange(e, "document")}
                       ref={documentInputRef}
                     />
                     {formData.documents.map((doc, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between"
-                      >
+                        className='flex items-center justify-between'>
                         <span>{doc.name}</span>
                         <Button
-                          type="button"
-                          variant="ghost"
-                          onClick={() => handleRemoveDocument(index)}
-                        >
-                          <X className="h-4 w-4" />
+                          type='button'
+                          variant='ghost'
+                          onClick={() => handleRemoveDocument(index)}>
+                          <X className='h-4 w-4' />
                         </Button>
                       </div>
                     ))}
                     <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => documentInputRef.current?.click()}
-                    >
-                      <Plus className="h-4 w-4 mr-2" /> Add Document
+                      type='button'
+                      variant='outline'
+                      onClick={() => documentInputRef.current?.click()}>
+                      <Plus className='h-4 w-4 mr-2' /> Add Document
                     </Button>
                     {errors.documents && (
-                      <p className="text-sm text-red-500">{errors.documents}</p>
+                      <p className='text-sm text-red-500'>{errors.documents}</p>
                     )}
                   </div>
                 </div>
@@ -2433,19 +2440,17 @@ const ApplyForIncubation = () => {
             </form>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className='flex justify-between'>
           <Button
-            variant="outline"
+            variant='outline'
             onClick={handlePrevious}
-            disabled={currentStep === 0}
-          >
+            disabled={currentStep === 0}>
             Previous
           </Button>
           {currentStep < steps.length - 1 ? (
             <Button
               disabled={nameTaken === true || !formData.startupName}
-              onClick={handleNext}
-            >
+              onClick={handleNext}>
               Next
             </Button>
           ) : (
@@ -2467,14 +2472,13 @@ const ApplyForIncubation = () => {
           </DialogHeader>
           <DialogFooter>
             <Button
-              variant="outline"
-              onClick={() => setShowConfirmDialog(false)}
-            >
+              variant='outline'
+              onClick={() => setShowConfirmDialog(false)}>
               Cancel
             </Button>
             <Button onClick={confirmSubmit} disabled={isSubmitting}>
               {isSubmitting ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
               ) : null}
               {isSubmitting ? "Submitting..." : "Confirm Submission"}
             </Button>
