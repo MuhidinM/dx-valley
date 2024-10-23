@@ -107,7 +107,7 @@ async function sendConfirmationEmail(email: string) {
           <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
             You received this email because you subscribed to the DxValley newsletter. If you believe this is an error, please <a href="${
               process.env.SERVER_URL
-            }newapi/unsubscribe?email=${email}" style="color: #888; text-decoration: underline;">unsubscribe</a> here.
+            }unsubscribe?email=${email}" style="color: #888; text-decoration: underline;">unsubscribe</a> here.
           </p>
         </td>
       </tr>
