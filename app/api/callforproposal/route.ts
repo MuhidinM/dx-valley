@@ -81,15 +81,27 @@ const checkIfEmailExists = async (email: string) => {
   });
   return existingEmail !== null;
 };
+// const checkIfStartupNameExists = async (startupName: string) => {
+//   const existingStartup = await prisma.startupInfo.findUnique({
+//     where: { startupName: startupName },
+//   });
+
+//   return existingStartup !== null; // Returns true if a startup with the name exists, false otherwise
+// };
 const checkIfStartupNameExists = async (startupName: string) => {
-  const existingStartup = await prisma.startupInfo.findUnique({
-    where: { startupName: startupName },
+  const existingStartup = await prisma.startupInfo.findFirst({
+    where: {
+      startupName: {
+        equals: startupName.toLowerCase(),
+      },
+    },
   });
 
-  return existingStartup !== null; // Returns true if a startup with the name exists, false otherwise
+  return existingStartup;
 };
 
-export async function POST(req: Request): Promise<NextResponse> {
+// export async function POST(req: Request): Promise<NextResponse> {
+export async function POST(req: Request) {
   const host = req.headers.get("host") || ""; // Ensure we get the header properly
 
   // Check if the host is '169.254.169.254' and return a 403 response
@@ -367,6 +379,85 @@ export async function POST(req: Request): Promise<NextResponse> {
       },
     });
 
+    // const createStartup = async (startupName: string = "") => {
+    //   if (!startupName) {
+    //     throw new Error("Startup name is required");
+    //   }
+
+    //   const existingStartup = await prisma.startupInfo.findFirst({
+    //     where: {
+    //       startupName: {
+    //         equals: startupName.toLowerCase(), // Case-insensitive lookup
+    //         mode: "insensitive",
+    //       },
+    //     },
+    //   });
+
+    //   if (existingStartup) {
+    //     throw new Error("Startup name already exists");
+    //   }
+    //   let applicationData: {
+    //     startupName: string;
+    //     stage: string;
+    //     ideaDescription: string;
+    //     documents: { connect: { id: number }[] };
+    //     contactInfo: { connect: { id: number } };
+    //     addressInfo: { connect: { id: number } };
+    //     personalInfo?: { connect: { id: number }[] };
+    //     // videoId?: number;
+    //     video?: { connect: { id: number }[] };
+    //   } = {
+    //     startupName: startupName || "",
+    //     // startupName: startupName.toLowerCase() || "",
+    //     stage: stage || "",
+    //     ideaDescription: idea || "",
+    //     documents: {
+    //       connect: savedDocuments.map((doc) => ({ id: doc.id })),
+    //     },
+    //     contactInfo: {
+    //       connect: { id: startupContactinfo.id },
+    //     },
+    //     addressInfo: {
+    //       connect: { id: startupAddress.id },
+    //     },
+    //   };
+
+    //   if (savedFounders.length > 0) {
+    //     applicationData = {
+    //       ...applicationData,
+    //       personalInfo: {
+    //         connect: savedFounders.map((founder) => ({ id: founder.id })),
+    //       },
+    //     };
+    //   }
+
+    //   if (videoFile) {
+    //     const savedVideo = await prisma.videoInfo.create({
+    //       data: {
+    //         name: videoFile.name,
+    //         path: videoFile.path,
+    //       },
+    //     });
+    //     applicationData = {
+    //       ...applicationData,
+    //       //   // videoId: savedVideo.id,
+    //       // video: { connect: { id: savedVideo.id } },
+    //       video: {
+    //         connect: [{ id: savedVideo.id }],
+    //       },
+    //     };
+    //   }
+    //   const application = await prisma.startupInfo.create({
+    //     data: applicationData,
+    //   });
+
+    //   return NextResponse.json({
+    //     message: "Application submitted successfully",
+    //     status: 200,
+    //     application,
+    //   });
+    // };
+
     let applicationData: {
       startupName: string;
       stage: string;
@@ -378,7 +469,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       // videoId?: number;
       video?: { connect: { id: number }[] };
     } = {
-      startupName: startupName || "",
+      // startupName: startupName || "",
+      // startupName: startupName.toLowerCase() || "",
+      startupName: (startupName || "").toLowerCase(),
       stage: stage || "",
       ideaDescription: idea || "",
       documents: {
