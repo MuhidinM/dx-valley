@@ -7,12 +7,12 @@ import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
-    const host = req.headers.get("host") || ""; // Ensure we get the header properly
+  const host = req.headers.get("host") || ""; // Ensure we get the header properly
 
-    // Check if the host is '169.254.169.254' and return a 403 response
-    if (host === "169.254.169.254") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+  // Check if the host is '169.254.169.254' and return a 403 response
+  if (host === "169.254.169.254") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   try {
     const { email } = await req.json();
@@ -105,9 +105,9 @@ async function sendConfirmationEmail(email: string) {
             &copy; ${new Date().getFullYear()} Dx Valley. All rights reserved.
           </p>
           <p style="font-size: 12px; color: #888; text-align: center; margin-top: 20px;">
-            You received this email because you subscribed to the DxValley newsletter. If you believe this is an error, please <a href="http://${
+            You received this email because you subscribed to the DxValley newsletter. If you believe this is an error, please <a href="${
               process.env.SERVER_URL
-            }/newapi/unsubscribe?email=${email}" style="color: #888; text-decoration: underline;">unsubscribe</a> here.
+            }newapi/unsubscribe?email=${email}" style="color: #888; text-decoration: underline;">unsubscribe</a> here.
           </p>
         </td>
       </tr>
