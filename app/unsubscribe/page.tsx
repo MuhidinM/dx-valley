@@ -10,46 +10,46 @@
 // const Page = () => {
 //   // const router = useRouter();
 
-  // const [loading, setLoading] = useState(true);
-  // const [message, setMessage] = useState("");
-  // const [error, setError] = useState(false);
+//   const [loading, setLoading] = useState(true);
+//   const [message, setMessage] = useState("");
+//   const [error, setError] = useState(false);
 
 //  const searchParams = useSearchParams();
 //  const email = searchParams.get("email") || "";
 
-  // useEffect(() => {
+//   useEffect(() => {
   
-  //   // Check if email exists in the query params
-  //   if (!email) {
-  //     setMessage("Email is required to unsubscribe.");
-  //     setError(true);
-  //     setLoading(false);
-  //     return;
-  //   }
+//     // Check if email exists in the query params
+//     if (!email) {
+//       setMessage("Email is required to unsubscribe.");
+//       setError(true);
+//       setLoading(false);
+//       return;
+//     }
 
-  //   const unsubscribe = async () => {
-  //     try {
-  //       const res = await fetch(`/newapi/unsubscribe?email=${email}`);
-  //       const data = await res.json();
+//     const unsubscribe = async () => {
+//       try {
+//         const res = await fetch(`/newapi/unsubscribe?email=${email}`);
+//         const data = await res.json();
 
-  //       if (data.unsubscribed) {
-  //         setMessage("You have been unsubscribed successfully.");
-  //       } else {
-  //         setMessage(data.message || "Unsubscribe failed.");
-  //         setError(true);
-  //       }
-  //     } catch (error) {
-  //       setMessage("An error occurred while processing your request.");
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+//         if (data.unsubscribed) {
+//           setMessage("You have been unsubscribed successfully.");
+//         } else {
+//           setMessage(data.message || "Unsubscribe failed.");
+//           setError(true);
+//         }
+//       } catch (error) {
+//         setMessage("An error occurred while processing your request.");
+//         setError(true);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
 
-  //   unsubscribe();
-  // }, [email]);
+//     unsubscribe();
+//   }, [email]);
 
-  // if (loading) return <p>Processing your request...</p>;
+//   if (loading) return <p>Processing your request...</p>;
 
 //   return (
 //     <div className='unsubscribe-page flex items-center justify-center h-screen bg-gray-100'>
@@ -70,6 +70,8 @@
 // };
 
 // export default Page;
+
+
 /** @format */
 
 "use client";
@@ -97,7 +99,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function UnsubscribePage() {
+ function Page() {
   const [status, setStatus] = useState<
     "initial" | "unsubscribed" | "reconsidered" | "error"
   >("initial");
@@ -212,3 +214,4 @@ export default function UnsubscribePage() {
     </div>
   );
 }
+export default Page;
