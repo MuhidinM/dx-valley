@@ -2353,11 +2353,11 @@ const ApplyForIncubation = () => {
                             Benishangul
                           </SelectItem>
                           <SelectItem value='SNNPR'>
-                            Southern Nations, Nationalities, and Peoples' Region
+                            Southern Nations, Nationalities, and Peoples&apos; Region
                             (SNNPR)
                           </SelectItem>
                           <SelectItem value='southwestpeople'>
-                            South West Ethiopia Peoples' Region
+                            South West Ethiopia Peoples&apos; Region
                           </SelectItem>
                         </SelectContent>
                       </Select>
