@@ -1,77 +1,3 @@
-// /** @format */
-
-// // pages/newapi/unsubscribe.tsx
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import { useRouter } from "next/router";
-// import { useSearchParams } from "next/navigation";
-
-// const Page = () => {
-//   // const router = useRouter();
-
-  // const [loading, setLoading] = useState(true);
-  // const [message, setMessage] = useState("");
-  // const [error, setError] = useState(false);
-
-//  const searchParams = useSearchParams();
-//  const email = searchParams.get("email") || "";
-
-  // useEffect(() => {
-  
-  //   // Check if email exists in the query params
-  //   if (!email) {
-  //     setMessage("Email is required to unsubscribe.");
-  //     setError(true);
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   const unsubscribe = async () => {
-  //     try {
-  //       const res = await fetch(`/newapi/unsubscribe?email=${email}`);
-  //       const data = await res.json();
-
-  //       if (data.unsubscribed) {
-  //         setMessage("You have been unsubscribed successfully.");
-  //       } else {
-  //         setMessage(data.message || "Unsubscribe failed.");
-  //         setError(true);
-  //       }
-  //     } catch (error) {
-  //       setMessage("An error occurred while processing your request.");
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   unsubscribe();
-  // }, [email]);
-
-  // if (loading) return <p>Processing your request...</p>;
-
-//   return (
-//     <div className='unsubscribe-page flex items-center justify-center h-screen bg-gray-100'>
-//       <div className='bg-white p-8 shadow-lg rounded-lg text-center max-w-lg'>
-//         <h1
-//           className={`text-2xl font-bold ${
-//             error ? "text-red-500" : "text-green-500"
-//           }`}>
-//           {error ? "Error" : "Unsubscribed"}
-//         </h1>
-//         <p className='mt-4 text-gray-700'>{message}</p>
-//         <a href='/' className='mt-6 inline-block text-blue-600 hover:underline'>
-//           Go back to homepage
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Page;
-/** @format */
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -144,7 +70,7 @@ export default function UnsubscribePage() {
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle>Unsubscribe from Dx Valley</CardTitle>
-          <CardDescription>We're sorry to see you go!</CardDescription>
+          <CardDescription>We&apos;re sorry to see you go!</CardDescription>
         </CardHeader>
         <CardContent>
           {status === "initial" && (
@@ -157,7 +83,7 @@ export default function UnsubscribePage() {
           )}
           {status === "reconsidered" && (
             <p className='text-center text-blue-600'>
-              Thank you for reconsidering! We're glad you're staying with us.
+              Thank you for reconsidering! We&apos;re glad you&apos;re staying with us.
             </p>
           )}
           {status === "error" && (
