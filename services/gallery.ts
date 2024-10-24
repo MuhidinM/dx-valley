@@ -16,3 +16,7 @@ export const GalleryItemFetch = async () => {
   // console.log(galleryItems);
   return galleryItems;
 };
+
+
+
+
