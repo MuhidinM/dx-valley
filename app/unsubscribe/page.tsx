@@ -1,6 +1,4 @@
 "use client";
-export const dynamic = "force-dynamic";
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -24,7 +22,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
- function Page() {
+import React from "react";
+ const Page : React.FC  = () =>{
   const [status, setStatus] = useState<
     "initial" | "unsubscribed" | "reconsidered" | "error"
   >("initial");
