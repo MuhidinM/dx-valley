@@ -26,14 +26,29 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     // Check if the user is already subscribed
-    const existingSubscriber = await prisma.subscriber.findUnique({
+    let existingSubscriber = await prisma.subscriber.findUnique({
       where: { email },
     });
 
-    if (existingSubscriber) {
+    if (existingSubscriber && existingSubscriber.status) {
       return NextResponse.json({
         message2: "User already subscribed",
         subscribed: true,
+      });
+    }
+
+    if (existingSubscriber && !existingSubscriber.status) {
+      existingSubscriber = await prisma.subscriber.update({
+        where: { email },
+        data: { status: true },
+      });
+
+      await sendConfirmationEmail(email);
+
+      return NextResponse.json({
+        message3: "Subscribed Successfully",
+        subscribed: false,
+        subscribedData: existingSubscriber,
       });
     }
 
