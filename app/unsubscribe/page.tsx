@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function UnsubscribePage() {
+import React from "react";
+ const Page : React.FC  = () =>{
   const [status, setStatus] = useState<
     "initial" | "unsubscribed" | "reconsidered" | "error"
   >("initial");
@@ -66,8 +66,8 @@ export default function UnsubscribePage() {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-      <Card className='w-full max-w-md'>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Unsubscribe from Dx Valley</CardTitle>
           <CardDescription>We&apos;re sorry to see you go!</CardDescription>
@@ -79,26 +79,27 @@ export default function UnsubscribePage() {
             </p>
           )}
           {status === "unsubscribed" && (
-            <p className='text-center text-green-600'>{message}</p>
+            <p className="text-center text-green-600">{message}</p>
           )}
           {status === "reconsidered" && (
-            <p className='text-center text-blue-600'>
-              Thank you for reconsidering! We&apos;re glad you&apos;re staying with us.
+            <p className="text-center text-blue-600">
+              Thank you for reconsidering! We&apos;re glad you&apos;re staying
+              with us.
             </p>
           )}
           {status === "error" && (
-            <p className='text-center text-red-600'>{message}</p>
+            <p className="text-center text-red-600">{message}</p>
           )}
         </CardContent>
-        <CardFooter className='flex justify-end space-x-2'>
+        <CardFooter className="flex justify-end space-x-2">
           {status === "initial" && (
             <>
-              <Button variant='outline' onClick={handleCancel}>
+              <Button variant="outline" onClick={handleCancel}>
                 Cancel
               </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant='destructive' disabled={loading}>
+                  <Button variant="destructive" disabled={loading}>
                     {loading ? "Processing..." : "Unsubscribe"}
                   </Button>
                 </AlertDialogTrigger>
@@ -113,9 +114,7 @@ export default function UnsubscribePage() {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel >
-                      Cancel
-                    </AlertDialogCancel>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction onClick={handleUnsubscribe}>
                       {loading ? "Processing..." : "Confirm"}
                     </AlertDialogAction>
@@ -128,8 +127,9 @@ export default function UnsubscribePage() {
             status === "reconsidered" ||
             status === "error") && (
             <Button
-              variant='outline'
-              onClick={() => (window.location.href = "/")}>
+              variant="outline"
+              onClick={() => (window.location.href = "/")}
+            >
               Go to DxValley website
             </Button>
           )}
@@ -138,3 +138,4 @@ export default function UnsubscribePage() {
     </div>
   );
 }
+export default Page;
