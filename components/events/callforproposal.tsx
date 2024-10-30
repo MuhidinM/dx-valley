@@ -55,7 +55,7 @@ export default function Callforproposal() {
   );
 
   return (
-    <div className="lg:container w-full lg:my-16 my-8 px-4">
+    <div className=" w-full lg:my-16 my-8 px-4">
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => {
           const timeLeftForEvent = timeLeft[event.id];
