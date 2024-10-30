@@ -56,7 +56,7 @@ const Page = () => {
           />
         );
       })}
-      <div className=" lg:container my-3 mx-3">
+      <div className=" my-3 mx-3">
         <CTA
           title={trainingItems.proposal.title}
           buttonText={trainingItems.proposal.button_name}
