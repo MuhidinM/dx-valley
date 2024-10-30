@@ -79,7 +79,7 @@ export default function Callforproposal() {
               <Card>
                 <CardHeader className='flex flex-row justify-between p-4 gap-8 rounded-lg m-4 sm:m-4'>
                   <div className='text-2xl lg:text-3xl lg:ml-32 font-bold'>
-                    Call For Statup Proposal
+                    Call For Startup Proposal
                   </div>
                   <div className='h-full align-middle'>
                     <p className='text-lg lg:text-2xl flex text-left text-red-500 font-mono leading-none'>
