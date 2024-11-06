@@ -231,6 +231,34 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     const savedFiles: SavedFile[] = [];
 
+    // if (
+    //   files &&
+    //   Object.keys(files).some((key) => key.startsWith("documents"))
+    // ) {
+    //   const docKeys = Object.keys(files).filter((key) =>
+    //     key.startsWith("documents")
+    //   );
+
+    //   for (const key of docKeys) {
+    //     const fileOrFiles = files[key];
+    //     const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
+
+    //     for (const file of docs) {
+    //       if (!file?.newFilename) {
+    //         continue;
+    //       }
+
+    //       const newFilePath = path.join(uploadDir, (file as File).newFilename!);
+    //       fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
+    //       savedFiles.push({
+    //         name: (file as File).originalFilename || "",
+    //         path: `/intern/${path.basename((file as File).newFilename!)}`, // Save relative path
+    //       });
+    //     }
+    //   }
+    // }
+
     if (
       files &&
       Object.keys(files).some((key) => key.startsWith("documents"))
@@ -249,7 +277,10 @@ export async function POST(req: Request): Promise<NextResponse> {
           }
 
           const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-          fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
+          // Use copyFileSync instead of renameSync to handle cross-device linking issue
+          fs.copyFileSync((file as File).filepath, newFilePath);
+          fs.unlinkSync((file as File).filepath); // Remove the original file after copying
 
           savedFiles.push({
             name: (file as File).originalFilename || "",
@@ -258,6 +289,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         }
       }
     }
+
 
     // Ensure the database save happens as a transaction
     const savedDocuments = await prisma.$transaction(
