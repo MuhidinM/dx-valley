@@ -223,7 +223,11 @@ export async function POST(req: Request) {
           }
 
           const newFilePath = path.join(uploadDir, (file as File).newFilename!);
-          fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+          // fs.renameSync((file as File).filepath, newFilePath); // Move file to upload dir
+
+          // Use copyFileSync instead of renameSync to handle cross-device linking issue
+          fs.copyFileSync((file as File).filepath, newFilePath);
+          fs.unlinkSync((file as File).filepath); // Remove the original file after copying
 
           savedFiles.push({
             name: (file as File).originalFilename || "",
@@ -232,6 +236,42 @@ export async function POST(req: Request) {
         }
       }
     }
+
+
+
+    //  if (
+    //    files &&
+    //    Object.keys(files).some((key) => key.startsWith("documents"))
+    //  ) {
+    //    const docKeys = Object.keys(files).filter((key) =>
+    //      key.startsWith("documents")
+    //    );
+
+    //    for (const key of docKeys) {
+    //      const fileOrFiles = files[key];
+    //      const docs = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
+
+    //      for (const file of docs) {
+    //        if (!file?.newFilename) {
+    //          continue;
+    //        }
+
+    //        const newFilePath = path.join(
+    //          uploadDir,
+    //          (file as File).newFilename!
+    //        );
+
+    //        // Use copyFileSync instead of renameSync to handle cross-device linking issue
+    //        fs.copyFileSync((file as File).filepath, newFilePath);
+    //        fs.unlinkSync((file as File).filepath); // Remove the original file after copying
+
+    //        savedFiles.push({
+    //          name: (file as File).originalFilename || "",
+    //          path: `/docs/${path.basename((file as File).newFilename!)}`, // Save relative path
+    //        });
+    //      }
+    //    }
+    //  }
 
     // Handle uploaded video
     let videoFile: SavedFile | null = null;
@@ -280,7 +320,11 @@ export async function POST(req: Request) {
       const videoFilePath = path.join(uploadDir, sanitizedFileName);
 
       // Move video file to upload directory
-      fs.renameSync((video as File).filepath, videoFilePath);
+      // fs.renameSync((video as File).filepath, videoFilePath);
+
+      // Use copyFileSync instead of renameSync to handle cross-device linking issue
+      fs.copyFileSync((video as File).filepath, videoFilePath);
+      fs.unlinkSync((video as File).filepath); // Remove the original file after copying
 
       // Save video file info
       videoFile = {
