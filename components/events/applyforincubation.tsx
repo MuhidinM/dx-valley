@@ -1740,7 +1740,7 @@ const ApplyForIncubation = () => {
   ) => {
     const files = Array.from(event.target.files || []);
     if (type === "video") {
-      if (files[0] && files[0].size > 50 * 1024 * 1024) {
+      if (files[0] && files[0].size > 5 * 1024 * 1024) {
         setErrors((prev) => ({
           ...prev,
           video: "Video file size must be less than 50MB",
@@ -1954,7 +1954,7 @@ const ApplyForIncubation = () => {
         return;
       }
 
-      console.log("console log for nameExists check just the result", result);
+      // console.log("console log for nameExists check just the result", result);
       if (response.ok) {
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
