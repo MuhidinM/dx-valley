@@ -1740,13 +1740,20 @@ const ApplyForIncubation = () => {
   ) => {
     const files = Array.from(event.target.files || []);
     if (type === "video") {
-      if (files[0] && files[0].size > 5 * 1024 * 1024) {
-        setErrors((prev) => ({
-          ...prev,
-          video: "Video file size must be less than 50MB",
-        }));
-        return;
-      }
+      // if (files[0] && files[0].size > 5 * 1024 * 1024) {
+      // //   setErrors((prev) => ({
+      // //     ...prev,
+      // //     video: "Video file size must be less than 50MB",
+      // //   }));
+      // //   return;
+      // }
+        const validFiles = files.filter((file) => file.size <= 5 * 1024 * 1024);
+        if (validFiles.length < files.length) {
+          setErrors((prev) => ({
+            ...prev,
+            Video: "Video file size must be less than 50MB",
+          }));
+        }
       setFormData((prev) => ({ ...prev, video: files[0] || null }));
     } else if (type === "document") {
       const validFiles = files.filter((file) => file.size <= 2 * 1024 * 1024);
