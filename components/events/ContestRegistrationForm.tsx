@@ -43,7 +43,7 @@ interface FormData {
 
 export default function ContestRegistrationForm() {
   const searchParams = useSearchParams();
-  const eventId = searchParams.get("eventId") || "";
+  const eventId = searchParams.get("eventId");
     // const eventId = "1";
 
 
@@ -69,7 +69,7 @@ console.log( "eventId", eventId);
     projectDescription: "",
     techStack: "",
     projectUrl: "",
-    eventId: eventId,
+    eventId: eventId || " ",
   });
 
   // On component mount, load saved form data from localStorage
@@ -221,7 +221,7 @@ console.log( "eventId", eventId);
           projectDescription: "",
           techStack: "",
           projectUrl: "",
-          eventId: eventId,
+          eventId: eventId || "",
         });
       } else {
         const errorMessage = await response.json();
