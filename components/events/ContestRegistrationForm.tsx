@@ -88,9 +88,7 @@ console.log( "eventId", eventId);
 
       // To check if 'testKey' is persisted after refresh
       const testKey = localStorage.getItem("formData");
-      if (testKey) {
-        // console.log("testKey:", testKey); // Optional check for testKey
-      }
+     
     }
   }, []);
 
@@ -103,9 +101,11 @@ console.log( "eventId", eventId);
         setIsSubmitted(true);
 
         // Optional: Add some test data to localStorage
-        localStorage.setItem("testKey", JSON.stringify(formData));
+        localStorage.setItem("testKey","");
         // console.log("TestKey saved:", localStorage.getItem("testKey"));
       }, 2000);
+ localStorage.setItem("testKey", "");
+ localStorage.setItem("formData", "");
 
       return () => clearTimeout(timer);
     }
@@ -203,6 +203,9 @@ console.log( "eventId", eventId);
       });
 
       if (response.ok) {
+         localStorage.setItem("testKey", " ");
+ localStorage.setItem("formData", "");
+
         setIsSubmitted(true);
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
@@ -388,12 +391,15 @@ console.log( "eventId", eventId);
                     id='numberOfMembers'
                     type='number'
                     name='numberOfMembers'
-                    value={formData.numberOfMembers}
+                    // value={formData.numberOfMembers}
                     onChange={handleNumberOfMembersChange}
-                    min={1}
-                    max={10}
+                    // min={1}
+                    max={6}
                     placeholder='Enter the number of team members'
                   />
+                  <span className='text-sm italic mt-2 block'>
+                    Team members should be a minimum of 3 and a maximum of 6
+                  </span>
                 </div>
               </div>
               {formData.teamMembers?.map((member, index) => (
