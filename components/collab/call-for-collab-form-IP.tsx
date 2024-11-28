@@ -236,6 +236,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
           toast.success("Registration successful!", {
             description: "Your details have been submitted successfully.",
           });
+          localStorage.setItem("formData", "");
           setFormData({
             firstName: "",
             lastName: "",
@@ -248,6 +249,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
             email: "",
             phoneNumberOne: "",
           });
+          localStorage.setItem("formData", "");
           handleNext();
         } else {
           console.error("Error:", result);

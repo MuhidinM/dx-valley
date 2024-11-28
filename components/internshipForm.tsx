@@ -422,10 +422,12 @@ const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
 
       const result = await response.json();
       if (response.status === 200) {
+        localStorage.setItem("formData", "");
         setIsSubmitted(true);
         toast.success("Registration successful!", {
           description: "Your details have been submitted successfully.",
         });
+        localStorage.setItem("formData", "");
         //  console.log("Internship form was successfully submitted");
       } else {
         toast.error("Registration failed", {

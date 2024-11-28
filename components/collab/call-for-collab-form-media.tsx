@@ -218,6 +218,7 @@ export default function MediaRegistrationForm() {
             email: "",
             phoneNumberOne: "",
           });
+          localStorage.setItem("formData", "");
         } else {
           toast.error("Registration failed", {
             description:

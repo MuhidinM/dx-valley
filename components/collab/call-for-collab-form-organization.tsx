@@ -229,6 +229,7 @@ export default function OrganizationRegistrationForm() {
 
         if (response.ok) {
                toast.success("Organization registered successfully!");
+               localStorage.setItem("formData", "");
           setFormData({
             organizationName: "",
             industry: " industry ",
@@ -243,6 +244,7 @@ export default function OrganizationRegistrationForm() {
             addressType: "",
             motivation: "",
           });
+          localStorage.setItem("formData", "");
         } else {
           const errorData = await response.json();
           // Display the error message received from the server, if available

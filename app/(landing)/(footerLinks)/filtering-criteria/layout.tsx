@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Filtering Criterias",
-  description: "Startup and Internship filtering criteria"
+  description: "Startup and Internship filtering criteria",
 };
 
 export default function IncubationCenterLayout({
@@ -14,7 +14,7 @@ export default function IncubationCenterLayout({
 }) {
   return (
     <div className='min-h-screen bg-gray-50 text-black dark:bg-gray-900 dark:text-white'>
-      <main className='container mx-auto px-4 py-8'>{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

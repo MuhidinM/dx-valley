@@ -217,6 +217,7 @@ export default function TrainerRegistrationForm() {
           toast.success("Registration successful!", {
             description: "Your details have been submitted successfully.",
           });
+          localStorage.setItem("formData", "");
           setFormData({
             title: "",
             firstName: "",
@@ -231,6 +232,7 @@ export default function TrainerRegistrationForm() {
             city: " ",
             state: " state ",
           });
+          localStorage.setItem("formData", "");
         } else {
           toast.error("Registration failed", {
             description:
