@@ -85,7 +85,7 @@ export default function FilteringContent() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div>
       <h1 className='text-2xl font-bold mb-6'>Filtering Criteria</h1>
 
       <div className='relative mb-6'>
