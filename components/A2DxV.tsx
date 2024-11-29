@@ -38,31 +38,29 @@ export default function A2DxV() {
       ref={statsRef}
       // className='min-h-screen bg-gray-100 flex items-center justify-center p-4 overflow-hidden relative'
     >
-      <div className="z-10 w-full max-w-6xl bg-white dark:bg-gray-950 rounded-lg shadow-xl p-8 flex flex-col md:flex-row lg:items-center md:items-center gap-8">
+      <div className='z-10 w-full max-w-6xl bg-white dark:bg-gray-950 dark:text-gray-300 rounded-lg shadow-xl p-8 flex flex-col md:flex-row lg:items-center md:items-center gap-8'>
         <motion.div
-          className="w-full md:w-1/3 flex flex-col items-center"
+          className='w-full md:w-1/3 flex flex-col items-center'
           initial={{ opacity: 0, x: -50 }}
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="text-6xl font-bold mb-4">
-            <span className="text-orange-500">A2</span>
-            <span className="text-[#00adef]">DxV</span>
+          transition={{ duration: 0.5 }}>
+          <div className='text-6xl font-bold mb-4'>
+            <span className='text-orange-500'>A2</span>
+            <span className='text-[#00adef]'>DxV</span>
           </div>
-          <div className="text-center mb-6 ">
-            <h2 className="font-bold text-base mb-2">What is A2DxV?</h2>
-            <p className="text-gray-600 text-sm">
+          <div className='text-center mb-6 '>
+            <h2 className='font-bold text-base mb-2'>What is A2DxV?</h2>
+            <p className='text-gray-600 text-sm dark:text-gray-300'>
               A2DxV stands for &quot;Africans to DxValley&quot;. It represents
               our mission to keep African talent in Africa, fostering innovation
               and growth within the continent.
             </p>
           </div>
           <Link
-            href="/callforproposal"
-            className="text-gray-600 lg:block md:block hidden"
-          >
+            href='/callforproposal'
+            className='text-gray-600 lg:block md:block hidden'>
             <motion.button
-              className="bg-coopBlue hover:coopBlueHover text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full max-w-xs"
+              className='bg-coopBlue hover:coopBlueHover text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full max-w-xs'
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               animate={
@@ -80,55 +78,51 @@ export default function A2DxV() {
                 duration: 1.5,
                 repeat: Infinity,
                 repeatType: "reverse",
-              }}
-            >
-              Apply Now <ArrowRight className="ml-2 h-4 w-4" />
+              }}>
+              Apply Now <ArrowRight className='ml-2 h-4 w-4' />
             </motion.button>
           </Link>
         </motion.div>
 
         <motion.div
-          className="w-full md:w-2/3 space-y-6"
+          className='w-full md:w-2/3 space-y-6'
           initial={{ opacity: 0, x: 50 }}
           animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div className="flex items-center justify-between">
-            <h1 className="lg:text-3xl md:text-3xl text-xl font-bold text-gray-800 dark:text-gray-300">
+          transition={{ duration: 0.5, delay: 0.2 }}>
+          <div className='flex items-center justify-between'>
+            <h1 className='lg:text-3xl md:text-3xl text-xl font-bold text-gray-800 dark:text-gray-300'>
               DxValley&apos;s Incubation Center
             </h1>
             <motion.div
-              className="text-2xl font-bold"
+              className='text-2xl font-bold'
               initial={{ opacity: 0, y: -20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <span className="text-orange-500">A2</span>
-              <span className="text-[#00adef]">DxV</span>
+              transition={{ duration: 0.5, delay: 0.5 }}>
+              <span className='text-orange-500'>A2</span>
+              <span className='text-[#00adef]'>DxV</span>
             </motion.div>
           </div>
-          <div className="space-y-4 text-gray-600">
-            <p className="font-bold text-lg text-gray-800 italic dark:text-gray-300">
+          <div className='space-y-4 text-gray-600'>
+            <p className='font-bold text-lg text-gray-800 italic dark:text-gray-300'>
               Why send Africa&apos;s brightest to Silicon Valley when we can
               nurture talent right here?
             </p>
-            <p>
+            <p className=' dark:text-gray-300'>
               Our expert guidance transforms potential into performance,
               empowering African innovators to build solutions for Africa and
               beyond.
             </p>
-            <p className="font-bold italic text-lg text-black dark:text-gray-300">
+            <p className='font-bold italic text-lg text-black dark:text-gray-300'>
               Come to DxValley, where African talent grows for Africa.
             </p>
           </div>
         </motion.div>
 
         <Link
-          href="/callforproposal"
-          className="text-gray-600 lg:hidden md:hidden block"
-        >
+          href='/callforproposal'
+          className='text-gray-600 lg:hidden md:hidden block'>
           <motion.button
-            className="bg-coopBlue hover:coopBlueHover text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full md:max-w-xs"
+            className='bg-coopBlue hover:coopBlueHover text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center justify-center w-full md:max-w-xs'
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             animate={
@@ -146,24 +140,21 @@ export default function A2DxV() {
               duration: 1.5,
               repeat: Infinity,
               repeatType: "reverse",
-            }}
-          >
-            Apply Now <ArrowRight className="ml-2 h-4 w-4" />
+            }}>
+            Apply Now <ArrowRight className='ml-2 h-4 w-4' />
           </motion.button>
         </Link>
       </div>
 
       <motion.div
-        className="absolute bottom-0 right-0 w-64 h-64 opacity-20 z-0"
+        className='absolute bottom-0 right-0 w-64 h-64 opacity-20 z-0'
         initial={{ opacity: 0, x: 100 }}
         animate={inView ? { opacity: 0.2, x: 0 } : { opacity: 0, x: 100 }}
-        transition={{ duration: 1, delay: 1 }}
-      >
+        transition={{ duration: 1, delay: 1 }}>
         <svg
-          viewBox="0 0 800 800"
-          fill="currentColor"
-          className="text-gray-800"
-        >
+          viewBox='0 0 800 800'
+          fill='currentColor'
+          className='text-gray-800'>
           {/* SVG content */}
         </svg>
       </motion.div>

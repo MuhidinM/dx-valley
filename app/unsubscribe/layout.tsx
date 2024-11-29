@@ -3,8 +3,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Appy for TechExpo Event",
-  description: "Take Part in a TechExpo Event",
+  title: "Unsubscribe",
+  description: "Unsubscribing from Dx Valley services",
 };
 
 export default function IncubationCenterLayout({

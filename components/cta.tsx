@@ -15,7 +15,7 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
   }, []);
 
   return (
-    <section className="dark:bg-gray-950 rounded-b-lg bg-white py-4">
+    <section className="dark:bg-gray-800 rounded-b-lg bg-white py-4">
       <div className="px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl  dark:text-white">
           {title}
@@ -30,7 +30,7 @@ const CTA: React.FC<ctaProps> = ({ buttonText, title, href, description }) => {
         <div>
           {" "}
           <div
-            className="prose text-gray-700 px-10 flex items-center justify-center"
+            className="prose text-gray-700 px-10 flex items-center justify-center dark:text-gray-400"
             suppressHydrationWarning
           >
             {isClient && (
