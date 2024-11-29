@@ -92,12 +92,12 @@ async function sendConfirmationEmail(email: string) {
   const mailOptionsToUser = {
     from: "subscribe@dxvalley.com",
     to: email,
-    subject: "Subscribed to DxValley",
+    subject: "Subscribed to Dx Valley",
     html: `
       <tr>
         <td style="padding: 20px;">
           <p style="text-align: center;">
-            <img src='cid:unique@dxvalleylogo1.png' alt="Dxvalley" style="height: 100px;">
+         <img src='cid:unique@dxvalleylogo1.png' alt="Dx Valley" style="max-width: 100%; height: auto;">
           </p>
           <h1 style="color: #4a4a4a; text-align: center;">Thank You for Subscribing!</h1>
           <p><strong>Dear ${email}</strong>,</p>
@@ -110,7 +110,7 @@ async function sendConfirmationEmail(email: string) {
           <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team at info@dxvalley.com.</p>
           <p>Best regards,<br>The Dx Valley Team</p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="dxvalley.com" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
+            <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #00adef; color: white; text-decoration: none; border-radius: 5px;">Visit Our Website</a>
           </div>
         </td>
       </tr>

@@ -26,7 +26,7 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
       </h2>
       {/* <span> </span> */}
 
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background">
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background dark:bg-inherit">
         <Marquee pauseOnHover className="[--duration:20s]">
           {companies.companies.map((item, indx) => {
             return (
@@ -34,7 +34,7 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
                 key={indx}
                 img={
                   <img
-                    className="h-14"
+                    className='lg:h-14  h-10'
                     src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                       item?.img ?? ""
                     }`}

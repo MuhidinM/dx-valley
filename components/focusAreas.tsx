@@ -13,7 +13,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className='bg-gray-50 text-gray-900'>
+    <div className='bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-300'>
       <div className='mx-auto max-w-screen-sm text-center mt-24'>
         <h2 className=' text-4xl tracking-tight mb-2 font-extrabold leading-tight underline-offset-auto dark:text-white'>
           <span className='text-coopBlue'> Focus</span> Areas
@@ -45,18 +45,17 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
         {items?.map((item, index) => (
           <div
             key={index}
-            className={`box flex flex-col md:flex-row gap-4 p-4 md:p-6 bg-white shadow-sm rounded-lg transition-transform duration-800 ease-in-out ${
+            className={`box flex flex-col md:flex-row gap-4 p-4 md:p-6 bg-white dark:bg-gray-800 dark:text-gray-300 shadow-sm rounded-lg transition-transform duration-800 ease-in-out ${
               activeTab === index ? "opacity-100" : "hidden opacity-0"
             }`}>
             <img
-              className='w-full md:w-2/5 rounded-lg'
+              className='w-full md:w-2/5 rounded-lg  dark:text-white'
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
               alt={"image"}
-         
             />
-            <div className='text-left md:text-left lg:ml-10 ml-3 text-justify space-y-3'>
+            <div className='text-left md:text-left lg:ml-10 ml-3 text-justify space-y-3 dark:text-gray-300'>
               <h3 className='text-lg md:text-lg font-bold'>{item.title}</h3>
-              <div className='text-gray-700 space-y-10 prose'>
+              <div className='text-gray-700 space-y-10 pros dark:text-gray-400'>
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {item.description}
                 </ReactMarkdown>

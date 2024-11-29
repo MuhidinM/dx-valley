@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
       <tr>
         <td style="padding: 20px;">
           <p style="text-align: center;">
-      <img src='cid:unique@dxvalleylogo1.png' alt="Dxvalley" style="height: 100px;">
+     <img src='cid:unique@dxvalleylogo1.png' alt="Dx Valley" style="max-width: 100%; height: auto;">
     </p>
           <table role="presentation" style="width: 100%; max-width:100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <tr>
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
                   </tr>
                 </table>
                 <p style="margin: 0 0 24px; font-size: 16px; line-height: 24px; color: #666666;">We'll respond to you at: ${email}</p>
-                <a href="https://www.dxvalley.com" style="display: inline-block; padding: 12px 24px; background-color: #00adef; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 4px;">Visit Our Website</a>
+                <a href="/" style="display: inline-block; padding: 12px 24px; background-color: #00adef; color: #ffffff; text-decoration: none; font-weight: bold; border-radius: 4px;">Visit Our Website</a>
               </td>
             </tr>
             <tr>

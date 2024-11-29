@@ -110,7 +110,7 @@ export const CardComponent: React.FC<SectionProps> = ({
           <Dialog>
             <DialogTrigger>
               <div className='grid grid-cols-2 gap-32'>
-                <Button className='bg-[#0f172a] w-full hover:bg-gray-700'>
+                <Button className='bg-[#0f172a] dark:bg-gray-700 w-full hover:bg-gray-700 dark:text-gray-300'>
                   Read More
                 </Button>
               </div>
