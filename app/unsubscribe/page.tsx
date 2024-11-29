@@ -73,8 +73,8 @@ const Page: React.FC<PageProps> = ({ searchParams }) => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-      <Card className='w-full max-w-md'>
+    <div className='min-h-screen flex items-center justify-center bg-gray-100  dark:bg-gray-400'>
+      <Card className='w-full max-w-md dark:bg-gray-800'>
         <CardHeader>
           <CardTitle>Unsubscribe from Dx Valley</CardTitle>
           <CardDescription>We&apos;re sorry to see you go!</CardDescription>
