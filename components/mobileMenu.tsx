@@ -116,7 +116,7 @@ export default function MobileMenu() {
               ))}
             </nav>
           </div>
-          <footer className='text-gray-900 py-4 text-center'>
+          <footer className='text-gray-900 py-4 text-center dark:text-gray-400'>
             <p>
               © {new Date().getFullYear()}{" "}
               <Link
