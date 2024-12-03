@@ -87,8 +87,8 @@ export default function FilteringContent() {
   };
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold mb-6'>Filtering Criteria</h1>
+    <div className="m-5">
+      <h1 className='text-2xl font-bold mb-6 '>Filtering Criteria</h1>
 
       <div className='relative mb-6'>
         <Input

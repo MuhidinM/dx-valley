@@ -10,7 +10,12 @@ import CTAComponent from "@/components/CTAComponent";
 import SlidingHero from "@/components/SlidingHero";
 import CardContainer from "@/components/cardContainer";
 import Motto from "@/components/motto";
-import { Address, HomePageData, Vision } from "@/types/strapi-types";
+import {
+  Address,
+  HomePageData,
+  Vision,
+  InnovationData,
+} from "@/types/strapi-types";
 import { HomepageItemFetch } from "@/services/homepage";
 import EventsSider from "@/components/eventsSider";
 import { SkeletonLoader } from "@/components/SkeletonLoader";
@@ -18,8 +23,14 @@ import ComingSoonModal from "@/components/coming-soon-modal";
 import VideosList from "@/components/video";
 import NewsList from "@/components/News";
 import { MultiStepFormComponent } from "@/components/multi-step-form";
+import { SlidingCompanies } from "@/components/landing/company";
+import { InnovationItemFetch } from "@/services/innovation";
+// import { Address, InnovationData } from "@/types/strapi-types";
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData>();
+    const [innovationItems, setInnovationItems] =
+      useState<InnovationData | null>(null);
+
 
   useEffect(() => {
     const fetchHomepageItems = async () => {
@@ -29,6 +40,15 @@ const Page = () => {
 
     fetchHomepageItems();
   }, []);
+
+    useEffect(() => {
+      const fetchInnovationItems = async () => {
+        const data = await InnovationItemFetch();
+        setInnovationItems(data);
+      };
+
+      fetchInnovationItems();
+    }, []);
 
   if (!homepageItems) {
     return <SkeletonLoader />;
@@ -94,6 +114,10 @@ const Page = () => {
         </div>
 
         <br />
+        {/* campanies working with us  */}
+        {/* <SlidingCompanies companies={innovationItems?.companies || []} /> */}
+
+       <br />
         <div className='text-center'>
           <div className='text-2xl lg:text-4xl text-wrap md:text-wrap  font-bold'>
             <span className='text-coopBlue'>Breakthroughs</span> We&apos;ve
