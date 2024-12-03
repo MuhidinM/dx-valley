@@ -33,10 +33,11 @@ const SidebarNavItem = ({
 }) => (
   <Link
     href={href}
-    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${active
+    className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+      active
         ? "bg-muted text-primary"
         : "text-muted-foreground hover:text-primary"
-      }`}>
+    }`}>
     {label}
   </Link>
 );
@@ -58,8 +59,14 @@ export default function MobileMenu() {
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
+      [section]: !prev[section], // Toggle the clicked section
+      ...Object.keys(prev).reduce((acc, key) => {
+        // Ensure all other sections are closed
+        if (key !== section) {
+          acc[key] = false; // Close other sections
+        }
+        return acc;
+      }, {} as { [key: string]: boolean }),
     }));
   };
 
@@ -81,11 +88,10 @@ export default function MobileMenu() {
             className='block sm:hidden p-2'
           />
           <SidebarNavItem href='/' label='Home' icon={Home} active />
-          <div className='flex-grow '>
+          <div className='flex-grow'>
             <nav className='grid gap-2 text-lg font-medium'>
               {menuItems.map((item, index) => (
                 <div key={index}>
-                  {/* Trigger the dropdown when the item is clicked */}
                   <button
                     className='flex w-full justify-between items-center py-2 px-3 text-left'
                     onClick={() => toggleSection(item.trigger)}>
@@ -99,7 +105,6 @@ export default function MobileMenu() {
                     </span>
                   </button>
 
-                  {/* Dropdown content */}
                   {openSections[item.trigger] && (
                     <ul className='pl-6 space-y-2'>
                       {item.links.map((link, i) => (
@@ -110,7 +115,6 @@ export default function MobileMenu() {
                 </div>
               ))}
             </nav>
-            {/* <p>Dx Valley, All Right Rserverd</p> */}
           </div>
           <footer className='text-gray-900 py-4 text-center'>
             <p>
