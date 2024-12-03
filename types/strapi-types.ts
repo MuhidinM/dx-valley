@@ -156,11 +156,28 @@ export interface TrainingData {
   }[];
   proposal: CallProposalLink;
 }
+
 export interface TrainingResponse {
   data: {
     id: number;
     cards: Card[];
     proposal: CallProposalLink;
+  };
+}
+
+//interface for funding
+export interface FundingData {
+  funding_list: {
+    title: string;
+    description: string;
+    img: string;
+  }[];
+}
+
+export interface FundingResponse {
+  data: {
+    id: number;
+    funding_list: Card[];
   };
 }
 
