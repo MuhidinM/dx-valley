@@ -55,7 +55,7 @@ export default function EventsSider() {
     (event) => event.category !== "call for proposal"
   );
 
-  // console.log(filteredEvents.length, "is the event length");
+   console.log(filteredEvents.length, "is the event length for the filtered ones");
 
   if (!filteredEvents) {
     return <div>No Events Found</div>;
@@ -66,7 +66,7 @@ export default function EventsSider() {
         <CardHeader className='pb-2'>
           <CardTitle className='text-lg '>Upcoming Events</CardTitle>
         </CardHeader>
-        {filteredEvents.length ? (
+        {filteredEvents.length > 0 ? (
           <CardContent className='space-y-2 pt-0'>
             {filteredEvents.map((event) => (
               <div key={event.id} className='text-sm'>

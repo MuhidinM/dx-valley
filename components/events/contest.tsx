@@ -9,6 +9,18 @@ import { Event } from "@/types/types";
 export default function ContestsPage() {
   const [events, setEvents] = useState<Event[]>([]);
 
+
+   const sortedEvents = [...events].sort(
+     (a, b) =>
+       new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
+   );
+
+   const upcomingEvents = sortedEvents.filter((event) => {
+     const eventDate = new Date(event.targetDate);
+     const today = new Date();
+     return eventDate >= today;
+   });
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -30,7 +42,9 @@ export default function ContestsPage() {
     fetchEvents();
   }, []);
 
-  const Events = events.filter((event) => event.category === "tech expo" || event.category === "contest");
+  const Events = upcomingEvents.filter(
+    (event) => event.category === "tech expo" || event.category === "contest"
+  );
    console.log(Events.length, "is the event length");
 
   return (
