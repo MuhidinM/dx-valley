@@ -100,7 +100,7 @@ const Page = () => {
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 mt-5'>
           <div className='lg:col-span-2  m-3 space-y-4'>
-            <MultiStepFormComponent />
+            {/* <MultiStepFormComponent /> */}
             <CardContainer update={homepageItems?.update || []} />
           </div>
           <div className='lg:col-span-1 md:col-span-1 m-2'>

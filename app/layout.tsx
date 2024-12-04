@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DX-Valley , Coop Bank Oromia ",
+  title: "DxValley ",
   description: "Powered By Coop Bank",
 };
 
