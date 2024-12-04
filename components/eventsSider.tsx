@@ -54,10 +54,9 @@ export default function EventsSider() {
   if (filteredEvents.length === 0) {
     // return null;
     return (
-      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-5'>
-        {" "}
-        <MultiStepFormComponent />{" "}
-      </section>
+   
+        <MultiStepFormComponent />
+   
     ); 
   }
 
