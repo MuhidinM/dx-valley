@@ -42,8 +42,8 @@ export default function SlidingHero({ hero }: { hero: CardData[] }) {
         />
       ))}
       <div className="absolute inset-0 bg-black bg-opacity-60" />
-      <div className="absolute inset-0 flex flex-col justify-end text-white p-8 md:p-16 max-w-2xl">
-        <h1 className="lg:text-5xl md:text-4xl text-xl font-bold mb-2">
+      <div className="absolute inset-0 flex flex-col justify-end text-white p-8 md:p-10 max-w-2xl">
+        <h1 className="lg:text-5xl md:text-3xl text-xl font-bold mb-2">
           {mottos[currentIndex] || " "}
         </h1>
         <p className="text-md md:text-base italic md:mt-1 mt-2">

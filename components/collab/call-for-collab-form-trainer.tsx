@@ -249,7 +249,7 @@ export default function TrainerRegistrationForm() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-background p-4'>
+    <div className='flex lg:items-center justify-center lg:min-h-screen bg-background p-8'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl'>
         <CardHeader>

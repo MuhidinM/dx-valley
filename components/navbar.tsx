@@ -42,10 +42,9 @@ const Navbar = () => {
               width={80} // adjust the width for smaller devices
               className='block sm:hidden p-2' // shown on smaller screens, hidden on larger ones
             />
-      
           </Link>
 
-          <div className='hidden lg:block md:block p-2 md:mx-2'>
+          <div className='hidden lg:block  p-2 md:mx-2'>
             <Menu />
           </div>
           <div className='flex items-center lg:order-2 space-x-2'>
@@ -57,14 +56,14 @@ const Navbar = () => {
               }}>
               Call for Proposal
             </Button>
-            <div className='inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'>
+            <div className=' lg:hidden'>
               <MobileMenu />
 
-              {isMenuOpen && (
+              {/* {isMenuOpen && (
                 <div className='block justify-between items-center lg:flex lg:w-auto lg:order-1'>
                   <MobileMenu />
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>

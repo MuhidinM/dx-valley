@@ -268,7 +268,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-background p-4 '>
+    <div className='flex lg:items-center justify-center lg:min-h-screen bg-background p-8'>
       <Toaster position='top-right' richColors />
       <Card className='w-full max-w-2xl  min-h-[700px]'>
         <CardHeader>
@@ -429,7 +429,9 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                     </div>
 
                     <div className='flex-col lg:flex-row'>
-                      <Label className='mb-2 block'>Motivation for Collaboration</Label>
+                      <Label className='mb-2 block'>
+                        Motivation for Collaboration
+                      </Label>
                       <Textarea
                         id='motivation'
                         value={formData.motivation}
@@ -468,7 +470,7 @@ const handleCheckboxChange = (name: keyof FormData, value: string) => {
                       <p className='p-3'>
                         <strong>City:</strong> {formData.city}
                       </p>
-                    <p className='p-3'>
+                      <p className='p-3'>
                         <strong>Focus Areas:</strong>{" "}
                         {formData?.focusArea?.join(", ")}
                       </p>

@@ -74,7 +74,7 @@ export default function MobileMenu() {
     <div>
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant='outline' size='icon' className='shrink-0 md:hidden'>
+          <Button variant='outline' size='icon' className='shrink-0 '>
             <Menu className='h-5 w-5' />
             <span className='sr-only'>Toggle navigation menu</span>
           </Button>
@@ -85,7 +85,7 @@ export default function MobileMenu() {
             alt='dxvalley logo'
             width={80}
             height={200}
-            className='block sm:hidden p-2'
+            className='block  p-2'
           />
           <SidebarNavItem href='/' label='Home' icon={Home} active />
           <div className='flex-grow'>
