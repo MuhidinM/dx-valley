@@ -4,8 +4,8 @@ import React from "react";
 
 import Callforproposal from "@/components/events/callforproposal";
 
-const Page = () => {
+const CallforProposal = () => {
   return <Callforproposal />;
 };
 
-export default Page;
+export default CallforProposal;

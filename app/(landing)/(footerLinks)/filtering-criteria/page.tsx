@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import ComingSoonComp from "@/components/comingSoonComp";
 import Link from "next/link";
+import ComingSoonComp from "@/components/comingSoonComp";
 
 type Item = {
   id: string;
@@ -36,7 +36,6 @@ export default function FilteringContent() {
     //   name: "HealthTech",
     //   description: "Healthcare innovation in Boston",
     // },
-    // Add more items as needed
   ];
 
   const internshipItems: Item[] = [
@@ -55,7 +54,6 @@ export default function FilteringContent() {
     //   name: "Research Assistant",
     //   description: "Summer internship at a university lab",
     // },
-    // Add more items as needed
   ];
 
   const filteredItems = useMemo(() => {
@@ -68,6 +66,10 @@ export default function FilteringContent() {
   }, [activeTab, searchTerm]);
 
   const renderContent = () => {
+    if (searchTerm && filteredItems.length === 0) {
+      return <p className='text-center text-gray-500'>Not Found</p>;
+    }
+
     if (filteredItems.length === 0) {
       return <ComingSoonComp />;
     }
@@ -85,8 +87,8 @@ export default function FilteringContent() {
   };
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold mb-6'>Filtering Criteria</h1>
+    <div className="m-5">
+      <h1 className='text-2xl font-bold mb-6 '>Filtering Criteria</h1>
 
       <div className='relative mb-6'>
         <Input
@@ -119,14 +121,16 @@ export default function FilteringContent() {
         {renderContent()}
       </div>
 
-      <div className='flex justify-end'>
-        <Link
-          href={
-            activeTab === "startup" ? "/callforproposal" : "/internshipform"
-          }>
-          <Button>Apply</Button>
-        </Link>
-      </div>
+      {filteredItems.length > 0 && (
+        <div className='flex justify-end'>
+          <Link
+            href={
+              activeTab === "startup" ? "/callforproposal" : "/internshipform"
+            }>
+            <Button>Apply</Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

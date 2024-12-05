@@ -1,3 +1,5 @@
+/** @format */
+
 "use client";
 
 import React, { useState, useMemo } from "react";
@@ -77,12 +79,11 @@ const ColorfulSlider = React.forwardRef<
       "relative flex w-full touch-none select-none items-center",
       className
     )}
-    {...props}
-  >
-    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500">
-      <SliderPrimitive.Range className="absolute h-full bg-transparent" />
+    {...props}>
+    <SliderPrimitive.Track className='relative h-2 w-full grow overflow-hidden rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500'>
+      <SliderPrimitive.Range className='absolute h-full bg-transparent' />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb className='block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50' />
   </SliderPrimitive.Root>
 ));
 ColorfulSlider.displayName = SliderPrimitive.Root.displayName;
@@ -156,17 +157,22 @@ export function MultiStepFormComponent() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-10 px-10'>
-        <div className='px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0'>
+      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-5'>
+        <div className='px-4 sm:mx-auto flex flex-col items-center justify-center space-y-2 text-center md:px-0'>
           {/* Heading */}
-          <h2 className='text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800 dark:text-white'>
-            Deliverer or Discoverer? Find out which one you are!
-          </h2>
+          <div>
+            <h3 className='text-lg md:text-2xl lg:text-lg font-semibold tracking-tight text-gray-800 dark:text-white'>
+              Deliverer or Discoverer?
+            </h3>
 
+            <h3 className='text-lg md:text-2xl lg:text-lg font-semibold tracking-tight text-gray-800 dark:text-white'>
+              Find out which one you are!
+            </h3>
+          </div>
           {/* Button */}
           <div className='mt-4'>
             <DialogTrigger asChild>
-              <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'>
+              <Button className='bg-coopOrange hover:bg-coopOrangeHover text-xl py-6 px-12'>
                 Discover Here!
               </Button>
             </DialogTrigger>
@@ -174,7 +180,7 @@ export function MultiStepFormComponent() {
 
           {/* Citation */}
           <div className='prose dark:prose-dark text-gray-700 dark:text-gray-300 flex items-center justify-center px-4 md:px-10'>
-            <p className='text-sm md:text-base'>
+            <p className='text-xs '>
               Source: Dyer, Gregersen, and Christensen,{" "}
               <span className='italic font-semibold'>
                 The Innovator&apos;s Dilemma
@@ -243,10 +249,9 @@ export function MultiStepFormComponent() {
                 <p>Discovery: {oddSum}</p>
                 <p>Delivery: {evenSum}</p>
               </div>
-
               <div className='text-center'>
                 {oddSum > evenSum ? (
-                  <p className='font-bold text-blue-500 relative group'>
+                  <p className='font-extrabold text-coopBlue relative group'>
                     You are a Discoverer
                     <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
                       Discoverers are idea generators and visionaries who excel
@@ -254,7 +259,7 @@ export function MultiStepFormComponent() {
                     </span>
                   </p>
                 ) : (
-                  <p className='font-bold text-green-500 relative group'>
+                  <p className='font-extrabold text-coopOrange relative group'>
                     You are a Deliverer
                     <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
                       Deliverers are execution-focused individuals who excel at
@@ -265,8 +270,7 @@ export function MultiStepFormComponent() {
                 )}
               </div>
             </div>
-
-            <div className='lg:h-[450px] h-3/5'>
+            <div className='lg:h-[450px]  h-3/5'>
               <ResponsiveContainer width='100%' height='100%'>
                 <ScatterChart
                   margin={{
@@ -290,7 +294,11 @@ export function MultiStepFormComponent() {
                     name='Delivery'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
-                    label={{ value: "Delivery", angle: -90, position: "left" }}
+                    label={{
+                      value: "Delivery",
+                      angle: -90,
+                      position: "left",
+                    }}
                   />
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                   <Scatter name='Result' data={chartData} fill='#8884d8' />

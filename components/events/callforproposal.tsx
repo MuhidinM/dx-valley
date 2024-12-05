@@ -48,9 +48,18 @@ export default function Callforproposal() {
       [id]: calculatedTimeLeft, // Dynamically store time left for each event by its ID
     }));
   };
+  
+ const sortedEvents = [...events].sort(
+   (a, b) => new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
+ );
 
+   const upcomingEvents = sortedEvents.filter((event) => {
+     const eventDate = new Date(event.targetDate);
+     const today = new Date();
+     return eventDate >= today;
+   });
   // Filter events to only show "call for proposal"
-  const callForProposalEvents = events.filter(
+  const callForProposalEvents = upcomingEvents.filter(
     (event) => event.category === "call for proposal"
   );
 

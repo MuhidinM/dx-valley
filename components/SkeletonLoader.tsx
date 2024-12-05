@@ -232,6 +232,40 @@ export const SkeletonLoaderTrainingPage = () => (
   </div>
 );
 
+
+
+export const SkeletonLoaderFundingPage = () => (
+  <div className='space-y-4'>
+    <div className='flex flex-col lg:flex-row gap-8'>
+      <div className='flex-1'>
+        <Skeleton height={400} />
+      </div>
+      <div className='flex-1'>
+        <Skeleton height={40} width={`60%`} />
+        <Skeleton height={20} width={`80%`} className='mt-2' />
+        <Skeleton height={20} width={`90%`} className='mt-2' />
+        <Skeleton height={20} width={`75%`} className='mt-2' />
+        <Skeleton height={20} width={`50%`} className='mt-2' />
+      </div>
+    </div>
+    <div className='flex flex-col lg:flex-row gap-8 mt-10 mb-10'>
+      <div className='flex-1'>
+        <Skeleton height={40} width={`60%`} />
+        <Skeleton height={20} width={`80%`} className='mt-2' />
+        <Skeleton height={20} width={`90%`} className='mt-2' />
+        <Skeleton height={20} width={`75%`} className='mt-2' />
+        <Skeleton height={20} width={`50%`} className='mt-2' />
+      </div>
+      <div className='flex-1 mb-10'>
+        <Skeleton height={400} />
+      </div>
+    </div>
+    <div className='flex justify-center'>
+      <Skeleton height={100} width={800} />
+    </div>
+  </div>
+);
+
 export const SkeletonPageColloab = () => {
   return (
     <div>
