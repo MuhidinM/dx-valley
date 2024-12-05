@@ -251,7 +251,7 @@ export function MultiStepFormComponent() {
               </div>
               <div className='text-center'>
                 {oddSum > evenSum ? (
-                  <p className='font-bold text-blue-500 relative group'>
+                  <p className='font-extrabold text-coopBlue relative group'>
                     You are a Discoverer
                     <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
                       Discoverers are idea generators and visionaries who excel
@@ -259,7 +259,7 @@ export function MultiStepFormComponent() {
                     </span>
                   </p>
                 ) : (
-                  <p className='font-bold text-green-500 relative group'>
+                  <p className='font-extrabold text-coopOrange relative group'>
                     You are a Deliverer
                     <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
                       Deliverers are execution-focused individuals who excel at
