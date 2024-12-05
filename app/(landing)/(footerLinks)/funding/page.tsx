@@ -6,6 +6,7 @@ import { FundingItemFetch } from "@/services/funding";
 import React, { useEffect, useState } from "react";
 import { FundingData } from "@/types/strapi-types";
 import { SkeletonLoaderFundingPage } from "@/components/SkeletonLoader";
+import ComingSoonComp from "@/components/comingSoonComp";
 
 const Page = () => {
   const [fundingItems, setFundingItems] = useState<FundingData>();
@@ -20,8 +21,11 @@ const Page = () => {
   }, []);
 
   if (!fundingItems) {
-    return <SkeletonLoaderFundingPage />;
+    // return <SkeletonLoaderFundingPage />;
+    return <ComingSoonComp />;
   }
+
+
 
   return (
     <div>

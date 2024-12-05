@@ -157,22 +157,17 @@ export function MultiStepFormComponent() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-5'>
-        <div className='px-4 sm:mx-auto flex flex-col items-center justify-center space-y-2 text-center md:px-0'>
+      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-10 px-10'>
+        <div className='px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0'>
           {/* Heading */}
-          <div>
-            <h3 className='text-lg md:text-2xl lg:text-lg font-semibold tracking-tight text-gray-800 dark:text-white'>
-              Deliverer or Discoverer?
-            </h3>
+          <h2 className='text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800 dark:text-white'>
+            Deliverer or Discoverer? Find out which one you are!
+          </h2>
 
-            <h3 className='text-lg md:text-2xl lg:text-lg font-semibold tracking-tight text-gray-800 dark:text-white'>
-              Find out which one you are!
-            </h3>
-          </div>
           {/* Button */}
           <div className='mt-4'>
             <DialogTrigger asChild>
-              <Button className='bg-coopOrange hover:bg-coopOrangeHover text-xl py-6 px-12'>
+              <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'>
                 Discover Here!
               </Button>
             </DialogTrigger>
@@ -180,7 +175,7 @@ export function MultiStepFormComponent() {
 
           {/* Citation */}
           <div className='prose dark:prose-dark text-gray-700 dark:text-gray-300 flex items-center justify-center px-4 md:px-10'>
-            <p className='text-xs '>
+            <p className='text-sm md:text-base'>
               Source: Dyer, Gregersen, and Christensen,{" "}
               <span className='italic font-semibold'>
                 The Innovator&apos;s Dilemma
@@ -249,8 +244,30 @@ export function MultiStepFormComponent() {
                 <p>Discovery: {oddSum}</p>
                 <p>Delivery: {evenSum}</p>
               </div>
+
+              <div className='text-center'>
+                {oddSum > evenSum ? (
+                  <p className='font-extrabold text-coopBlue relative group'>
+                    You are a Discoverer
+                    <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
+                      Discoverers are idea generators and visionaries who excel
+                      at conceptualizing and exploring new opportunities.
+                    </span>
+                  </p>
+                ) : (
+                  <p className='font-bold text-coopOrange relative group'>
+                    You are a Deliverer
+                    <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
+                      Deliverers are execution-focused individuals who excel at
+                      turning plans into tangible outcomes and ensuring
+                      follow-through.
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
-            <div className='lg:h-[450px]  h-3/5'>
+
+            <div className='lg:h-[450px] h-3/5'>
               <ResponsiveContainer width='100%' height='100%'>
                 <ScatterChart
                   margin={{
@@ -274,11 +291,7 @@ export function MultiStepFormComponent() {
                     name='Delivery'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
-                    label={{
-                      value: "Delivery",
-                      angle: -90,
-                      position: "left",
-                    }}
+                    label={{ value: "Delivery", angle: -90, position: "left" }}
                   />
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                   <Scatter name='Result' data={chartData} fill='#8884d8' />

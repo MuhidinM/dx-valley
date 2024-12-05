@@ -156,54 +156,53 @@ export function MultiStepFormComponent() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <section className="dark:bg-gray-950 bg-white rounded-b-lg py-10 px-10">
-        <div className="px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0">
+      <section className='dark:bg-gray-950 bg-white rounded-b-lg py-10 px-10'>
+        <div className='px-4 sm:mx-auto flex flex-col items-center justify-center space-y-6 text-center md:px-0'>
           {/* Heading */}
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800 dark:text-white">
+          <h2 className='text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-800 dark:text-white'>
             Deliverer or Discoverer? Find out which one you are!
           </h2>
 
           {/* Button */}
-          <div className="mt-4">
+          <div className='mt-4'>
             <DialogTrigger asChild>
-              <Button className="bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12">
+              <Button className='bg-coopBlue hover:bg-coopBlueHover text-2xl py-6 px-12'>
                 Discover Here!
               </Button>
             </DialogTrigger>
           </div>
 
           {/* Citation */}
-          <div className="prose dark:prose-dark text-gray-700 dark:text-gray-300 flex items-center justify-center px-4 md:px-10">
-            <p className="text-sm md:text-base">
+          <div className='prose dark:prose-dark text-gray-700 dark:text-gray-300 flex items-center justify-center px-4 md:px-10'>
+            <p className='text-sm md:text-base'>
               Source: Dyer, Gregersen, and Christensen,{" "}
-              <span className="italic font-semibold">
+              <span className='italic font-semibold'>
                 The Innovator&apos;s Dilemma
               </span>
             </p>
           </div>
         </div>
       </section>
-      <DialogContent className="lg:max-w-[1000px]">
+      <DialogContent className='lg:max-w-[1000px]'>
         <DialogHeader>
           <DialogTitle>Multi-Step Form - Step {currentStep}</DialogTitle>
         </DialogHeader>
         {currentStep < 5 ? (
-          <div className="lg:grid lg:gap-10 py-4 ">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-xs text-red-500">Strongly Disagree</span>
-              <div className="w-1/2 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full"></div>
-              <span className="text-xs text-green-500">Strongly Agree</span>
+          <div className='lg:grid lg:gap-10 py-4 '>
+            <div className='flex justify-between items-center mb-4'>
+              <span className='text-xs text-red-500'>Strongly Disagree</span>
+              <div className='w-1/2 h-2 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 rounded-full'></div>
+              <span className='text-xs text-green-500'>Strongly Agree</span>
             </div>
             {questions[currentStep - 1].map((question, questionIndex) => (
-              <div key={questionIndex} className="space-y-4  pb-3">
-                <div className="lg:flex justify-between items-center gap-10    ">
+              <div key={questionIndex} className='space-y-4  pb-3'>
+                <div className='lg:flex justify-between items-center gap-10    '>
                   <Label
                     htmlFor={`question-${questionIndex + 1}`}
-                    className="lg:font-bold md:font-bold text-sm flex flex-wrap lg:pb-3 pb-1 lg:text-md md:text-md lg:min-w-[700px] xs:text-sm "
-                  >
+                    className='lg:font-bold md:font-bold text-sm flex flex-wrap lg:pb-3 pb-1 lg:text-md md:text-md lg:min-w-[700px] xs:text-sm '>
                     {question}
                   </Label>
-                  <div className="space-y-2 w-full items-center ">
+                  <div className='space-y-2 w-full items-center '>
                     <ColorfulSlider
                       id={`question-${questionIndex + 1}`}
                       min={1}
@@ -217,11 +216,11 @@ export function MultiStepFormComponent() {
                           value
                         )
                       }
-                      className="w-full"
+                      className='w-full'
                     />
-                    <div className="flex justify-between px-2">
+                    <div className='flex justify-between px-2'>
                       {[1, 2, 3, 4, 5].map((value) => (
-                        <span key={value} className="text-xs">
+                        <span key={value} className='text-xs'>
                           {value}
                         </span>
                       ))}
@@ -232,54 +231,75 @@ export function MultiStepFormComponent() {
             ))}
           </div>
         ) : (
-          <div className="pt-4 text-center ">
-            <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
-            <p className="text-lg mb-2">
+          <div className='pt-4 text-center '>
+            <h2 className='text-2xl font-bold mb-2'>Congratulations!</h2>
+            <p className='text-lg mb-2'>
               You have completed the Discovery and Delivery form. Thank you for
               your participation!
             </p>
-            <div className="space-y-2 mb-2">
-              <div className="flex gap-2 justify-center items-center">
-                <p className="font-semibold">Your Results:</p>
+            <div className='space-y-2 mb-2'>
+              <div className='flex gap-2 justify-center items-center'>
+                <p className='font-semibold'>Your Results:</p>
                 <p>Discovery: {oddSum}</p>
                 <p>Delivery: {evenSum}</p>
               </div>
+
+              <div className='text-center'>
+                {oddSum > evenSum ? (
+                  <p className='font-bold text-blue-500 relative group'>
+                    You are a Discoverer
+                    <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
+                      Discoverers are idea generators and visionaries who excel
+                      at conceptualizing and exploring new opportunities.
+                    </span>
+                  </p>
+                ) : (
+                  <p className='font-bold text-green-500 relative group'>
+                    You are a Deliverer
+                    <span className='absolute top-6 left-1/2 -translate-x-1/2 bg-gray-200 text-gray-800 text-sm rounded-lg p-2 w-64 hidden group-hover:block'>
+                      Deliverers are execution-focused individuals who excel at
+                      turning plans into tangible outcomes and ensuring
+                      follow-through.
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="lg:h-[600px] h-1/2">
-              <ResponsiveContainer width="100%" height="100%">
+
+            <div className='lg:h-[450px] h-3/5'>
+              <ResponsiveContainer width='100%' height='100%'>
                 <ScatterChart
                   margin={{
                     top: 20,
                     right: 20,
                     bottom: 20,
                     left: 20,
-                  }}
-                >
+                  }}>
                   <CartesianGrid />
                   <XAxis
-                    type="number"
-                    dataKey="x"
-                    name="Discovery"
+                    type='number'
+                    dataKey='x'
+                    name='Discovery'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
                     label={{ value: "Discovery", position: "bottom" }}
                   />
                   <YAxis
-                    type="number"
-                    dataKey="y"
-                    name="Delivery"
+                    type='number'
+                    dataKey='y'
+                    name='Delivery'
                     domain={[0, 50]}
                     ticks={[0, 25, 50]}
                     label={{ value: "Delivery", angle: -90, position: "left" }}
                   />
                   <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                  <Scatter name="Result" data={chartData} fill="#8884d8" />
+                  <Scatter name='Result' data={chartData} fill='#8884d8' />
                 </ScatterChart>
               </ResponsiveContainer>
             </div>
           </div>
         )}
-        <div className="flex justify-between mt-2">
+        <div className='flex justify-between mt-2'>
           <Button onClick={handlePrevious} disabled={currentStep === 1}>
             Previous
           </Button>
