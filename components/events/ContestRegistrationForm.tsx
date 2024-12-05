@@ -246,7 +246,7 @@ console.log( "eventId", eventId);
   if (isSubmitted) {
     return (
       <div
-        className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 '
+        className=' bg-gray-50  py-28  dark:bg-gray-900 px-4 sm:px-6 lg:px-8 md:px-8'
         //  className='flex items-center dark:bg-gray-900  justify-center min-h-screen bg-gray-100'
       >
         {/* <div className='bg-white p-8 rounded-lg shadow-md max-w-md w-full'>
@@ -276,9 +276,9 @@ console.log( "eventId", eventId);
   }
 
   return (
-    <div className='w-94 mt-8 mb-8 dark:bg-gray-900  flex items-center justify-center'>
+    <div className='w-94 mt-8 mb-8 dark:bg-gray-900  flex items-center justify-center  md:px-8 px-4'>
       <Toaster position='top-right' richColors />
-      <div className='w-full max-w-4xl bg-white dark:bg-gray-9500 dark:bg-gray-950  p-6 rounded-lg shadow-lg'>
+      <div className='w-full max-w-4xl bg-white dark:bg-gray-9500 dark:bg-gray-950  p-6 rounded-lg shadow-lg  md:px-8'>
         <div className='mb-8 text-center text-2xl font-bold'>
           Contest Registeration Form
         </div>
@@ -331,7 +331,7 @@ console.log( "eventId", eventId);
         <form onSubmit={handleSubmit}>
           {currentStep === 0 && (
             <div className='space-y-4'>
-              <div className='grid grid-cols-1   md:grid-cols-1  lg:grid-cols-2 gap-4'>
+              <div className='grid grid-cols-1   md:grid-cols-2  lg:grid-cols-2 gap-4'>
                 <div>
                   <Label htmlFor='LeaderFirstName'>
                     Team Leader First Name
@@ -405,7 +405,7 @@ console.log( "eventId", eventId);
               {formData.teamMembers?.map((member, index) => (
                 <div key={index} className='space-y-2'>
                   <h4 className='font-semibold'>Team Member {index + 1}</h4>
-                  <div className='grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-4'>
+                  <div className='grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4'>
                     <div>
                       <Label>First Name</Label>
                       <Input
@@ -437,7 +437,7 @@ console.log( "eventId", eventId);
                       />
                     </div>
                   </div>
-                  <div className='grid grid-cols-1  lg:grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-1  lg:grid-cols-2 md:grid-cols-2 gap-4'>
                     <div>
                       <Label>Member Email</Label>
                       <Input
