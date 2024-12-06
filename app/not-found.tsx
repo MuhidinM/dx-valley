@@ -21,7 +21,7 @@ export default function NotFound() {
           className='w-full h-auto'
         />
       </div>
-      <div className='lg:flex items-center justify-center lg:gap-2 lg:text-[2rem] md:gap-2 md:text-[2rem] text-lg leading-tight font-medium text-center lg:mb-0 mb-5'>
+      <div className='lg:flex items-center justify-center lg:gap-2 lg:text-[1.5rem] md:gap-2 md:text-[1.5rem] text-lg leading-tight font-medium text-center lg:mb-0 mb-5'>
         <Animated404 /> Page Not Found
       </div>
 
