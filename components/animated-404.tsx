@@ -3,7 +3,7 @@
 export default function Animated404() {
   return (
     <svg
-      className='w-28 h-28'
+      className='lg:w-28 lg:h-28 w-full h-20'
       viewBox='0 0 100 70'
       xmlns='http://www.w3.org/2000/svg'>
       <style>

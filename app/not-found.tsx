@@ -11,7 +11,7 @@ export default function NotFound() {
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen px-4 bg-white'>
-      <div className='w-full max-w-[300px] mb-0'>
+      <div className='w-full max-w-[300px]  mb-2'>
         <Image
           src={"/image/dxvalleylogo1.png"}
           alt='DX VALLEY'
@@ -21,11 +21,11 @@ export default function NotFound() {
           className='w-full h-auto'
         />
       </div>
-      <div className='flex items-center justify-center gap-2 text-[2.5rem] leading-tight font-medium text-center mb-0'>
-        <Animated404 /> - Page Not Found
+      <div className='lg:flex items-center justify-center lg:gap-2 lg:text-[2rem] md:gap-2 md:text-[2rem] text-lg leading-tight font-medium text-center lg:mb-0 mb-5'>
+        <Animated404 /> Page Not Found
       </div>
 
-      <p className='text-xl text-gray-600 text-center mb-8'>
+      <p className='lg:text-xl  md:text-lg  text-sm text-gray-600 text-center mb-8'>
         Sorry, the page you are looking for does not exist.
       </p>
 
