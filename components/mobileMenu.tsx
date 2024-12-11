@@ -80,6 +80,7 @@ export default function MobileMenu() {
           </Button>
         </SheetTrigger>
         <SheetContent side='left' className='flex flex-col'>
+            <Link href='/'>
           <Image
             src={"/image/dx_sm.png"}
             alt='dxvalley logo'
@@ -87,6 +88,7 @@ export default function MobileMenu() {
             height={200}
             className='block  p-2'
           />
+          </Link>
           <SidebarNavItem href='/' label='Home' icon={Home} active />
           <div className='flex-grow'>
             <nav className='grid gap-2 text-lg font-medium'>
