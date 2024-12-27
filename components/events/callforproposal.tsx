@@ -14,6 +14,7 @@ import remarkGfm from "remark-gfm";
 export default function Callforproposal() {
   const [events, setEvents] = useState<Event[]>([]);
   const [timeLeft, setTimeLeft] = useState<{ [key: string]: string }>({});
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -21,6 +22,8 @@ export default function Callforproposal() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
+        setLoading(true);
+
         const response = await fetch("/newapi/event");
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -28,6 +31,7 @@ export default function Callforproposal() {
         const data = await response.json();
         if (Array.isArray(data)) {
           setEvents(data);
+          setLoading(false);
         } else {
           console.error("Expected an array but received:", data);
           setEvents([]);
@@ -48,23 +52,37 @@ export default function Callforproposal() {
       [id]: calculatedTimeLeft, // Dynamically store time left for each event by its ID
     }));
   };
-  
- const sortedEvents = [...events].sort(
-   (a, b) => new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
- );
 
-   const upcomingEvents = sortedEvents.filter((event) => {
-     const eventDate = new Date(event.targetDate);
-     const today = new Date();
-     return eventDate >= today;
-   });
+  const sortedEvents = [...events].sort(
+    (a, b) =>
+      new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime()
+  );
+
+  const upcomingEvents = sortedEvents.filter((event) => {
+    const eventDate = new Date(event.targetDate);
+    const today = new Date();
+    return eventDate >= today;
+  });
   // Filter events to only show "call for proposal"
   const callForProposalEvents = upcomingEvents.filter(
     (event) => event.category === "call for proposal"
   );
 
+  if (loading) {
+    return (
+      <div className='flex items-center justify-center lg:min-h-80 md:min-h-72 '>
+        <div className='flex items-center space-x-2'>
+          <div className='w-4 h-4 rounded-full bg-coopBlue animate-bounce'></div>
+          <div className='w-4 h-4 rounded-full bg-coopOrange animate-bounce delay-200'></div>
+          <div className='w-4 h-4 rounded-full bg-black animate-bounce delay-400'></div>
+        </div>
+        {/* <p className='mt-4 text-gray-600 font-medium ml-4-'>Loading...</p> */}
+      </div>
+    );
+  }
+
   return (
-    <div className=" w-full lg:my-16 my-8 px-4">
+    <div className=' w-full lg:my-16 my-8 px-4'>
       {callForProposalEvents.length > 0 ? (
         callForProposalEvents.map((event) => {
           const timeLeftForEvent = timeLeft[event.id];
@@ -119,8 +137,8 @@ export default function Callforproposal() {
           );
         })
       ) : (
-        <div className="col-span-full text-center py-10 lg:min-h-80 md:min-h-72">
-          <p className="text-lg font-semibold h-fit">No Call Available.</p>
+        <div className='col-span-full text-center py-10 lg:min-h-80 md:min-h-72'>
+          <p className='text-lg font-semibold h-fit'>No Call Available.</p>
         </div>
       )}
     </div>
