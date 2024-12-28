@@ -8,7 +8,7 @@ function ScrollToTopButton() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowButton(window.scrollY > 800);
+      setShowButton(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
