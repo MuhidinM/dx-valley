@@ -716,7 +716,8 @@ const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
                       <div
                         key={interest}
                         className='flex items-center space-x-2'>
-                        <input
+                        <Input
+                       
                           type='checkbox'
                           id={`interest-${interest}`}
                           name='interestAreas'
