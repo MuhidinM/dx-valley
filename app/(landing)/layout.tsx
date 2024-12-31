@@ -3,6 +3,7 @@
 import Footer from "@/components/footer";
 import Socials from "@/components/socials";
 import Navbar from "@/components/navbar";
+import ScrollToTopButton from "@/components/ScrollToTop";
 
 export default function RootLayout({
   children,
@@ -18,6 +19,7 @@ export default function RootLayout({
         {children}
       </div>
       <div className=' bg-coopBlue'>
+      <ScrollToTopButton />
         <Footer />
       </div>
     </div>
