@@ -46,6 +46,7 @@ const Page = () => {
             width={500}
             height={800}
             className="dark:text-gray-400"
+            loading='lazy'
           />
         }
         title={innovationItems?.intro.title || ""}
@@ -74,6 +75,7 @@ const Page = () => {
                   }`}
                   alt='Image Left Not Found'
                   className='h-24'
+                  loading='lazy'
                 />
               }
               title={item.title}

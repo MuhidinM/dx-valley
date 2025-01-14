@@ -33,7 +33,8 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Training Image"
+                alt='Training Image'
+                loading='lazy'
               />
             }
             key={indx}
@@ -46,7 +47,8 @@ const Page = () => {
             svg={
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
-                alt="Image Left Not Found"
+                alt='Image Left Not Found'
+                loading='lazy'
               />
             }
             key={indx}

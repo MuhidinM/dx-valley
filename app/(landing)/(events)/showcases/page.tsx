@@ -74,6 +74,7 @@ const Page = () => {
                         src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${projects.img_1}`}
                         className='w-full h-64'
                         alt='incubation'
+                        loading='lazy'
                       />
                     </div>
                     <div className='flex justify-between my-2'>

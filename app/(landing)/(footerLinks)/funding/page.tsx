@@ -36,6 +36,7 @@ const Page = () => {
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
                 alt='Funding Image'
+                loading='lazy'
               />
             }
             key={indx}
@@ -48,6 +49,7 @@ const Page = () => {
               <img
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${cards.img}`}
                 alt='Image Left Not Found'
+                loading='lazy'
               />
             }
             key={indx}

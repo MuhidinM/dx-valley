@@ -52,6 +52,7 @@ const FocusAreas: React.FC<focusAreaProps> = ({ items }) => {
               className='w-full md:w-2/5 rounded-lg  dark:text-white'
               src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item?.img ?? ""}`}
               alt={"image"}
+              loading='lazy'
             />
             <div className='text-left md:text-left lg:ml-10 ml-3 text-justify space-y-3 dark:text-gray-300'>
               <h3 className='text-lg md:text-lg font-bold'>{item.title}</h3>

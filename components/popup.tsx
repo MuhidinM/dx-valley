@@ -51,6 +51,7 @@ export function Popup({ details }: { details: ShowCaseData }) {
               height={400}
               alt='incubation'
               // className=' w-1/2 h-64'
+              loading='lazy'
             />
           </div>
         </div>

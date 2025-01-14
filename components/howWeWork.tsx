@@ -33,6 +33,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                       width={300}
                       height={300}
                       id='image1'
+                      loading='lazy'
                     />
                   </div>
                   <div className='w-full '>
@@ -77,6 +78,7 @@ const HowWeWorkSection = ({ works }: { works: CardNoLinkData[] }) => {
                       width={300}
                       height={300}
                       id='image2'
+                      loading='lazy'
                     />
                   </div>
                 </div>

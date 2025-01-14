@@ -39,6 +39,7 @@ export function SlidingCompanies(companies: { companies: CardNoLinkData[] }) {
                       item?.img ?? ""
                     }`}
                     alt={item.title}
+                    loading='lazy'
                   />
                 }
               />
