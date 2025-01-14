@@ -45,8 +45,9 @@ const Page = () => {
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${
                     item?.img ?? " "
                   }`}
-                  alt="Image Left Not Found"
-                  className="h-24"
+                  alt='Image Left Not Found'
+                  className='h-24'
+                  loading='lazy'
                 />
               }
               title={item.title}

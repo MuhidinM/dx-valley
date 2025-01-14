@@ -45,6 +45,7 @@ const Page = () => {
               incubationItems?.intro?.img ?? ""
             }`}
             alt='Incubation Center'
+            loading="lazy"
           />
         }
         title={incubationItems?.intro.title ?? " "}

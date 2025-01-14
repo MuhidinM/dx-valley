@@ -27,6 +27,7 @@ export default function CardContainer({ update }: { update: UpdateData[] }) {
                   src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${card.img}`}
                   alt={card.title}
                   className='rounded-lg w-full h-56'
+                  loading='lazy'
                 />
               </div>
               <CardTitle className='text-2xl font-bold'>

@@ -69,6 +69,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               alt=''
               width={200}
               height={100}
+              loading='lazy'
             />
           </Circle>
           <Circle ref={div5Ref} onClick={() => setActiveTag(1)} name={""}>
@@ -80,6 +81,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
         </div>
@@ -94,6 +96,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
           <Circle
@@ -109,6 +112,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
           <Circle ref={div6Ref} onClick={() => setActiveTag(4)} name={""}>
@@ -120,6 +124,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
         </div>
@@ -134,6 +139,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
           <Circle ref={div7Ref} onClick={() => setActiveTag(6)} name={""}>
@@ -145,6 +151,7 @@ export function ProductsBeam({ products }: { products: CardData[] }) {
               width={200}
               height={100}
               className='dark:bg-gray-200'
+              loading='lazy'
             />
           </Circle>
         </div>

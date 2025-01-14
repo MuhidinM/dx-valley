@@ -56,28 +56,27 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
   }, [timer]);
 
   return (
-    <div ref={featureRef} className="mt-20 lg:max-w-7xl mx-auto">
-      <div className="text-center ">
-        <h2 className="text-4xl b-4 shrink-0 font-extrabold">
-          <span className=" text-coopBlue"> How</span> Does It Work ?
+    <div ref={featureRef} className='mt-20 lg:max-w-7xl mx-auto'>
+      <div className='text-center '>
+        <h2 className='text-4xl b-4 shrink-0 font-extrabold'>
+          <span className=' text-coopBlue'> How</span> Does It Work ?
         </h2>
-        <div className="flex justify-center mt-2 mb-12">
-          <div className="w-20 h-1 bg-coopOrange"></div>
+        <div className='flex justify-center mt-2 mb-12'>
+          <div className='w-20 h-1 bg-coopOrange'></div>
         </div>
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-6 ">
+      <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
+        <div className='space-y-6 '>
           {focus.map((item, index) => (
             <button
               key={item.title}
-              type="button"
-              className="w-full "
+              type='button'
+              className='w-full '
               onClick={() => {
                 setFeatureOpen(index);
                 setTimer(0);
               }}
-              title={item.title}
-            >
+              title={item.title}>
               <TextComponent
                 number={index + 1}
                 title={item.title}
@@ -88,12 +87,11 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
             </button>
           ))}
         </div>
-        <div className="h-full w-full ">
+        <div className='h-full w-full '>
           <div
             className={cn(
               "relative w-full h-full rounded-lg overflow-hidden   "
-            )}
-          >
+            )}>
             {focus.map((item, index) => (
               <img
                 key={item.title}
@@ -107,6 +105,7 @@ export function Feature({ focus }: { focus: CardNoLinkData[] }) {
                   featureOpen > index ? "translate-y-full" : ""
                 )}
                 style={{ zIndex: focus.length - index }}
+                loading='lazy'
               />
             ))}
           </div>

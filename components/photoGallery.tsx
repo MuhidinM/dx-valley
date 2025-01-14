@@ -128,6 +128,7 @@ export default function PhotoGallery() {
               alt={filteredItems[selectedImage].title}
               className='min-w-full'
               onClick={(e) => e.stopPropagation()}
+              loading='lazy'
             />
             <div className='absolute bottom-4 left-4 right-4 bg-white bg-opacity-75 p-4 text-black'>
               <h3 className='text-lg font-bold mb-2'>
@@ -156,6 +157,7 @@ function GalleryGrid({ items, onImageClick }: Readonly<GalleryGridProps>) {
                 src={`${process.env.NEXT_PUBLIC_STRAPI_IP_DEV}${item.img}`}
                 alt={item.title}
                 className='object-cover w-full h-full transition-opacity lg:group-hover:opacity-20'
+                loading='lazy'
               />
             </AspectRatio>
 
