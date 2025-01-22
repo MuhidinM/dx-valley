@@ -4,13 +4,13 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Image from 'next/image'
+import Image from "next/image";
 import Animated404 from "@/components/animated-404";
 export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen px-4 bg-white'>
+    <div className='flex flex-col items-center justify-center min-h-screen px-4 bg-white dark:bg-inherit'>
       <div className='w-full max-w-[300px]  mb-2'>
         <Image
           src={"/image/dxvalleylogo1.png"}
@@ -21,11 +21,11 @@ export default function NotFound() {
           className='w-full h-auto'
         />
       </div>
-      <div className='lg:flex items-center justify-center lg:gap-2 lg:text-[1.5rem] md:gap-2 md:text-[1.5rem] text-lg leading-tight font-medium text-center lg:mb-0 mb-5'>
+      <div className='lg:flex items-center justify-center lg:gap-2 lg:text-[1.5rem] md:gap-2 md:text-[1.5rem] text-lg leading-tight font-medium text-center lg:mb-0 mb-5 dark:text-gray-200'>
         <Animated404 /> Page Not Found
       </div>
 
-      <p className='lg:text-xl  md:text-lg  text-sm text-gray-600 text-center mb-8'>
+      <p className='lg:text-xl  md:text-lg  text-sm text-gray-600 text-center mb-8 dark:text-gray-200'>
         Sorry, the page you are looking for does not exist.
       </p>
 
