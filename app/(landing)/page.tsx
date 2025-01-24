@@ -82,7 +82,7 @@ const Page = () => {
               description={homepageItems?.proposal.description || " "}
             />
           </div>
-          hello
+          
           <div className='lg:col-span-1  md:col-span-2'>
             <EventsSider />
           </div>
