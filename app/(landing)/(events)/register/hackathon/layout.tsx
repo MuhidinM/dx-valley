@@ -3,8 +3,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: " Hackathone ",
-  description: "Register to be part of hackathone",
+  title: " Hackathon",
+  description: "Register to be part of hackathon",
 };
 
 export default function IncubationCenterLayout({

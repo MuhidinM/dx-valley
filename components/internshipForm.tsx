@@ -568,7 +568,6 @@ const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
                     )}
                   </div>
                 </div>
-               
 
                 {/* About Yourself */}
                 <div className='space-y-2'>
@@ -717,13 +716,13 @@ const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
                         key={interest}
                         className='flex items-center space-x-2'>
                         <Input
-                       
                           type='checkbox'
                           id={`interest-${interest}`}
                           name='interestAreas'
                           value={interest}
                           checked={formData.interestAreas?.includes(interest)}
-                          onChange={handleCheckboxChange} // Make sure this is only for checkboxes
+                          onChange={handleCheckboxChange}
+                          className='w-4 h-4' // Adjust size here
                         />
                         <Label htmlFor={`interest-${interest}`}>
                           {interest}
