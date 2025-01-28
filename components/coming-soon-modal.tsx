@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-const LAUNCH_DATE = new Date("2024-09-28T14:05:00");
+const LAUNCH_DATE = new Date("2025-09-28T14:05:00");
 
 interface TimeLeft {
   days: number;
@@ -18,26 +18,29 @@ interface TimeLeft {
 export default function ComingSoonModal() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft());
+const [userClosed, setUserClosed] = useState<boolean>(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const newTimeLeft = getTimeLeft();
-      if (
-        newTimeLeft.days <= 0 &&
-        newTimeLeft.hours <= 0 &&
-        newTimeLeft.minutes <= 0 &&
-        newTimeLeft.seconds <= 0
-      ) {
-        setIsOpen(false); // Close the modal when time runs out
-        clearInterval(timer); // Clear the interval once the timer finishes
-      } else {
-        setIsOpen(true);
-        setTimeLeft(newTimeLeft);
-      }
-    }, 1);
+useEffect(() => {
+  const timer = setInterval(() => {
+    const newTimeLeft = getTimeLeft();
+    setTimeLeft(newTimeLeft);
 
-    return () => clearInterval(timer);
-  }, []);
+    if (
+      newTimeLeft.days <= 0 &&
+      newTimeLeft.hours <= 0 &&
+      newTimeLeft.minutes <= 0 &&
+      newTimeLeft.seconds <= 0
+    ) {
+      setIsOpen(false);
+      setUserClosed(true);
+      clearInterval(timer);
+    } else if (!userClosed && !isOpen) {
+      setIsOpen(true);
+    }
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [getTimeLeft, isOpen, userClosed]);
 
   function getTimeLeft(): TimeLeft {
     const difference = +LAUNCH_DATE - +new Date();
@@ -57,55 +60,54 @@ export default function ComingSoonModal() {
     };
   }
 
-  if (!isOpen) {
-    return null;
+const handleOpenChange = (open: boolean) => {
+  setIsOpen(open);
+  if (!open) {
+    setUserClosed(true);
   }
+};
 
-  return (
-    <Dialog open={isOpen}>
-      <DialogContent className='sm:max-w-[800px] bg-white text-gray-800 overflow-hidden'>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className='p-6 text-center relative'>
-          {/* <h2 className='text-4xl font-bold mb-4 text-gray-800'>
-            D <span className='text-coopOrange'>X</span> VALLEY
-          </h2> */}
 
-          <motion.h3
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className='text-4xl font-extrabold mb-8 text-coopOrange'>
-            We Are Coming Soon!
-          </motion.h3>
-          <Image
-            src={"/image/dxvalleylogo1.png"}
-            alt='dxvalley logo'
-            width={500} // adjust the width as needed
-            height={200}
-            className='mx-auto mb-4 '
-          />
-          {/* <p className='mb-6 text-[#00adef] text-xl'>Stay tuned!</p> */}
+ return (
+   <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+     <DialogContent className='sm:max-w-[800px] bg-white text-gray-800 overflow-hidden'>
+       <motion.div
+         initial={{ opacity: 0, y: 20 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.5 }}
+         className='p-6 text-center relative'>
+         <motion.h3
+           initial={{ opacity: 0, scale: 0.8 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.5, delay: 0.2 }}
+           className='text-4xl font-extrabold mb-8 text-coopOrange'>
+           We Are Coming Soon!
+         </motion.h3>
+         <Image
+           src={"/image/dxvalleylogo1.png"}
+           alt='dxvalley logo'
+           width={500}
+           height={200}
+           className='mx-auto mb-4'
+         />
 
-          <div className='flex justify-center space-x-4 mb-8'>
-            {Object.entries(timeLeft).map(([unit, value]) => (
-              <CalendarFlipUnit key={unit} unit={unit} value={value} />
-            ))}
-          </div>
+         <div className='flex justify-center space-x-4 mb-8'>
+           {Object.entries(timeLeft).map(([unit, value]) => (
+             <CalendarFlipUnit key={unit} unit={unit} value={value} />
+           ))}
+         </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className='mb-6'></motion.div>
-        </motion.div>
+         <motion.div
+           initial={{ opacity: 0, scale: 0.8 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 0.5, delay: 0.2 }}
+           className='mb-6'></motion.div>
+       </motion.div>
 
-        <AnimatedMotto />
-      </DialogContent>
-    </Dialog>
-  );
+       <AnimatedMotto />
+     </DialogContent>
+   </Dialog>
+ );
 }
 
 interface CalendarFlipUnitProps {
