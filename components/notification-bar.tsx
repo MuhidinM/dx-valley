@@ -20,14 +20,14 @@ export default function NotificationBar() {
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          className='relative bg-inherit flex justify-center'>
+          className='relative bg-inherit flex  justify-center'>
           <div className='max-w-3xl w-full mx-auto rounded-b-lg bg-inherit text-white'>
             <div className='px-6 py-3'>
               <div className='flex items-center justify-between gap-4'>
                 <div className='flex items-center gap-3 min-w-0'>
                   <Clock className='h-5 w-5 flex-shrink-0 text-orange-500' />
                   <div className='min-w-0'>
-                    <p className='text-sm text-gray-700 hidden sm:block'>
+                    <p className='text-sm text-gray-700 sm:block'>
                       Register For Developer Meet V3
                     </p>
                     {/* <p className='text-sm font-medium text-gray-800'>
