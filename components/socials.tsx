@@ -37,7 +37,7 @@ const Socials = () => {
             {" "}
             <NotificationBar />
           </div>
-          <div className='flex items-center lg:order-2 text-coopBlue space-x-4 '>
+          <div className='flex items-center lg:order-2 ml-auto text-coopBlue space-x-4 '>
             <Facebook
               onClick={() =>
                 window.open(
