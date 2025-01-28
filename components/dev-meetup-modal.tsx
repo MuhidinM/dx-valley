@@ -26,7 +26,7 @@ export default function DevMeetupModal() {
 
   useEffect(() => {
     // Show modal after a short delay
-    const timer = setTimeout(() => setIsOpen(true), 1000);
+    const timer = setTimeout(() => setIsOpen(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
