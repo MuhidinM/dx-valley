@@ -48,12 +48,13 @@ const Footer = () => {
           if (data.message2 === "User already subscribed") {
             toast.error("You are already subscribed!");
             setEmail("");
-          } else {
-            toast.error("Failed to subscribe!", {
-              description: "Please try again later.",
-            });
-            setEmail("");
-          }
+          } 
+          // else {
+          //   toast.error("Failed to subscribe!", {
+          //     description: "Please try again later.",
+          //   });
+          //   setEmail("");
+          // }
         }
       } else {
         toast.error("Failed to subscribe!", {
