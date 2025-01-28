@@ -7,6 +7,7 @@ import "@/lib/silenceConsole";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
+import NotificationBar from "@/components/notification-bar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,15 +32,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <Script
-          strategy="afterInteractive"
+          strategy='afterInteractive'
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
         />
         <Script
-          id="google-analytics"
-          strategy="afterInteractive"
+          id='google-analytics'
+          strategy='afterInteractive'
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -54,14 +55,13 @@ export default function RootLayout({
         className={cn(
           "min-h-screen font-sans antialiased bg-slate-50 text-black dark:text-white dark:bg-gray-900",
           fontSans.variable
-        )}
-      >
+        )}>
+        {/* <NotificationBar /> */}
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
+          attribute='class'
+          defaultTheme='system'
           enableSystem
-          disableTransitionOnChange
-        >
+          disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>

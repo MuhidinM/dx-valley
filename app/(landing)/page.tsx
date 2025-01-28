@@ -25,6 +25,7 @@ import NewsList from "@/components/News";
 import { MultiStepFormComponent } from "@/components/multi-step-form";
 import { SlidingCompanies } from "@/components/landing/company";
 import { InnovationItemFetch } from "@/services/innovation";
+import DevMeetupModal from "@/components/dev-meetup-modal";
 // import { Address, InnovationData } from "@/types/strapi-types";
 const Page = () => {
   const [homepageItems, setHomepageItems] = useState<HomePageData>();
@@ -56,7 +57,8 @@ const Page = () => {
 
   return (
     <div>
-      <ComingSoonModal />
+      {/* <ComingSoonModal /> */}
+      <DevMeetupModal />
       <div className='lg:block md:hidden hidden'>
         <div className=' grid grid-cols-1 lg:grid-cols-3  md:grid-cols-2 gap-6 mt-5'>
           <div className='lg:col-span-2 md:col-span-2 flex flex-col justify-between'>
