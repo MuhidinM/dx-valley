@@ -34,7 +34,7 @@ const ContactUs = ({ address }: { address: Address }) => {
       setEmail("");
       setMessage("");
     } else {
-      toast.error("Failed to submit");
+      toast.error("Failed to submit message");
     }
   };
 
