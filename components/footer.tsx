@@ -44,24 +44,9 @@ const Footer = () => {
           // Already subscribed
           toast.error("Already subscribed!");
           setEmail("");
-        } else {
-          if (data.message2 === "User already subscribed") {
-            toast.error("You are already subscribed!");
-            setEmail("");
-          } 
-          // else {
-          //   toast.error("Failed to subscribe!", {
-          //     description: "Please try again later.",
-          //   });
-          //   setEmail("");
-          // }
         }
-      } else {
-        toast.error("Failed to subscribe!", {
-          description: "Please try again later.",
-        });
-        setEmail("");
-      }
+       
+      } 
     } catch (error) {
       console.error("Subscription error:", error);
       toast.error("An unexpected error occurred", {
