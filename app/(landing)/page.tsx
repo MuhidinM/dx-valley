@@ -58,7 +58,7 @@ const Page = () => {
   return (
     <div>
       {/* <ComingSoonModal /> */}
-      <DevMeetupModal />
+      {/* <DevMeetupModal /> */}
       <div className='lg:block md:hidden hidden'>
         <div className=' grid grid-cols-1 lg:grid-cols-3  md:grid-cols-2 gap-6 mt-5'>
           <div className='lg:col-span-2 md:col-span-2 flex flex-col justify-between'>
